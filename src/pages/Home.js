@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../service/Api'
+import api from '../services/Api'
 
 // import sprite from '../images/sprite.svg';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let BACKEND_URL = process.env.NODE_ENV === 'production' ? "http://cabin-backed.herokuapp.com" : "http://localhost:8000/"
+let BACKEND_URL = process.env.NODE_ENV === 'production' ? "http://cabin-backend.herokuapp.com" : "http://localhost:8000/"
 
 const api = axios.create({
   baseURL: BACKEND_URL,
