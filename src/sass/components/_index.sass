@@ -1,3 +1,17 @@
-#app
-  position: relative
-  min-height: 100vh
+
+.header
+  &__wrapper
+    display: flex
+    align-items: center
+    padding: 20px 0
+
+  &__menu
+    margin: 0 0 0 auto
+    padding: 0
+    li
+      margin-right: 40px
+      &:last-child
+        margin-right: 0
+      a, &.is-active
+        &:hover
+          color: tomato

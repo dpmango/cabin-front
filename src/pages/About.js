@@ -5,7 +5,7 @@ import api from '../services/Api'
 
 // import sprite from '../images/sprite.svg';
 
-export default class Home extends Component {
+export default class About extends Component {
   constructor() {
     super();
   }
@@ -16,7 +16,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="home">
-        <h1> Homepage </h1>
+        <h1> About </h1>
       </div>
     );
   }

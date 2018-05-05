@@ -22,7 +22,20 @@ body, html
   min-width: 320px
   max-width: 100%
   margin: 0
-  background: #090909
   overflow-x: hidden
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+
+.page
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  &__content
+    flex: 1 0 auto
+
+
+.container
+  width: 100%
+  max-width: 1200px
+  padding-left: 40px
+  padding-right: 40px

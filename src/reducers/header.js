@@ -1,11 +1,11 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../store/ActionTypes';
 
 const initialState = {
   menuOpened: false,
   hamburgerActive: false
 }
 
-export default function header(state = initialState, action) {
+const header = (state = initialState, action) => {
   switch (action.type) {
 
     case types.OPEN_MENU:
@@ -24,3 +24,5 @@ export default function header(state = initialState, action) {
       return state;
   }
 }
+
+export default header;
