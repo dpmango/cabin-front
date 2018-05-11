@@ -719,4 +719,16 @@ button:focus {
   color: tomato;
 }
 
+.header__hamburger {
+  margin-left: 25px;
+}
+
+.header__hamburger span {
+  margin-left: 5px;
+  display: inline-block;
+  font-size: 10px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
 /*# sourceMappingURL=app.css.map */
