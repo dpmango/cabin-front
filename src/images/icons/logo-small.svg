@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>logo-small</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Homepage" transform="translate(-235.000000, -3832.000000)" fill="#646C77">
+            <g id="Footer" transform="translate(235.000000, 3832.000000)">
+                <g id="cabin-icon">
+                    <path d="M9.59870019,14.7942296 C10.2236592,12.3708396 12.2715158,10.5143767 14.7942296,10.1695333 L14.7942296,14.7942296 L9.59870019,14.7942296 Z M2.21581435,2.19516838 L14.7942296,2.19572638 L14.7942296,7.94702291 C11.0522878,8.32255629 8.02514278,11.1504956 7.34270991,14.7942296 L2.20577037,14.7942296 L2.21581435,2.19516838 Z M0,17 L17,17 L17,0 L0,0 L0,17 Z" id="logo-small"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

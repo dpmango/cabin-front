@@ -1,11 +1,65 @@
 $sprite: (
 	cabin-logo: (
 		offset-x: 0px,
-		offset-y: 0px,
+		offset-y: -134px,
 		width: 111px,
 		height: 27px,
-		total-width: 111px,
-		total-height: 27px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-bbounce: (
+		offset-x: -164px,
+		offset-y: 0px,
+		width: 99px,
+		height: 33px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-canny: (
+		offset-x: 0px,
+		offset-y: 0px,
+		width: 154px,
+		height: 38px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-elements: (
+		offset-x: -164px,
+		offset-y: -43px,
+		width: 94px,
+		height: 28px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-grain: (
+		offset-x: 0px,
+		offset-y: -48px,
+		width: 111px,
+		height: 32px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-poh: (
+		offset-x: 0px,
+		offset-y: -171px,
+		width: 42px,
+		height: 51px,
+		total-width: 263px,
+		total-height: 222px,
+		image: '../images/sprite.png'
+	),
+	clientLogo-seventeen: (
+		offset-x: 0px,
+		offset-y: -90px,
+		width: 97px,
+		height: 34px,
+		total-width: 263px,
+		total-height: 222px,
 		image: '../images/sprite.png'
 	),
 );
@@ -66,4 +120,22 @@ $sprite: (
 
 	.icon-cabin-logo {
 		@include sprite(cabin-logo)
+	}
+	.icon-clientLogo-bbounce {
+		@include sprite(clientLogo-bbounce)
+	}
+	.icon-clientLogo-canny {
+		@include sprite(clientLogo-canny)
+	}
+	.icon-clientLogo-elements {
+		@include sprite(clientLogo-elements)
+	}
+	.icon-clientLogo-grain {
+		@include sprite(clientLogo-grain)
+	}
+	.icon-clientLogo-poh {
+		@include sprite(clientLogo-poh)
+	}
+	.icon-clientLogo-seventeen {
+		@include sprite(clientLogo-seventeen)
 	}

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { routes } from './routes';
 import Header from './components/header';
+import Footer from './components/footer';
 import Authorization from './hoc/authorization';
 
 require('viewport-units-buggyfill').init({
@@ -34,6 +35,7 @@ const App = () => {
           <div className="page__content">
             {renderSwitch()}
           </div>
+          <Footer />
         </div>
       </React.Fragment>
     </BrowserRouter>
