@@ -19,6 +19,7 @@ function build(callback) {
   runSequence(
     'sass',
     'sprite:svg',
+    'sprite:png',
     callback
   );
 }

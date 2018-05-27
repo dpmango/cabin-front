@@ -12,10 +12,25 @@ button
   position: relative
   text-align: center
   cursor: pointer
-  font-size: 1.4rem
-  transition: all $transitionSpeed ease-in-out
+  background: $colorBlue
+  color: white
+  border-radius: 3px
+  line-height: 1
+  font-weight: 500
+  transition: .25s $ease
   &:focus, &:active
     outline: none
   &--block
     display: block
     width: 100%
+  &--small
+    font-size: 12px
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15)
+    padding: 11px 25px 9px
+  &--huge
+    font-size: 13px
+    padding: 21px 40px 19px
+  &:hover
+    background: $colorGreen
+    color: white
+    box-shadow: none

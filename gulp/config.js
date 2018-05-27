@@ -11,7 +11,9 @@ var config = {
     root         : 'src',
     sass         : 'src/sass',
     sassGen      : 'src/sass/generated',
-    iconsSvg     : 'src/images/icons'
+    iconsSvg     : 'src/images/icons',
+    iconsPng     : 'src/images/icons',
+    sassGen      : 'src/sass/generated'
   },
   dest: {
     root  : destPath,

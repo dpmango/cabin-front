@@ -1,0 +1,39 @@
+.header
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  background: white
+  &__wrapper
+    display: flex
+    align-items: center
+    padding: 30px 0
+
+  &__logo
+    font-size: 0
+    img
+      max-width: 100%
+
+  &__menu
+    margin: 0 0 0 auto
+    padding: 0
+    color: $fontColorGray
+    font-size: 13px
+    li
+      margin-right: 60px
+      &:last-child
+        margin-right: 0
+      a:not(.btn)
+        display: inline-block
+        padding: 10px
+        transition: .25s $ease
+        &.is-active, &:hover
+          color: $fontColor
+  &__hamburger
+    margin-left: 25px
+    span
+      margin-left: 5px
+      display: inline-block
+      font-size: 10px
+      padding: 5px
+      border: 1px solid black

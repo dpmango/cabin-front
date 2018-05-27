@@ -14,10 +14,19 @@ ul
   li
     display: inline-block
 
+h1,h2,h3,h4
+  font-weight: 500
+  margin: 1em 0
+  line-height: 1.25
+
+h1
+  letter-spacing: -0.02em
+
 body, html
   background: white
   color: $fontColor
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-family: 'BentonSans', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-weight: normal
   font-size: 16px
   min-width: 320px
   max-width: 100%
@@ -36,6 +45,10 @@ body, html
 
 .container
   width: 100%
-  max-width: 1200px
+  max-width: 1250px
   padding-left: 40px
   padding-right: 40px
+  &--full
+    max-width: 100%
+  &-narrow
+    max-width: 1050px

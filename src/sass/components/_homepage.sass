@@ -1,0 +1,46 @@
+.home
+
+.home-hero
+  &__wrapper
+    padding-top: 100px
+    padding-bottom: 60px
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    justify-content: center
+    max-width: 600px
+  h1
+    font-size: 40px
+    margin-bottom: .5em
+  &__desc
+    color: $fontColorGray
+    font-size: 16px
+    span
+      color: $fontColor
+
+  &__form
+    margin-top: 80px
+    display: flex
+    input
+      // should it be component ?
+      flex: 1 1 auto
+      -webkit-apperance: none
+      background: transparent
+      border-radius: 3px
+      border: 1px solid rgba($fontColorGray, .5)
+      font-size: 14px
+      color: $fontColor
+      padding: 22px 15px
+      transition: .25s $ease
+      &::placeholder
+        color: rgba($fontColorGray, .5)
+      &:focus
+        border-color: $colorBlue
+    button
+      flex: 0 0 auto
+      margin-left: 8px
+
+.home-logos
+  &__wrapper
+    display: flex
+    align-items: center

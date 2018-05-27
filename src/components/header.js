@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { openMenu, closeMenu } from '../actions/HeaderActions';
 
+// import cabinLogo from '../images/cabin-logo.png';
+// import cabinLogo2x from '../images/cabin-logo@2x.png';
+
 class Header extends React.Component {
   static propTypes = {
     routes: PropTypes.array,
@@ -17,26 +20,25 @@ class Header extends React.Component {
   }
 
   render(){
-    console.log(this.props);
-
     return(
       <header className='header'>
         <div className="container">
           <div className="header__wrapper">
-            <div className="header_logo">
-              logo
-            </div>
+            <NavLink to='/' className="header__logo">
+              <i className="icon icon-cabin-logo" />
+              {/* <img src={cabinLogo} srcSet={cabinLogo2x + ' 2x'} /> */}
+            </NavLink>
             <ul className="header__menu">
               {this.props.routes.map(route =>
-                <li>
-                  <NavLink exact={route.isExact} activeClassName='is-active' key={route.path} to={route.path}>{route.name}</NavLink>
+                <li key={route.path}>
+                  <NavLink exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                 </li>
               )}
             </ul>
-            <div className="header__hamburger">
+            {/* <div className="header__hamburger">
               {this.props.hamburgerActive ? "Opened" : "Closed" }
               <span onClick={this.toggleHamburger}>toggle</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
@@ -55,4 +57,4 @@ const mapDispatchToProps = (dispatch) => ({
   closeMenu: () => dispatch(closeMenu())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(Header);
