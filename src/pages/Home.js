@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import api from '../services/Api';
 
 import HomeLogosEl from '../components/HomeLogosEl';
 import GetStartedBottom from '../components/GetStartedBottom';
+import SignupEmail from '../components/SignupEmail';
 
 class Home extends Component {
   static propTypes = {
@@ -34,10 +35,7 @@ class Home extends Component {
             <div className="home-hero__wrapper">
               <h1>Turn messy documents into accurate financial statements.</h1>
               <div className="home-hero__desc">Online accounting and corporate secretary service starting at <span>$200 per month</span></div>
-              <form className="signup-email home-hero__form">
-                <input type="email" placeholder="Email address"/>
-                <button type="submit" className="btn btn--huge">Get started</button>
-              </form>
+              <SignupEmail extraClass="home-hero__form" />
             </div>
           </div>
         </div>
