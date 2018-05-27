@@ -37,7 +37,7 @@ export const routes = [
     path: '/profile',
     name: 'Get Started',
     component: Profile,
-    isPrivate: true
+    isPrivate: false
   },
   {
     path: '/signup',

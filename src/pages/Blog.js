@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
-import api from '../services/Api'
+import PropTypes from 'prop-types';
+import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import api from '../services/Api';
 
-// import sprite from '../images/sprite.svg';
+class Blog extends Component {
+  static propTypes = {
+    setHeaderClass: PropTypes.func.isRequired,
+  };
 
-export default class About extends Component {
   constructor() {
     super();
   }
-  componentDidMount() {
 
+  componentDidMount(){
+    this.props.setHeaderClass('');
   }
 
   render() {
@@ -21,3 +27,14 @@ export default class About extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

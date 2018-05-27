@@ -2,7 +2,8 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   menuOpened: false,
-  hamburgerActive: false
+  hamburgerActive: false,
+  stateClass: ''
 }
 
 const header = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const header = (state = initialState, action) => {
       return {
         menuOpened: false,
         hamburgerActive: false
+      }
+
+    case types.SET_HEADER_CLASS:
+      return {
+        stateClass: action.payload
       }
 
     default:

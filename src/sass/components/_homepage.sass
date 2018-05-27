@@ -10,7 +10,6 @@
     justify-content: center
     max-width: 600px
   h1
-    font-size: 40px
     margin-bottom: .5em
   &__desc
     color: $fontColorGray
@@ -20,27 +19,10 @@
 
   &__form
     margin-top: 80px
-    display: flex
-    input
-      // should it be component ?
-      flex: 1 1 auto
-      -webkit-apperance: none
-      background: transparent
-      border-radius: 3px
-      border: 1px solid rgba($fontColorGray, .5)
-      font-size: 14px
-      color: $fontColor
-      padding: 22px 15px
-      transition: .25s $ease
-      &::placeholder
-        color: rgba($fontColorGray, .5)
-      &:focus
-        border-color: $colorBlue
-    button
-      flex: 0 0 auto
-      margin-left: 8px
 
 .home-logos
+  position: relative
+  z-index: 2
   background: #FAFBFF
   padding: 15px 0
   &__wrapper
@@ -60,3 +42,24 @@
     flex: 0 0 auto
     padding: 15px 19px
     font-size: 0
+
+
+.home-promo
+  &__wrapper
+    display: flex
+    align-items: center
+    margin-left: -15px
+    margin-right: -15px
+  &__left
+    flex: 0 1 50%
+    max-width: 50%
+    min-width: 1px
+    min-height: 0
+    padding: 0 15px
+    transform: translate(-60px, -20px)
+  &__right
+    flex: 0 1 50%
+    max-width: 50%
+    min-width: 1px
+    min-height: 0
+    padding: 35px 15px 0

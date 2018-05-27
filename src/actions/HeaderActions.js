@@ -11,3 +11,10 @@ export function closeMenu() {
     type: types.CLOSE_MENU
   };
 }
+
+export function setClass(payload) {
+  return {
+    type: types.SET_HEADER_CLASS,
+    payload: payload
+  };
+}

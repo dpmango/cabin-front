@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SvgIcon from '../components/svgIcon';
+import SvgIcon from '../components/SvgIcon';
 
 export default class Footer extends Component {
   render(){

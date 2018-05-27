@@ -8,8 +8,7 @@ export default class HomeLogosEl extends Component {
         <Tooltip
           title={this.props.tooltipContent}
           position="bottom"
-          arrow="true"
-        >
+          arrow="true">
           <i className={"icon icon-clientLogo-" + this.props.iconName} />
         </Tooltip>
       </div>

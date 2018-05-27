@@ -13,6 +13,7 @@ class Header extends React.Component {
     hamburgerActive: PropTypes.bool,
     menuOpened: PropTypes.bool,
     openMenu: PropTypes.func,
+    stateClass: PropTypes.string
   };
 
   toggleHamburger = () => {
@@ -21,7 +22,7 @@ class Header extends React.Component {
 
   render(){
     return(
-      <header className='header'>
+      <header className={'header ' + this.props.stateClass}>
         <div className="container">
           <div className="header__wrapper">
             <NavLink to='/' className="header__logo">
@@ -49,7 +50,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   hamburgerActive: state.header.hamburgerActive,
-  menuOpened: state.header.menuOpened
+  menuOpened: state.header.menuOpened,
+  stateClass: state.header.stateClass
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,0 +1,20 @@
+.signup-email
+  display: flex
+  input
+    // should it be component ?
+    flex: 1 1 auto
+    -webkit-apperance: none
+    background: white
+    border-radius: 3px
+    border: 1px solid rgba($fontColorGray, .5)
+    font-size: 14px
+    color: $fontColor
+    padding: 22px 15px
+    transition: .25s $ease
+    &::placeholder
+      color: rgba($fontColorGray, .5)
+    &:focus
+      border-color: $colorBlue
+  button
+    flex: 0 0 auto
+    margin-left: 8px

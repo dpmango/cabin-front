@@ -1,0 +1,33 @@
+.bottom-cta
+  position: relative
+  background: #F6F7FB
+  // border-top-left-radius: 100%
+  // border-top-right-radius: 100%
+  padding: 0px 0 120px 0
+  margin-top: 100px
+  &::before
+    display: inline-block
+    content: ' '
+    position: absolute
+    z-index: 1
+    top: -100px
+    height: 300px
+    // left: -50%
+    // right: -50%
+    left: -5%
+    right: -5%
+    background: #F6F7FB
+    border-top-left-radius: 100%
+    border-top-right-radius: 100%
+
+
+  &__wrapper
+    position: relative
+    z-index: 2
+    max-width: 570px
+    margin-left: auto
+    margin-right: auto
+    text-align: center
+
+  &__form
+    margin-top: 50px
