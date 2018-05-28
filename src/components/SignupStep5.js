@@ -11,36 +11,43 @@ class SignupStep5 extends Component {
     setSignupStep: PropTypes.func,
   };
 
-  nextStep = () => {
-    this.props.setSignupStep(1);
+  constructor() {
+    super();
+    this.state = {
+      signupComplete: false
+    };
+  }
+
+  completeSignup = () => {
+    this.setState({
+      signupComplete: true
+    })
+    // this.props.setSignupStep(1);
   }
 
   render(){
+    const { signupComplete } = this.state;
+
+    if (signupComplete) {
+      return <Redirect to='/' />;
+    }
+
     return(
       <div className="container">
-        <div className="signup__box">
-          <div className="signup__intro">
-            <div className="signup__wrapper">
-              <div className="signup__left">
-                <div className="signup__avatar signup__avatar--small">
-                  <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
-                </div>
-                <h2>Tell us a little about yourself</h2>
-              </div>
-              <div className="signup__right">
+        <div className="t-center">
+          <h2>Thank you!</h2>
+          <p className="t-paragraph">We’ll get in touch with you soon.</p>
+          <div className="signup__sucess">
 
-              </div>
-            </div>
-
-            <div className="signup__cta">
-              <a href="#" className="btn btn--huge btn--block" onClick={this.nextStep}>
-                <span>Next</span>
-                <SvgIcon name="next-arrow" />
-              </a>
-            </div>
           </div>
-
+          <div className="signup__nav signup__nav--complete">
+            <a href="#" className="signup__nav-back" onClick={this.completeSignup}>
+              <SvgIcon name="back-arrow" />
+              <span>Go Back to the Homepage</span>
+            </a>
+          </div>
         </div>
+
       </div>
     )
   }
