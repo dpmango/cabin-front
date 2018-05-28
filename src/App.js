@@ -4,6 +4,7 @@ import { routes } from './routes';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Authorization from './hoc/authorization';
+// import LoadingBar from 'react-redux-loading-bar'
 
 require('viewport-units-buggyfill').init({
   force: false,

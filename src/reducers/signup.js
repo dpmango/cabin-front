@@ -1,7 +1,7 @@
 import * as types from '../store/ActionTypes';
 
 const initialState = {
-  signupStep: 1
+  signupStep: 4
 }
 
 const signup = (state = initialState, action) => {

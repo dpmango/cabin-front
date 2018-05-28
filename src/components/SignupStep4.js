@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
+//https://github.com/JedWatson/react-select
+import Select from 'react-select';
+// https://github.com/airbnb/react-dates
 
 import SvgIcon from '../components/SvgIcon';
 
@@ -15,6 +18,7 @@ class SignupStep4 extends Component {
     super();
     this.state = {
       meeting_date: '',
+      selectValue: null,
       meeting_time: ''
     };
   }
@@ -23,6 +27,13 @@ class SignupStep4 extends Component {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
     this.setState({...this.state, [fieldName]: fleldVal})
+  }
+
+  handleSelectChange = (e) => {
+    this.setState({
+      selectValue: e,
+      meeting_time: e ? e.label : null
+    });
   }
 
   nextStep = () => {
@@ -55,6 +66,35 @@ class SignupStep4 extends Component {
             <div className="signup__right">
               <div className="ui-group">
                 <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
+              </div>
+              <div className="signup__datetime">
+                <div className="signup__datetime-col">
+
+                </div>
+                <div className="signup__datetime-col">
+                  <Select
+                    name="meeting_time"
+                    value={this.state.selectValue}
+                    onChange={this.handleSelectChange}
+                    options={[
+                      { value: '08', label: '08:00' },
+                      { value: '09', label: '09:00' },
+                      { value: '10', label: '10:00' },
+                      { value: '11', label: '11:00' },
+                      { value: '12', label: '12:00' },
+                      { value: '13', label: '13:00' },
+                      { value: '14', label: '14:00' },
+                      { value: '15', label: '15:00' },
+                      { value: '16', label: '16:00' },
+                      { value: '17', label: '17:00' },
+                      { value: '18', label: '18:00' },
+                      { value: '19', label: '19:00' },
+                      { value: '20', label: '20:00' },
+                      { value: '21', label: '21:00' },
+                    ]}
+                  />
+                </div>
+
               </div>
             </div>
           </div>
