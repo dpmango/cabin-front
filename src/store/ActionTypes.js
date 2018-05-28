@@ -7,3 +7,5 @@ export const LOG_IN = 'LOG_IN';
 export const AUTHORIZATION_SUCCESS = 'AUTHORIZATION_SUCCESS';
 export const AUTHORIZATION_FAIL = 'AUTHORIZATION_FAIL';
 export const SIGN_OUT = 'SIGN_OUT';
+
+export const SET_SIGNUP_STEP = 'SET_SIGNUP_STEP';
