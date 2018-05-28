@@ -3,4 +3,9 @@
         logo-small
     </title>
     <path d="M9.599 14.794a6.258 6.258 0 0 1 5.195-4.624v4.624H9.6zM2.216 2.195h12.578v5.752c-3.742.376-6.769 3.203-7.451 6.847H2.206l.01-12.599zM0 17h17V0H0v17z" fill-rule="evenodd"/>
+</symbol><symbol id="ico-quote" viewBox="0 0 32 27">
+    <title>
+        quote
+    </title>
+    <path d="M19.11 27V14.529L25.814 0h5.027l-3.48 13.5H32V27H19.11zM0 27V14.529L6.702 0h5.156L8.25 13.5h4.64V27H0z" fill-rule="evenodd"/>
 </symbol></svg>

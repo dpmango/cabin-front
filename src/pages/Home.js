@@ -9,6 +9,7 @@ import api from '../services/Api';
 import HomeLogosEl from '../components/HomeLogosEl';
 import GetStartedBottom from '../components/GetStartedBottom';
 import SignupEmail from '../components/SignupEmail';
+import HomeBenefits from '../components/HomeBenefits';
 
 class Home extends Component {
   static propTypes = {
@@ -73,13 +74,14 @@ class Home extends Component {
           </div>
         </div>
 
+        <HomeBenefits />
+
         <GetStartedBottom />
 
       </div>
     );
   }
 }
-
 
 const mapStateToProps = (state) => ({});
 

@@ -1,0 +1,47 @@
+
+.testimonial
+  background: #F6F7FB
+  padding: 22px
+  &__wrapper
+    display: flex
+  &__icon
+    flex: 0 0 60px
+    font-size: 27px
+    color: $colorGreen
+  &__content
+    p
+      font-size: 13px
+      color: $fontColorGray
+      margin: 0
+      line-height: 1.53
+      & + p
+        margin-top: 1em
+  &__author
+    display: flex
+    align-items: center
+    margin-top: 25px
+    &-avatar
+      flex: 0 0 42px
+      position: relative
+      z-index: 1
+      size: 42px
+      border-radius: 50%
+      overflow: hidden
+      background: #FFFFFF
+      font-size: 0
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.14)
+      img
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 102%
+        transform: translate(-50%,-50%)
+
+    &-text
+      flex: 0 1 auto
+      margin-left: 15px
+      font-size: 12px
+      color: $fontColorGray
+      span
+        color: $fontColor
+        font-weight: 500
