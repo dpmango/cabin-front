@@ -1,4 +1,27 @@
 .hero
+  position: relative
   background: #F6F7FB
   margin-top: 85px
-  padding: 120px 0
+  overflow: hidden
+  &__bg
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    max-width: 100%
+    font-size: 0
+
+  > .container
+    position: relative
+    z-index: 2
+
+  &__wrapper
+    width: 50%
+    padding: 130px 0 120px
+    min-width: 410px
+    display: flex
+    flex-direction: column
+    h2
+      margin: 1em 0 7px
+    .t-paragraph
+      margin: 0
