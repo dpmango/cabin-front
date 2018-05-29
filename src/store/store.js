@@ -17,9 +17,7 @@ const store = createStoreWithMiddleware(reducers, initialState,
 );
 
 store.subscribe(() => {
-  saveState({
-    username: store.getState().username
-  });
+  saveState(store.getState());
 });
 
 sagaMiddleware.run(sagas);

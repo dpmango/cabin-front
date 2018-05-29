@@ -9,3 +9,5 @@ export const AUTHORIZATION_FAIL = 'AUTHORIZATION_FAIL';
 export const SIGN_OUT = 'SIGN_OUT';
 
 export const SET_SIGNUP_STEP = 'SET_SIGNUP_STEP';
+export const SET_SIGNUP_EMAIL = 'SET_SIGNUP_EMAIL';
+export const SET_SIGNUP_ID = 'SET_SIGNUP_ID';

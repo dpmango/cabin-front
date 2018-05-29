@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import api from '../services/Api';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
@@ -9,6 +10,8 @@ import SvgIcon from '../components/SvgIcon';
 class SignupStep2 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    signupId: PropTypes.number,
+    signupEmail: PropTypes.string
   };
 
   constructor() {
@@ -20,6 +23,7 @@ class SignupStep2 extends Component {
       email: '',
       phone: ''
     };
+
   }
 
   handleChange = (e) => {
@@ -29,7 +33,24 @@ class SignupStep2 extends Component {
   }
 
   nextStep = () => {
-    this.props.setSignupStep(3);
+    // patch lead
+    api
+      .patch('signup_leads/' + this.props.signupId, {
+        signup_lead: {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          company_name: this.state.company_name,
+          // email: '', // why do we update ?
+          phone: this.state.phone,
+        }
+      })
+      .then((res) => {
+        this.props.setSignupStep(3);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }
 
   prevStep = () => {
@@ -96,7 +117,8 @@ class SignupStep2 extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  signupEmail: state.signup.signupEmail,
+  signupId: state.signup.signupId
 });
 
 const mapDispatchToProps = (dispatch) => ({

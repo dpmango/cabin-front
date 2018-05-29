@@ -9,6 +9,7 @@ import SvgIcon from '../components/SvgIcon';
 class SignupStep3 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    signupId: PropTypes.number
   };
 
   constructor() {
@@ -27,7 +28,21 @@ class SignupStep3 extends Component {
   }
 
   nextStep = () => {
-    this.props.setSignupStep(4);
+    api
+      .patch('signup_leads/' + this.props.signupId, {
+        signup_lead: {
+          company_industry: this.state.company_industry,
+          company_old: this.state.company_old,
+          company_employees: this.state.company_employees,
+        }
+      })
+      .then((res) => {
+        this.props.setSignupStep(4);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }
 
   prevStep = () => {
@@ -88,7 +103,7 @@ class SignupStep3 extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  signupId: state.signup.signupId
 });
 
 const mapDispatchToProps = (dispatch) => ({

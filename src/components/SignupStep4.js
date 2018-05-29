@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
+// https://github.com/airbnb/react-dates
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-// import 'react-dates/lib/css/_datepicker.css';
-// https://github.com/airbnb/react-dates
 
 import SvgIcon from '../components/SvgIcon';
 
 class SignupStep4 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    signupId: PropTypes.number
   };
 
   constructor() {
@@ -48,7 +48,19 @@ class SignupStep4 extends Component {
   }
 
   nextStep = () => {
-    this.props.setSignupStep(5);
+    api
+      .patch('signup_leads/' + this.props.signupId, {
+        signup_lead: {
+          meeting_date: this.state.meeting_date,
+          meeting_time: this.state.meeting_time
+        }
+      })
+      .then((res) => {
+        this.props.setSignupStep(5);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   prevStep = () => {
@@ -153,7 +165,7 @@ class SignupStep4 extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  signupId: state.signup.signupId
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import api from '../services/Api';
+import { SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
 
-export default class SingupEmail extends Component {
+
+class SingupEmail extends Component {
+  static propTypes = {
+    setSignupId: PropTypes.func,
+    setSignupEmail: PropTypes.func
+  };
+
   constructor() {
     super();
     this.state = {
@@ -29,7 +37,9 @@ export default class SingupEmail extends Component {
         }
       })
       .then((res) => {
-        console.log(res);
+        this.props.setSignupId(res.data.id);
+        this.props.setSignupEmail(res.data.email);
+
         this.setState({
           isNewLead: true
         })
@@ -55,3 +65,15 @@ export default class SingupEmail extends Component {
     )
   }
 }
+
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
+  setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingupEmail);

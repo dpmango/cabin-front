@@ -11,18 +11,21 @@ const header = (state = initialState, action) => {
 
     case types.OPEN_MENU:
       return {
+        ...state,
         menuOpened: true,
         hamburgerActive: true
       }
 
     case types.CLOSE_MENU:
       return {
+        ...state,
         menuOpened: false,
         hamburgerActive: false
       }
 
     case types.SET_HEADER_CLASS:
       return {
+        ...state,
         stateClass: action.payload
       }
 
