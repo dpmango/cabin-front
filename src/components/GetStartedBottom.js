@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import SignupEmail from '../components/SignupEmail';
 
-export default class GetStartedBottom extends Component {
+class GetStartedBottom extends Component {
+  static propTypes = {
+    signupStep: PropTypes.number
+  };
+
   render(){
+    if ( this.props.signupStep === 5 ){
+      return null
+    }
     return(
       <div className="bottom-cta">
         <div className="container">
@@ -16,3 +26,11 @@ export default class GetStartedBottom extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  signupStep: state.signup.signupStep,
+});
+
+const mapDispatchToProps = (dispatch) => ({  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(GetStartedBottom);

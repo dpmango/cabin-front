@@ -16,7 +16,7 @@ class SingupEmail extends Component {
     super();
     this.state = {
       email: '',
-      error: '',
+      errors: '',
       isNewLead: false
     };
   }
@@ -24,7 +24,14 @@ class SingupEmail extends Component {
   handleChange = (e) => {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal})
+    this.setState({...this.state, [fieldName]: fleldVal});
+
+    // clear error when started typing
+    if ( this.state.errors ){
+      this.setState({
+        errors: ' '
+      })
+    }
   }
 
   handleSubmit = (e) => {
@@ -37,12 +44,19 @@ class SingupEmail extends Component {
         }
       })
       .then((res) => {
-        this.props.setSignupId(res.data.id);
-        this.props.setSignupEmail(res.data.email);
+        var errors = res.data.errors
+        if ( errors ){
+          this.setState({
+            errors: errors.email[0] // get only first validation error
+          })
+        } else {
+          this.props.setSignupId(res.data.id);
+          this.props.setSignupEmail(res.data.email);
 
-        this.setState({
-          isNewLead: true
-        })
+          this.setState({
+            isNewLead: true
+          })
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -51,17 +65,25 @@ class SingupEmail extends Component {
   }
 
   render(){
-    const { isNewLead } = this.state;
+    const { isNewLead, errors } = this.state;
 
     if (isNewLead) {
       return <Redirect to='/profile' />;
     }
 
     return(
-      <form className={"signup-email " + this.props.extraClass} onSubmit={this.handleSubmit}>
-        <input type="email" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
-        <button type="submit" className="btn btn--huge">Get started</button>
-      </form>
+      <React.Fragment>
+        <form className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
+          <input type="text" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
+          <button type="submit" className="btn btn--huge">Get started</button>
+        </form>
+        { errors &&
+          // <div class="ui-input-validation">{errors.map((err) => (
+          //   err
+          // ))}</div>
+          <div class="ui-input-validation">{errors}</div>
+        }
+      </React.Fragment>
     )
   }
 }
