@@ -34,7 +34,7 @@ class SignupStep1 extends Component {
             </div>
 
             <div className="signup__cta">
-              <a href="#" className="btn btn--huge btn--block" onClick={this.nextStep}>
+              <a href="#" className="btn btn--huge btn--iconed btn--block" onClick={this.nextStep}>
                 <span>Let’s get Started</span>
                 <SvgIcon name="next-arrow" />
               </a>

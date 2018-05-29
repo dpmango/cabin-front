@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SvgIcon from '../components/SvgIcon';
 
 export default class HomeBenefitsList extends Component {
   render(){
@@ -21,7 +22,9 @@ export default class HomeBenefitsList extends Component {
         {listNames.map((el, i) => {
           return (
             <li key={i} className={i+1 > activeIndex ? 'is-disabled' : ''}>
-              <i className="icon" />
+              <div className="home-benefits__list-icon">
+                <SvgIcon name="check" />
+              </div>
               <span>{el}</span>
             </li>
           )

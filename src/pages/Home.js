@@ -35,7 +35,7 @@ class Home extends Component {
 
         <HomeHero />
         <HomeLogos />
-        <HomePromo />
+        {/* <HomePromo /> */}
         <HomeBenefits />
         <HomeFeatures />
 

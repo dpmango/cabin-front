@@ -7,13 +7,13 @@
 
 .Select
   position: relative
+  display: block
+  width: 100%
   input
     &::-webkit-contacts-auto-fill-button, &::-webkit-credentials-auto-fill-button, &::-ms-clear, &::-ms-reveal
       display: none !important
   box-sizing: border-box
   div, input, span
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
     box-sizing: border-box
   &.is-disabled
     .Select-arrow-zone
@@ -28,11 +28,13 @@
     border-bottom-right-radius: 0
     border-bottom-left-radius: 0
     background: #fff
-    border-color: #b3b3b3 #ccc #d9d9d9
+    // border-color: #b3b3b3 #ccc #d9d9d9
+    border-color: $colorBlue
     .Select-arrow
-      top: -2px
-      border-color: transparent transparent #999
-      border-width: 0 5px 5px
+      transform: rotate(180deg) translateY(-50%)
+      // top: -2px
+      // border-color: transparent transparent $fontColorGray
+      // border-width: 0 5px 5px
   &.is-searchable
     &.is-open > .Select-control, &.is-focused:not(.is-open) > .Select-control
       cursor: text
@@ -47,7 +49,7 @@
     &.is-clearable.Select--single > .Select-control .Select-value
       padding-right: 42px
     &.Select--single > .Select-control .Select-value .Select-value-label, &.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label
-      color: $fontColor
+      color: $fontColorGray
     &.Select--single > .Select-control .Select-value a.Select-value-label, &.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label
       cursor: pointer
       text-decoration: none
@@ -63,7 +65,7 @@
       .Select-input
         opacity: 0
   &.is-open .Select-arrow, .Select-arrow-zone:hover > .Select-arrow
-    border-top-color: #666
+    // border-top-color: #666
   &.Select--rtl
     direction: rtl
     text-align: right
@@ -72,7 +74,7 @@
   background-color: #fff
   border-radius: 3px
   border: 1px solid rgba($fontColorGray, .5)
-  color: $fontColor
+  color: $fontColorGray
   cursor: default
   display: table
   border-spacing: 0
@@ -82,8 +84,9 @@
   overflow: hidden
   position: relative
   width: 100%
+  transition: .25s $ease
   &:hover
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06)
+    // box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06)
   .Select-input:focus
     outline: none
     background: #fff
@@ -92,12 +95,12 @@
   bottom: 0
   color: $fontColorGray
   left: 0
+  font-size: 14px
   line-height: 1
   padding-top: 25px
   padding-bottom: 25px
   padding-left: 15px
-  padding-left: 10px
-  padding-right: 10px
+  padding-right: 15px
   position: absolute
   right: 0
   top: 0
@@ -106,11 +109,18 @@
   text-overflow: ellipsis
   white-space: nowrap
 
+.Select-placeholder
+  color: rgba($fontColorGray, .5)
+
 .Select-input
   height: 63px
-  padding-left: 10px
-  padding-right: 10px
+  width: 100%
+  font-size: 14px
+  line-height: 63px
+  padding-left: 15px
+  padding-right: 15px
   vertical-align: middle
+  display: block
   > input
     width: 100%
     background: none transparent
@@ -146,25 +156,21 @@
   width: 16px
 
 .Select-loading
-  -webkit-animation: Select-animation-spin 400ms infinite linear
-  -o-animation: Select-animation-spin 400ms infinite linear
   animation: Select-animation-spin 400ms infinite linear
   width: 16px
   height: 16px
   box-sizing: border-box
   border-radius: 50%
   border: 2px solid #ccc
-  border-right-color: $fontColor
+  border-right-color: $fontColorGray
   display: inline-block
   position: relative
   vertical-align: middle
 
 .Select-clear-zone
   display: none !important
-  -webkit-animation: Select-animation-fadeIn 200ms
-  -o-animation: Select-animation-fadeIn 200ms
   animation: Select-animation-fadeIn 200ms
-  color: #999
+  color: $fontColorGray
   cursor: pointer
   display: table-cell
   position: relative
@@ -183,12 +189,13 @@
   width: 17px
 
 .Select-arrow-zone
+  position: relative
   cursor: pointer
   display: table-cell
   position: relative
   text-align: center
   vertical-align: middle
-  width: 25px
+  width: 35px
   padding-right: 5px
 
 .Select--rtl .Select-arrow-zone
@@ -196,16 +203,24 @@
   padding-left: 5px
 
 .Select-arrow
-  border-color: #999 transparent transparent
-  border-style: solid
-  border-width: 5px 5px 2.5px
-  display: inline-block
-  height: 0
-  width: 0
-  position: relative
+  position: absolute
+  top: 50%
+  right: 15px
+  size: 10px 5px
+  background: svg-load('../images/icons/select-arrow.svg')
+  // border-color: $fontColorGray transparent transparent
+  // border-style: solid
+  // border-width: 5px 5px 2.5px
+  // display: inline-block
+  // height: 0
+  // width: 0
+  // position: relative
+  transform: translateY(-50%)
+  transform-origin: top center
+  transition: .25s $ease
 
 .Select-control > *:last-child
-  padding-right: 5px
+  padding-right: 10px
 
 .Select--multi .Select-multi-value-wrapper
   display: inline-block
@@ -220,14 +235,6 @@
   overflow: hidden
   float: left
 
-@-webkit-keyframes Select-animation-fadeIn
-  from
-    opacity: 0
-
-  to
-    opacity: 1
-
-
 @keyframes Select-animation-fadeIn
   from
     opacity: 0
@@ -237,10 +244,10 @@
 
 
 .Select-menu-outer
-  border-bottom-right-radius: 4px
-  border-bottom-left-radius: 4px
+  border-bottom-right-radius: 3px
+  border-bottom-left-radius: 3px
   background-color: #fff
-  border: 1px solid #ccc
+  border: 1px solid $colorBlue
   border-top-color: #e6e6e6
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06)
   box-sizing: border-box
@@ -260,33 +267,34 @@
 .Select-option
   box-sizing: border-box
   background-color: #fff
-  color: #666666
+  color: $fontColorGray
   cursor: pointer
   display: block
-  padding: 8px 10px
+  font-size: 14px
+  padding: 10px 15px
+  transition: .25s $ease
   &:last-child
-    border-bottom-right-radius: 4px
-    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 3px
+    border-bottom-left-radius: 3px
   &.is-selected
-    background-color: #f5faff
-    /* Fallback color for IE 8
-    background-color: rgba(0, 126, 255, 0.04)
-    color: $fontColor
-  &.is-focused
-    background-color: #ebf5ff
-    /* Fallback color for IE 8
-    background-color: rgba(0, 126, 255, 0.08)
-    color: $fontColor
+    background-color: $colorBlue
+    color: white
+    // background-color: rgba($colorBlue, 0.04)
+    // color: $fontColorGray
+  &.is-focused:not(.is-selected)
+    background-color: rgba($colorBlue, 0.2)
+    color: $fontColorGray
   &.is-disabled
-    color: #cccccc
+    color: rgba($fontColorGray, .5)
     cursor: default
 
 .Select-noresults
   box-sizing: border-box
-  color: #999999
+  color: $fontColorGray
   cursor: default
   display: block
-  padding: 8px 10px
+  font-size: 14px
+  padding: 8px 15px
 
 .Select--multi
   .Select-input
@@ -321,6 +329,7 @@
     border-top-right-radius: 2px
     cursor: default
     padding: 2px 5px
+    font-size: 14px
   a.Select-value-label
     color: #007eff
     cursor: pointer
@@ -357,7 +366,7 @@
     .Select-value
       background-color: #fcfcfc
       border: 1px solid #e3e3e3
-      color: $fontColor
+      color: $fontColorGray
     .Select-value-icon
       cursor: not-allowed
       border-right: 1px solid #e3e3e3
@@ -367,7 +376,3 @@
 @keyframes Select-animation-spin
   to
     transform: rotate(1turn)
-
-@-webkit-keyframes Select-animation-spin
-  to
-    -webkit-transform: rotate(1turn)

@@ -3,6 +3,11 @@
         back-arrow
     </title>
     <path d="M6.842 2.73L3.286 6.286l3.556 3.556a.412.412 0 0 1 .127.3.412.412 0 0 1-.127.302L5.73 11.556a.412.412 0 0 1-.301.127.412.412 0 0 1-.302-.127L.158 6.587a.412.412 0 0 1-.127-.301c0-.116.043-.217.127-.302l4.97-4.968a.412.412 0 0 1 .3-.128c.117 0 .217.043.302.128l1.112 1.111a.412.412 0 0 1 .127.302.412.412 0 0 1-.127.3z" fill-rule="evenodd"/>
+</symbol><symbol id="ico-check" viewBox="0 0 14 11">
+    <title>
+        check
+    </title>
+    <path d="M4.75 8.832L12.688.876l1.062 1.062-9 9L.574 6.762 1.618 5.7z" fill-rule="evenodd"/>
 </symbol><symbol id="ico-logo-small" viewBox="0 0 17 17">
     <title>
         logo-small
@@ -18,4 +23,9 @@
         quote
     </title>
     <path d="M19.11 27V14.529L25.814 0h5.027l-3.48 13.5H32V27H19.11zM0 27V14.529L6.702 0h5.156L8.25 13.5h4.64V27H0z" fill-rule="evenodd"/>
+</symbol><symbol id="ico-select-arrow" viewBox="0 0 10 5">
+    <title>
+        select-arrow
+    </title>
+    <path d="M5 5L0 0h10z" fill-rule="evenodd"/>
 </symbol></svg>

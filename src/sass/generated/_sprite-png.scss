@@ -1,65 +1,101 @@
 $sprite: (
 	cabin-logo: (
-		offset-x: -121px,
-		offset-y: -75px,
+		offset-x: -151px,
+		offset-y: -184px,
 		width: 111px,
 		height: 27px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-bbounce: (
-		offset-x: -107px,
-		offset-y: -117px,
+		offset-x: 0px,
+		offset-y: -267px,
 		width: 99px,
 		height: 33px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-canny: (
-		offset-x: -118px,
-		offset-y: 0px,
+		offset-x: 0px,
+		offset-y: -75px,
 		width: 154px,
 		height: 38px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-elements: (
-		offset-x: 0px,
-		offset-y: -161px,
+		offset-x: -121px,
+		offset-y: -225px,
 		width: 94px,
 		height: 28px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-grain: (
 		offset-x: 0px,
-		offset-y: -75px,
+		offset-y: -225px,
 		width: 111px,
 		height: 32px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-poh: (
-		offset-x: 0px,
-		offset-y: -199px,
+		offset-x: -243px,
+		offset-y: -87px,
 		width: 42px,
 		height: 51px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-seventeen: (
-		offset-x: 0px,
-		offset-y: -117px,
+		offset-x: -129px,
+		offset-y: -123px,
 		width: 97px,
 		height: 34px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
+		image: '../images/sprite.png'
+	),
+	logo-ACCA: (
+		offset-x: -243px,
+		offset-y: 0px,
+		width: 77px,
+		height: 77px,
+		total-width: 320px,
+		total-height: 300px,
+		image: '../images/sprite.png'
+	),
+	logo-ACRA: (
+		offset-x: 0px,
+		offset-y: -123px,
+		width: 119px,
+		height: 51px,
+		total-width: 320px,
+		total-height: 300px,
+		image: '../images/sprite.png'
+	),
+	logo-ISCA: (
+		offset-x: 0px,
+		offset-y: -184px,
+		width: 141px,
+		height: 31px,
+		total-width: 320px,
+		total-height: 300px,
+		image: '../images/sprite.png'
+	),
+	logo-Xero: (
+		offset-x: -118px,
+		offset-y: 0px,
+		width: 115px,
+		height: 53px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 	rifeng-sign: (
@@ -67,8 +103,8 @@ $sprite: (
 		offset-y: 0px,
 		width: 108px,
 		height: 65px,
-		total-width: 272px,
-		total-height: 250px,
+		total-width: 320px,
+		total-height: 300px,
 		image: '../images/sprite.png'
 	),
 );
@@ -147,6 +183,18 @@ $sprite: (
 	}
 	.icon-clientLogo-seventeen {
 		@include sprite(clientLogo-seventeen)
+	}
+	.icon-logo-ACCA {
+		@include sprite(logo-ACCA)
+	}
+	.icon-logo-ACRA {
+		@include sprite(logo-ACRA)
+	}
+	.icon-logo-ISCA {
+		@include sprite(logo-ISCA)
+	}
+	.icon-logo-Xero {
+		@include sprite(logo-Xero)
 	}
 	.icon-rifeng-sign {
 		@include sprite(rifeng-sign)

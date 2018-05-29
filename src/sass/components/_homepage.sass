@@ -30,16 +30,20 @@
     align-items: center
     justify-content: center
   &__name
+    flex: 0 0 auto
     font-size: 15px
     color: $fontColorGray
     margin-right: 35px
 
   &__list
     display: flex
-    align-items: center
+    // align-items: center
+    > div
+      display: flex !important
+      align-items: center
   &__el
     position: relative
-    flex: 0 0 auto
+    flex: 1 0 auto
     padding: 15px 19px
     font-size: 0
 
@@ -105,14 +109,21 @@
       margin-bottom: 15px
       &.is-disabled
         opacity: .15
-        .icon
+        .home-benefits__list-icon
           background: $fontColorGray
-    .icon
+    &-icon
       flex: 0 0 auto
+      display: flex
+      align-items: center
+      justify-content: center
       background: $colorGreen
       border-radius: 50%
       size: 26px
       margin-right: 20px
+      color: white
+      .ico
+        font-size: 11px
+        transform: translate(.5px,0)
     span
       flex: 0 1 auto
       display: inline-block

@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
+import 'react-dates/initialize';
+import { SingleDatePicker } from 'react-dates';
+// import 'react-dates/lib/css/_datepicker.css';
 // https://github.com/airbnb/react-dates
 
 import SvgIcon from '../components/SvgIcon';
@@ -17,6 +20,7 @@ class SignupStep4 extends Component {
   constructor() {
     super();
     this.state = {
+      // date: {}, // moment obj
       meeting_date: '',
       selectValue: null,
       meeting_time: ''
@@ -36,6 +40,13 @@ class SignupStep4 extends Component {
     });
   }
 
+  handleDateChange = (date) => {
+    this.setState({
+      date: date,
+      meeting_date: date ? date._d : null
+    });
+  }
+
   nextStep = () => {
     this.props.setSignupStep(5);
   }
@@ -45,6 +56,9 @@ class SignupStep4 extends Component {
   }
 
   render(){
+    const datePickerIcon = (
+      <SvgIcon name="select-arrow" />
+    )
     return(
       <div className="container">
         <div className="signup__box">
@@ -69,13 +83,33 @@ class SignupStep4 extends Component {
               </div>
               <div className="signup__datetime">
                 <div className="signup__datetime-col">
-
+                  <div className={ this.state.focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
+                    <SingleDatePicker
+                      date={this.state.date} // momentPropTypes.momentObj or null
+                      onDateChange={this.handleDateChange} // PropTypes.func.isRequired
+                      focused={this.state.focused} // PropTypes.bool
+                      placeholder="Select date"
+                      noBorder={true}
+                      block={true}
+                      hideKeyboardShortcutsPanel={true}
+                      // showDefaultInputIcon={true}
+                      customInputIcon={datePickerIcon}
+                      inputIconPosition="after"
+                      displayFormat="DD-MM-YYYY"
+                      anchorDirection="left"
+                      numberOfMonths={1}
+                      horizontalMargin={0}
+                      onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                      id="datepicker" // PropTypes.string.isRequired,
+                    />
+                  </div>
                 </div>
                 <div className="signup__datetime-col">
                   <Select
                     name="meeting_time"
                     value={this.state.selectValue}
                     onChange={this.handleSelectChange}
+                    placeholder="Select time"
                     options={[
                       { value: '08', label: '08:00' },
                       { value: '09', label: '09:00' },

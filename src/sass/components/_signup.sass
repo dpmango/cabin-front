@@ -108,5 +108,20 @@
     &-col
       flex: 0 1 50%
       max-width: 50%
+      // display: flex
       padding-left: 10px
       padding-right: 10px
+      // .Select
+      //   flex: 0 0 100%
+      //   display: flex
+      // .Select-control
+      //   flex: 0 0 100%
+      //   display: flex
+      // .Select-multi-value-wrapper
+      //   width: 100%
+      //   display: block
+
+  &__datepicker
+    &.is-focused
+      .SingleDatePickerInput_calendarIcon
+        transform: rotate(180deg) translateY(-50%)
