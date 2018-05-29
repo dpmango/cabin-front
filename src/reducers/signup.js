@@ -1,9 +1,23 @@
 import * as types from '../store/ActionTypes';
+// import moment from 'moment';
 
 const initialState = {
   signupStep: 1,
   signupEmail: '',
-  signupId: ''
+  signupId: '',
+  fields: {
+    first_name: '',
+    last_name: '',
+    company_name: '',
+    phone: '',
+    company_industry: '',
+    company_old: '',
+    company_employees: '',
+    // date: moment(),
+    meeting_date: '',
+    selectValue: null,
+    meeting_time: ''
+  }
 }
 
 const signup = (state = initialState, action) => {
@@ -12,17 +26,22 @@ const signup = (state = initialState, action) => {
     case types.SET_SIGNUP_STEP:
       return {
         ...state,
-        signupStep: action.payload
+        signupStep: action.payload,
       }
     case types.SET_SIGNUP_ID:
       return {
         ...state,
-        signupId: action.payload
+        signupId: action.payload,
       }
     case types.SET_SIGNUP_EMAIL:
       return {
         ...state,
-        signupEmail: action.payload
+        signupEmail: action.payload,
+      }
+    case types.SET_SIGNUP_FIELDS:
+      return {
+        ...state,
+        fields: action.payload
       }
     default:
       return state;

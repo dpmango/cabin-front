@@ -3,25 +3,28 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-import { SET_SIGNUP_STEP } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
 
 class SignupStep2 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    setSignupFields: PropTypes.func,
     signupId: PropTypes.number,
-    signupEmail: PropTypes.string
+    signupEmail: PropTypes.string,
+    signupFields: PropTypes.object,
   };
 
-  constructor() {
+  constructor(props) {
     super();
+
     this.state = {
-      first_name: '',
-      last_name: '',
-      company_name: '',
-      email: '',
-      phone: ''
+      first_name: props.signupFields.first_name,
+      last_name:  props.signupFields.last_name,
+      company_name:  props.signupFields.company_name,
+      email: props.signupEmail,
+      phone: props.signupFields.phone
     };
 
   }
@@ -33,19 +36,28 @@ class SignupStep2 extends Component {
   }
 
   nextStep = () => {
+    const { first_name, last_name, company_name, email, phone } = this.state;
     // patch lead
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          first_name: this.state.first_name,
-          last_name: this.state.last_name,
-          company_name: this.state.company_name,
-          // email: '', // why do we update ?
-          phone: this.state.phone,
+          first_name: first_name,
+          last_name: last_name,
+          company_name: company_name,
+          email: email, // update only when redux is blank
+          phone: phone,
         }
       })
       .then((res) => {
         this.props.setSignupStep(3);
+
+        this.props.setSignupFields({
+          ...this.props.signupFields,
+          first_name: first_name,
+          last_name: last_name,
+          company_name: company_name,
+          phone: phone,
+        })
       })
       .catch(function (error) {
         console.log(error);
@@ -58,6 +70,8 @@ class SignupStep2 extends Component {
   }
 
   render(){
+    const { first_name, last_name, company_name, email, phone } = this.state;
+
     return(
       <div className="container">
         <div className="signup__box">
@@ -77,23 +91,23 @@ class SignupStep2 extends Component {
               <h2>Tell us a little about yourself</h2>
             </div>
             <div className="signup__right">
-              <form action="" className="signup__form">
+              <div className="signup__form">
                 <div className="ui-group">
-                  <input type="text" name="first_name" placeholder="First Name" value={this.state.first_name} onChange={this.handleChange}/>
+                  <input type="text" name="first_name" placeholder="First Name" value={first_name} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="last_name" placeholder="Last Name" value={this.state.last_name} onChange={this.handleChange}/>
+                  <input type="text" name="last_name" placeholder="Last Name" value={last_name} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="company_name" placeholder="Company Name" value={this.state.company_name} onChange={this.handleChange}/>
+                  <input type="text" name="company_name" placeholder="Company Name" value={company_name} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange}/>
+                  <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="phone" placeholder="Phone Number" value={this.state.phone} onChange={this.handleChange}/>
+                  <input type="text" name="phone" placeholder="Phone Number" value={phone} onChange={this.handleChange}/>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
 
@@ -118,11 +132,13 @@ class SignupStep2 extends Component {
 
 const mapStateToProps = (state) => ({
   signupEmail: state.signup.signupEmail,
-  signupId: state.signup.signupId
+  signupId: state.signup.signupId,
+  signupFields: state.signup.fields
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data })
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep2);

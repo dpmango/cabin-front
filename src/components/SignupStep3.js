@@ -2,22 +2,25 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP } from '../store/ActionTypes';
+import api from '../services/Api';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
 
 class SignupStep3 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
-    signupId: PropTypes.number
+    setSignupFields: PropTypes.func,
+    signupId: PropTypes.number,
+    signupFields: PropTypes.object
   };
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      company_industry: '',
-      company_old: '',
-      company_employees: ''
+      company_industry: props.signupFields.company_industry,
+      company_old: props.signupFields.company_old,
+      company_employees: props.signupFields.company_employees
     };
   }
 
@@ -28,16 +31,26 @@ class SignupStep3 extends Component {
   }
 
   nextStep = () => {
+    const { company_industry, company_old, company_employees } = this.state;
+    // patch lead
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          company_industry: this.state.company_industry,
-          company_old: this.state.company_old,
-          company_employees: this.state.company_employees,
+          company_industry: company_industry,
+          company_old: company_old,
+          company_employees: company_employees,
         }
       })
       .then((res) => {
         this.props.setSignupStep(4);
+
+        this.props.setSignupFields({
+          ...this.props.signupFields,
+          company_industry: company_industry,
+          company_old: company_old,
+          company_employees: company_employees,
+        })
+
       })
       .catch(function (error) {
         console.log(error);
@@ -50,6 +63,8 @@ class SignupStep3 extends Component {
   }
 
   render(){
+    const { company_industry, company_old, company_employees } = this.state;
+
     return(
       <div className="container">
         <div className="signup__box">
@@ -69,17 +84,17 @@ class SignupStep3 extends Component {
               <h2>Help us understand a little bit more about your company</h2>
             </div>
             <div className="signup__right">
-              <form action="" className="signup__form">
+              <div className="signup__form">
                 <div className="ui-group">
-                  <input type="text" name="company_industry" placeholder="Which industry are you in?" value={this.state.company_industry} onChange={this.handleChange}/>
+                  <input type="text" name="company_industry" placeholder="Which industry are you in?" value={company_industry} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="company_old" placeholder="How old is your company?" value={this.state.company_old} onChange={this.handleChange}/>
+                  <input type="text" name="company_old" placeholder="How old is your company?" value={company_old} onChange={this.handleChange}/>
                 </div>
                 <div className="ui-group">
-                  <input type="text" name="company_employees" placeholder="How many staff are there in your company?" value={this.state.company_employees} onChange={this.handleChange}/>
+                  <input type="text" name="company_employees" placeholder="How many staff are there in your company?" value={company_employees} onChange={this.handleChange}/>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
 
@@ -103,11 +118,13 @@ class SignupStep3 extends Component {
 
 
 const mapStateToProps = (state) => ({
-  signupId: state.signup.signupId
+  signupId: state.signup.signupId,
+  signupFields: state.signup.fields
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data })
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep3);

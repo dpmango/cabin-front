@@ -22,6 +22,7 @@
     "gulp-svgstore": "^6.1.1",
     "gulp-util": "^3.0.8",
     "gulp.spritesmith": "^6.9.0",
+    "moment": "^2.22.1",
     "postcss-animation": "^0.0.12",
     "postcss-easings": "^1.0.1",
     "postcss-flexbugs-fixes": "^3.3.1",

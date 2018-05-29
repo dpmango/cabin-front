@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP } from '../store/ActionTypes';
+import api from '../services/Api';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
 // https://github.com/airbnb/react-dates
@@ -14,16 +15,18 @@ import SvgIcon from '../components/SvgIcon';
 class SignupStep4 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
-    signupId: PropTypes.number
+    setSignupFields: PropTypes.func,
+    signupId: PropTypes.number,
+    signupFields: PropTypes.object
   };
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      // date: {}, // moment obj
-      meeting_date: '',
-      selectValue: null,
-      meeting_time: ''
+      // date: props.signupFields.date,
+      meeting_date: props.signupFields.meeting_date,
+      selectValue: props.signupFields.selectValue,
+      meeting_time: props.signupFields.meeting_time
     };
   }
 
@@ -48,15 +51,27 @@ class SignupStep4 extends Component {
   }
 
   nextStep = () => {
+
+    const { meeting_date, meeting_time, date, selectValue } = this.state;
+
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          meeting_date: this.state.meeting_date,
-          meeting_time: this.state.meeting_time
+          meeting_date: meeting_date,
+          meeting_time: meeting_time
         }
       })
       .then((res) => {
         this.props.setSignupStep(5);
+
+        this.props.setSignupFields({
+          ...this.props.signupFields,
+          date: date,
+          meeting_date: meeting_date,
+          selectValue: selectValue,
+          meeting_time: meeting_time,
+        })
+
       })
       .catch(function (error) {
         console.log(error);
@@ -71,6 +86,9 @@ class SignupStep4 extends Component {
     const datePickerIcon = (
       <SvgIcon name="select-arrow" />
     )
+
+    const { meeting_date, meeting_time, date, focused, selectValue } = this.state;
+
     return(
       <div className="container">
         <div className="signup__box">
@@ -95,11 +113,11 @@ class SignupStep4 extends Component {
               </div>
               <div className="signup__datetime">
                 <div className="signup__datetime-col">
-                  <div className={ this.state.focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
+                  <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
                     <SingleDatePicker
-                      date={this.state.date} // momentPropTypes.momentObj or null
+                      date={date} // momentPropTypes.momentObj or null
                       onDateChange={this.handleDateChange} // PropTypes.func.isRequired
-                      focused={this.state.focused} // PropTypes.bool
+                      focused={focused} // PropTypes.bool
                       placeholder="Select date"
                       noBorder={true}
                       block={true}
@@ -119,7 +137,7 @@ class SignupStep4 extends Component {
                 <div className="signup__datetime-col">
                   <Select
                     name="meeting_time"
-                    value={this.state.selectValue}
+                    value={selectValue}
                     onChange={this.handleSelectChange}
                     placeholder="Select time"
                     options={[
@@ -165,11 +183,13 @@ class SignupStep4 extends Component {
 
 
 const mapStateToProps = (state) => ({
-  signupId: state.signup.signupId
+  signupId: state.signup.signupId,
+  signupFields: state.signup.fields
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data })
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep4);
