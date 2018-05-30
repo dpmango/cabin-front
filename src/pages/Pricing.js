@@ -7,9 +7,11 @@ import { SET_HEADER_CLASS } from '../store/ActionTypes';
 import api from '../services/Api';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Tooltip } from 'react-tippy';
+
 import SvgIcon from '../components/SvgIcon';
 import GetStartedBottom from '../components/GetStartedBottom';
 import FaqPanel from '../components/FaqPanel';
+import PricingOption from '../components/PricingOption';
 
 class Pricing extends Component {
   static propTypes = {
@@ -132,6 +134,64 @@ class Pricing extends Component {
               </div>
               <div className="pricing-scope__cta">
                 <a className="btn btn--mega btn--block">Select <span>Incorporation</span> Plan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="pricing-options">
+          <div className="container">
+            <div className="pricing-options__heading">
+              <h2>Additional requirements</h2>
+              <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
+            </div>
+            <div className="pricing-options__section-name">Corporate Secretary</div>
+            <div className="pricing-options__grid">
+              <div className="pricing-options__col">
+                <div className="pricing-options__section">
+                  <PricingOption
+                    name="Non-shares related matters"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$50"
+                    pricePer="per transaction"
+                  />
+                  <PricingOption
+                    name="Shares related matters"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$75 - S$150"
+                    pricePer="per transaction"
+                  />
+                  <PricingOption
+                    name="Complex matters"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$150"
+                    priceSuf="from"
+                    pricePer="per transaction"
+                  />
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                <div className="pricing-options__section">
+                  <PricingOption
+                    name="Corporate Shareholder Involved"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$100"
+                    pricePer="per entity<br>per year"
+                  />
+                  <PricingOption
+                    name="5th Director/Shareholder Onwards"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$25"
+                    pricePer="per induvidual<br>per year"
+                  />
+                  <PricingOption
+                    name="Provision of Nominee Director"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$2000"
+                    pricePer="per year"
+                  />
+                </div>
               </div>
             </div>
           </div>
