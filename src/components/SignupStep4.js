@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
+import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
@@ -11,6 +12,7 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
 import SvgIcon from '../components/SvgIcon';
+import FormInput from '../components/FormInput';
 
 class SignupStep4 extends Component {
   static propTypes = {

@@ -10,9 +10,9 @@ class GetStartedBottom extends Component {
   };
 
   render(){
-    if ( this.props.signupStep === 5 ){
-      return null
-    }
+    // if ( this.props.signupStep === 5 ){
+    //   return null
+    // }
     return(
       <div className="bottom-cta">
         <div className="container">

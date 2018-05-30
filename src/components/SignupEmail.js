@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-import { SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
+import { SET_SIGNUP_ID, SET_SIGNUP_EMAIL, SET_SIGNUP_STEP } from '../store/ActionTypes';
 
 
 class SingupEmail extends Component {
@@ -50,6 +50,7 @@ class SingupEmail extends Component {
             errors: errors.email[0] // get only first validation error
           })
         } else {
+          this.props.setSignupStep(1);
           this.props.setSignupId(res.data.id);
           this.props.setSignupEmail(res.data.email);
 
@@ -78,6 +79,7 @@ class SingupEmail extends Component {
           <button type="submit" className="btn btn--huge">Get started</button>
         </form>
         { errors &&
+          // render all errors or only first (most relevant?)
           // <div class="ui-input-validation">{errors.map((err) => (
           //   err
           // ))}</div>
@@ -94,6 +96,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
   setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
   setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data })
 });

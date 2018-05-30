@@ -25,12 +25,10 @@ class Header extends React.Component {
       <header className={'header ' + this.props.stateClass}>
         <div className="container">
           <div className="header__wrapper">
-
             <NavLink to='/' className="header__logo">
               <i className="icon icon-cabin-logo" />
-              {/* <img src={cabinLogo} srcSet={cabinLogo2x + ' 2x'} /> */}
             </NavLink>
-            <span style={{'fontSize': '10px', 'marginLeft': '10px'}}>signup id: {this.props.signupId}</span>
+            <span style={{'fontSize': '10px', 'marginLeft': '10px'}}>id: {this.props.signupId}</span>
             <ul className="header__menu">
               {this.props.routes.map(route =>
                 <li key={route.path}>
