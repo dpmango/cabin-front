@@ -4,17 +4,17 @@ $sprite: (
 		offset-y: -184px,
 		width: 111px,
 		height: 27px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-bbounce: (
-		offset-x: 0px,
-		offset-y: -267px,
+		offset-x: -330px,
+		offset-y: 0px,
 		width: 99px,
 		height: 33px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-canny: (
@@ -22,35 +22,35 @@ $sprite: (
 		offset-y: -75px,
 		width: 154px,
 		height: 38px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-elements: (
-		offset-x: -121px,
-		offset-y: -225px,
+		offset-x: -330px,
+		offset-y: -114px,
 		width: 94px,
 		height: 28px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-grain: (
-		offset-x: 0px,
+		offset-x: -80px,
 		offset-y: -225px,
 		width: 111px,
 		height: 32px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-poh: (
-		offset-x: -243px,
-		offset-y: -87px,
+		offset-x: -330px,
+		offset-y: -152px,
 		width: 42px,
 		height: 51px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	clientLogo-seventeen: (
@@ -58,8 +58,8 @@ $sprite: (
 		offset-y: -123px,
 		width: 97px,
 		height: 34px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	logo-ACCA: (
@@ -67,8 +67,8 @@ $sprite: (
 		offset-y: 0px,
 		width: 77px,
 		height: 77px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	logo-ACRA: (
@@ -76,8 +76,8 @@ $sprite: (
 		offset-y: -123px,
 		width: 119px,
 		height: 51px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	logo-ISCA: (
@@ -85,8 +85,8 @@ $sprite: (
 		offset-y: -184px,
 		width: 141px,
 		height: 31px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	logo-Xero: (
@@ -94,8 +94,35 @@ $sprite: (
 		offset-y: 0px,
 		width: 115px,
 		height: 53px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
+		image: '../images/sprite.png'
+	),
+	pricing-compliance: (
+		offset-x: 0px,
+		offset-y: -225px,
+		width: 70px,
+		height: 60px,
+		total-width: 429px,
+		total-height: 285px,
+		image: '../images/sprite.png'
+	),
+	pricing-corporate: (
+		offset-x: -330px,
+		offset-y: -43px,
+		width: 54px,
+		height: 61px,
+		total-width: 429px,
+		total-height: 285px,
+		image: '../images/sprite.png'
+	),
+	pricing-custom: (
+		offset-x: -243px,
+		offset-y: -87px,
+		width: 72px,
+		height: 62px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 	rifeng-sign: (
@@ -103,8 +130,8 @@ $sprite: (
 		offset-y: 0px,
 		width: 108px,
 		height: 65px,
-		total-width: 320px,
-		total-height: 300px,
+		total-width: 429px,
+		total-height: 285px,
 		image: '../images/sprite.png'
 	),
 );
@@ -195,6 +222,15 @@ $sprite: (
 	}
 	.icon-logo-Xero {
 		@include sprite(logo-Xero)
+	}
+	.icon-pricing-compliance {
+		@include sprite(pricing-compliance)
+	}
+	.icon-pricing-corporate {
+		@include sprite(pricing-corporate)
+	}
+	.icon-pricing-custom {
+		@include sprite(pricing-custom)
 	}
 	.icon-rifeng-sign {
 		@include sprite(rifeng-sign)

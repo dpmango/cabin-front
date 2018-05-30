@@ -25,6 +25,10 @@ class About extends Component {
   render() {
     return (
       <div className="text-page">
+        <Helmet>
+          <title>About || CABIN</title>
+        </Helmet>
+
         <div className="hero">
           <div className="hero__bg">
             <img src={require('../images/aboutHeroImg.png')} srcSet={require('../images/aboutHeroImg@2x.png')  + ' 2x'} alt=""/>
