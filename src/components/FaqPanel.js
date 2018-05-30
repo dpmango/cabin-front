@@ -6,6 +6,8 @@ import SvgIcon from '../components/SvgIcon';
 export default class FaqPanel extends Component {
   static propTypes = {
     isOpened: PropTypes.bool,
+    name: PropTypes.string,
+    content: PropTypes.string
   };
 
   constructor(props) {

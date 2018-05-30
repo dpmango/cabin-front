@@ -28,7 +28,7 @@ class SignupStep1 extends Component {
               </div>
               <div className="signup__right">
                 <h2>Hello!</h2>
-                <p className="t-paragraph">My name is Rifeng and I am here to help you get started. If you are stuck or have any questions along the way, feel free to give me a call at +65 3158 5495.</p>
+                <p className="t-paragraph">My name is Rifeng and I am here to help you get started. If you are stuck or have any questions along the way, feel free to give me a call at <a href="tel:+65 3158 5495">+65 3158 5495</a>.</p>
                 <i className="icon icon-rifeng-sign" />
               </div>
             </div>

@@ -7,6 +7,8 @@ import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
 
+import FormInput from '../components/FormInput';
+
 class SignupStep2 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
@@ -92,21 +94,37 @@ class SignupStep2 extends Component {
             </div>
             <div className="signup__right">
               <div className="signup__form">
-                <div className="ui-group">
-                  <input type="text" name="first_name" placeholder="First Name" value={first_name} onChange={this.handleChange}/>
-                </div>
-                <div className="ui-group">
-                  <input type="text" name="last_name" placeholder="Last Name" value={last_name} onChange={this.handleChange}/>
-                </div>
-                <div className="ui-group">
-                  <input type="text" name="company_name" placeholder="Company Name" value={company_name} onChange={this.handleChange}/>
-                </div>
-                <div className="ui-group">
-                  <input type="text" name="email" placeholder="Email" value={email} onChange={this.handleChange}/>
-                </div>
-                <div className="ui-group">
-                  <input type="text" name="phone" placeholder="Phone Number" value={phone} onChange={this.handleChange}/>
-                </div>
+                <FormInput
+                  name="first_name"
+                  placeholder="First Name"
+                  value={first_name}
+                  onChangeHandler={this.handleChange}
+                />
+                <FormInput
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={last_name}
+                  onChangeHandler={this.handleChange}
+                />
+                <FormInput
+                  name="company_name"
+                  placeholder="Company Name"
+                  value={company_name}
+                  onChangeHandler={this.handleChange}
+                />
+                <FormInput
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  onChangeHandler={this.handleChange}
+                />
+                <FormInput
+                  name="phone"
+                  placeholder="Phone Number"
+                  value={phone}
+                  mask={['+','6','5', ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
+                  onChangeHandler={this.handleChange}
+                />
               </div>
             </div>
           </div>
