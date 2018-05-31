@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
 import { Helmet } from 'react-helmet';
 
@@ -8,16 +7,6 @@ import PricingOption from '../components/PricingOption';
 import SvgIcon from '../components/SvgIcon';
 
 export default class PricingDormant extends Component {
-  static propTypes = {
-
-  };
-
-  constructor(props) {
-    super();
-
-    this.state = {
-    }
-  }
 
   render(){
     const faqContent = [
@@ -48,7 +37,7 @@ export default class PricingDormant extends Component {
                 </div>
                 <div className="pricing-scope__names">
                   <div className="pricing-scope__name">Dormant</div>
-                  <div className="pricing-scope__description">I want to incorporate a company</div>
+                  <div className="pricing-scope__description">I have a dormant company, and I need all year-end compliances taken care of</div>
                 </div>
                 <div className="pricing-scope__price">
                   <div className="pricing-scope__price-main">S$850</div>
@@ -98,7 +87,7 @@ export default class PricingDormant extends Component {
 
             </div>
             <div className="pricing-scope__cta">
-              <a className="btn btn--mega btn--block">Select <span>Incorporation</span> Plan</a>
+              <a className="btn btn--mega btn--block">Select <span>Dormant</span> Plan</a>
             </div>
           </div>
         </div>
@@ -111,9 +100,10 @@ export default class PricingDormant extends Component {
             <h2>Additional requirements</h2>
             <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
           </div>
-          <div className="pricing-options__section-name">Corporate Secretary</div>
+
           <div className="pricing-options__grid">
             <div className="pricing-options__col">
+              <div className="pricing-options__section-name">Corporate Secretary</div>
               <div className="pricing-options__section">
                 <PricingOption
                   name="Non-shares related matters"
@@ -137,6 +127,7 @@ export default class PricingDormant extends Component {
               </div>
             </div>
             <div className="pricing-options__col">
+              <div className="pricing-options__section-name">Accounting & Tax</div>
               <div className="pricing-options__section">
                 <PricingOption
                   name="Corporate Shareholder Involved"

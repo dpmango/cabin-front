@@ -1,7 +1,6 @@
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import About from './pages/About';
-import Blog from './pages/Blog';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 
@@ -24,12 +23,6 @@ export const routes = [
     path: '/about',
     name: 'About',
     component: About
-  },
-  {
-    forNavBar: true,
-    path: '/blog',
-    name: 'Blog',
-    component: Blog
   },
   {
     forNavBar: true,

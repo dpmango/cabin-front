@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
-import api from '../services/Api';
 
 import GetStartedBottom from '../components/GetStartedBottom';
 import Professionals from '../components/Professionals';
@@ -13,10 +11,6 @@ class About extends Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,
   };
-
-  constructor() {
-    super();
-  }
 
   componentDidMount(){
     this.props.setHeaderClass('');

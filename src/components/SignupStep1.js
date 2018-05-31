@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
@@ -34,7 +33,7 @@ class SignupStep1 extends Component {
             </div>
 
             <div className="signup__cta">
-              <a href="#" className="btn btn--huge btn--iconed btn--block" onClick={this.nextStep}>
+              <a p-builder-box className="btn btn--huge btn--iconed btn--block" onClick={this.nextStep}>
                 <span>Let’s get Started</span>
                 <SvgIcon name="next-arrow" />
               </a>

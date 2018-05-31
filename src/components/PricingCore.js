@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Tooltip } from 'react-tippy';
 import { Helmet } from 'react-helmet';
 
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
-import SvgIcon from '../components/SvgIcon';
 
 export default class PricingCore extends Component {
   static propTypes = {
 
   };
 
-  constructor(props) {
-    super();
-
-    this.state = {
-    }
-  }
 
   render(){
     const faqContent = [

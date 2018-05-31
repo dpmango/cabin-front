@@ -18,10 +18,6 @@ class Profile extends React.Component {
     signupStep: PropTypes.number
   };
 
-  constructor() {
-    super();
-  }
-
   componentDidMount(){
     this.props.setHeaderClass('header--logo-only');
   }

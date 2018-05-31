@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-import Formsy from 'formsy-react';
+// import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
@@ -12,7 +11,6 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
 import SvgIcon from '../components/SvgIcon';
-import FormInput from '../components/FormInput';
 
 class SignupStep4 extends Component {
   static propTypes = {
@@ -89,7 +87,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { meeting_date, meeting_time, date, focused, selectValue } = this.state;
+    const { date, focused, selectValue } = this.state;
 
     return(
       <div className="container">
@@ -168,12 +166,12 @@ class SignupStep4 extends Component {
         </div>
 
         <div className="signup__nav">
-          <a href="#" className="signup__nav-back" onClick={this.prevStep}>
+          <a p-builder-box className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>
           </a>
 
-          <a href="#" className="btn btn--huge" onClick={this.nextStep}>
+          <a p-builder-box className="btn btn--huge" onClick={this.nextStep}>
             <span>Submit</span>
           </a>
         </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
@@ -41,7 +41,7 @@ class SignupStep5 extends Component {
 
           </div>
           <div className="signup__nav signup__nav--complete">
-            <a href="#" className="signup__nav-back" onClick={this.completeSignup}>
+            <a className="signup__nav-back" onClick={this.completeSignup}>
               <SvgIcon name="back-arrow" />
               <span>Go Back to the Homepage</span>
             </a>

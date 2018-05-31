@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
@@ -106,7 +105,7 @@ class SignupStep2 extends Component {
 
   updateSignup = () => {
 
-    const { first_name, last_name, company_name, email, phone } = this.state;
+    const { first_name, last_name, company_name, phone } = this.state;
 
     this.props.setSignupStep(3);
 
@@ -220,12 +219,12 @@ class SignupStep2 extends Component {
         </div>
 
         <div className="signup__nav">
-          <a href="#" className="signup__nav-back" onClick={this.prevStep}>
+          <a p-builder-box className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>
           </a>
 
-          <a href="#" className="btn btn--small" onClick={this.submitForm}>
+          <a p-builder-box className="btn btn--small" onClick={this.submitForm}>
             <span>Next</span>
           </a>
         </div>

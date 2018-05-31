@@ -26,8 +26,7 @@ class FormInput extends Component {
   }
 
   render(){
-    const { name, placeholder, value, onChangeHandler, mask, isRequired } = this.props
-    const {  } = this.state
+    const { name, placeholder, mask } = this.props
 
     // An error message is returned only if the component is invalid
     const errorMessage = this.props.isFormSubmitted() ? this.props.getErrorMessage() : null;
