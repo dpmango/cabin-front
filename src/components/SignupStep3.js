@@ -151,12 +151,12 @@ class SignupStep3 extends Component {
         </div>
 
         <div className="signup__nav">
-          <a p-builder-box className="signup__nav-back" onClick={this.prevStep}>
+          <a className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>
           </a>
 
-          <a p-builder-box className="btn btn--small" onClick={this.submitForm}>
+          <a className="btn btn--small" onClick={this.submitForm}>
             <span>Next</span>
           </a>
         </div>

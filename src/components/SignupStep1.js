@@ -33,7 +33,7 @@ class SignupStep1 extends Component {
             </div>
 
             <div className="signup__cta">
-              <a p-builder-box className="btn btn--huge btn--iconed btn--block" onClick={this.nextStep}>
+              <a className="btn btn--huge btn--iconed btn--block" onClick={this.nextStep}>
                 <span>Let’s get Started</span>
                 <SvgIcon name="next-arrow" />
               </a>

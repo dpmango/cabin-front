@@ -12,7 +12,7 @@ class SignupStep2 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
     setSignupFields: PropTypes.func,
-    signupId: PropTypes.number,
+    // signupId: PropTypes.number,
     signupEmail: PropTypes.string,
     signupFields: PropTypes.object,
     setSignupId: PropTypes.func,
@@ -219,12 +219,12 @@ class SignupStep2 extends Component {
         </div>
 
         <div className="signup__nav">
-          <a p-builder-box className="signup__nav-back" onClick={this.prevStep}>
+          <a className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>
           </a>
 
-          <a p-builder-box className="btn btn--small" onClick={this.submitForm}>
+          <a className="btn btn--small" onClick={this.submitForm}>
             <span>Next</span>
           </a>
         </div>

@@ -6,6 +6,20 @@ import PricingBuilderSection from '../components/PricingBuilderSection';
 import PricingFloatNav from '../components/PricingFloatNav';
 
 class PricingCustom extends Component {
+  constructor(props) {
+    super(props);
+    this.heroRef = React.createRef();
+
+    this.state = {
+      heroHeight: 0,
+    }
+  }
+
+  componentDidMount(){
+    this.setState({
+      heroHeight: this.heroRef.current.offsetHeight + 90
+    })
+  }
 
   render() {
     return (
@@ -14,7 +28,7 @@ class PricingCustom extends Component {
           <title>Pricing Custom || CABIN</title>
         </Helmet>
 
-        <div className="hero">
+        <div ref={this.heroRef} className="hero">
           <div className="hero__bg">
             <img src={require('../images/pricingHeroCustom.png')} srcSet={require('../images/pricingHeroCustom@2x.png')  + ' 2x'} alt=""/>
           </div>
@@ -286,7 +300,7 @@ class PricingCustom extends Component {
 
         />
 
-        <PricingFloatNav />
+        <PricingFloatNav heroHeight={this.state.heroHeight} />
 
       </React.Fragment>
     );
