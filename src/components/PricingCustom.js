@@ -34,7 +34,56 @@ class PricingCustom extends Component {
           headerName="Accounting and Tax"
           headerDesc="Pick a plan base on the scale of your business"
           headerTooltipContent="We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction. We may exercise our own discretion to not count repeated transactions of the same nature. "
+
+          boxes={{
+            name: "Monthly accounting and tax services",
+            price: "S$200",
+            pricePer: "per month",
+            priceStartingFrom: true,
+            pricingOptions: [
+              {
+                name: "<25 bank transactions",
+                price: "S$200",
+                pricePer: "per month"
+              },
+              {
+                name: "25 - 75 bank transactions",
+                price: "S$375",
+                pricePer: "per month"
+              },
+              {
+                name: "75 - 125 bank transactions",
+                price: "S$550",
+                pricePer: "per month"
+              },
+              {
+                name: "125 - 200 bank transactions",
+                price: "S$650",
+                pricePer: "per month"
+              },
+              {
+                name: "200 - 300 bank transactions",
+                price: "S$850",
+                pricePer: "per month"
+              }
+            ],
+            boxList: [
+              [
+                "Monthly management reports (P&L, balance sheet, cash flow statement)",
+                "Bookkeeping",
+                "Bank reconciliation",
+                "Software subscription"
+              ],
+              [
+                "Annual Financial Statements based on Singapore Financial Reporting Standards (SFRS)",
+                "Annual corporate tax computation and filing (ECI and Form C-S)",
+                "Tax optimisation and planning*",
+                "GST computation and quarterly GST F5 submission (for GST-registered company)"
+              ]
+            ]
+          }}
         />
+
 
         <div className="pricing-float">
           <div className="container container--narrow">

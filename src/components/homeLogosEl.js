@@ -5,7 +5,7 @@ export default class HomeLogosEl extends Component {
   render(){
 
     const { tooltipContent, iconName } = this.props
-    
+
     return(
       <Tooltip
         title={tooltipContent}

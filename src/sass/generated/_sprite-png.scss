@@ -98,6 +98,15 @@ $sprite: (
 		total-height: 285px,
 		image: '../images/sprite.png'
 	),
+	optionBox: (
+		offset-x: -394px,
+		offset-y: -43px,
+		width: 28px,
+		height: 29px,
+		total-width: 429px,
+		total-height: 285px,
+		image: '../images/sprite.png'
+	),
 	pricing-compliance: (
 		offset-x: 0px,
 		offset-y: -225px,
@@ -222,6 +231,9 @@ $sprite: (
 	}
 	.icon-logo-Xero {
 		@include sprite(logo-Xero)
+	}
+	.icon-optionBox {
+		@include sprite(optionBox)
 	}
 	.icon-pricing-compliance {
 		@include sprite(pricing-compliance)

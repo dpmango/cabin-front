@@ -11,7 +11,6 @@ export default class PricingBuilderOption extends Component {
           <div className="p-builder-option__head">
             <div className="p-builder-option__name">{name}</div>
           </div>
-
           <div className="p-builder-option__price">
             <span>{price}</span>
             <span>{pricePer}</span>
