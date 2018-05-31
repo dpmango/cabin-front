@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
-import SvgIcon from '../components/SvgIcon';
 import PricingBuilderSection from '../components/PricingBuilderSection';
-
+import PricingFloatNav from '../components/PricingFloatNav';
 
 class PricingCustom extends Component {
 
@@ -35,87 +34,272 @@ class PricingCustom extends Component {
           headerDesc="Pick a plan base on the scale of your business"
           headerTooltipContent="We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction. We may exercise our own discretion to not count repeated transactions of the same nature. "
 
-          boxes={{
-            name: "Monthly accounting and tax services",
-            price: "S$200",
-            pricePer: "per month",
-            priceStartingFrom: true,
-            pricingOptions: [
-              {
-                name: "<25 bank transactions",
-                price: "S$200",
-                pricePer: "per month"
-              },
-              {
-                name: "25 - 75 bank transactions",
-                price: "S$375",
-                pricePer: "per month"
-              },
-              {
-                name: "75 - 125 bank transactions",
-                price: "S$550",
-                pricePer: "per month"
-              },
-              {
-                name: "125 - 200 bank transactions",
-                price: "S$650",
-                pricePer: "per month"
-              },
-              {
-                name: "200 - 300 bank transactions",
-                price: "S$850",
-                pricePer: "per month"
-              }
-            ],
-            boxList: [
-              [
-                "Monthly management reports (P&L, balance sheet, cash flow statement)",
-                "Bookkeeping",
-                "Bank reconciliation",
-                "Software subscription"
+          boxes={[
+            {
+              name: "Monthly accounting and tax services",
+              price: "S$200",
+              pricePer: "per month",
+              priceStartingFrom: true,
+              helpText: "*Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donations claims to fully utilise your tax allowance.",
+              pricingOptions: [
+                {
+                  name: "<25 bank transactions",
+                  price: "S$200",
+                  pricePer: "per month"
+                },
+                {
+                  name: "25 - 75 bank transactions",
+                  price: "S$375",
+                  pricePer: "per month"
+                },
+                {
+                  name: "75 - 125 bank transactions",
+                  price: "S$550",
+                  pricePer: "per month"
+                },
+                {
+                  name: "125 - 200 bank transactions",
+                  price: "S$650",
+                  pricePer: "per month"
+                },
+                {
+                  name: "200 - 300 bank transactions",
+                  price: "S$850",
+                  pricePer: "per month"
+                }
               ],
-              [
-                "Annual Financial Statements based on Singapore Financial Reporting Standards (SFRS)",
-                "Annual corporate tax computation and filing (ECI and Form C-S)",
-                "Tax optimisation and planning*",
-                "GST computation and quarterly GST F5 submission (for GST-registered company)"
+              boxList: [
+                [
+                  "Monthly management reports (P&L, balance sheet, cash flow statement)",
+                  "Bookkeeping",
+                  "Bank reconciliation",
+                  "Software subscription"
+                ],
+                [
+                  "Annual Financial Statements based on Singapore Financial Reporting Standards (SFRS)",
+                  "Annual corporate tax computation and filing (ECI and Form C-S)",
+                  "Tax optimisation and planning*",
+                  "GST computation and quarterly GST F5 submission (for GST-registered company)"
+                ]
               ]
-            ]
-          }}
+            },
+            {
+              name: "GST-registered companies",
+              isAddon: true,
+              price: "+S$125",
+              pricePer: "per month",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Tracking of standard-rated supplies and purchases",
+                  "Quarterly GST computation and F5 filing",
+                  "Audit trail for all GST claims"
+                ]
+              ]
+            }
+
+          ]}
         />
 
+        <PricingBuilderSection
+          headerStep="Step 2"
+          headerName="Corporate Secretary"
+          headerDesc="Have Cabin take care of all your corporate secretarial compliance requirements"
 
-        <div className="pricing-float">
-          <div className="container container--narrow">
-            <div className="pricing-float__wrapper">
-              <div className="pricing-float__summary">
-                <span className="pricing-float__summary-holder">Your Custom Plan:</span>
-                <div className="pricing-float__summary-price">
-                  <span>S$2500</span>
-                  <span>per month</span>
-                </div>
-              </div>
-              <div className="pricing-float__cta">
-                <div className="pricing-float__cta-text">Get Started</div>
-                <div className="pricing-float__cta-icon">
-                  <SvgIcon name="next-arrow2" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          boxes={[
+            {
+              name: "Corporate secretary services",
+              isAddon: true,
+              price: "+S$30",
+              pricePer: "per month",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Provision of qualified person as Company Secretary",
+                  "Safekeeping and updates to Company Registers and Minute Books",
+                  "Preparation of Annual General Meeting (AGM) documents",
+                  "Filing of Annual Return to ACRA"
+                ],
+                [
+                  "Advisory on Corporate Secretarial compliance matters",
+                  "Reminder to inform you of your filing due dates",
+                  "Unlimited non-shares related resolutions and secretarial matters"
+                ]
+              ]
+            }
+          ]}
+        />
+
+        <PricingBuilderSection
+          headerStep="Step 3"
+          headerName="Cabin as your Back Office"
+          headerDesc="Let Cabin do the hard work so you don’t have to"
+
+          boxes={[
+            {
+              name: "Accounts payable service",
+              isAddon: true,
+              price: "S$200",
+              pricePer: "per month",
+              priceStartingFrom: true,
+              pricingOptions: [
+                {
+                  name: "<25 bank transactions",
+                  price: "+S$200",
+                  pricePer: "per month"
+                },
+                {
+                  name: "25 - 75 bank transactions",
+                  price: "+S$350",
+                  pricePer: "per month"
+                },
+                {
+                  name: "75 - 125 bank transactions",
+                  price: "+S$450",
+                  pricePer: "per month"
+                }
+              ],
+              boxList: [
+                [
+                  "Dedicated email inbox for payments requests",
+                  "Verification of invoices against payment requests",
+                  "Preparation of payments via bank transfer"
+                ],
+                [
+                  "Working capital optimisation",
+                  "2 payments cycle a month"
+                ]
+              ]
+            },
+            {
+              name: "Accounts receivable service",
+              isAddon: true,
+              price: "S$250",
+              pricePer: "per month",
+              priceStartingFrom: true,
+              pricingOptions: [
+                {
+                  name: "<100 outstanding invoices",
+                  price: "+S$250",
+                  pricePer: "per month"
+                },
+                {
+                  name: "100-200 outstanding invoices",
+                  price: "+S$350",
+                  pricePer: "per month"
+                },
+                {
+                  name: "200-300 outstanding invoices",
+                  price: "+S$450",
+                  pricePer: "per month"
+                }
+              ],
+              boxList: [
+                [
+                  "Weekly reconciliation of paid invoices",
+                  "Receivables chasing and reminder",
+                  "Frequency: 3x email, 2x phone call per overdue invoice"
+                ],
+              ]
+            },
+            {
+              name: "Payroll service",
+              isAddon: true,
+              price: "S$250",
+              pricePer: "per month",
+              priceStartingFrom: true,
+              // rangeSlider ?
+              // pricingOptions: [
+              //   {
+              //     name: "<100 outstanding invoices",
+              //     price: "+S$250",
+              //     pricePer: "per month"
+              //   }
+              // ],
+              boxList: [
+                [
+                  "Monthly payroll computation",
+                  "Bank GIRO file creation + CPF submission"
+                ],
+                [
+                  "Electronic leave management system",
+                  "Annual IRA8 or AIS submission. IR21 submission when required"
+                ]
+              ]
+            },
+            {
+              name: "Cabin assistant ",
+              isAddon: true,
+              price: "S$150",
+              pricePer: "per month",
+              priceStartingFrom: true,
+              pricingOptions: [
+                {
+                  name: "<50 documents per month",
+                  price: "+S$150",
+                  pricePer: "per month"
+                },
+                {
+                  name: "50-150 documents per month",
+                  price: "+S$250",
+                  pricePer: "per month"
+                },
+                {
+                  name: "150-300 outstanding invoices",
+                  price: "+S$350",
+                  pricePer: "per month"
+                }
+              ],
+              boxList: [
+                [
+                  "Consolidate all your documents into a box placed at your office Once a month, a dedicated bookkeeper will visit your office	",
+                  "All documents scanning and filing will be all taken care of"
+                ],
+              ]
+            },
+            {
+              name: "Cost center profitability tracking",
+              isAddon: true,
+              price: "+S$75",
+              pricePer: "per month",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Outlet or product line sales and cost tracking",
+                ]
+              ]
+            },
+            {
+              name: "Projections and budget tracking",
+              isAddon: true,
+              price: "+S$125",
+              pricePer: "per month",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Projections and budgeting based on proposed business model (fees charged separately)",
+                  "Monthly updates to compare actuals vs. budget/projections"
+                ]
+              ]
+            }
+          ]}
+
+        />
+
+        <PricingFloatNav />
+
       </React.Fragment>
     );
   }
 }
 
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  pricingOptions: state.pricing.pricingOptions,
+});
 
 const mapDispatchToProps = (dispatch) => (
-  {
-
-  }
+  {}
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingCustom);

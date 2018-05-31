@@ -17,24 +17,33 @@ export default class PricingBuilderSection extends Component {
             <h2>{headerName}</h2>
             <div className="p-builder__header-desc">
               <p className="t-paragraph">{headerDesc}</p>
-              <Tooltip
-                title={headerTooltipContent}
-                position="top"
-                distance="10"
-                arrow="true">
-                  <SvgIcon name="question-circle" />
-              </Tooltip>
+              { headerTooltipContent &&
+                <Tooltip
+                  title={headerTooltipContent}
+                  position="top"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              }
+
             </div>
           </div>
 
-          <PricingBuilderBox
-            pricingOptions={boxes.pricingOptions}
-            boxList={boxes.boxList}
-            name={boxes.name}
-            price={boxes.price}
-            pricePer={boxes.pricePer}
-            priceStartingFrom={boxes.priceStartingFrom}
-          />
+          { boxes && boxes.map((box, i) => (
+            <PricingBuilderBox
+              key={i}
+              pricingOptions={box.pricingOptions}
+              boxList={box.boxList}
+              name={box.name}
+              price={box.price}
+              pricePer={box.pricePer}
+              priceStartingFrom={box.priceStartingFrom}
+              helpText={box.helpText}
+
+              isAddon={box.isAddon}
+            />
+          )) }
 
         </div>
 
