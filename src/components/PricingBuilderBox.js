@@ -10,8 +10,10 @@ class PricingBuilderBox extends Component {
   constructor(props){
     super(props);
 
+    const isPresentInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
+
     this.state = {
-      isAddonActive: false
+      isAddonActive: isPresentInState !== -1 ? true : false
     }
   }
 
