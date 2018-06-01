@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { Link, NavLink, Route } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -23,6 +23,7 @@ class Pricing extends Component {
 
   render() {
     const heroRender = (
+      <React.Fragment>
       <div className="hero">
         <div className="hero__bg">
           <img src={require('../images/pricingHeroImg.png')} srcSet={require('../images/pricingHeroImg@2x.png')  + ' 2x'} alt=""/>
@@ -50,6 +51,13 @@ class Pricing extends Component {
           </div>
         </div>
       </div>
+
+
+      <div className="t-center" style={{'padding': '100px 0'}}>
+        <Link to="/pricing/custom" className="btn btn--mega">Custom Pricing (temp link)</Link>
+      </div>
+
+      </React.Fragment>
     )
 
     return (
@@ -59,6 +67,7 @@ class Pricing extends Component {
         </Helmet>
 
         { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
+
 
         <Route exact={true} path="/pricing" component={PricingCore} />
         <Route path="/pricing/incorporation" component={PricingIncorp} />

@@ -11,9 +11,10 @@ class PricingBuilderBox extends Component {
     super(props);
 
     const isPresentInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
-
+    
     this.state = {
-      isAddonActive: isPresentInState !== -1 ? true : false
+      isAddonActive: isPresentInState !== -1 ? true : false,
+      activeOptionId: null
     }
   }
 
@@ -39,6 +40,15 @@ class PricingBuilderBox extends Component {
 
   }
 
+  pricingOptionClickHandler = (e) => {
+    let curIndex = e.currentTarget.getAttribute('data-index');
+
+    this.setState({
+      isAddonActive: true,
+      activeOptionId: curIndex
+    })
+  }
+
   render(){
 
     const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon } = this.props;
@@ -46,7 +56,7 @@ class PricingBuilderBox extends Component {
     return(
       <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")}>
         { isAddon &&
-          <div className="p-builder-box__addon">
+          <div className="p-builder-box__addon" onClick={this.toggleAddonActive}>
             + ADD-ON
           </div>
         }
@@ -84,14 +94,23 @@ class PricingBuilderBox extends Component {
         { pricingOptions &&
           <div className="p-builder-box__options">
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
-              { pricingOptions.map((option, i) => (
-                <PricingBuilderOption
-                  key={i}
-                  name={option.name}
-                  price={option.price}
-                  pricePer={option.pricePer}
-                />
-              )) }
+              { pricingOptions.map((option, i) => {
+
+                let isActiveOption = this.state.activeOptionId == i
+
+                return(
+                  <PricingBuilderOption
+                    key={i}
+                    index={i}
+                    name={option.name}
+                    price={option.price}
+                    pricePer={option.pricePer}
+                    isActiveOption={isActiveOption}
+                    clickHandler={this.pricingOptionClickHandler}
+                  />
+                )
+
+              }) }
 
             </div>
           </div>
