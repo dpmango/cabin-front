@@ -16,11 +16,13 @@ class SignupStep2 extends Component {
     signupEmail: PropTypes.string,
     signupFields: PropTypes.object,
     setSignupId: PropTypes.func,
-    setSignupEmail: PropTypes.func
+    setSignupEmail: PropTypes.func,
+    pricingPlan: PropTypes.string,
+    pricingOptions: PropTypes.array
   };
 
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       first_name: props.signupFields.first_name,
@@ -62,12 +64,24 @@ class SignupStep2 extends Component {
 
   nextStep = () => {
     const { first_name, last_name, company_name, email, phone } = this.state;
+
+    let pricingOptionsStr = "";
+
+    this.props.pricingOptions.map( (option, i) => {
+      let index = i + 1
+      pricingOptionsStr += index + '. ' + option.name + ' (' + option.price + ') , '
+    })
+
+    console.log(pricingOptionsStr)
+
     const leadObj = {
       first_name: first_name,
       last_name: last_name,
       company_name: company_name,
       email: email,
       phone: phone,
+      pricing_plan: this.props.pricingPlan,
+      pricing_options: pricingOptionsStr
     }
 
     // if signup ID is present - then update by PATCH
@@ -146,7 +160,7 @@ class SignupStep2 extends Component {
             <div className="signup__right">
               <Formsy
                 className="signup__form"
-                onValidSubmit={this.submit}
+                onValidSubmit={this.handleSubmit}
                 onValid={this.formValid}
                 onInvalid={this.formInvalid}
                 ref={this.formRef}
@@ -238,7 +252,9 @@ class SignupStep2 extends Component {
 const mapStateToProps = (state) => ({
   signupEmail: state.signup.signupEmail,
   signupId: state.signup.signupId,
-  signupFields: state.signup.fields
+  signupFields: state.signup.fields,
+  pricingPlan: state.pricing.selectedPlan,
+  pricingOptions: state.pricing.pricingOptions
 });
 
 const mapDispatchToProps = (dispatch) => ({
