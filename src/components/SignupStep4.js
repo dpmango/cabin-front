@@ -58,7 +58,8 @@ class SignupStep4 extends Component {
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
           meeting_date: meeting_date,
-          meeting_time: meeting_time
+          meeting_time: meeting_time,
+          ispending: false
         }
       })
       .then((res) => {
