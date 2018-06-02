@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class HomePromo extends Component {
   render(){
     return(
-      <div className="home-promo">
+      <div className="home-promo" data-aos="fade-up">
         <div className="container container--narrow">
           <div className="home-promo__wrapper">
             <div className="home-promo__left">

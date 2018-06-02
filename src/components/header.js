@@ -2,10 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { openMenu, closeMenu } from '../actions/HeaderActions';
-
-// import cabinLogo from '../images/cabin-logo.png';
-// import cabinLogo2x from '../images/cabin-logo@2x.png';
 
 class Header extends React.Component {
   static propTypes = {
@@ -56,8 +52,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  openMenu: () => dispatch(openMenu()),
-  closeMenu: () => dispatch(closeMenu())
+  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(Header);

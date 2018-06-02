@@ -23,7 +23,6 @@ class Pricing extends Component {
 
   render() {
     const heroRender = (
-      <React.Fragment>
       <div className="hero">
         <div className="hero__bg">
           <img src={require('../images/pricingHeroImg.png')} srcSet={require('../images/pricingHeroImg@2x.png')  + ' 2x'} alt=""/>
@@ -51,13 +50,6 @@ class Pricing extends Component {
           </div>
         </div>
       </div>
-
-
-      <div className="t-center" style={{'padding': '100px 0'}}>
-        <Link to="/pricing/custom" className="btn btn--mega">Custom Pricing (temp link)</Link>
-      </div>
-
-      </React.Fragment>
     )
 
     return (

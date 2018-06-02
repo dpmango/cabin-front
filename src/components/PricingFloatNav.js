@@ -71,7 +71,7 @@ class PricingFloatNav extends Component {
                 <span>per month</span>
               </div>
             </div>
-            <Link to="/profile" onClick={this.onGetStartedClick} className="pricing-float__cta">
+            <Link to="/get-started" onClick={this.onGetStartedClick} className="pricing-float__cta">
               <div className="pricing-float__cta-text">Get Started</div>
               <div className="pricing-float__cta-icon">
                 <SvgIcon name="next-arrow2" />

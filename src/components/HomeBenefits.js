@@ -8,7 +8,7 @@ import HomeBenefitsList from '../components/HomeBenefitsList';
 export default class HomeBenefits extends Component {
   render(){
     return(
-      <div className="home-benefits">
+      <div className="home-benefits" data-aos="fade-up">
         <div className="container container--narrow">
           <span className="t-small">How businesses are using Cabin</span>
           <h2>Whichever stage of growth you are at, we have something for you.</h2>

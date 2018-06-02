@@ -1,8 +1,7 @@
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import About from './pages/About';
-import Profile from './pages/Profile';
-import Signup from './pages/Signup';
+import GetStarted from './pages/GetStarted';
 
 export const routes = [
   {
@@ -27,14 +26,9 @@ export const routes = [
   {
     forNavBar: true,
     navBarClass: 'btn btn--small',
-    path: '/profile',
+    path: '/get-started',
     name: 'Get Started',
-    component: Profile,
+    component: GetStarted,
     isPrivate: false
   },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup
-  }
 ];

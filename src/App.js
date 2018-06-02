@@ -3,44 +3,56 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { routes } from './routes';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Authorization from './hoc/authorization';
 // import LoadingBar from 'react-redux-loading-bar'
+import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
-require('viewport-units-buggyfill').init({
-  force: false,
-  refreshDebounceWait: 250
-});
 
-const App = () => {
-  const renderSwitch = () => (
-    <Switch>
-      {routes.map(route => {
-        const component = route.isPrivate ? Authorization(route.component) : route.component;
-        return (
+class App extends React.Component {
+
+  componentDidMount(){
+    require('viewport-units-buggyfill').init({
+      force: false,
+      refreshDebounceWait: 150
+    });
+
+    // this.aos = AOS
+    // this.aos.init()
+  }
+
+  componentDidUpdate() {
+    console.log('componenet updated')
+    // this.aos.refresh()
+  }
+
+  render(){
+    const renderSwitch = () => (
+      <Switch>
+        {routes.map(route => (
           <Route
             key={route.path}
             exact={route.isExact}
             path={route.path}
-            component={component}
+            component={route.component}
           />
-        );
-      })}
-    </Switch>
-  );
+        ))}
+      </Switch>
+    );
 
-  return (
-    <BrowserRouter>
-      <React.Fragment>
-        <div className="page">
-          <Header routes={routes.filter(route => route.forNavBar)}/>
-          <div className="page__content">
-            {renderSwitch()}
+    return (
+      <BrowserRouter>
+        <React.Fragment>
+          <div className="page">
+            <Header routes={routes.filter(route => route.forNavBar)}/>
+            <div className="page__content">
+              {renderSwitch()}
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </React.Fragment>
-    </BrowserRouter>
-  );
+        </React.Fragment>
+      </BrowserRouter>
+    );
+  }
 };
 
 export default App;

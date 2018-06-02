@@ -74,11 +74,26 @@
     margin-top: 55px
 
   &__content
+    position: relative
+    overflow: hidden
     display: flex
     padding: 90px 30px 70px
     margin-left: -15px
     margin-right: -15px
+    &::after
+      background: url('../images/circles-bg.png') no-repeat right bottom
+      // background-size: contain
+      display: inline-block
+      content: ' '
+      position: absolute
+      z-index: 1
+      right: 15px
+      bottom: 0
+      top: 0
+      width: 705px
     &-left
+      position: relative
+      z-index: 2
       flex: 0 1 45%
       max-width: 45%
       min-width: 1px
@@ -87,6 +102,8 @@
       display: flex
       flex-direction: column
     &-right
+      position: relative
+      z-index: 2
       flex: 0 1 55%
       max-width: 55%
       min-width: 1px
@@ -131,6 +148,65 @@
       font-weight: 300
 
 
+// .home-features
+//   margin: 180px 0
+//   &__bg-holder
+//     position: relative
+//     &::before
+//       display: inline-block
+//       content: ' '
+//       position: absolute
+//       z-index: 1
+//       top: 50%
+//       left: 0
+//       right: 0
+//       height: 60%
+//       background: $lightBg
+//       transform: translateY(-50%)
+//   &__wrapper
+//     position: relative
+//     z-index: 2
+//     display: flex
+//     flex-wrap: wrap
+//     margin-left: -15px
+//     margin-right: -15px
+//     margin-top: 35px
+//   &__col
+//     padding: 10px 15px
+//     flex: 0 1 50%
+//     max-width: 50%
+//     min-width: 1px
+//     min-height: 0
+//
+//   &-card
+//     padding: 30px 25px
+//     background: #FFFFFF
+//     box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+//     border-radius: 3px
+//     display: flex
+//     align-items: center
+//     &__image
+//       flex: 0 1 40%
+//       max-width: 40%
+//       background: $lightBg
+//       text-align: center
+//       min-height: 240px
+//       img
+//         max-width: 100%
+//     &__content
+//       flex: 0 1 60%
+//       max-width: 60%
+//       padding-left: 25px
+//       p
+//         font-size: 14px
+//         line-height: 1.42
+//         color: $fontColorGray
+//     &__name
+//       font-size: 18px
+//       font-weight: 500
+//       margin: 1em 0
+
+
 .home-features
   margin: 180px 0
   &__bg-holder
@@ -140,12 +216,13 @@
       content: ' '
       position: absolute
       z-index: 1
-      top: 50%
+      bottom: 0
       left: 0
       right: 0
-      height: 60%
       background: $lightBg
-      transform: translateY(-50%)
+      height: 220px
+      // height: 85%
+      // transform: translateY(43%)
   &__wrapper
     position: relative
     z-index: 2
@@ -153,33 +230,31 @@
     flex-wrap: wrap
     margin-left: -15px
     margin-right: -15px
+    padding-bottom: 80px
     margin-top: 35px
   &__col
     padding: 10px 15px
-    flex: 0 1 50%
-    max-width: 50%
+    flex: 0 1 25%
+    max-width: 25%
     min-width: 1px
     min-height: 0
 
   &-card
-    padding: 30px 25px
+    padding: 35px 25px 30px
     background: #FFFFFF
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
     border-radius: 3px
-    display: flex
-    align-items: center
     &__image
-      flex: 0 1 40%
-      max-width: 40%
       background: $lightBg
       text-align: center
-      min-height: 240px
+      size: 80px 70px
+      margin-left: auto
+      margin-right: auto
       img
         max-width: 100%
     &__content
-      flex: 0 1 60%
-      max-width: 60%
-      padding-left: 25px
+      margin-top: 35px
+      text-align: center
       p
         font-size: 14px
         line-height: 1.42

@@ -1,14 +1,65 @@
 .pricing-scope
-  margin: 140px
+  margin: 140px 0
   &__holder
     max-width: 770px
     margin-left: auto
     margin-right: auto
   &__box
+    position: relative
+    overflow: hidden
     background: #FFFFFF
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
     border-radius: 3px
     padding: 70px 70px 50px
+    &--collumned
+      flex: 1 0 auto
+      display: flex
+      flex-direction: column
+      padding: 60px 15px 40px
+      text-align: center
+      .pricing-scope
+        &__icon
+          flex-basis: 62px
+          margin-bottom: 25px
+        &__description
+          display: flex
+          align-items: center
+          justify-content: center
+          min-height: 50px
+          vertical-align: middle
+        &__list
+          margin: 30px -15px
+          margin-left: auto
+          margin-right: auto
+          &-col
+            flex-basis: 100%
+            max-width: 100%
+        &__names
+          flex: 0 0 auto
+
+        &__price
+          margin-top: auto
+          margin-left: auto
+          margin-right: auto
+          text-align: center
+          padding-right: 0
+          padding-top: 10px
+        &__description
+          max-width: 100%
+
+  &__grid
+    display: flex
+    margin-left: -15px
+    margin-right: -15px
+  &__col
+    flex: 0 1 33.3%
+    max-width: 33.3%
+    min-width: 1px
+    min-height: 0
+    display: flex
+    flex-direction: column
+    padding: 15px
+
   &__head
     display: flex
     align-items: center
@@ -30,6 +81,20 @@
     margin-top: 10px
     max-width: 285px
 
+  &__tag
+    position: absolute
+    top: 35px
+    right: -45px
+    transform: rotate(45deg)
+    font-size: 10px
+    color: white
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.071em
+    text-align: center
+    background: $colorBlue
+    padding: 10px 50px 8px
+    pointer-events: none
   &__price
     position: relative
     flex: 0 0 auto
@@ -41,7 +106,10 @@
     &-for
       font-size: 14px
       color: $fontColorGray
-
+    &-starting
+      font-size: 10px
+      color: $fontColorGray
+      margin-bottom: 8px
   &__tooltip
     position: absolute
     right: 0
@@ -56,6 +124,7 @@
     margin-top: 60px
     margin-left: -15px
     margin-right: -45px
+    text-align: left
     &-col
       flex: 0 1 50%
       max-width: 50%
@@ -444,3 +513,134 @@
           color: $colorBlue
         &-icon
           transform: translateX(5px)
+
+
+
+
+.pricing-table
+  position: relative
+  padding: 50px
+  margin: 120px 0 150px
+  &::after
+    display: inline-block
+    content: ' '
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 50%
+    background: #F6F7FB url('../images/pricingTableBg.png') no-repeat right center
+    z-index: 1
+  > .container
+    position: relative
+    z-index: 2
+
+  &__wrapper
+    margin: 50px 0
+    background: tomato
+
+  &__table
+    margin: 25px 0
+  &__thead
+    display: flex
+    justify-content: flex-end
+    .pricing-table__td
+      width: 155px
+      border-bottom: 0
+
+  &__tbody
+
+  &__tr
+    display: flex
+    background: white
+    // align-items: center
+    padding-left: 25px
+    .pricing-table__td
+      &:nth-child(2), &:nth-child(3), &:nth-child(4)
+        flex: 0 0 auto
+        width: 155px
+    &:last-child
+      .pricing-table__td
+        border-bottom: 0
+
+  &__td
+    background: white
+    padding: 13px
+    border-bottom: 1px solid rgba($fontColorGray, .5)
+    &--primary
+      flex: 1 1 auto
+      display: flex
+      align-items: center
+      .ico-question-circle
+        margin-left: 6px
+        color: $colorBlue
+        font-size: 17px
+        transform: translateY(3px)
+    &-content
+      display: inline-block
+      font-size: 12px
+      color: $fontColorGray
+      text-align: center
+      line-height: 1.41
+
+  &__head
+    text-align: center
+    .icon
+      transform: scale(.6)
+      transform-origin: center top
+      filter: saturate(0)
+    &-name
+      font-size: 13px
+      color: $fontColorGray
+      line-height: 1.27
+      word-spacing: 100vw
+    &-tag
+      font-size: 10px
+      color: white
+      font-weight: 500
+      text-transform: uppercase
+      letter-spacing: 0.071em
+      text-align: center
+      background: $colorBlue
+      margin-top: 20px
+      padding: 10px 0px 8px
+      margin-left: -13px
+      margin-right: -13px
+    &--popular
+      .icon
+        filter: none
+      .pricing-table__head
+        &-name
+          font-weight: 500
+          color: $colorBlue
+
+  &__tag
+    display: inline-block
+    background: #9A9FB5
+    border-radius: 3px
+    color: white
+    font-size: 10px
+    font-weight: 500
+    text-transform: uppercase
+    padding: 4px 8px
+    margin-right: 10px
+  &__name
+    display: inline-block
+    font-size: 12px
+    color: $fontColorGray
+    transform: translateY(1px)
+
+  &__checkmark
+    display: flex
+    align-items: center
+    justify-content: center
+    background: $colorGreen
+    border-radius: 50%
+    size: 26px
+    margin-right: 20px
+    color: white
+    margin-left: auto
+    margin-right: auto
+    .ico
+      font-size: 11px
+      transform: translate(.5px,0)

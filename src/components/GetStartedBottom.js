@@ -14,7 +14,7 @@ class GetStartedBottom extends Component {
     //   return null
     // }
     return(
-      <div className="bottom-cta">
+      <div className="bottom-cta" data-aos="fade-up">
         <div className="container">
           <div className="bottom-cta__wrapper">
             <h1>Get Started Today</h1>

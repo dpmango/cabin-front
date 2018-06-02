@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import PropTypes from 'prop-types';
-import { SIGN_OUT, SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
 import SignupStep1 from '../components/SignupStep1'
 import SignupStep2 from '../components/SignupStep2'
@@ -13,18 +13,12 @@ import SignupStep5 from '../components/SignupStep5'
 class Profile extends React.Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,
-    signOut: PropTypes.func.isRequired,
-    username: PropTypes.string,
     signupStep: PropTypes.number
   };
 
   componentDidMount(){
     this.props.setHeaderClass('header--logo-only');
   }
-
-  signOut = () => {
-    this.props.signOut();
-  };
 
   renderStep = () => {
     const { signupStep } = this.props;
@@ -54,13 +48,6 @@ class Profile extends React.Component {
 
         {this.renderStep()}
 
-        {/* <div className='profile-info'>
-          <div className='group'>
-            <label>Username:</label>
-            <span>{this.props.username}</span>
-          </div>
-          <button onClick={this.signOut}>Sign out</button>
-        </div> */}
       </div>
     );
   }
@@ -68,14 +55,12 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-    username: state.auth.username,
     signupStep: state.signup.signupStep
   }
 );
 
 const mapDispatchToProps = (dispatch) => (
   {
-    signOut: () => dispatch({ type: SIGN_OUT }),
     setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
   }
 );
