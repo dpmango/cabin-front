@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import SvgIcon from '../components/SvgIcon';
+import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
 
+import SvgIcon from '../components/SvgIcon';
+
 export default class PricingTableTr extends Component {
+  static propTypes = {
+    tag: PropTypes.string,
+    name: PropTypes.string,
+    tooltipContent: PropTypes.string,
+    checks: PropTypes.array
+  };
+
   render(){
 
     const { tag, name, checks, tooltipContent } = this.props;
@@ -32,7 +41,7 @@ export default class PricingTableTr extends Component {
           let ShowContentText = typeof(col) === "string" ? true : false
 
           return(
-            <div className="pricing-table__td">
+            <div className="pricing-table__td" key={i}>
               { ShowCheckMark && <div className="pricing-table__checkmark"><SvgIcon name="check" /></div> }
               { ShowContentText && <span className="pricing-table__td-content">{col}</span> }
             </div>

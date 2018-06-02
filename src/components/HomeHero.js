@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignupEmail from '../components/SignupEmail';
+import SignupEmail from '../containers/SignupEmail';
 
 export default class HomeHero extends Component {
   render(){

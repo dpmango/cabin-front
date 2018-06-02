@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import GetStartedBottom from '../components/GetStartedBottom';
+import GetStartedBottom from '../containers/GetStartedBottom';
 
-import PricingCore from '../components/PricingCore';
-import PricingIncorp from '../components/PricingIncorp';
-import PricingDormant from '../components/PricingDormant';
-import PricingCustom from '../components/PricingCustom';
+import PricingCore from '../containers/PricingCore';
+import PricingIncorp from '../containers/PricingIncorp';
+import PricingDormant from '../containers/PricingDormant';
+import PricingCustom from '../containers/PricingCustom';
 
 class Pricing extends Component {
   static propTypes = {

@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
 
 import SvgIcon from '../components/SvgIcon';
-import PricingBuilderBox from '../components/PricingBuilderBox';
+import PricingBuilderBox from '../containers/PricingBuilderBox';
 
 export default class PricingBuilderSection extends Component {
+  static propTypes = {
+    headerStep: PropTypes.string,
+    headerName: PropTypes.string,
+    headerDesc: PropTypes.string,
+    headerTooltipContent: PropTypes.string,
+    boxes: PropTypes.array
+  };
+
   render(){
 
     const { headerStep, headerName, headerDesc, headerTooltipContent, boxes } = this.props;

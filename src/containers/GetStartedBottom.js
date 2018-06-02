@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import SignupEmail from '../components/SignupEmail';
+import SignupEmail from '../containers/SignupEmail';
 
 class GetStartedBottom extends Component {
   static propTypes = {

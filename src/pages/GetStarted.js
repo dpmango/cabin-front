@@ -4,11 +4,11 @@ import { Helmet } from "react-helmet";
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import SignupStep1 from '../components/SignupStep1'
-import SignupStep2 from '../components/SignupStep2'
-import SignupStep3 from '../components/SignupStep3'
-import SignupStep4 from '../components/SignupStep4'
-import SignupStep5 from '../components/SignupStep5'
+import SignupStep1 from '../containers/SignupStep1'
+import SignupStep2 from '../containers/SignupStep2'
+import SignupStep3 from '../containers/SignupStep3'
+import SignupStep4 from '../containers/SignupStep4'
+import SignupStep5 from '../containers/SignupStep5'
 
 class Profile extends React.Component {
   static propTypes = {

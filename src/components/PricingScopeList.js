@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SvgIcon from '../components/SvgIcon';
 
 export default class PricingScopeList extends Component {
+  static propTypes = {
+    list: PropTypes.array
+  }
+
   render(){
 
     const { list } = this.props;

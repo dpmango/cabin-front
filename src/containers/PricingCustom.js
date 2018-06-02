@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
 import PricingBuilderSection from '../components/PricingBuilderSection';
-import PricingFloatNav from '../components/PricingFloatNav';
+import PricingFloatNav from '../containers/PricingFloatNav';
 
 class PricingCustom extends Component {
   constructor(props) {

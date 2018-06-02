@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import GetStartedBottom from '../components/GetStartedBottom';
+import GetStartedBottom from '../containers/GetStartedBottom';
 import HomeHero from '../components/HomeHero';
 import HomeLogos from '../components/HomeLogos';
 // import HomePromo from '../components/HomePromo';

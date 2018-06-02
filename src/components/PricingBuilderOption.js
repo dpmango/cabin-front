@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class PricingBuilderOption extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    price: PropTypes.string,
+    pricePer: PropTypes.string,
+    index: PropTypes.number,
+    isActiveOption: PropTypes.bool,
+    clickHandler: PropTypes.func
+  };
+
   render(){
 
     const { name, price, pricePer, index, isActiveOption } = this.props;

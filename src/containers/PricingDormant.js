@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
 import { Helmet } from 'react-helmet';
 
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
+import PricingScopeList from '../components/PricingScopeList';
+
 import SvgIcon from '../components/SvgIcon';
 
-export default class PricingDormant extends Component {
+class PricingDormant extends Component {
+
+  onSelectPlanClick = (pricingName) => {
+    this.props.setPricingPlan(pricingName);
+  }
 
   render(){
     const faqContent = [
@@ -53,41 +62,24 @@ export default class PricingDormant extends Component {
                   </div>
                 </div>
               </div>
-
-              <div className="pricing-scope__list">
-                <div className="pricing-scope__list-col">
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Company name search and reservation</span>
-                  </div>
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Company structure and Constitution advisory</span>
-                  </div>
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Minutes and resolution of First Director’s Meeting</span>
-                  </div>
-                </div>
-                <div className="pricing-scope__list-col">
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Company name search and reservation</span>
-                  </div>
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Company structure and Constitution advisory</span>
-                  </div>
-                  <div className="pricing-scope__list-el">
-                    <SvgIcon name="check" />
-                    <span>Minutes and resolution of First Director’s Meeting</span>
-                  </div>
-                </div>
-              </div>
+              <PricingScopeList
+                list={[
+                  [
+                    "Company name search and reservation",
+                    "Company structure and Constitution advisory",
+                    "Minutes and resolution of First Director’s Meeting"
+                  ],
+                  [
+                    "Company name search and reservation",
+                    "Company structure and Constitution advisory",
+                    "Minutes and resolution of First Director’s Meeting"
+                  ]
+                ]}
+              />
 
             </div>
             <div className="pricing-scope__cta">
-              <a className="btn btn--mega btn--block">Select <span>Dormant</span> Plan</a>
+              <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Dormant (S$850)')} className="btn btn--mega btn--block">Select <span>Dormant</span> Plan</Link>
             </div>
           </div>
         </div>
@@ -167,3 +159,13 @@ export default class PricingDormant extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  // pricingOptions: state.pricing.pricingOptions,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PricingDormant);

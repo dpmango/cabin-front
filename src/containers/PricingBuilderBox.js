@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 
@@ -7,11 +8,24 @@ import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
 
 class PricingBuilderBox extends Component {
 
+  static propTypes = {
+    name: PropTypes.string,
+    price: PropTypes.string,
+    pricePer: PropTypes.string,
+    priceStartingFrom: PropTypes.bool,
+    helpText: PropTypes.string,
+    pricingOptions: PropTypes.array,
+    boxList: PropTypes.array,
+    isAddon: PropTypes.bool,
+    addPricingOption: PropTypes.func,
+    removePricingOption: PropTypes.func,
+  };
+
   constructor(props){
     super(props);
 
     const isPresentInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
-    
+
     this.state = {
       isAddonActive: isPresentInState !== -1 ? true : false,
       activeOptionId: null
@@ -96,7 +110,7 @@ class PricingBuilderBox extends Component {
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
-                let isActiveOption = this.state.activeOptionId == i
+                let isActiveOption = this.state.activeOptionId === i
 
                 return(
                   <PricingBuilderOption
