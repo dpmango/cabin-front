@@ -150,27 +150,29 @@ class PricingCore extends Component {
             <div className="pricing-table__wrapper">
               <div className="pricing-table__table">
                 <div className="pricing-table__thead">
-                  <div className="pricing-table__td">
-                    <div className="pricing-table__head">
-                      <i className="icon icon-pricing-corporate" />
-                      <div className="pricing-table__head-name">Corporate Secretary</div>
+                  <div className="pricing-table__thead-wrapper">
+
+                    <div className="pricing-table__td">
+                      <div className="pricing-table__head">
+                        <i className="icon icon-pricing-corporate" />
+                        <div className="pricing-table__head-name">Corporate Secretary</div>
+                      </div>
+                    </div>
+                    <div className="pricing-table__td">
+                      <div className="pricing-table__head">
+                        <i className="icon icon-pricing-compliance" />
+                        <div className="pricing-table__head-name">All-In</div>
+                      </div>
+                    </div>
+                    <div className="pricing-table__td">
+                      <div className="pricing-table__head pricing-table__head--popular">
+                        <i className="icon icon-pricing-custom" />
+                        <div className="pricing-table__head-name">Custom</div>
+                        <div className="pricing-table__head-tag">Most Popular</div>
+                      </div>
                     </div>
 
                   </div>
-                  <div className="pricing-table__td">
-                    <div className="pricing-table__head">
-                      <i className="icon icon-pricing-compliance" />
-                      <div className="pricing-table__head-name">All-In</div>
-                    </div>
-                  </div>
-                  <div className="pricing-table__td">
-                    <div className="pricing-table__head pricing-table__head--popular">
-                      <i className="icon icon-pricing-custom" />
-                      <div className="pricing-table__head-name">Custom</div>
-                      <div className="pricing-table__head-tag">Most Popular</div>
-                    </div>
-                  </div>
-
                 </div>
 
                 <div className="pricing-table__tbody">
@@ -217,7 +219,7 @@ class PricingCore extends Component {
                     ]}
                   />
                   <PricingTableTr
-                    tag="ACRA"
+                    tag="IRAS"
                     name="Corporate tax computation and filing of ECI and Form C-S"
                     checks={[
                       false, true, true
@@ -261,6 +263,21 @@ class PricingCore extends Component {
                       false, false, true
                     ]}
                   />
+                </div>
+              </div>
+
+              <div className="pricing-table-legend">
+                <div className="pricing-table-legend__texts">
+                  <span className="pricing-table__tag">ARCA</span>
+                  <span className="pricing-table__name">Statutory requirement by ACRA</span>
+
+                  <span className="pricing-table__tag">IRAS</span>
+                  <span className="pricing-table__name">Statutory requirement by IRAS</span>
+                </div>
+
+                <div className="pricing-table-legend__cta">
+                  <Link to="/pricing/custom">Learn more <SvgIcon name="right-arrow" /></Link>
+
                 </div>
               </div>
             </div>

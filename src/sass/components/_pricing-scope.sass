@@ -1,0 +1,147 @@
+.pricing-scope
+  margin: 140px 0
+  &__holder
+    max-width: 770px
+    margin-left: auto
+    margin-right: auto
+  &__box
+    position: relative
+    overflow: hidden
+    background: #FFFFFF
+    box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+    border-radius: 3px
+    padding: 70px 70px 50px
+    &--collumned
+      flex: 1 0 auto
+      display: flex
+      flex-direction: column
+      padding: 60px 15px 40px
+      text-align: center
+      .pricing-scope
+        &__icon
+          flex-basis: 62px
+          margin-bottom: 25px
+        &__description
+          display: flex
+          align-items: center
+          justify-content: center
+          min-height: 50px
+          vertical-align: middle
+        &__list
+          margin: 30px -15px
+          margin-left: auto
+          margin-right: auto
+          &-col
+            flex-basis: 100%
+            max-width: 100%
+        &__names
+          flex: 0 0 auto
+
+        &__price
+          margin-top: auto
+          margin-left: auto
+          margin-right: auto
+          text-align: center
+          padding-right: 0
+          padding-top: 10px
+        &__description
+          max-width: 100%
+
+  &__grid
+    display: flex
+    margin-left: -15px
+    margin-right: -15px
+  &__col
+    flex: 0 1 33.3%
+    max-width: 33.3%
+    min-width: 1px
+    min-height: 0
+    display: flex
+    flex-direction: column
+    padding: 15px
+
+  &__head
+    display: flex
+    align-items: center
+  &__icon
+    flex: 0 0 100px
+    max-width: 100%
+    min-width: 1px
+    min-height: 0
+  &__names
+    flex: 1 1 auto
+
+  &__name
+    font-size: 18px
+    line-height: 1.5
+  &__description
+    color: $fontColorGray
+    font-size: 16px
+    line-height: 1.56
+    margin-top: 10px
+    max-width: 285px
+
+  &__tag
+    position: absolute
+    top: 35px
+    right: -45px
+    transform: rotate(45deg)
+    font-size: 10px
+    color: white
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.071em
+    text-align: center
+    background: $colorBlue
+    padding: 10px 50px 8px
+    pointer-events: none
+  &__price
+    position: relative
+    flex: 0 0 auto
+    max-width: 100%
+    text-align: right
+    padding-right: 30px
+    &-main
+      font-size: 30px
+    &-for
+      font-size: 14px
+      color: $fontColorGray
+    &-starting
+      font-size: 10px
+      color: $fontColorGray
+      margin-bottom: 8px
+  &__tooltip
+    position: absolute
+    right: 0
+    top: 5px
+    font-size: 0
+    .ico
+      font-size: 17px
+      color: $colorBlue
+
+  &__list
+    display: flex
+    margin-top: 60px
+    margin-left: -15px
+    margin-right: -45px
+    text-align: left
+    &-col
+      flex: 0 1 50%
+      max-width: 50%
+      min-width: 1px
+      min-height: 0
+      padding: 0 15px
+    &-el
+      margin-bottom: 10px
+      display: flex
+      span
+        display: inline-block
+        margin-left: 10px
+        font-size: 12px
+        color: $fontColorGray
+      .ico
+        flex: 0 0 auto
+        color: $colorGreen
+        font-size: 8px
+  &__cta
+    margin-top: 25px

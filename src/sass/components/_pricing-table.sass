@@ -1,0 +1,228 @@
+
+.pricing-table
+  position: relative
+  padding: 50px
+  margin: 120px 0 150px
+  &::after
+    display: inline-block
+    content: ' '
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 50%
+    background: #F6F7FB url('../images/pricingTableBg.png') no-repeat right center
+    z-index: 1
+  > .container
+    position: relative
+    z-index: 2
+
+  &__wrapper
+    margin: 50px 0
+
+  &__table
+    position: relative
+    margin: 25px 0 0
+    &::after
+      // mind top and bottom offsets
+      // for the proper box-shadow above table
+      display: inline-block
+      content: ' '
+      position: absolute
+      z-index: 3
+      top: -52px
+      background: transparent
+      pointer-events: none
+      bottom: -52px
+      right: 4px
+      width: 155px
+      box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+
+  &__thead
+    position: relative
+    z-index: 2
+    display: flex
+    // justify-content: flex-end
+    // align-items: flex-end
+    &-wrapper
+      display: flex
+      justify-content: flex-end
+      align-items: flex-end
+      margin-left: auto
+      box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+      max-height: 120px
+    .pricing-table__td
+      width: 155px
+      background: white
+      &::after
+        display: none
+        // border-bottom: 0
+
+      &:first-child
+        border-top-left-radius: 3px
+      &:last-child
+        border-top-left-radius: 3px
+        border-top-right-radius: 3px
+        transform: translateX(-4px)
+
+
+  &__tbody
+    box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+    border-radius: 3px
+    position: relative
+    overflow: hidden
+  &__tr
+    display: flex
+    background: white
+    // align-items: center
+    padding-left: 25px
+    .pricing-table__td
+      &:first-child
+        &::after
+          left: 13px
+      &:nth-child(2), &:nth-child(3), &:nth-child(4)
+        flex: 0 0 auto
+        width: 155px
+      &:nth-child(4)
+        transform: translateX(-4px)
+        &::after
+          left: 4px
+    &:last-child
+      .pricing-table__td
+        &::after
+          display: none
+          // border-bottom: 0
+
+  &__td
+    position: relative
+    padding: 13px
+    &::after
+      display: inline-block
+      content: ' '
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      background: rgba($fontColorGray, .5)
+      height: 1px
+
+    &--primary
+      flex: 1 1 auto
+      display: flex
+      align-items: center
+      .ico-question-circle
+        margin-left: 6px
+        color: $colorBlue
+        font-size: 17px
+        transform: translateY(3px)
+    &-content
+      display: inline-block
+      font-size: 12px
+      color: $fontColorGray
+      text-align: center
+      line-height: 1.41
+
+  &__head
+    text-align: center
+    .icon
+      transform: scale(.6)
+      transform-origin: center top
+      filter: saturate(0)
+    &-name
+      font-size: 13px
+      color: $fontColorGray
+      line-height: 1.27
+      word-spacing: 100vw
+      min-height: 33px
+      margin-top: -5px
+    &-tag
+      font-size: 10px
+      color: white
+      font-weight: 500
+      text-transform: uppercase
+      letter-spacing: 0.071em
+      text-align: center
+      background: $colorBlue
+      margin-top: 5px
+      padding: 10px 0px 8px
+      margin-left: -13px
+      margin-right: -13px
+    &--popular
+      padding-top: 17px
+      .icon
+        filter: none
+      .pricing-table__head
+        &-name
+          font-weight: 500
+          color: $colorBlue
+
+  &__tag
+    display: inline-block
+    background: #9A9FB5
+    border-radius: 3px
+    color: white
+    font-size: 10px
+    font-weight: 500
+    text-transform: uppercase
+    padding: 4px 8px
+    margin-right: 10px
+  &__name
+    display: inline-block
+    font-size: 12px
+    color: $fontColorGray
+    transform: translateY(1px)
+
+  &__checkmark
+    display: flex
+    align-items: center
+    justify-content: center
+    background: $colorGreen
+    border-radius: 50%
+    size: 26px
+    margin-right: 20px
+    color: white
+    margin-left: auto
+    margin-right: auto
+    .ico
+      font-size: 11px
+      transform: translate(.5px,0)
+
+
+.pricing-table-legend
+  display: flex
+  // align-items: center
+  min-height: 52px
+  &__texts
+    flex: 1 1 auto
+    padding-right: 30px
+    padding-left: 38px
+    display: flex
+    align-items: center
+    .pricing-table__name
+      margin-right: 18px
+  &__cta
+    flex: 0 0 155px
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-left: auto
+    width: 155px
+    text-align: center
+    background: white
+    border-bottom-left-radius: 3px
+    border-bottom-right-radius: 3px
+    transform: translateX(-4px)
+
+    a
+      font-size: 12px
+      font-weight: 500
+      color: $colorBlue
+      transition: color .25s $ease
+      .ico
+        font-size: 11px
+        margin-left: 5px
+        transition: transform .25s $ease
+      &:hover
+        color: $colorGreen
+        .ico
+          transform: translateX(3px)

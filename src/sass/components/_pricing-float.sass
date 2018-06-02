@@ -1,0 +1,72 @@
+
+.pricing-float
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 9
+  background: white
+  box-shadow: 0 -15px 30px 0 rgba(0,0,0,0.03)
+  transform: translateY(100%)
+  pointer-events: none
+  transition: .25s $ease
+  &.is-active
+    // show when options selected?
+    transform: translateY(0)
+    pointer-events: all
+
+  &__wrapper
+    min-height: 100px
+    padding: 10px 0
+    display: flex
+    align-items: center
+
+  &__summary
+    color: $fontColorGray
+    display: flex
+    align-items: center
+    &-holder
+      font-size: 14px
+      margin-right: 20px
+    &-price
+      span
+        display: inline-block
+        &:first-child
+          font-size: 24px
+          color: $fontColor
+        &:last-child
+          font-size: 14px
+          margin-left: 5px
+
+  &__cta
+    margin-left: auto
+    display: flex
+    align-items: center
+    cursor: pointer
+    &-text
+      font-size: 12px
+      font-weight: 500
+      margin-right: 12px
+      color: $fontColor
+      transition: .25s $ease
+    &-icon
+      flex: 0 0 47px
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      size: 47px
+      background: $colorGreen
+      border-radius: 50%
+      font-size: 0
+      color: white
+      transition: .25s $ease
+      .ico
+        font-size: 17px
+
+    &:hover
+      .pricing-float__cta
+        &-text
+          color: $colorBlue
+        &-icon
+          transform: translateX(5px)
