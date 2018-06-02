@@ -1,7 +1,13 @@
-import Home from './pages/Home';
-import Pricing from './pages/Pricing';
-import About from './pages/About';
-import GetStarted from './pages/GetStarted';
+// import Home from './pages/Home';
+// import Pricing from './pages/Pricing';
+// import About from './pages/About';
+// import GetStarted from './pages/GetStarted';
+
+import AsyncComponent from './hoc/AsyncComponent';
+const Home = AsyncComponent(() => import("./pages/Home"));
+const Pricing = AsyncComponent(() => import("./pages/Pricing"));
+const About = AsyncComponent(() => import("./pages/About"));
+const GetStarted = AsyncComponent(() => import("./pages/GetStarted"));
 
 export const routes = [
   {

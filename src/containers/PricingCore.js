@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Helmet } from 'react-helmet';
-import { Tooltip } from 'react-tippy';
-
 
 import SvgIcon from '../components/SvgIcon';
 import FaqPanel from '../components/FaqPanel';

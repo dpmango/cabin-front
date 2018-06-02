@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -59,7 +59,6 @@ class Pricing extends Component {
         </Helmet>
 
         { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
-
 
         <Route exact={true} path="/pricing" component={PricingCore} />
         <Route path="/pricing/incorporation" component={PricingIncorp} />
