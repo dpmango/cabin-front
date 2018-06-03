@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION } from '../store/ActionTypes';
+import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 
 import PricingBuilderOption from '../components/PricingBuilderOption';
@@ -19,48 +19,103 @@ class PricingBuilderBox extends Component {
     isAddon: PropTypes.bool,
     addPricingOption: PropTypes.func,
     removePricingOption: PropTypes.func,
+    addPricingOptionSub: PropTypes.func,
+    removePricingOptionSub: PropTypes.func,
   };
 
   constructor(props){
     super(props);
 
-    const isPresentInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
+    this.activeBoxInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
+    this.activeOptionIdInState = null;
+
+    // if ( props.pricingOptions && props.pricingOptions.length > 0 ){
+    //   props.pricingOptions.forEach((option) => {
+    //     let foundId = props.pricingOptionsSubState.map( x => x.name).indexOf(option.name);
+    //
+    //     // search within scope of the current box
+    //     console.log( this.activeBoxInState , option.parentId )
+    //     if ( foundId !== -1 && this.activeBoxInState === option.parentId ){
+    //       this.activeOptionIdInState = foundId
+    //       console.log('found option in state', foundId)
+    //     }
+    //   })
+    // }
 
     this.state = {
-      isAddonActive: isPresentInState !== -1 ? true : false,
-      activeOptionId: null
+      isAddonActive: this.activeBoxInState !== -1 ? true : false,
+      activeBoxId: this.activeBoxInState,
+      activeOptionId: this.activeOptionIdInState
     }
   }
 
-  toggleAddonActive = () => {
-    this.setState({
-      isAddonActive: !this.state.isAddonActive
-    }, () => this.changePricingOptions() )
+  toggleAddonActive = (fromOption, optionObj) => {
+
+    // when option is selected - box is always active
+    if ( fromOption === true ){
+      this.setState({
+        isAddonActive: true,
+        activeBoxId: this.props.pricingOptionsState.length - 1, // how to check if from active or unactive box
+        activeOptionId: optionObj.curIndex
+      }, () => {
+        this.changePricingOptions(true)
+        this.changePricingOptionsSub(optionObj.curName, optionObj.curPrice)
+      } )
+
+    } else {
+      this.setState({
+        isAddonActive: !this.state.isAddonActive,
+        activeBoxId: this.props.pricingOptionsState.length - 1,
+      }, () => this.changePricingOptions() )
+    }
   }
 
-  changePricingOptions = () => {
+  changePricingOptions = (fromOption) => {
 
-    const { name, price, pricingOptionsState } = this.props;
+    const { name, price } = this.props;
 
     if ( this.state.isAddonActive ){
       this.props.addPricingOption({
         name, price
       });
     } else {
-      const idForRemoval = pricingOptionsState.map( x => x.name).indexOf(name);
 
-      this.props.removePricingOption(idForRemoval);
+      this.props.removePricingOption(this.state.activeBoxId);
     }
 
   }
 
-  pricingOptionClickHandler = (e) => {
-    let curIndex = e.currentTarget.getAttribute('data-index');
+  changePricingOptionsSub = (name, price) => {
 
-    this.setState({
-      isAddonActive: true,
-      activeOptionId: curIndex
+    const parentId = this.state.activeBoxId;
+
+    this.props.addPricingOptionSub({
+      parentId, name, price
     })
+
+    // +++
+    // removal logic
+
+    // this.props.removePricingOptionSub({
+    //   parentId
+    // })
+
+  }
+
+  pricingOptionClickHandler = (e) => {
+    let curTarget = e.currentTarget
+    let curIndex = Number(curTarget.getAttribute('data-index'));
+    let curName = curTarget.getAttribute('data-name');
+    let curPrice = curTarget.getAttribute('data-price');
+
+    if ( this.state.activeOptionId !== curIndex ){ // invalid validation ?
+      // selected not the same element
+      // if the same - do nothing
+      this.toggleAddonActive(true,{
+        curIndex, curName, curPrice
+      })
+    }
+
   }
 
   render(){
@@ -137,11 +192,14 @@ class PricingBuilderBox extends Component {
 
 const mapStateToProps = (state) => ({
   pricingOptionsState: state.pricing.pricingOptions,
+  pricingOptionsSubState: state.pricing.pricingOptionsSub,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addPricingOption: (data) => dispatch({ type: ADD_PRICING_OPTION, payload: data }),
   removePricingOption: (data) => dispatch({ type: REMOVE_PRICING_OPTION, payload: data }),
+  addPricingOptionSub: (data) => dispatch({ type: ADD_PRICING_OPTION_SUB, payload: data }),
+  removePricingOptionSub: (data) => dispatch({ type: REMOVE_PRICING_OPTION_SUB, payload: data }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderBox);

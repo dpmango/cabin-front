@@ -32,11 +32,9 @@ export default class PricingTableTr extends Component {
               <SvgIcon name="question-circle" />
             </Tooltip>
           }
-
-
         </div>
-        { checks.map((col, i) => {
 
+        { checks.map((col, i) => {
           let ShowCheckMark = typeof(col) === "boolean" ? col : false
           let ShowContentText = typeof(col) === "string" ? true : false
 

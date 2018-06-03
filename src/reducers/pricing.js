@@ -2,7 +2,8 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   selectedPlan: '',
-  pricingOptions: []
+  pricingOptions: [],
+  pricingOptionsSub: []
 }
 
 const pricing = (state = initialState, action) => {
@@ -28,6 +29,24 @@ const pricing = (state = initialState, action) => {
         pricingOptions: [
           ...state.pricingOptions.slice(0, action.payload),
           ...state.pricingOptions.slice(action.payload + 1)
+        ]
+        // pricingOptions: state.pricingOptions.filter(item => item !== action.payload),
+      }
+
+    case types.ADD_PRICING_OPTION_SUB:
+      return {
+        ...state,
+        pricingOptionsSub: [
+          ...state.pricingOptionsSub,
+          action.payload
+        ]
+      }
+    case types.REMOVE_PRICING_OPTION_SUB:
+      return {
+        ...state,
+        pricingOptionsSub: [
+          ...state.pricingOptionsSub.slice(0, action.payload),
+          ...state.pricingOptionsSub.slice(action.payload + 1)
         ]
         // pricingOptions: state.pricingOptions.filter(item => item !== action.payload),
       }

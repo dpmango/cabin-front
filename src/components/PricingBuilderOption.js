@@ -16,7 +16,7 @@ export default class PricingBuilderOption extends Component {
     const { name, price, pricePer, index, isActiveOption } = this.props;
 
     return(
-      <div className="p-builder-option" data-index={index} onClick={this.props.clickHandler}>
+      <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.props.clickHandler}>
         <div className={"p-builder-option__wrapper " + (isActiveOption ? "is-selected" : " ")}>
           <div className="p-builder-option__head">
             <div className="p-builder-option__name">{name}</div>
