@@ -48,9 +48,12 @@ const pricing = (state = initialState, action) => {
           ...state.pricingOptionsSub.slice(0, action.payload),
           ...state.pricingOptionsSub.slice(action.payload + 1)
         ]
-        // pricingOptions: state.pricingOptions.filter(item => item !== action.payload),
       }
-
+    case types.REMOVE_ALL_PRICING_OPTIONS_SUB:
+      return {
+        ...state,
+        pricingOptionsSub: []
+      }
     default:
       return state;
   }

@@ -50,6 +50,7 @@ class PricingCustom extends Component {
 
           boxes={[
             {
+              id: 1,
               name: "Monthly accounting and tax services",
               price: "S$200",
               pricePer: "per month",
@@ -98,6 +99,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 2,
               name: "GST-registered companies",
               isAddon: true,
               price: "+S$125",
@@ -122,6 +124,7 @@ class PricingCustom extends Component {
 
           boxes={[
             {
+              id: 3,
               name: "Corporate secretary services",
               isAddon: true,
               price: "+S$30",
@@ -151,6 +154,7 @@ class PricingCustom extends Component {
 
           boxes={[
             {
+              id: 4,
               name: "Accounts payable service",
               isAddon: true,
               price: "S$200",
@@ -186,6 +190,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 5,
               name: "Accounts receivable service",
               isAddon: true,
               price: "S$250",
@@ -217,6 +222,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 6,
               name: "Payroll service",
               isAddon: true,
               price: "S$250",
@@ -242,6 +248,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 7,
               name: "Cabin assistant ",
               isAddon: true,
               price: "S$150",
@@ -272,6 +279,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 8,
               name: "Cost center profitability tracking",
               isAddon: true,
               price: "+S$75",
@@ -284,6 +292,7 @@ class PricingCustom extends Component {
               ]
             },
             {
+              id: 9,
               name: "Projections and budget tracking",
               isAddon: true,
               price: "+S$125",

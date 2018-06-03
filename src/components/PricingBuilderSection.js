@@ -42,6 +42,7 @@ export default class PricingBuilderSection extends Component {
           { boxes && boxes.map((box, i) => (
             <PricingBuilderBox
               key={i}
+              id={box.id}
               pricingOptions={box.pricingOptions}
               boxList={box.boxList}
               name={box.name}
@@ -49,7 +50,6 @@ export default class PricingBuilderSection extends Component {
               pricePer={box.pricePer}
               priceStartingFrom={box.priceStartingFrom}
               helpText={box.helpText}
-
               isAddon={box.isAddon}
             />
           )) }

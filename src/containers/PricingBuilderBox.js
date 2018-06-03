@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB } from '../store/ActionTypes';
+import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 
 import PricingBuilderOption from '../components/PricingBuilderOption';
@@ -9,6 +9,7 @@ import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
 class PricingBuilderBox extends Component {
 
   static propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.string,
     pricePer: PropTypes.string,
@@ -21,84 +22,98 @@ class PricingBuilderBox extends Component {
     removePricingOption: PropTypes.func,
     addPricingOptionSub: PropTypes.func,
     removePricingOptionSub: PropTypes.func,
+    removeAllPricingOptionsSub: PropTypes.func
   };
 
   constructor(props){
     super(props);
 
-    this.activeBoxInState = props.pricingOptionsState.map( x => x.name).indexOf(props.name);
+    this.activeBoxInState = props.pricingOptionsState.some( x => x.id === props.id)
     this.activeOptionIdInState = null;
 
-    // if ( props.pricingOptions && props.pricingOptions.length > 0 ){
-    //   props.pricingOptions.forEach((option) => {
-    //     let foundId = props.pricingOptionsSubState.map( x => x.name).indexOf(option.name);
-    //
-    //     // search within scope of the current box
-    //     console.log( this.activeBoxInState , option.parentId )
-    //     if ( foundId !== -1 && this.activeBoxInState === option.parentId ){
-    //       this.activeOptionIdInState = foundId
-    //       console.log('found option in state', foundId)
-    //     }
-    //   })
-    // }
+    if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
+      props.pricingOptionsSubState.forEach((option) => {
+        if ( option.boxId == props.id ){
+          props.pricingOptions.forEach( (x, index) => {
+            if( x.name === option.name ){
+              this.activeOptionIdInState = index
+            }
+          })
+        }
+      })
+    }
 
     this.state = {
-      isAddonActive: this.activeBoxInState !== -1 ? true : false,
-      activeBoxId: this.activeBoxInState,
+      isAddonActive: this.activeBoxInState,
       activeOptionId: this.activeOptionIdInState
     }
   }
 
-  toggleAddonActive = (fromOption, optionObj) => {
-
-    // when option is selected - box is always active
+  changeOtions = (fromOption, optionObj) => {
     if ( fromOption === true ){
-      this.setState({
-        isAddonActive: true,
-        activeBoxId: this.props.pricingOptionsState.length - 1, // how to check if from active or unactive box
-        activeOptionId: optionObj.curIndex
-      }, () => {
-        this.changePricingOptions(true)
-        this.changePricingOptionsSub(optionObj.curName, optionObj.curPrice)
-      } )
+      this.setState({isAddonActive: true}, () => {
+        this.changePricingBox()
 
+        this.setState({
+          activeOptionId: optionObj.curIndex
+        }, () => {
+          this.changePricingOption(optionObj.curName, optionObj.curPrice)
+        })
+
+      })
     } else {
-      this.setState({
-        isAddonActive: !this.state.isAddonActive,
-        activeBoxId: this.props.pricingOptionsState.length - 1,
-      }, () => this.changePricingOptions() )
+      this.setState({isAddonActive: !this.state.isAddonActive}, () => {
+        this.changePricingBox()
+      })
     }
+
   }
 
-  changePricingOptions = (fromOption) => {
+  changePricingBox = () => {
 
-    const { name, price } = this.props;
+    const { name, price, id, pricingOptionsState } = this.props;
+    const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
 
     if ( this.state.isAddonActive ){
-      this.props.addPricingOption({
-        name, price
-      });
-    } else {
 
-      this.props.removePricingOption(this.state.activeBoxId);
+      const isAddedAlready = positionInStateArray !== -1
+
+      if ( !isAddedAlready ){
+        this.props.addPricingOption({
+          id, name, price
+        })
+      }
+
+    } else {
+      this.props.removePricingOption(positionInStateArray);
+
+      this.clearAllOptions();
     }
 
   }
 
-  changePricingOptionsSub = (name, price) => {
+  changePricingOption = (name, price) => {
 
-    const parentId = this.state.activeBoxId;
+    this.clearAllOptions();
+
+    const boxId = this.props.id;
 
     this.props.addPricingOptionSub({
-      parentId, name, price
+      boxId, name, price
     })
 
-    // +++
-    // removal logic
+  }
 
-    // this.props.removePricingOptionSub({
-    //   parentId
-    // })
+  clearAllOptions = () => {
+    // this.props.removeAllPricingOptionsSub();
+
+    const { id, pricingOptionsSubState } = this.props;
+
+    pricingOptionsSubState.forEach( (x, i) => {
+      if ( x.boxId === id ){
+        this.props.removePricingOptionSub(i)
+      }
+    })
 
   }
 
@@ -108,10 +123,8 @@ class PricingBuilderBox extends Component {
     let curName = curTarget.getAttribute('data-name');
     let curPrice = curTarget.getAttribute('data-price');
 
-    if ( this.state.activeOptionId !== curIndex ){ // invalid validation ?
-      // selected not the same element
-      // if the same - do nothing
-      this.toggleAddonActive(true,{
+    if ( this.state.activeOptionId !== curIndex ){ // do nothing clicking active el
+      this.changeOtions(true,{
         curIndex, curName, curPrice
       })
     }
@@ -125,14 +138,14 @@ class PricingBuilderBox extends Component {
     return(
       <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")}>
         { isAddon &&
-          <div className="p-builder-box__addon" onClick={this.toggleAddonActive}>
+          <div className="p-builder-box__addon" onClick={this.changeOtions}>
             + ADD-ON
           </div>
         }
         <div className="p-builder-box__wrapper">
           <div className="p-builder-box__head">
             { isAddon &&
-              <div className="p-builder-box__toggle" onClick={this.toggleAddonActive}></div>
+              <div className="p-builder-box__toggle" onClick={this.changeOtions}></div>
             }
             <div className="p-builder-box__name">{name}</div>
             { isAddon &&
@@ -200,6 +213,7 @@ const mapDispatchToProps = (dispatch) => ({
   removePricingOption: (data) => dispatch({ type: REMOVE_PRICING_OPTION, payload: data }),
   addPricingOptionSub: (data) => dispatch({ type: ADD_PRICING_OPTION_SUB, payload: data }),
   removePricingOptionSub: (data) => dispatch({ type: REMOVE_PRICING_OPTION_SUB, payload: data }),
+  removeAllPricingOptionsSub: (data) => dispatch({ type: REMOVE_ALL_PRICING_OPTIONS_SUB }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderBox);
