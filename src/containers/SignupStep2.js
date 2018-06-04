@@ -18,7 +18,8 @@ class SignupStep2 extends Component {
     setSignupId: PropTypes.func,
     setSignupEmail: PropTypes.func,
     pricingPlan: PropTypes.string,
-    pricingOptions: PropTypes.array
+    pricingOptions: PropTypes.array,
+    pricingOptionsSub: PropTypes.array
   };
 
   constructor(props) {
@@ -34,6 +35,8 @@ class SignupStep2 extends Component {
     };
 
     this.formRef = React.createRef();
+
+    console.log( this.buildOptionsString() )
   }
 
   formInvalid = () => {
@@ -65,14 +68,7 @@ class SignupStep2 extends Component {
   nextStep = () => {
     const { first_name, last_name, company_name, email, phone } = this.state;
 
-    let pricingOptionsStr = "";
-
-    this.props.pricingOptions.map( (option, i) => {
-      let index = i + 1
-      pricingOptionsStr += index + '. ' + option.name + ' (' + option.price + ') , '
-    })
-
-    console.log(pricingOptionsStr)
+    let pricingOptionsStr = this.buildOptionsString();
 
     const leadObj = {
       first_name: first_name,
@@ -86,35 +82,77 @@ class SignupStep2 extends Component {
 
     // if signup ID is present - then update by PATCH
     // else - create new
-    if ( this.props.signupId ){
-      // patch lead
-      api
-        .patch('signup_leads/' + this.props.signupId, {
-          signup_lead: leadObj
-        })
-        .then((res) => {
-          this.updateSignup()
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      // create new instance
-      api
-        .post(`signup_leads`, {
-          signup_lead: leadObj
-        })
-        .then((res) => {
-          this.props.setSignupId(res.data.id);
-          this.props.setSignupEmail(res.data.email);
-          this.updateSignup();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    // if ( this.props.signupId ){
+    //   // patch lead
+    //   api
+    //     .patch('signup_leads/' + this.props.signupId, {
+    //       signup_lead: leadObj
+    //     })
+    //     .then((res) => {
+    //       this.updateSignup()
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   // create new instance
+    //   api
+    //     .post(`signup_leads`, {
+    //       signup_lead: leadObj
+    //     })
+    //     .then((res) => {
+    //       this.props.setSignupId(res.data.id);
+    //       this.props.setSignupEmail(res.data.email);
+    //       this.updateSignup();
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // }
+
+  }
+
+  buildOptionsString = () => {
+
+    const { pricingOptions, pricingOptionsSub } = this.props;
+    const pricingOptionsPresent = pricingOptions && pricingOptions.length > 0
+    const pricingOptionsSubPresent = pricingOptionsSub && pricingOptionsSub.length > 0
+    let str = "";
+    let totalPrice = 0;
+
+
+    // watch if box without options present
+    if ( pricingOptionsPresent ){
+      pricingOptions.forEach( (option, i) => {
+        let index = i + 1
+
+        if ( pricingOptionsSubPresent ){
+          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id );
+
+          if ( connectedSubOption.length > 0 ){
+            const subOpt = connectedSubOption[0];
+            str += index + '. ' + option.name + ' (' + subOpt.name + ') (' + subOpt.price + '), '
+            totalPrice += this.parsePrice(subOpt.price)
+          } else {
+            // no option
+            str += index + '. ' + option.name + ' (' + option.price + ') , '
+            totalPrice += this.parsePrice(option.price)
+          }
+        } else {
+          str += index + '. ' + option.name + ' (' + option.price + ') , '
+          totalPrice += this.parsePrice(option.price)
+        }
+
+        str += ' || Total price: S$' + totalPrice
+
+      })
     }
 
+    return str
+  }
 
+  parsePrice = (str) => {
+    return Number((str).match(/\d+$/))
   }
 
   updateSignup = () => {
@@ -254,7 +292,8 @@ const mapStateToProps = (state) => ({
   signupId: state.signup.signupId,
   signupFields: state.signup.fields,
   pricingPlan: state.pricing.selectedPlan,
-  pricingOptions: state.pricing.pricingOptions
+  pricingOptions: state.pricing.pricingOptions,
+  pricingOptionsSub: state.pricing.pricingOptionsSub
 });
 
 const mapDispatchToProps = (dispatch) => ({

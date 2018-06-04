@@ -11,21 +11,19 @@ class PricingFloatNav extends Component {
   static propTypes = {
     heroHeight: PropTypes.number,
     pricingOptions: PropTypes.array,
+    pricingOptionsSub: PropTypes.array,
     setPricingPlan: PropTypes.func
   };
 
   constructor(props){
     super(props);
 
+    this.scrollWithThrottle = throttle(this.handleScroll, 100);
+
     this.state = {
       isScrolledAfterHero: false
     }
 
-    this.scrollWithThrottle = throttle(this.handleScroll, 100);
-  }
-
-  onGetStartedClick = () => {
-    this.props.setPricingPlan('Custom');
   }
 
   componentDidMount() {
@@ -50,18 +48,45 @@ class PricingFloatNav extends Component {
     }
   };
 
-  render(){
-    // calculate Price summ
-    let summaryPrice = 0;
+  onGetStartedClick = () => {
+    this.props.setPricingPlan('Custom');
+  }
 
-    if ( this.props.pricingOptions.length > 0 ){
-      this.props.pricingOptions.map( (option) => {
-        summaryPrice += Number((option.price).match(/\d+$/))
-      } )
+  getTotal = () => {
+
+    const { pricingOptions, pricingOptionsSub } = this.props;
+    let calc = 0;
+
+    // add all suboptions first
+    if ( pricingOptionsSub && pricingOptionsSub.length > 0 ){
+      pricingOptionsSub.forEach( (sub) => {
+        calc += this.parsePrice(sub.price)
+      })
     }
 
+    // watch if box without options present
+    if ( pricingOptions && pricingOptions.length > 0 ){
+      pricingOptions.forEach( (option) => {
+        if ( !pricingOptionsSub.some( x => x.boxId === option.id ) ){
+          calc += this.parsePrice(option.price);
+        }
+      })
+    }
+
+    return calc
+  }
+
+  parsePrice = (str) => {
+    return Number((str).match(/\d+$/))
+  }
+
+  render(){
+    // calculate Price summ
+    const { isScrolledAfterHero } = this.state;
+    let summaryPrice = this.getTotal();
+
     return(
-      <div className={ summaryPrice > 0 && this.state.isScrolledAfterHero ? "pricing-float is-active" : "pricing-float"}>
+      <div className={ summaryPrice > 0 && isScrolledAfterHero ? "pricing-float is-active" : "pricing-float"}>
         <div className="container container--narrow">
           <div className="pricing-float__wrapper">
             <div className="pricing-float__summary">
@@ -86,6 +111,7 @@ class PricingFloatNav extends Component {
 
 const mapStateToProps = (state) => ({
   pricingOptions: state.pricing.pricingOptions,
+  pricingOptionsSub: state.pricing.pricingOptionsSub
 });
 
 const mapDispatchToProps = (dispatch) => ({

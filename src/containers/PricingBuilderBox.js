@@ -88,6 +88,10 @@ class PricingBuilderBox extends Component {
       this.props.removePricingOption(positionInStateArray);
 
       this.clearAllOptions();
+
+      this.setState({
+        activeOptionId: null 
+      })
     }
 
   }
