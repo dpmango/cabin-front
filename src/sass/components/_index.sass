@@ -8,6 +8,22 @@
     margin-right: auto
 
 
+.learn-more
+  font-size: 12px
+  font-weight: 500
+  color: $colorBlue
+  cursor: pointer
+  transition: color .25s $ease
+  .ico
+    font-size: 11px
+    margin-left: 5px
+    transform: translate(0, 1px)
+    transition: transform .25s $ease
+  &:hover
+    color: $colorGreen
+    .ico
+      transform: translate(3px, 1px)
+
 .people
   margin: 120px 0 140px 0
   &__wrapper

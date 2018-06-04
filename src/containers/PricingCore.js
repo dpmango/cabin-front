@@ -15,9 +15,48 @@ class PricingCore extends Component {
 
   };
 
+  constructor(props){
+    super(props);
+
+    this.tableRef = React.createRef();
+  }
+
   onSelectPlanClick = (pricingName) => {
     this.props.setPricingPlan(pricingName);
   }
+
+  scrollToTable = () => {
+    this.scrollTo(this.tableRef.current.offsetTop, 1000)
+  }
+
+  scrollTo = (to, duration) =>  {
+    const element = document.scrollingElement || document.documentElement
+    const start = element.scrollTop
+    const change = to - start
+    const startDate = +new Date()
+    const easeInOutQuad = function(t, b, c, d) {
+      t /= d/2;
+      if (t < 1) return c/2*t*t + b;
+      t--;
+      return -c/2 * (t*(t-2) - 1) + b;
+    }
+
+    const animateScroll = () => {
+      const currentDate = +new Date();
+      const currentTime = currentDate - startDate;
+
+      element.scrollTop = parseInt(easeInOutQuad(currentTime, start, change, duration));
+        if(currentTime < duration) {
+          requestAnimationFrame(animateScroll);
+        }
+        else {
+          element.scrollTop = to;
+        }
+    };
+    animateScroll();
+
+  }
+
 
   render(){
     const faqContent = [
@@ -68,6 +107,9 @@ class PricingCore extends Component {
                 <div className="pricing-scope__cta">
                   <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary (S$350)')} className="btn btn--mega btn--block">Select <span>Corporate Secretary</span> Plan</Link>
                 </div>
+                <div className="pricing-scope__compare">
+                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                </div>
               </div>
 
               <div className="pricing-scope__col">
@@ -99,6 +141,9 @@ class PricingCore extends Component {
                 <div className="pricing-scope__cta">
                   <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'All-in (S$950)')} className="btn btn--mega btn--block">Select <span>All-in</span> Plan</Link>
                 </div>
+                <div className="pricing-scope__compare">
+                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                </div>
               </div>
 
               <div className="pricing-scope__col">
@@ -125,22 +170,30 @@ class PricingCore extends Component {
                     ]}
                   />
 
+                  <div className="pricing-scope__more">
+                    <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
+                  </div>
+
                   <div className="pricing-scope__price">
                     <div className="pricing-scope__price-starting">starting at</div>
-                    <div className="pricing-scope__price-main">S$950</div>
+                    <div className="pricing-scope__price-main">S$200</div>
                     <div className="pricing-scope__price-for">per year</div>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/pricing/custom" className="btn btn--mega btn--block">Select <span>Custom</span> Plan</Link>
                 </div>
+                <div className="pricing-scope__compare">
+                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                </div>
+
               </div>
 
             </div>
           </div>
         </div>
 
-        <div className="pricing-table">
+        <div className="pricing-table" ref={this.tableRef}>
           <div className="container">
             <div className="t-center">
               <h2>Detailed Features</h2>
@@ -274,8 +327,7 @@ class PricingCore extends Component {
                 </div>
 
                 <div className="pricing-table-legend__cta">
-                  <Link to="/pricing/custom">Learn more <SvgIcon name="right-arrow" /></Link>
-
+                  <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
                 </div>
               </div>
             </div>
