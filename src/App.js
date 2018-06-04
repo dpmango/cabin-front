@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 // import LoadingBar from 'react-redux-loading-bar'
 // import AOS from 'aos';
 // import 'aos/dist/aos.css';
+import svg4everybody from 'svg4everybody';
 
 
 class App extends React.Component {
@@ -16,7 +17,7 @@ class App extends React.Component {
       refreshDebounceWait: 150
     });
 
-    require('svg4everybody');
+    svg4everybody();
 
     // this.aos = AOS
     // this.aos.init()
