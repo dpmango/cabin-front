@@ -24,6 +24,9 @@ class Header extends React.Component {
             <NavLink to='/' className="header__logo">
               <i className="icon icon-cabin-logo" />
             </NavLink>
+            <a href="tel:+65 3158 5495" className="header__phone">
+              <span>Call us at <span className="header__phone-tel">+65 3158 5495</span></span>
+            </a>
             <ul className="header__menu">
               {this.props.routes.map(route =>
                 <li key={route.path}>
