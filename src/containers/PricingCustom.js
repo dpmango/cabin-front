@@ -229,6 +229,7 @@ class PricingCustom extends Component {
               pricePer: "per month",
               priceStartingFrom: true,
               // rangeSlider ?
+              rangeSlider: true,
               // pricingOptions: [
               //   {
               //     name: "<100 outstanding invoices",

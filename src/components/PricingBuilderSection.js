@@ -45,6 +45,7 @@ export default class PricingBuilderSection extends Component {
               id={box.id}
               pricingOptions={box.pricingOptions}
               boxList={box.boxList}
+              rangeSlider={box.rangeSlider}
               name={box.name}
               price={box.price}
               pricePer={box.pricePer}

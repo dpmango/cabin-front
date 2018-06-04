@@ -9,11 +9,12 @@ export default class PricingOption extends Component {
     tooltipContent: PropTypes.string,
     price: PropTypes.string,
     pricePer: PropTypes.string,
-    priceSuf: PropTypes.string
+    priceSuf: PropTypes.string,
+    withoutPlus: PropTypes.bool
   };
 
   render(){
-    const { name, tooltipContent, price, pricePer, priceSuf } = this.props
+    const { name, tooltipContent, price, pricePer, priceSuf, withoutPlus } = this.props
 
     return(
       <div className="pricing-option">
@@ -30,7 +31,7 @@ export default class PricingOption extends Component {
           </div>
         </div>
         <div className="pricing-option__price">
-          <div className="pricing-option__price-main"><span className="pricing-option__price-suf">{priceSuf}</span><span className="pricing-option__price-plus">+</span>{price}</div>
+          <div className="pricing-option__price-main"><span className="pricing-option__price-suf">{priceSuf}</span><span className="pricing-option__price-plus">{withoutPlus ? '' : '+'}</span>{price}</div>
           <div className="pricing-option__price-for" dangerouslySetInnerHTML={{__html:pricePer}} ></div>
         </div>
       </div>

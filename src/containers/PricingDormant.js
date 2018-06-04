@@ -51,7 +51,7 @@ class PricingDormant extends Component {
                 <div className="pricing-scope__price">
                   <div className="pricing-scope__price-main">S$850</div>
                   <div className="pricing-scope__price-for">per year</div>
-                  <div className="pricing-scope__tooltip">
+                  {/*<div className="pricing-scope__tooltip">
                     <Tooltip
                       title="This plan is very good for startaps"
                       position="left"
@@ -60,6 +60,7 @@ class PricingDormant extends Component {
                         <SvgIcon name="question-circle" />
                     </Tooltip>
                   </div>
+                  */}
                 </div>
               </div>
               <PricingScopeList
@@ -116,11 +117,6 @@ class PricingDormant extends Component {
                   priceSuf="from"
                   pricePer="per transaction"
                 />
-              </div>
-            </div>
-            <div className="pricing-options__col">
-              <div className="pricing-options__section-name">Accounting & Tax</div>
-              <div className="pricing-options__section">
                 <PricingOption
                   name="Corporate Shareholder Involved"
                   tooltipContent="Tooltip content for pricing option"
@@ -131,7 +127,7 @@ class PricingDormant extends Component {
                   name="5th Director/Shareholder Onwards"
                   tooltipContent="Tooltip content for pricing option"
                   price="S$25"
-                  pricePer="per induvidual<br>per year"
+                  pricePer="per entity<br>per year"
                 />
                 <PricingOption
                   name="Provision of Nominee Director"
@@ -141,9 +137,39 @@ class PricingDormant extends Component {
                 />
               </div>
             </div>
+            <div className="pricing-options__col">
+              <div className="pricing-options__section-name">Accounting and Tax</div>
+              <div className="pricing-options__section">
+                <PricingOption
+                  name="GST Registration"
+                  tooltipContent="For companies with revenue more than S$1M in the last 12 month"
+                  price="S$300"
+                  withoutPlus={true}
+                />
+                <PricingOption
+                  name="Form C Filling Required"
+                  tooltipContent="Tooltip content for pricing option"
+                  price="S$215"
+                  withoutPlus={true}
+                />
+                <PricingOption
+                  name="XBRL Filing required (Financial Highlights)"
+                  tooltipContent="Tooltip content for pricing option"
+                  price="S$315"
+                  withoutPlus={true}
+                />
+                <PricingOption
+                  name="XBRL Filling required (Full Set)"
+                  tooltipContent="Tooltip content for pricing option"
+                  price="S$650"
+                  withoutPlus={true}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
 
       <div className="faq">
         <div className="t-center">

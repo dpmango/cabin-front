@@ -171,6 +171,39 @@
           max-width: 100%
 
 
+  &-slider
+    &__val
+      margin: 25px 0
+      font-size: 18px
+      color: $fontColor
+      text-align: center
+      opacity: 0
+      transition: .25s $ease
+      &.is-visible
+        opacity: 1
+    &__price
+      display: flex
+      align-items: center
+      justify-content: center
+      opacity: 0
+      transition: .25s $ease
+      &.is-visible
+        opacity: 1
+      &-box
+        padding: 15px 25px 11px
+        text-align: center
+        background: white
+      span
+        display: inline-block
+        &:first-child
+          display: block
+          font-size: 16px
+          color: $fontColor
+        &:last-child
+          font-size: 14px
+          margin-top: 5px
+          color: $fontColorGray
+
 .p-builder-option
   flex: 0 1 auto
   padding: 10px

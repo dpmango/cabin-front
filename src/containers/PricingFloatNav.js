@@ -18,7 +18,7 @@ class PricingFloatNav extends Component {
   constructor(props){
     super(props);
 
-    this.scrollWithThrottle = throttle(this.handleScroll, 100);
+    this.scrollWithThrottle = throttle(this.handleScroll, 200);
 
     this.state = {
       isScrolledAfterHero: false

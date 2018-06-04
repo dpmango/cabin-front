@@ -341,9 +341,10 @@ class PricingCore extends Component {
               <h2>Additional requirements</h2>
               <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
             </div>
-            <div className="pricing-options__section-name">Corporate<br/> Secretary</div>
+
             <div className="pricing-options__grid">
               <div className="pricing-options__col">
+                <div className="pricing-options__section-name">Corporate Secretary</div>
                 <div className="pricing-options__section">
                   <PricingOption
                     name="Non-shares related matters"
@@ -364,10 +365,6 @@ class PricingCore extends Component {
                     priceSuf="from"
                     pricePer="per transaction"
                   />
-                </div>
-              </div>
-              <div className="pricing-options__col">
-                <div className="pricing-options__section">
                   <PricingOption
                     name="Corporate Shareholder Involved"
                     tooltipContent="Tooltip content for pricing option"
@@ -378,13 +375,42 @@ class PricingCore extends Component {
                     name="5th Director/Shareholder Onwards"
                     tooltipContent="Tooltip content for pricing option"
                     price="S$25"
-                    pricePer="per induvidual<br>per year"
+                    pricePer="per entity<br>per year"
                   />
                   <PricingOption
                     name="Provision of Nominee Director"
                     tooltipContent="Tooltip content for pricing option"
                     price="S$2000"
                     pricePer="per year"
+                  />
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                <div className="pricing-options__section-name">Accounting and Tax</div>
+                <div className="pricing-options__section">
+                  <PricingOption
+                    name="GST Registration"
+                    tooltipContent="For companies with revenue more than S$1M in the last 12 month"
+                    price="S$300"
+                    withoutPlus={true}
+                  />
+                  <PricingOption
+                    name="Form C Filling Required"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$215"
+                    withoutPlus={true}
+                  />
+                  <PricingOption
+                    name="XBRL Filing required (Financial Highlights)"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$315"
+                    withoutPlus={true}
+                  />
+                  <PricingOption
+                    name="XBRL Filling required (Full Set)"
+                    tooltipContent="Tooltip content for pricing option"
+                    price="S$650"
+                    withoutPlus={true}
                   />
                 </div>
               </div>
