@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB } from '../store/ActionTypes';
+import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
+
+import PricingSliderDb from '../store/PricingSliderDb'
 
 import PricingBuilderOption from '../components/PricingBuilderOption';
 import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
@@ -24,7 +26,8 @@ class PricingBuilderBox extends Component {
     removePricingOption: PropTypes.func,
     addPricingOptionSub: PropTypes.func,
     removePricingOptionSub: PropTypes.func,
-    removeAllPricingOptionsSub: PropTypes.func
+    removeAllPricingOptionsSub: PropTypes.func,
+    setPricingSlider: PropTypes.func
   };
 
   constructor(props){
@@ -33,7 +36,10 @@ class PricingBuilderBox extends Component {
     this.activeBoxInState = props.pricingOptionsState.some( x => x.id === props.id)
     this.activeOptionIdInState = null;
 
-    if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
+
+    if ( props.rangeSlider === true ){
+      this.sliderValInState = props.pricingSliderState
+    } else if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
       props.pricingOptionsSubState.forEach((option) => {
         if ( option.boxId == props.id ){
           props.pricingOptions.forEach( (x, index) => {
@@ -48,8 +54,8 @@ class PricingBuilderBox extends Component {
     this.state = {
       isAddonActive: this.activeBoxInState,
       activeOptionId: this.activeOptionIdInState,
-      sliderVal: null,
-      sliderValPrice: null
+      sliderVal: this.sliderValInState,
+      sliderValPrice: PricingSliderDb[this.sliderValInState - 1]
     }
   }
 
@@ -140,41 +146,25 @@ class PricingBuilderBox extends Component {
   }
 
 
-  rangeSliderChanged = (val) => {
+  rangeSliderChange = (val) => {
     this.setState({
       sliderVal: val,
-      sliderValPrice: this.sliderValDb(val)
+      sliderValPrice: PricingSliderDb[val - 1]
+    }, () => {
+      this.props.setPricingSlider(val)
     })
   };
 
-  sliderValDb = (emp) => {
+  rangeSliderAfterChange = (val) => {
+    const curIndex = 0;
+    const curName = val + ' employees';
+    const curPrice = 'S$' + PricingSliderDb[val - 1]
 
-    const db = [
-      "10",
-      "20",
-      "30",
-      "40",
-      "50",
-      "60",
-      "70",
-      "80",
-      "90",
-      "100",
-      "110",
-      "120",
-      "130",
-      "140",
-      "150",
-      "160",
-      "170",
-      "180",
-      "190",
-      "200",
-    ]
+    this.changeOtions(true,{
+      curIndex, curName, curPrice
+    })
 
-    return db[emp - 1]
   }
-
 
 
   render(){
@@ -246,12 +236,14 @@ class PricingBuilderBox extends Component {
 
         { rangeSlider &&
           <div className="p-builder-box__options">
-            <div className="p-builder-slider">
+            <div className="p-builder-box-slider">
               <Slider
                 defaultValue={0}
+                value={this.state.sliderVal}
                 min={0}
                 max={50}
-                onChange={this.rangeSliderChanged}
+                onChange={this.rangeSliderChange}
+                onAfterChange={this.rangeSliderAfterChange}
               />
 
               <div className={"p-builder-box-slider__val " + (this.state.sliderVal ? "is-visible" : "")}>{this.state.sliderVal} employees</div>
@@ -274,6 +266,7 @@ class PricingBuilderBox extends Component {
 
 const mapStateToProps = (state) => ({
   pricingOptionsState: state.pricing.pricingOptions,
+  pricingSliderState: state.pricing.slider,
   pricingOptionsSubState: state.pricing.pricingOptionsSub,
 });
 
@@ -283,6 +276,7 @@ const mapDispatchToProps = (dispatch) => ({
   addPricingOptionSub: (data) => dispatch({ type: ADD_PRICING_OPTION_SUB, payload: data }),
   removePricingOptionSub: (data) => dispatch({ type: REMOVE_PRICING_OPTION_SUB, payload: data }),
   removeAllPricingOptionsSub: (data) => dispatch({ type: REMOVE_ALL_PRICING_OPTIONS_SUB }),
+  setPricingSlider: (data) => dispatch({ type: SET_PRICING_SLIDER, payload: data }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderBox);

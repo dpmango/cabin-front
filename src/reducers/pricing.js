@@ -2,6 +2,7 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   selectedPlan: 'General',
+  slider: null,
   pricingOptions: [],
   pricingOptionsSub: []
 }
@@ -54,6 +55,12 @@ const pricing = (state = initialState, action) => {
         ...state,
         pricingOptionsSub: []
       }
+    case types.SET_PRICING_SLIDER:
+      return {
+        ...state,
+        slider: action.payload
+      }
+
     default:
       return state;
   }
