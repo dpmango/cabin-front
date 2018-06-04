@@ -11,6 +11,7 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
 import SvgIcon from '../components/SvgIcon';
+import CheckBox from '../components/CheckBox';
 
 class SignupStep4 extends Component {
   static propTypes = {
@@ -26,7 +27,8 @@ class SignupStep4 extends Component {
       // date: props.signupFields.date,
       meeting_date: props.signupFields.meeting_date,
       selectValue: props.signupFields.selectValue,
-      meeting_time: props.signupFields.meeting_time
+      meeting_time: props.signupFields.meeting_time,
+      checkbox_active: props.signupFields.checkbox_active,
     };
   }
 
@@ -50,16 +52,23 @@ class SignupStep4 extends Component {
     });
   }
 
+  checkboxClick = () => {
+    this.setState({
+      checkbox_active: !this.state.checkbox_active
+    })
+  }
+
   nextStep = () => {
 
-    const { meeting_date, meeting_time, date, selectValue } = this.state;
+    const { meeting_date, meeting_time, date, selectValue, checkbox_active } = this.state;
 
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
           meeting_date: meeting_date,
           meeting_time: meeting_time,
-          ispending: false
+          ispending: false,
+          email_instead: checkbox_active
         }
       })
       .then((res) => {
@@ -71,6 +80,7 @@ class SignupStep4 extends Component {
           meeting_date: meeting_date,
           selectValue: selectValue,
           meeting_time: meeting_time,
+          email_instead: checkbox_active
         })
 
       })
@@ -88,7 +98,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, focused, selectValue } = this.state;
+    const { date, focused, selectValue, checkbox_active } = this.state;
 
     return(
       <div className="container">
@@ -112,7 +122,7 @@ class SignupStep4 extends Component {
               <div className="ui-group">
                 <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
               </div>
-              <div className="signup__datetime">
+              <div className={ "signup__datetime " + (checkbox_active ? "is-disabled" : "") }>
                 <div className="signup__datetime-col">
                   <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
                     <SingleDatePicker
@@ -161,6 +171,19 @@ class SignupStep4 extends Component {
                 </div>
 
               </div>
+
+              <div className="signup__email-instead">
+                <div className="ui-group">
+                  <CheckBox
+                    name="email_instead"
+                    isAcitve={checkbox_active}
+                    text="Email me instead"
+                    clickHandler={this.checkboxClick}
+                  />
+                </div>
+              </div>
+
+
             </div>
           </div>
 

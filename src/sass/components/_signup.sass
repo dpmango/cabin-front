@@ -107,6 +107,10 @@
     align-items: center
     margin-left: -10px
     margin-right: -10px
+    transition: opacity .25s $ease
+    &.is-disabled
+      opacity: .5
+      pointer-events: none
     &-col
       flex: 0 1 50%
       max-width: 50%
@@ -127,3 +131,6 @@
     &.is-focused
       .SingleDatePickerInput_calendarIcon
         transform: rotate(180deg) translateY(-50%)
+
+  &__email-instead
+    margin-top: 90px

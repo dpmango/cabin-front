@@ -1,7 +1,7 @@
 import * as types from '../store/ActionTypes';
 
 const initialState = {
-  selectedPlan: '',
+  selectedPlan: 'General',
   pricingOptions: [],
   pricingOptionsSub: []
 }

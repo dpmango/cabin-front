@@ -24,7 +24,6 @@ class Header extends React.Component {
             <NavLink to='/' className="header__logo">
               <i className="icon icon-cabin-logo" />
             </NavLink>
-            <span style={{'fontSize': '10px', 'marginLeft': '10px'}}>id: {this.props.signupId}</span>
             <ul className="header__menu">
               {this.props.routes.map(route =>
                 <li key={route.path}>
@@ -47,12 +46,11 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   hamburgerActive: state.header.hamburgerActive,
   menuOpened: state.header.menuOpened,
-  stateClass: state.header.stateClass,
-  signupId: state.signup.signupId
+  stateClass: state.header.stateClass
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(Header);

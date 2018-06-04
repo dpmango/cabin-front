@@ -12,14 +12,6 @@ class FormInput extends Component {
     mask: PropTypes.array
   };
 
-  constructor(props) {
-    super();
-
-    this.state = {
-
-    }
-  }
-
   changeValue = (event) => {
     this.props.onChangeHandler(event)
     this.props.setValue(event.currentTarget.value);
@@ -30,17 +22,11 @@ class FormInput extends Component {
 
     // An error message is returned only if the component is invalid
     const errorMessage = this.props.isFormSubmitted() ? this.props.getErrorMessage() : null;
-    const statusMark = this.props.isValid() ? 'green' : 'red';
     const parentClass = this.props.isFormSubmitted() ? this.props.isValid() ? 'ui-group' : 'ui-group has-error' : 'ui-group'
-
-    // props
-    // .isRequired()
-    // .isPristine()
 
     if ( mask ){
       return (
         <div className={parentClass}>
-          <span className={'ui-validation-status ' + statusMark} />
           <MaskedInput
             type="text"
             mask={mask}
@@ -56,7 +42,6 @@ class FormInput extends Component {
     } else {
       return(
         <div className={parentClass}>
-          <span className={'ui-validation-status ' + statusMark} />
           <input
             type="text"
             name={name}

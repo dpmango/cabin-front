@@ -36,7 +36,6 @@ class SignupStep2 extends Component {
 
     this.formRef = React.createRef();
 
-    console.log( this.buildOptionsString() )
   }
 
   formInvalid = () => {
@@ -82,33 +81,33 @@ class SignupStep2 extends Component {
 
     // if signup ID is present - then update by PATCH
     // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
+    if ( this.props.signupId ){
+      // patch lead
+      api
+        .patch('signup_leads/' + this.props.signupId, {
+          signup_lead: leadObj
+        })
+        .then((res) => {
+          this.updateSignup()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      // create new instance
+      api
+        .post(`signup_leads`, {
+          signup_lead: leadObj
+        })
+        .then((res) => {
+          this.props.setSignupId(res.data.id);
+          this.props.setSignupEmail(res.data.email);
+          this.updateSignup();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 
   }
 
@@ -127,9 +126,9 @@ class SignupStep2 extends Component {
         let index = i + 1
 
         if ( pricingOptionsSubPresent ){
-          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id );
+          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id )[0];
 
-          if ( connectedSubOption.length > 0 ){
+          if ( connectedSubOption && connectedSubOption.length > 0 ){
             const subOpt = connectedSubOption[0];
             str += index + '. ' + option.name + ' (' + subOpt.name + ') (' + subOpt.price + '), '
             totalPrice += this.parsePrice(subOpt.price)

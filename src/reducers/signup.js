@@ -16,7 +16,8 @@ const initialState = {
     // date: moment(),
     meeting_date: '',
     selectValue: null,
-    meeting_time: ''
+    meeting_time: '',
+    email_instead: false
   }
 }
 
