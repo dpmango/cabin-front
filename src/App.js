@@ -16,6 +16,8 @@ class App extends React.Component {
       refreshDebounceWait: 150
     });
 
+    require('svg4everybody');
+
     // this.aos = AOS
     // this.aos.init()
   }

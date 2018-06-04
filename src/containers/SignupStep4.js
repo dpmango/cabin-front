@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import api from '../services/Api';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
+// IE 11 error for react-dates
+import 'airbnb-js-shims';
 //https://github.com/JedWatson/react-select
 import Select from 'react-select';
 // https://github.com/airbnb/react-dates

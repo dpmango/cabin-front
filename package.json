@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "airbnb-js-shims": "^1.6.0",
     "aos": "^2.3.0",
     "autoprefixer": "^8.4.1",
     "axios": "^0.18.0",
@@ -54,6 +55,7 @@
     "redux": "^4.0.0",
     "require-dir": "^1.0.0",
     "run-sequence": "^2.2.1",
+    "svg4everybody": "^2.1.9",
     "through2": "^2.0.3",
     "viewport-units-buggyfill": "^0.6.2",
     "vinyl-buffer": "^1.0.1"
