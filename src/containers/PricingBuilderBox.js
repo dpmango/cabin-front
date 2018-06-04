@@ -41,7 +41,7 @@ class PricingBuilderBox extends Component {
       this.sliderValInState = props.pricingSliderState
     } else if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
       props.pricingOptionsSubState.forEach((option) => {
-        if ( option.boxId == props.id ){
+        if ( option.boxId === props.id ){
           props.pricingOptions.forEach( (x, index) => {
             if( x.name === option.name ){
               this.activeOptionIdInState = index

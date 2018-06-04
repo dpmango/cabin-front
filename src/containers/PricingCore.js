@@ -45,7 +45,7 @@ class PricingCore extends Component {
       const currentDate = +new Date();
       const currentTime = currentDate - startDate;
 
-      element.scrollTop = parseInt(easeInOutQuad(currentTime, start, change, duration));
+      element.scrollTop = parseInt(easeInOutQuad(currentTime, start, change, duration), 10);
         if(currentTime < duration) {
           requestAnimationFrame(animateScroll);
         }
