@@ -2,7 +2,6 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   menuOpened: false,
-  hamburgerActive: false,
   stateClass: ''
 }
 
@@ -12,15 +11,13 @@ const header = (state = initialState, action) => {
     case types.OPEN_MENU:
       return {
         ...state,
-        menuOpened: true,
-        hamburgerActive: true
+        menuOpened: true
       }
 
     case types.CLOSE_MENU:
       return {
         ...state,
-        menuOpened: false,
-        hamburgerActive: false
+        menuOpened: false
       }
 
     case types.SET_HEADER_CLASS:

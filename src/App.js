@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { routes } from './routes';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
+
 // import LoadingBar from 'react-redux-loading-bar'
 // import AOS from 'aos';
 // import 'aos/dist/aos.css';
@@ -18,18 +20,37 @@ class App extends React.Component {
     });
 
     svg4everybody();
-
-    // this.aos = AOS
-    // this.aos.init()
-  }
-
-  componentDidUpdate() {
-    console.log('componenet updated')
-    // this.aos.refresh()
   }
 
   render(){
-    const renderSwitch = () => (
+    return (
+      <BrowserRouter>
+        <div className="page">
+          <Header routes={routes.filter(route => route.forNavBar)}/>
+          <div className="page__content">
+            <RenderSwitch />
+          </div>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    );
+  }
+};
+
+class RenderSwitch extends React.Component {
+  componentDidMount(){
+    console.log('component mount')
+    // this.aos = AOS
+    // this.aos.init()
+  }
+  componentDidUpdate() {
+    console.log('componenet updated')
+
+    // this.aos.refresh();
+  }
+
+  render(){
+    return(
       <Switch>
         {routes.map(route => (
           <Route
@@ -40,22 +61,8 @@ class App extends React.Component {
           />
         ))}
       </Switch>
-    );
-
-    return (
-      <BrowserRouter>
-        <React.Fragment>
-          <div className="page">
-            <Header routes={routes.filter(route => route.forNavBar)}/>
-            <div className="page__content">
-              {renderSwitch()}
-            </div>
-            <Footer />
-          </div>
-        </React.Fragment>
-      </BrowserRouter>
-    );
+    )
   }
-};
+}
 
 export default App;
