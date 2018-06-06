@@ -100,8 +100,13 @@ class PricingBuilderBox extends Component {
       this.clearAllOptions();
 
       this.setState({
-        activeOptionId: null
+        activeOptionId: null,
+        sliderVal: null,
+        sliderValPrice: null
+      }, () => {
+        this.props.setPricingSlider(null)
       })
+
     }
 
   }
