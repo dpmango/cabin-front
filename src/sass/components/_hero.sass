@@ -70,3 +70,53 @@
     padding: 20px 35px
     background: white
     margin-top: 30px
+
++r($desktop)
+  .hero
+    > .container
+      min-height: 340px
+    &__wrapper
+      width: 65%
+
+    &__bg
+      img
+        position: absolute
+        top: 50%
+        transform: translate(15%, -50%)
+        right: 0
+        // max-width: 100%
+        height: 100%
+
+
++r($tablet)
+  .hero
+    background: transparent
+    > .container
+      min-height: auto
+    &__bg
+      position: relative
+      z-index: 1
+      background: #F6F7FB
+      height: 300px
+      overflow: hidden
+      // padding-left: 20%
+      img
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        right: 0
+        // max-width: 100%
+        height: 100%
+    &__wrapper
+      width: 100%
+      padding: 50px 0
+
+    &__info
+      min-width: auto
+
++r($mobile)
+  .hero
+    &__bg
+      height: 220px
+      img
+        height: 100%

@@ -7,6 +7,21 @@
     margin-left: auto
     margin-right: auto
 
++r($desktop)
+  .title-section
+    margin: 100px 0
+//
+// +r($tablet)
+//   .title-section
+//     margin: 70px 0
+
++r($tablet)
+  .title-section
+    margin: 0
+    padding: 55px 0 40px
+    background: #F6F7FB
+    &__wrapper
+      text-align: left
 
 .learn-more
   font-size: 12px
@@ -41,10 +56,13 @@
 
   &__right
     flex: 0 1 42%
-    max-width: 420px
+    max-width: 460px
     min-width: 1px
     min-height: 0
     padding: 0 15px
+
+  &__content
+    padding-right: 40px
 
   &__image
     transform: translateX(-30px)
@@ -67,3 +85,25 @@
       color: $fontColorGray
       line-height: 1.42
       margin-top: 12px
+
++r($tablet)
+  .people
+    margin: 0 0 100px
+    &__wrapper
+      flex-direction: column
+      // margin: 0
+    &__left
+      flex: 0 0 auto
+      max-width: 100%
+    &__right
+      flex: 0 0 auto
+      max-width: 100%
+      padding: 0 55px
+      margin-top: 30px
+    &__image
+      transform: translate(0,0)
+
++r($mobile)
+  .people
+    &__right
+      padding: 0 35px
