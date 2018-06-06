@@ -12,14 +12,11 @@
     z-index: 1
     top: -100px
     height: 300px
-    // left: -50%
-    // right: -50%
     left: -5%
     right: -5%
     background: #F6F7FB
     border-top-left-radius: 100%
     border-top-right-radius: 100%
-
 
   &__wrapper
     position: relative
@@ -31,3 +28,12 @@
 
   &__form
     margin-top: 50px
+
+
++r($mobile)
+  .bottom-cta
+    margin-top: 220px
+    padding-bottom: 70px
+    &::before
+      left: -25%
+      right: -25%

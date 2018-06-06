@@ -30,3 +30,20 @@
     span
       display: block
       line-height: 1.72
+
++r($tablet)
+  .footer
+    &__col
+      &:last-child
+        display: none
+
++r($mobile)
+  .footer
+    &__wrapper
+      padding: 22px 0 18px 0
+      justify-content: center
+    &__logo
+      padding-right: 0
+
+    &__info
+      display: none

@@ -25,6 +25,11 @@
     min-width: 1px
     min-height: 0
     padding: 0 15px
+    a
+      display: inline-block
+      transition: color .25s $ease
+      &:hover
+        color: $colorBlue
 
   &__intro
     padding-top: 50px
@@ -39,9 +44,9 @@
     img
       max-width: 100%
     &--big
-      size: 270px
+      max-size: 270px
     &--small
-      size: 105px
+      max-size: 105px
 
   &__cta
     max-width: 360px
@@ -134,3 +139,45 @@
 
   &__email-instead
     margin-top: 90px
+
+
++r($desktop)
+  .signup
+    &__wrapper
+      padding-left: 50px
+      padding-right: 50px
+
++r($tablet)
+  .signup
+    &__wrapper
+      flex-direction: column
+
+    &__left
+      flex: 0 0 auto
+      max-width: 100%
+    &__right
+      flex: 0 0 auto
+      max-width: 100%
+      margin-top: 30px
+
+    &__intro
+      padding-top: 20px
+
+    &__cta
+      margin-top: 80px
+
++r($mobile)
+  .signup
+    margin-top: 105px
+    margin-bottom: 90px
+    &__wrapper
+      padding-left: 30px
+      padding-right: 30px
+
+    &__intro
+      padding-top: 0
+
+
+    &__cta
+      margin-top: 50px
+      max-width: 280px
