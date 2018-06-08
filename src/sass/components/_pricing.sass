@@ -46,9 +46,10 @@
   height: 90px
   border-bottom: 1px solid rgba($fontColorGray, .5)
   &__name
-    flex: 1 1 auto
+    flex: 0 1 auto
     display: flex
     align-items: center
+    padding-right: 10px
     span
       display: inline-block
       margin-right: 10px
@@ -80,3 +81,31 @@
       line-height: 1.5
       font-size: 10px
       color: $fontColorGray
+
++r($desktop)
+  .pricing-options
+    margin: 100px 0
+    &__section
+      padding: 0 15px
+
++r($tablet)
+  .pricing-options
+    &__grid
+      display: block
+      max-width: 400px
+      margin-left: auto
+      margin-right: auto
+    &__col
+      // not a flex child anymore
+      // flex-basis: 100%
+      max-width: 100%
+      padding: 0
+    &__section-name
+      margin: 35px 0 20px
+
++r($mobile)
+  .pricing-options
+
+
+    &__heading
+      text-align: left

@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import Select from 'react-select';
 
 import GetStartedBottom from '../containers/GetStartedBottom';
 
@@ -17,11 +18,35 @@ class Pricing extends Component {
     setHeaderClass: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.selectOptions = [
+      { value: '/pricing', label: 'Core plans' },
+      { value: '/pricing/incorporation', label: 'Incorporation plans' },
+      { value: '/pricing/dormant', label: 'Dormant plans' }
+    ]
+
+    this.state = {
+      selectValue: this.selectOptions.filter( x => x.value === props.location.pathname )[0]
+    };
+  }
+
   componentDidMount(){
     this.props.setHeaderClass('');
   }
 
+  mobileNavChange = (e) => {
+    this.setState({
+      selectValue: e,
+    }, () => {
+      this.props.history.push(e.value);
+    });
+  }
+
   render() {
+    const { selectValue } = this.state;
+
     const heroRender = (
       <div className="hero">
         <div className="hero__bg">
@@ -46,6 +71,16 @@ class Pricing extends Component {
               <NavLink to="/pricing/dormant" className="hero__nav-el" activeClassName='is-active'>
                 Dormant plans
               </NavLink>
+            </div>
+            <div className="hero__nav-mobile">
+              <Select
+                className="Select-white"
+                name="mobile-pricing-nav"
+                value={selectValue}
+                onChange={this.mobileNavChange}
+                placeholder="Select page"
+                options={this.selectOptions}
+              />
             </div>
           </div>
         </div>

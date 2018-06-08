@@ -30,6 +30,22 @@ class PricingIncorp extends Component {
       }
     ]
 
+    const PricingScopePrice = (
+      <React.Fragment>
+        <div className="pricing-scope__price-main">S$350</div>
+        <div className="pricing-scope__price-for">per year</div>
+        <div className="pricing-scope__tooltip">
+          <Tooltip
+            title="This plan is very good for startaps"
+            position="left"
+            distance="10"
+            arrow="true">
+              <SvgIcon name="question-circle" />
+          </Tooltip>
+        </div>
+      </React.Fragment>
+    )
+
     return(
       <React.Fragment>
         <Helmet>
@@ -49,17 +65,7 @@ class PricingIncorp extends Component {
                   <div className="pricing-scope__description">I want to incorporate a company</div>
                 </div>
                 <div className="pricing-scope__price">
-                  <div className="pricing-scope__price-main">S$350</div>
-                  <div className="pricing-scope__price-for">per year</div>
-                  <div className="pricing-scope__tooltip">
-                    <Tooltip
-                      title="This plan is very good for startaps"
-                      position="left"
-                      distance="10"
-                      arrow="true">
-                        <SvgIcon name="question-circle" />
-                    </Tooltip>
-                  </div>
+                  { PricingScopePrice }
                 </div>
               </div>
               <PricingScopeList
@@ -76,8 +82,12 @@ class PricingIncorp extends Component {
                   ]
                 ]}
               />
-
+              
+              <div className="pricing-scope__price pricing-scope__price--mobile">
+                { PricingScopePrice }
+              </div>
             </div>
+
             <div className="pricing-scope__cta">
               <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Incorporation (S$350)')} className="btn btn--mega btn--block">Select <span>Incorporation</span> Plan</Link>
             </div>

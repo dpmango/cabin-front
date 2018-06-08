@@ -39,12 +39,12 @@ class App extends React.Component {
 
 class RenderSwitch extends React.Component {
   componentDidMount(){
-    console.log('component mount')
+    // console.log('component mount')
     // this.aos = AOS
     // this.aos.init()
   }
   componentDidUpdate() {
-    console.log('componenet updated')
+    // console.log('componenet updated')
 
     // this.aos.refresh();
   }

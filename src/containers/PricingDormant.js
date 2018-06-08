@@ -30,6 +30,23 @@ class PricingDormant extends Component {
       }
     ]
 
+    const PricingScopePrice = (
+      <React.Fragment>
+        <div className="pricing-scope__price-main">S$850</div>
+        <div className="pricing-scope__price-for">per year</div>
+        {/*<div className="pricing-scope__tooltip">
+          <Tooltip
+            title="This plan is very good for startaps"
+            position="left"
+            distance="10"
+            arrow="true">
+              <SvgIcon name="question-circle" />
+          </Tooltip>
+        </div>
+        */}
+      </React.Fragment>
+    )
+
     return(
       <React.Fragment>
         <Helmet>
@@ -49,18 +66,7 @@ class PricingDormant extends Component {
                   <div className="pricing-scope__description">I have a dormant company, and I need all year-end compliances taken care of</div>
                 </div>
                 <div className="pricing-scope__price">
-                  <div className="pricing-scope__price-main">S$850</div>
-                  <div className="pricing-scope__price-for">per year</div>
-                  {/*<div className="pricing-scope__tooltip">
-                    <Tooltip
-                      title="This plan is very good for startaps"
-                      position="left"
-                      distance="10"
-                      arrow="true">
-                        <SvgIcon name="question-circle" />
-                    </Tooltip>
-                  </div>
-                  */}
+                  { PricingScopePrice }
                 </div>
               </div>
               <PricingScopeList
@@ -77,7 +83,9 @@ class PricingDormant extends Component {
                   ]
                 ]}
               />
-
+              <div className="pricing-scope__price pricing-scope__price--mobile">
+                { PricingScopePrice }
+              </div>
             </div>
             <div className="pricing-scope__cta">
               <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Dormant (S$850)')} className="btn btn--mega btn--block">Select <span>Dormant</span> Plan</Link>
