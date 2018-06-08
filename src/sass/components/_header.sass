@@ -104,6 +104,7 @@
 
 /* MOBILE NAVI
 .mobile-navi
+  display: none
   position: absolute
   top: 0
   left: 0
@@ -148,6 +149,9 @@
         width: 100%
         max-width: 290px
 
++r($desktop)
+  .mobile-navi
+    display: block
 +r($mobile)
   .mobile-navi
     &__menu

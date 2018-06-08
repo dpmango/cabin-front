@@ -13,9 +13,9 @@ export default class PricingBuilderOption extends Component {
 
   // to separate str to lines on mobile
   renderName = (str) => {
-    let firstLetter, firstLetterIndex, newStr
+    let firstLetter, newStr
     firstLetter = str.match(/[A-Za-z]/)[0]
-    firstLetterIndex = str.indexOf(firstLetter)
+    // firstLetterIndex = str.indexOf(firstLetter)
     newStr = str.replace(firstLetter, '<br />' + firstLetter);
 
     return newStr

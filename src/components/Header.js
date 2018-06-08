@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import onClickOutside from "react-onclickoutside";
 
 import { OPEN_MENU, CLOSE_MENU } from '../store/ActionTypes';
 
@@ -18,16 +19,24 @@ class Header extends React.Component {
     this.props.menuOpened ? this.props.closeMenu() : this.props.openMenu()
   }
 
+  closeHamburger = () => {
+    this.props.menuOpened ? this.props.closeMenu() : null
+  }
+
+  handleClickOutside = () => {
+    this.closeHamburger()
+  };
+
   render(){
 
     const { routes, menuOpened } = this.props;
 
     return(
-      <React.Fragment>
+      <div className="main-nav">
         <header className={'header ' + this.props.stateClass}>
           <div className="container">
             <div className="header__wrapper">
-              <NavLink to='/' className="header__logo">
+              <NavLink onClick={this.closeHamburger} to='/' className="header__logo">
                 <i className="icon icon-cabin-logo" />
               </NavLink>
               <a href="tel:+65 3158 5495" className="header__phone">
@@ -36,7 +45,7 @@ class Header extends React.Component {
               <ul className="header__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                   </li>
                 )}
               </ul>
@@ -61,7 +70,7 @@ class Header extends React.Component {
               <ul className="mobile-navi__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                   </li>
                 )}
               </ul>
@@ -69,7 +78,7 @@ class Header extends React.Component {
           </div>
 
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 };
@@ -85,4 +94,4 @@ const mapDispatchToProps = (dispatch) => ({
   closeMenu: () => dispatch({ type: CLOSE_MENU })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(Header);
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure:false})(onClickOutside(Header));
