@@ -13,10 +13,12 @@ export default class PricingBuilderOption extends Component {
 
   // to separate str to lines on mobile
   renderName = (str) => {
-    // let strWithBr = str
-    // strWithBr = strWithBr.indexOf()
-    // console.log(strWithBr)
-    return str
+    let firstLetter, firstLetterIndex, newStr
+    firstLetter = str.match(/[A-Za-z]/)[0]
+    firstLetterIndex = str.indexOf(firstLetter)
+    newStr = str.replace(firstLetter, '<br />' + firstLetter);
+
+    return newStr
   }
 
   render(){
@@ -27,7 +29,8 @@ export default class PricingBuilderOption extends Component {
       <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.props.clickHandler}>
         <div className={"p-builder-option__wrapper " + (isActiveOption ? "is-selected" : " ")}>
           <div className="p-builder-option__head">
-            <div className="p-builder-option__name">{this.renderName(name)}</div>
+            <div className="p-builder-option__name">{this.renderName(name).split('<br />').map((item, key) => <span key={key}>{item}</span>)}
+            </div>
           </div>
           <div className="p-builder-option__price">
             <span>{price}</span>
