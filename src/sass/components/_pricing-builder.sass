@@ -14,6 +14,18 @@
         font-size: 17px
         color: $colorBlue
 
++r($desktop)
+  .p-builder
+    margin: 100px 0 120px 0
+
++r($tablet)
+  .p-builder
+    margin: 50px 0 70px 0
+
+  .pricing .p-builder
+    &:first-child
+      margin-top: 0
+
 /* Builder box
 .p-builder-box
   position: relative
@@ -207,6 +219,57 @@
           margin-top: 5px
           color: $fontColorGray
 
++r($desktop)
+  .p-builder-box
+    &__wrapper
+      padding-left: 40px
+      padding-right: 40px
+
+    &__options
+      padding-left: 30px
+      padding-right: 30px
+
+
++r($tablet)
+  .p-builder-box
+    margin: 40px 0 70px
+    &__wrapper
+      padding-left: 25px
+      padding-right: 25px
+
+    &__options
+      padding: 18px 10px
+      &-list
+        display: block
+        margin: 0
+
+    &__list
+      display: block
+      margin: 35px 0
+      &-col
+        max-width: 100%
+        padding: 0
+
+    &__price
+      flex-basis: 150px
+
+    &-slider
+      padding-left: 15px
+      padding-right: 15px
+      margin-top: 15px
+
++r($mobile)
+  .p-builder-box
+    &__head
+      flex-wrap: wrap
+    &__name
+      // flex-grow: 1
+    &__price
+      flex-basis: 100%
+      margin-top: 25px
+
+
+/* BUILDER OPTION
 .p-builder-option
   flex: 0 1 auto
   padding: 10px
@@ -247,3 +310,67 @@
       &:last-child
         font-size: 14px
         margin-top: 5px
+
++r($tablet)
+  .p-builder-option
+    /* to reset data-number-of-elements
+    max-width: 100% !important
+    padding: 0
+    margin-bottom: 10px
+    &:last-child
+      margin-bottom: 0
+    &__wrapper
+      position: relative
+      display: flex
+      align-items: center
+      padding: 12px 15px 12px 20px
+      opacity: 1
+      &:hover
+        opacity: 1
+      &::before, &::after
+        display: block
+        content: ' '
+        position: absolute
+        left: 20px
+        top: 50%
+        transform: translateY(-50%)
+        border-radius: 50%
+      &::before
+        border: 1px solid rgba($fontColorGray, .5)
+        size: 20px
+
+      &::after
+        size: 12px
+        left: 25px
+        background: $colorBlue
+        transform: translateY(-50%) scale(0)
+        transition: transform .25s $ease
+
+      &.is-selected
+        box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+        &::before
+        &::after
+          transform: translateY(-50%) scale(1)
+
+    &__head
+      border-bottom: 0
+      // offset for radio btn
+      padding: 0 20px 0 45px
+      min-height: 36px
+
+    &__name
+      color: $fontColorGray
+      text-align: left
+
+    &__price
+      flex: 0 0 auto
+      display: flex
+      align-items: center
+      padding: 0
+      margin-left: auto
+      span
+        font-size: 12px
+        font-weight: 500
+        &:last-child
+          margin-top: 0
+          margin-left: 5px

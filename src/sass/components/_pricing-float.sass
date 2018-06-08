@@ -1,5 +1,7 @@
 
 .pricing-float
+  // display: none !important
+
   position: fixed
   bottom: 0
   left: 0
@@ -70,3 +72,18 @@
           color: $colorBlue
         &-icon
           transform: translateX(5px)
+
++r($mobile)
+  .pricing-float
+    &__summary
+      display: block
+      &-holder
+        display: inline-block
+        margin-right: 0
+        margin-bottom: 10px
+
++r(414)
+  .pricing-float
+    &__cta
+      &-text
+        display: none

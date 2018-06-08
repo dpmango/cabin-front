@@ -11,6 +11,14 @@ export default class PricingBuilderOption extends Component {
     clickHandler: PropTypes.func
   };
 
+  // to separate str to lines on mobile
+  renderName = (str) => {
+    // let strWithBr = str
+    // strWithBr = strWithBr.indexOf()
+    // console.log(strWithBr)
+    return str
+  }
+
   render(){
 
     const { name, price, pricePer, index, isActiveOption } = this.props;
@@ -19,7 +27,7 @@ export default class PricingBuilderOption extends Component {
       <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.props.clickHandler}>
         <div className={"p-builder-option__wrapper " + (isActiveOption ? "is-selected" : " ")}>
           <div className="p-builder-option__head">
-            <div className="p-builder-option__name">{name}</div>
+            <div className="p-builder-option__name">{this.renderName(name)}</div>
           </div>
           <div className="p-builder-option__price">
             <span>{price}</span>
