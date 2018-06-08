@@ -190,6 +190,53 @@
         max-width: 100%
         .testimonial
           margin-bottom: 20px
+    &__tabs
+
+    &__slider
+      /* contatiner
+      position: relative
+      overflow: hidden
+      margin-left: -40px
+      margin-right: -40px
+      list-style: none
+      padding: 0
+      z-index: 1
+      &-next, &-prev
+        position: absolute
+        z-index: 2
+        top: 28px
+        background-repeat: no-repeat
+        background-size: contain
+        size: 12px 16px
+        font-size: 0
+        cursor: pointer
+        transition: .25s $ease
+        &:hover:not(.swiper-button-disabled)
+          opacity: .8
+        &.swiper-button-disabled
+          filter: grayscale(1)
+          opacity: .2
+          cursor: not-allowed
+
+      &-next
+        right: 40px
+        background-image: svg-load('../images/icons/right-arrow.svg')
+
+      &-prev
+        left: 40px
+        background-image: svg-load('../images/icons/back-arrow.svg')
+
+
+    &__slide
+      padding-left: 40px
+      padding-right: 40px
+      padding-bottom: 30px
+
+      &-name
+        text-align: center
+        font-size: 14px
+        font-weight: 500
+        margin: 30px 40px
 
     &__list
       margin-left: 0
@@ -202,6 +249,14 @@
     &__content
       padding: 15px
       &-right
+
+    &__slider
+      margin-left: -20px
+      margin-right: -20px
+    &__slide
+      padding-left: 20px
+      padding-right: 20px
+
 
 // .home-features
 //   margin: 180px 0
@@ -331,7 +386,7 @@
 
 +r($mobile)
   .home-features
-    margin: 100px 0
+    margin: 70px 0 100px
     .t-center
       text-align: left
     &__col
