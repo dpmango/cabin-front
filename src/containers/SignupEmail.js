@@ -69,7 +69,7 @@ class SingupEmail extends Component {
     const { isNewLead, errors } = this.state;
 
     if (isNewLead) {
-      return <Redirect to='/profile' />;
+      return <Redirect to='/get-started' />;
     }
 
     return(
