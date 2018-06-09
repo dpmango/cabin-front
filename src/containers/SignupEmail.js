@@ -9,7 +9,8 @@ import { SET_SIGNUP_ID, SET_SIGNUP_EMAIL, SET_SIGNUP_STEP } from '../store/Actio
 class SingupEmail extends Component {
   static propTypes = {
     setSignupId: PropTypes.func,
-    setSignupEmail: PropTypes.func
+    setSignupEmail: PropTypes.func,
+    signupId: PropTypes.number
   };
 
   constructor() {
@@ -77,14 +78,14 @@ class SingupEmail extends Component {
         <form className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
           <input type="text" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
           <button type="submit" className="btn btn--huge">Get started</button>
+          { errors &&
+            // render all errors or only first (most relevant?)
+            // <div class="ui-input-validation">{errors.map((err) => (
+            //   err
+            // ))}</div>
+            <div class="ui-input-validation">{errors}</div>
+          }
         </form>
-        { errors &&
-          // render all errors or only first (most relevant?)
-          // <div class="ui-input-validation">{errors.map((err) => (
-          //   err
-          // ))}</div>
-          <div class="ui-input-validation">{errors}</div>
-        }
       </React.Fragment>
     )
   }
@@ -92,7 +93,7 @@ class SingupEmail extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  signupId: state.signup.signupId
 });
 
 const mapDispatchToProps = (dispatch) => ({

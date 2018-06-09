@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import GetStartedBottom from '../containers/GetStartedBottom';
+import GetStartedBottom from '../components/GetStartedBottom';
 import Professionals from '../components/Professionals';
 
 class About extends Component {

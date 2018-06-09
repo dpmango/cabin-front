@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 import Select from 'react-select';
 
-import GetStartedBottom from '../containers/GetStartedBottom';
+import GetStartedBottom from '../components/GetStartedBottom';
 
 import PricingCore from '../containers/PricingCore';
 import PricingIncorp from '../containers/PricingIncorp';
