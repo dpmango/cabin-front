@@ -1,7 +1,7 @@
 import * as types from '../store/ActionTypes';
 // import moment from 'moment';
 
-const initialState = {
+export const initialState = {
   signupStep: 1,
   signupEmail: '',
   signupId: '',
@@ -15,7 +15,6 @@ const initialState = {
     company_employees: '',
     // date: moment(),
     meeting_date: '',
-    selectValue: null,
     meeting_time: '',
     email_instead: false
   }

@@ -25,22 +25,15 @@ class SignupStep4 extends Component {
     this.state = {
       // date: props.signupFields.date,
       meeting_date: props.signupFields.meeting_date,
-      selectValue: props.signupFields.selectValue,
       meeting_time: props.signupFields.meeting_time,
-      checkbox_active: props.signupFields.checkbox_active,
+      email_instead: props.signupFields.email_instead,
     };
-  }
-
-  handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal})
   }
 
   handleSelectChange = (e) => {
     this.setState({
-      selectValue: e,
-      meeting_time: e ? e.label : null
+      meeting_time: e,
+      // meeting_time: e ? e.label : null
     });
   }
 
@@ -53,21 +46,22 @@ class SignupStep4 extends Component {
 
   checkboxClick = () => {
     this.setState({
-      checkbox_active: !this.state.checkbox_active
+      email_instead: !this.state.email_instead
     })
   }
 
   nextStep = () => {
 
-    const { meeting_date, meeting_time, date, selectValue, checkbox_active } = this.state;
+    const { meeting_date, meeting_time, date, email_instead } = this.state;
 
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
           meeting_date: meeting_date,
-          meeting_time: meeting_time,
+          meeting_time: meeting_time ? meeting_time.label : null,
+          email_instead: email_instead,
           ispending: false,
-          email_instead: checkbox_active
+          isfollowup: false
         }
       })
       .then((res) => {
@@ -77,9 +71,8 @@ class SignupStep4 extends Component {
           ...this.props.signupFields,
           date: date,
           meeting_date: meeting_date,
-          selectValue: selectValue,
           meeting_time: meeting_time,
-          email_instead: checkbox_active
+          email_instead: email_instead
         })
 
       })
@@ -97,7 +90,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, focused, selectValue, checkbox_active } = this.state;
+    const { date, meeting_time, focused, email_instead } = this.state;
 
     return(
       <div className="container">
@@ -121,7 +114,7 @@ class SignupStep4 extends Component {
               <div className="ui-group">
                 <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
               </div>
-              <div className={ "signup__datetime " + (checkbox_active ? "is-disabled" : "") }>
+              <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") }>
                 <div className="signup__datetime-col">
                   <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
                     <SingleDatePicker
@@ -147,7 +140,7 @@ class SignupStep4 extends Component {
                 <div className="signup__datetime-col">
                   <Select
                     name="meeting_time"
-                    value={selectValue}
+                    value={meeting_time}
                     onChange={this.handleSelectChange}
                     placeholder="Select time"
                     options={[
@@ -175,7 +168,7 @@ class SignupStep4 extends Component {
                 <div className="ui-group">
                   <CheckBox
                     name="email_instead"
-                    isAcitve={checkbox_active}
+                    isAcitve={email_instead}
                     text="Email me instead"
                     clickHandler={this.checkboxClick}
                   />

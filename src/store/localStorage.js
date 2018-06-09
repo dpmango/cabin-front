@@ -1,8 +1,8 @@
-const version = 1
+const version = "3"
 
 export const loadState = () => {
   try {
-    if (localStorage.getItem("storageVersion") != version) {
+    if (localStorage.getItem("storageVersion") !== version) {
       localStorage.clear();
       localStorage.setItem("storageVersion", version);
     }

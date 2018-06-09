@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
+import {initialState} from '../reducers/signup';
 
 class SignupStep5 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    setSignupFields: PropTypes.func
   };
 
   constructor() {
@@ -19,9 +21,13 @@ class SignupStep5 extends Component {
   }
 
   completeSignup = () => {
+
     this.setState({
       signupComplete: true
     })
+
+    this.props.setSignupFields(initialState.fields)
+
     // this.props.setSignupStep(1);
   }
 
@@ -59,7 +65,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data })
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep5);

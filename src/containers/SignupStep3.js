@@ -8,7 +8,7 @@ import api from '../services/Api';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
-import FormInput from '../components/FormInput';
+// import FormInput from '../components/FormInput';
 
 class SignupStep3 extends Component {
   static propTypes = {
@@ -63,18 +63,16 @@ class SignupStep3 extends Component {
   }
 
   nextStep = () => {
-    const company_industry = this.state.company_industry.value
-    const company_old = this.state.company_old.value
-    const company_employees = this.state.company_employees.value
+    const {company_industry, company_old, company_employees} = this.state
 
-    console.log(company_industry, company_old, company_employees)
     // patch lead
+    // post value to API, but keep object for state
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          company_industry: company_industry,
-          company_old: company_old,
-          company_employees: company_employees,
+          company_industry: company_industry.value,
+          company_old: company_old.value,
+          company_employees: company_employees.value,
         }
       })
       .then((res) => {

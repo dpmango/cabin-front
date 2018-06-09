@@ -35,7 +35,6 @@ class SignupStep2 extends Component {
     };
 
     this.formRef = React.createRef();
-
   }
 
   formInvalid = () => {
@@ -126,9 +125,10 @@ class SignupStep2 extends Component {
         let index = i + 1
 
         if ( pricingOptionsSubPresent ){
-          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id )[0];
+          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id );
 
           if ( connectedSubOption && connectedSubOption.length > 0 ){
+            // build str with option
             const subOpt = connectedSubOption[0];
             str += index + '. ' + option.name + ' (' + subOpt.name + ') (' + subOpt.price + '), '
             totalPrice += this.parsePrice(subOpt.price)
@@ -141,10 +141,9 @@ class SignupStep2 extends Component {
           str += index + '. ' + option.name + ' (' + option.price + ') , '
           totalPrice += this.parsePrice(option.price)
         }
-
-        str += ' || Total price: S$' + totalPrice
-
       })
+
+      str += ' || Total price: S$' + totalPrice
     }
 
     return str

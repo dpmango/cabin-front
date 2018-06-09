@@ -1,15 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { routes } from './routes';
+import RenderSwitch from './Switch';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-// import LoadingBar from 'react-redux-loading-bar'
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
 import svg4everybody from 'svg4everybody';
-
 
 class App extends React.Component {
 
@@ -36,33 +33,5 @@ class App extends React.Component {
     );
   }
 };
-
-class RenderSwitch extends React.Component {
-  componentDidMount(){
-    // console.log('component mount')
-    // this.aos = AOS
-    // this.aos.init()
-  }
-  componentDidUpdate() {
-    // console.log('componenet updated')
-
-    // this.aos.refresh();
-  }
-
-  render(){
-    return(
-      <Switch>
-        {routes.map(route => (
-          <Route
-            key={route.path}
-            exact={route.isExact}
-            path={route.path}
-            component={route.component}
-          />
-        ))}
-      </Switch>
-    )
-  }
-}
 
 export default App;
