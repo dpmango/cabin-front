@@ -42,9 +42,12 @@ class Header extends React.Component {
         isScrolled: true
       })
     } else {
-      this.setState({
-        isScrolled: false
-      })
+      if ( this.state.isScrolled ){
+        this.setState({
+          isScrolled: false
+        })  
+      }
+
     }
   };
 
