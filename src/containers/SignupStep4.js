@@ -4,11 +4,8 @@ import PropTypes from 'prop-types';
 import api from '../services/Api';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
-// IE 11 error for react-dates
 import 'airbnb-js-shims';
-//https://github.com/JedWatson/react-select
 import Select from 'react-select';
-// https://github.com/airbnb/react-dates
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
@@ -107,8 +104,8 @@ class SignupStep4 extends Component {
         <div className="signup__box">
           <div className="signup__progress">
             <div className="signup__progress-line">
-              <div className="signup__progress-fill" style={{"width" : "75%"}}>
-                <div className="signup__progress-name">Step 4</div>
+              <div className="signup__progress-fill" style={{"width" : "100%"}}>
+                <div className="signup__progress-name signup__progress-name--last">Step 3</div>
               </div>
             </div>
           </div>

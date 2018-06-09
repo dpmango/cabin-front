@@ -181,7 +181,7 @@ class PricingCore extends Component {
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
-                  <Link to="/pricing/custom" className="btn btn--mega btn--block">Select <span>Custom</span> Plan</Link>
+                  <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Custom')} className="btn btn--mega btn--block">Select <span>Custom</span> Plan</Link>
                 </div>
                 <div className="pricing-scope__compare">
                   <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>

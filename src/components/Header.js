@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import onClickOutside from "react-onclickoutside";
+import throttle from 'lodash/throttle';
 
 import { OPEN_MENU, CLOSE_MENU } from '../store/ActionTypes';
 
@@ -13,6 +14,38 @@ class Header extends React.Component {
     stateClass: PropTypes.string,
     openMenu: PropTypes.func,
     closeMenu: PropTypes.func
+  };
+
+  constructor(props){
+    super(props);
+
+    this.scrollWithThrottle = throttle(this.handleScroll, 200);
+
+    this.state = {
+      isScrolled: false
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollWithThrottle, false);
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollWithThrottle, false);
+  };
+
+  handleScroll = (event) => {
+    var wScroll = window.scrollY
+
+    if ( wScroll > 10 ){
+      this.setState({
+        isScrolled: true
+      })
+    } else {
+      this.setState({
+        isScrolled: false
+      })
+    }
   };
 
   toggleHamburger = () => {
@@ -34,8 +67,8 @@ class Header extends React.Component {
     const { routes, menuOpened } = this.props;
 
     return(
-      <div className="main-nav">
-        <header className={'header ' + this.props.stateClass}>
+      <div className={this.props.stateClass + (this.state.isScrolled ? ' is-scrolled' : '')}>
+        <header className='header'>
           <div className="container">
             <div className="header__wrapper">
               <NavLink onClick={this.closeHamburger} to='/' className="header__logo">
