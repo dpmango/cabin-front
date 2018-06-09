@@ -1,5 +1,12 @@
+const version = 1
+
 export const loadState = () => {
   try {
+    if (localStorage.getItem("storageVersion") !== version) {
+      localStorage.clear();
+      localStorage.setItem("storageVersion", version);
+    }
+
     const serializedState = localStorage.getItem('cabinState');
     if (serializedState) {
       return JSON.parse(serializedState);
