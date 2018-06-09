@@ -62,6 +62,10 @@ class Header extends React.Component {
     this.closeHamburger()
   };
 
+  preloaderOnHover = (component) => {
+    component.preload();
+  };
+
   render(){
 
     const { routes, menuOpened } = this.props;
@@ -80,7 +84,7 @@ class Header extends React.Component {
               <ul className="header__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                   </li>
                 )}
               </ul>
@@ -105,7 +109,7 @@ class Header extends React.Component {
               <ul className="mobile-navi__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink onMouseOver={this.preloaderOnHover} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                   </li>
                 )}
               </ul>

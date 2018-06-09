@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 // import { Tooltip } from 'react-tippy';
 import { Helmet } from 'react-helmet';
+import { GetStarted } from '../routes';
 
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
@@ -16,6 +17,10 @@ class PricingDormant extends Component {
   onSelectPlanClick = (pricingName) => {
     this.props.setPricingPlan(pricingName);
   }
+
+  preloaderOnHover = (component) => {
+    component.preload();
+  };
 
   render(){
     const faqContent = [
@@ -88,7 +93,12 @@ class PricingDormant extends Component {
               </div>
             </div>
             <div className="pricing-scope__cta">
-              <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Dormant (S$850)')} className="btn btn--mega btn--block">Select <span>Dormant</span> Plan</Link>
+              <Link to="/get-started"
+                onClick={this.onSelectPlanClick.bind(this, 'Dormant (S$850)')}
+                onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                className="btn btn--mega btn--block">
+                Select <span>Dormant</span> Plan
+              </Link>
             </div>
           </div>
         </div>

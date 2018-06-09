@@ -12,7 +12,7 @@
 import Loadable from 'react-loadable';
 import Loader from './components/Loader';
 
-export default function MyLoadable(opts) {
+function MyLoadable(opts) {
   return Loadable(Object.assign({
     loading: Loader,
     delay: 300,
@@ -20,22 +20,22 @@ export default function MyLoadable(opts) {
   }, opts));
 };
 
-const Home = MyLoadable({
+export const Home = MyLoadable({
   loader: () => import("./pages/Home"),
   modules: ['./pages/Home'],
   webpack: () => [require.resolveWeak('./pages/Home')]
 });
-const Pricing = MyLoadable({
+export const Pricing = MyLoadable({
   loader: () => import("./pages/Pricing"),
   modules: ['./pages/Pricing'],
   webpack: () => [require.resolveWeak('./pages/Pricing')]
 });
-const About = MyLoadable({
+export const About = MyLoadable({
   loader: () => import("./pages/About"),
   modules: ['./pages/About'],
   webpack: () => [require.resolveWeak('./pages/About')]
 });
-const GetStarted = MyLoadable({
+export const GetStarted = MyLoadable({
   loader: () => import("./pages/GetStarted"),
   modules: ['./pages/GetStarted'],
   webpack: () => [require.resolveWeak('./pages/GetStarted')]

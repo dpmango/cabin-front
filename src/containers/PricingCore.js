@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Helmet } from 'react-helmet';
+import { GetStarted } from '../routes';
 
 import ScrollTo from '../services/ScrollTo';
 import SvgIcon from '../components/SvgIcon';
@@ -29,6 +30,10 @@ class PricingCore extends Component {
   scrollToTable = () => {
     ScrollTo(this.tableRef.current.offsetTop, 1000)
   }
+
+  preloaderOnHover = (component) => {
+    component.preload();
+  };
 
   render(){
     const faqContent = [
@@ -77,7 +82,12 @@ class PricingCore extends Component {
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
-                  <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary (S$350)')} className="btn btn--mega btn--block">Select <span>Corporate Secretary</span> Plan</Link>
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary (S$350)')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Corporate Secretary</span> Plan
+                  </Link>
                 </div>
                 <div className="pricing-scope__compare">
                   <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
@@ -111,7 +121,12 @@ class PricingCore extends Component {
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
-                  <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'All-in (S$950)')} className="btn btn--mega btn--block">Select <span>All-in</span> Plan</Link>
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'All-in (S$950)')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>All-in</span> Plan
+                  </Link>
                 </div>
                 <div className="pricing-scope__compare">
                   <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
@@ -153,7 +168,12 @@ class PricingCore extends Component {
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
-                  <Link to="/get-started" onClick={this.onSelectPlanClick.bind(this, 'Custom')} className="btn btn--mega btn--block">Select <span>Custom</span> Plan</Link>
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Custom')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Custom</span> Plan
+                  </Link>
                 </div>
                 <div className="pricing-scope__compare">
                   <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>

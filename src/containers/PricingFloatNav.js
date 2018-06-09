@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import throttle from 'lodash/throttle';
+import { GetStarted } from '../routes';
 
 import SvgIcon from '../components/SvgIcon';
 
@@ -80,6 +81,10 @@ class PricingFloatNav extends Component {
     return Number((str).match(/\d+$/))
   }
 
+  preloaderOnHover = (component) => {
+    component.preload();
+  };
+
   render(){
     // calculate Price summ
     const { isScrolledAfterHero } = this.state;
@@ -96,7 +101,11 @@ class PricingFloatNav extends Component {
                 <span>per month</span>
               </div>
             </div>
-            <Link to="/get-started" onClick={this.onGetStartedClick} className="pricing-float__cta">
+            <Link
+              to="/get-started"
+              onClick={this.onGetStartedClick}
+              onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+              className="pricing-float__cta">
               <div className="pricing-float__cta-text">Get Started</div>
               <div className="pricing-float__cta-icon">
                 <SvgIcon name="next-arrow2" />
