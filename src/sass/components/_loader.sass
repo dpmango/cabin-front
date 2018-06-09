@@ -1,0 +1,58 @@
+
+.loader
+  position: fixed 0
+  z-index: 99
+  background: rgba(white, .5)
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  &__desc
+    text-align: center
+    font-size: 16px
+    line-height: 1.7
+    margin-top: 30px
+    a
+      cursor: pointer
+      color: $colorGreen
+      transition: .25s $ease
+      &:hover
+        color: $colorBlue
+
+
+.preloader-squares
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  width: 35px
+  font-size: 0
+  .square
+    display: inline-block
+    width: 15px
+    height: 15px
+    margin-bottom: 5px
+    background: $colorBlue
+    opacity: 0.2
+    animation: movein 2s infinite
+
+.square
+  opacity: 0.5
+
+.preloader-squares .square
+  &:nth-child(1)
+    transform: translate(0, -15px)
+  &:nth-child(2)
+    transform: translate(15px, 0)
+  &:nth-child(3)
+    transform: translate(-15px, 0)
+  &:nth-child(4)
+    transform: translate(0, 15px)
+
+@keyframes movein
+  33%
+    transform: translate(0, 0)
+    opacity: 0.7
+
+  66%
+    transform: translate(0, 0)
+    opacity: 0.7

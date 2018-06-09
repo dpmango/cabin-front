@@ -20,7 +20,9 @@ class Header extends React.Component {
   }
 
   closeHamburger = () => {
-    this.props.menuOpened ? this.props.closeMenu() : null
+    if (this.props.menuOpened) {
+      this.props.closeMenu()
+    }
   }
 
   handleClickOutside = () => {
