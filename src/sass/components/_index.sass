@@ -10,10 +10,7 @@
 +r($desktop)
   .title-section
     margin: 100px 0
-//
-// +r($tablet)
-//   .title-section
-//     margin: 70px 0
+
 
 +r($tablet)
   .title-section
@@ -21,6 +18,7 @@
     padding: 55px 0 40px
     background: #F6F7FB
     &__wrapper
+      margin-left: 0
       text-align: left
 
 .learn-more
@@ -86,6 +84,14 @@
       line-height: 1.42
       margin-top: 12px
 
++r($desktop)
+  .people
+    &__left
+
+    &__image
+      transform: translateX(-45px)
+      margin-right: -45px
+
 +r($tablet)
   .people
     margin: 0 0 100px
@@ -102,8 +108,23 @@
       margin-top: 30px
     &__image
       transform: translate(0,0)
+      margin-right: 0
+
+    &__list
+      display: flex
+      flex-wrap: wrap
+      margin-left: -15px
+      margin-right: -15px
+
+    &__person
+      padding: 0 15px
 
 +r($mobile)
   .people
     &__right
       padding: 0 35px
+    &__content
+      padding-right: 0
+    &__person
+      &:first-child
+        margin-top: 30px

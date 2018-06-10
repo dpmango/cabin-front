@@ -68,13 +68,17 @@
 +r($mobile)
   .home-logos
     &__list
-
+      // margin-left: -20px
+      // margin-right: -20px
       > div
         flex: 0 1 50%
         max-width: 50%
     &__el
       display: flex
       justify-content: center
+      padding: 20px 15px
+    &__name
+      font-size: 13px
 
 
 .home-promo
@@ -98,6 +102,7 @@
     padding: 35px 15px 0
 
 
+/* Home benefits
 .home-benefits
   margin-top: 120px
   &__tabs
@@ -112,7 +117,7 @@
     margin-right: -15px
     &::after
       background: url('../images/circles-bg.png') no-repeat right bottom
-      // background-size: contain
+      background-size: auto 100%
       display: inline-block
       content: ' '
       position: absolute
@@ -120,7 +125,8 @@
       right: 15px
       bottom: 0
       top: 0
-      width: 705px
+      left: 15px
+      // width: 705px
     &-left
       position: relative
       z-index: 2
@@ -141,9 +147,11 @@
       padding: 0 15px
       .testimonial
         margin: 35px 0 40px
-      h3
-        span
-          color: $colorGreen
+    h3
+      span
+        color: $colorGreen
+      &.for-mobile
+        display: none
 
   &__list
     list-style: none
@@ -179,9 +187,12 @@
 
 +r($tablet)
   .home-benefits
+    margin-top: 90px
     &__content
       flex-direction: column
       padding: 30px
+      &::after
+        display: none
       &-left
         flex: 0 0 auto
         max-width: 100%
@@ -190,6 +201,12 @@
         max-width: 100%
         .testimonial
           margin-bottom: 20px
+
+      h3
+        display: none
+        &.for-mobile
+          display: block
+
     &__tabs
 
     &__slider
@@ -240,12 +257,14 @@
 
     &__list
       margin-left: 0
+      margin-top: 25px
       li
         &.is-disabled
           display: none
 
 +r($mobile)
   .home-benefits
+    // margin-top: 90px
     &__content
       padding: 15px
       &-right
@@ -256,6 +275,11 @@
     &__slide
       padding-left: 20px
       padding-right: 20px
+
+    &__list
+      li
+        span
+          font-size: 12px
 
 
 // .home-features
@@ -380,6 +404,14 @@
 +r($desktop)
   .home-features
     margin: 120px 0
+    &__bg-holder
+      &::before
+        top: 50%
+        bottom: auto
+        height: 300px
+        transform: translateY(-50%)
+    &__wrapper
+      padding-bottom: 0
     &__col
       flex-basis: 50%
       max-width: 50%
@@ -387,6 +419,11 @@
 +r($mobile)
   .home-features
     margin: 70px 0 100px
+    &__bg-holder
+      &::before
+        display: none
+    &__wrapper
+      padding-bottom: 0
     .t-center
       text-align: left
     &__col

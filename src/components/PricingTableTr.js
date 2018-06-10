@@ -20,7 +20,7 @@ export default class PricingTableTr extends Component {
       <div className="pricing-table__tr">
         <div className="pricing-table__td pricing-table__td--primary">
           { tag &&
-            <span className="pricing-table__tag">[{tag}]</span>
+            <span className="pricing-table__tag">{tag}</span>
           }
           <span className="pricing-table__name">{name}</span>
           { tooltipContent &&

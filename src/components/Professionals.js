@@ -50,6 +50,7 @@ export default class Professionals extends Component {
               </div>
               <div className="professionals__logos-el">
                 <i className="icon icon-logo-ACRA" />
+                <span>Registered Filing Agent: FA20170616</span>
               </div>
               <div className="professionals__logos-el">
                 <i className="icon icon-logo-Xero" />

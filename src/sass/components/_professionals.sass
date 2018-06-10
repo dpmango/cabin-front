@@ -13,10 +13,16 @@
       padding: 20px 40px
       mix-blend-mode: darken
       font-size: 0
+      text-align: center
       .icon
         filter: saturate(0)
         transition: filter .25s $ease
-
+      span
+        display: block
+        text-align: center
+        font-size: 10px
+        line-height: 2
+        color: $fontColorGray
       &:hover
         .icon
           filter: none
@@ -87,6 +93,18 @@
     .t-center
       text-align: left
     &__logos
-      margin-top: 30px
+      margin-top: 45px
       padding-bottom: 40px
+      margin-left: 10px
+      margin-right: 10px
       // flex-wrap: wrap
+      &-el
+        flex-basis: 50%
+        flex-shrink: 1
+        padding: 10px 5px
+        &:first-child
+          .icon
+            transform: translateX(15px)
+        &:last-child
+          .icon
+            // transform: translateX(-5px)

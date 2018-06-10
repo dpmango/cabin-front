@@ -35,6 +35,7 @@ class SignupStep2 extends Component {
     };
 
     this.formRef = React.createRef();
+
   }
 
   formInvalid = () => {
@@ -121,7 +122,7 @@ class SignupStep2 extends Component {
 
     // watch if box without options present
     if ( pricingOptionsPresent ){
-      pricingOptions.forEach( (option, i) => {
+      pricingOptions.sort( (a,b) => a.id > b.id ).forEach( (option, i) => {
         let index = i + 1
 
         if ( pricingOptionsSubPresent ){

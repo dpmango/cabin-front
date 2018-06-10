@@ -56,22 +56,24 @@ class About extends Component {
               <div className="people__content">
                 <span className="t-small">People</span>
                 <h2>Cabin is founded by an experienced team that understands your business.</h2>
-                <div className="people__person">
-                  <div className="people__person-title"><span>Rifeng Gao,</span> Co-Founder</div>
-                  <div className="people__person-description">
-                    CFO and Co-Founder, Grain<br/>
-                    Associate Consultant, Bain & Company <br/>
-                    BSc (Hons), London School of Economics <br/>
-                    Forbes 30 under 30
+                <div className="people__list">
+                  <div className="people__person">
+                    <div className="people__person-title"><span>Rifeng Gao,</span> Co-Founder</div>
+                    <div className="people__person-description">
+                      CFO and Co-Founder, Grain<br/>
+                      Associate Consultant, Bain & Company <br/>
+                      BSc (Hons), London School of Economics <br/>
+                      Forbes 30 under 30
+                    </div>
                   </div>
-                </div>
-                <div className="people__person">
-                  <div className="people__person-title"><span>Isaac Loh,</span> Co-Founder</div>
-                  <div className="people__person-description">
-                    Senior Business Analyst, Vance Group<br/>
-                    MSc. Cambridge University, Fitzwilliam<br/>
-                    College Honorary Cambridge <br/>
-                    Commonwealth Trust Scholar
+                  <div className="people__person">
+                    <div className="people__person-title"><span>Isaac Loh,</span> Co-Founder</div>
+                    <div className="people__person-description">
+                      Senior Business Analyst, Vance Group<br/>
+                      MSc. Cambridge University, Fitzwilliam<br/>
+                      College Honorary Cambridge <br/>
+                      Commonwealth Trust Scholar
+                    </div>
                   </div>
                 </div>
               </div>

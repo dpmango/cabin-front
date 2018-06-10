@@ -145,6 +145,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_industry"
+                    autosize={false}
                     value={company_industry}
                     onChange={this.handleSelectChange.bind(this, 'company_industry')}
                     placeholder="Which industry are you in?"
@@ -154,6 +155,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_old"
+                    autosize={false}
                     value={company_old}
                     onChange={this.handleSelectChange.bind(this, 'company_old')}
                     placeholder="How old is your company?"
@@ -163,6 +165,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_employees"
+                    autosize={false}
                     value={company_employees}
                     onChange={this.handleSelectChange.bind(this, 'company_employees')}
                     placeholder="How many staff are there in your company?"

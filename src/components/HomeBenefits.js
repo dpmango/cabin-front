@@ -139,6 +139,9 @@ class TabContent1 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
+          <h3 className="for-mobile">
+            Business owners handle back office operations
+          </h3>
           <HomeBenefitsList activeIndex="1" />
         </div>
         <div className="home-benefits__content-right">
@@ -175,6 +178,9 @@ class TabContent2 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
+          <h3 className="for-mobile">
+            Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
+          </h3>
           <HomeBenefitsList activeIndex="3" />
         </div>
         <div className="home-benefits__content-right">
@@ -212,6 +218,9 @@ class TabContent3 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
+          <h3 className="for-mobile">
+            Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
+          </h3>
           <HomeBenefitsList activeIndex="5" />
         </div>
         <div className="home-benefits__content-right">
@@ -249,6 +258,9 @@ class TabContent4 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
+          <h3 className="for-mobile">
+            Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
+          </h3>
           <HomeBenefitsList activeIndex="7" />
         </div>
         <div className="home-benefits__content-right">
@@ -286,6 +298,9 @@ class TabContent5 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
+          <h3 className="for-mobile">
+            Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
+          </h3>
           <HomeBenefitsList activeIndex="8" />
         </div>
         <div className="home-benefits__content-right">

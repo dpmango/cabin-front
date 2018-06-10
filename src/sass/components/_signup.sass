@@ -88,6 +88,10 @@
       cursor: pointer
     &--complete
       justify-content: center
+    .btn--small
+      min-width: 120px
+    .btn--huge
+      min-width: 145px
     &-back
       display: flex
       // align-items: center
@@ -157,6 +161,9 @@
     &__left
       flex: 0 0 auto
       max-width: 100%
+      margin-top: 25px
+      h2
+        margin-top: 2em
     &__right
       flex: 0 0 auto
       max-width: 100%
@@ -168,18 +175,42 @@
     &__cta
       margin-top: 80px
 
+    &__nav
+      margin-top: 30px
+
+    &__datetime
+      margin-top: 45px
+
+    &__email-instead
+      margin-top: 80px
+
+    &__sucess
+      margin: 50px auto 90px
+      size: 270px 200px
+
 +r($mobile)
   .signup
     margin-top: 105px
     margin-bottom: 90px
     &__wrapper
-      padding-left: 30px
-      padding-right: 30px
+      padding-left: 25px
+      padding-right: 25px
 
     &__intro
       padding-top: 0
-
-
+      .t-paragraph
+        margin-top: 2em
+      .icon-rifeng-sign
+        margin-top: 15px
     &__cta
       margin-top: 50px
       max-width: 280px
+
+    &__datetime
+      display: block
+      max-width: 250px
+      &-col
+        max-width: 100%
+        padding-left: 10px
+        padding-right: 10px
+        margin-bottom: 35px

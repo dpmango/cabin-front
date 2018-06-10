@@ -45,7 +45,7 @@ class Header extends React.Component {
       if ( this.state.isScrolled ){
         this.setState({
           isScrolled: false
-        })  
+        })
       }
 
     }
@@ -112,7 +112,7 @@ class Header extends React.Component {
               <ul className="mobile-navi__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink onMouseOver={this.preloaderOnHover} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                   </li>
                 )}
               </ul>

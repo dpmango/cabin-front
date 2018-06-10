@@ -76,6 +76,7 @@ class Pricing extends Component {
               <Select
                 className="Select-white"
                 name="mobile-pricing-nav"
+                autosize={false}
                 value={selectValue}
                 onChange={this.mobileNavChange}
                 placeholder="Select page"
