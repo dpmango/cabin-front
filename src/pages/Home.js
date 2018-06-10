@@ -17,6 +17,7 @@ class Home extends Component {
   };
 
   componentDidMount(){
+    this.props.aosInst.refreshHard()
     this.props.setHeaderClass('');
   }
 

@@ -4,29 +4,33 @@ import { routes } from './routes';
 
 import ScrollTo from './services/ScrollTo';
 // import LoadingBar from 'react-redux-loading-bar'
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 class RenderSwitch extends React.Component {
+  constructor(){
+    super()
+    this.aos = AOS
+  }
   componentDidMount(){
-    // console.log('component mount')
-    // this.aos = AOS
-    // this.aos.init()
+    this.aos.init()
   }
   componentDidUpdate(prevProps) {
-    // console.log('componenet updated')
     if (this.props.location.pathname !== prevProps.location.pathname) {
       ScrollTo(0, 300)
     }
-
-    // this.aos.refresh();
   }
 
   render(){
+    const PropsRoute = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={props => (
+        <Component aosInst={this.aos} {...props}/>
+      )}/>
+    )
+
     return(
       <Switch>
         {routes.map(route => (
-          <Route
+          <PropsRoute
             key={route.path}
             exact={route.isExact}
             path={route.path}
