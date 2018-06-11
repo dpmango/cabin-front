@@ -121,11 +121,11 @@ export default class HomeBenefits extends Component {
   }
   render(){
     return(
-      <div className="home-benefits" data-aos="fade-up">
+      <div className="home-benefits">
         <div className="container container--narrow">
-          <span className="t-small">How businesses are using Cabin</span>
-          <h2>Whichever stage of growth you are at, we have something for you.</h2>
-          <div className="home-benefits__tabs">
+          <span className="t-small" data-aos="fade-up">How businesses are using Cabin</span>
+          <h2 data-aos="fade-up" data-aos-delay="150">Whichever stage of growth you are at, we have something for you.</h2>
+          <div className="home-benefits__tabs" data-aos="fade-up" data-aos-delay="300">
             { this.renderContent() }
           </div>
         </div>

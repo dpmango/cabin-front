@@ -10,7 +10,7 @@ class SingupEmail extends Component {
   static propTypes = {
     setSignupId: PropTypes.func,
     setSignupEmail: PropTypes.func,
-    signupId: PropTypes.number
+    // signupId: PropTypes.number
   };
 
   constructor() {
@@ -75,7 +75,7 @@ class SingupEmail extends Component {
 
     return(
       <React.Fragment>
-        <form className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
+        <form data-aos="fade-up" data-aos-delay="300" className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
           <input type="text" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
           <button type="submit" className="btn btn--huge">Get started</button>
           { errors &&

@@ -4,11 +4,11 @@ import SignupEmail from '../containers/SignupEmail';
 export default class HomeHero extends Component {
   render(){
     return(
-      <div className="home-hero" data-aos="fade-up">
+      <div className="home-hero">
         <div className="container">
           <div className="home-hero__wrapper">
-            <h1>Turn messy documents into accurate financial statements.</h1>
-            <div className="t-paragraph">Online accounting and corporate secretary service starting at <span>$200 per month</span></div>
+            <h1 data-aos="fade-up">Turn messy documents into accurate financial statements.</h1>
+            <div className="t-paragraph" data-aos="fade-up" data-aos-delay="150">Online accounting and corporate secretary service starting at <span>$200 per month</span></div>
             <SignupEmail extraClass="home-hero__form" />
           </div>
         </div>

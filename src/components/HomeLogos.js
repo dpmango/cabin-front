@@ -4,7 +4,7 @@ import HomeLogosEl from '../components/HomeLogosEl';
 export default class HomeLogos extends Component {
   render(){
     return(
-      <div className="home-logos" data-aos="fade-up">
+      <div className="home-logos" data-aos="fade-right">
         <div className="container">
           <div className="home-logos__wrapper">
             <span className="home-logos__name">Trusted by:</span>

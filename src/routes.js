@@ -40,6 +40,11 @@ export const GetStarted = MyLoadable({
   modules: ['./pages/GetStarted'],
   webpack: () => [require.resolveWeak('./pages/GetStarted')]
 });
+export const NotFound = MyLoadable({
+  loader: () => import("./pages/NotFound"),
+  modules: ['./pages/NotFound'],
+  webpack: () => [require.resolveWeak('./pages/NotFound')]
+});
 
 export const routes = [
   {
@@ -68,5 +73,10 @@ export const routes = [
     name: 'Get Started',
     component: GetStarted,
     isPrivate: false
+  },
+  {
+    forNavBar: false,
+    path: '',
+    component: NotFound
   },
 ];

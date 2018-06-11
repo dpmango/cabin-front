@@ -12,12 +12,18 @@ class RenderSwitch extends React.Component {
     this.aos = AOS
   }
   componentDidMount(){
-    this.aos.init()
+    this.aos.init({
+      duration: 400,
+      offset: 0,
+      easing: 'ease-in-sine'
+    })
   }
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       ScrollTo(0, 300)
     }
+
+    this.aos.refresh()
   }
 
   render(){

@@ -1,0 +1,27 @@
+.not-found
+  &__wrapper
+    min-height: calc(100vh - 120px)
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 120px 0 80px
+  &__title
+    font-weight: 500
+    font-size: 80px
+    text-align: center
+    span
+      color: $colorBlue
+  &__desc
+      text-align: center
+  &__action
+    text-align: center
+    margin-top: 15px
+    font-size: 14px
+    color: $fontColorGray
+    a
+      display: inline-block
+      transition: .25s $ease
+      color: $colorBlue
+      &:hover
+        color: $colorGreen

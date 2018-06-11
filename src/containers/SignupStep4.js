@@ -95,7 +95,7 @@ class SignupStep4 extends Component {
     return(
       <div className="container">
         <div className="signup__box">
-          <div className="signup__progress">
+          <div className="signup__progress" data-aos="fade-right">
             <div className="signup__progress-line">
               <div className="signup__progress-fill" style={{"width" : "100%"}}>
                 <div className="signup__progress-name signup__progress-name--last">Step 3</div>
@@ -104,13 +104,13 @@ class SignupStep4 extends Component {
           </div>
 
           <div className="signup__wrapper">
-            <div className="signup__left">
+            <div className="signup__left" data-aos="fade-right" data-aos-delay="150">
               <div className="signup__avatar signup__avatar--small">
                 <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
               </div>
               <h2>Let me know when is a good time to reach out</h2>
             </div>
-            <div className="signup__right">
+            <div className="signup__right" data-aos="fade-up" data-aos-delay="250">
               <div className="ui-group">
                 <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
               </div>
@@ -182,7 +182,7 @@ class SignupStep4 extends Component {
 
         </div>
 
-        <div className="signup__nav">
+        <div className="signup__nav" data-aos="fade-up" data-aos-delay="400">
           <a className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>

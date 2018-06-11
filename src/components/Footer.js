@@ -4,7 +4,7 @@ import SvgIcon from '../components/SvgIcon';
 export default class Footer extends Component {
   render(){
     return(
-      <footer className="footer">
+      <footer className="footer" data-aos="fade-left">
         <div className="container container--narrow">
           <div className="footer__wrapper">
             <div className="footer__logo">

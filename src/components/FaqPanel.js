@@ -29,7 +29,7 @@ export default class FaqPanel extends Component {
     const { isOpened } = this.state
 
     return(
-      <div className={isOpened ? "faq-panel is-active" : "faq-panel"}>
+      <div data-aos="fade-up" className={isOpened ? "faq-panel is-active" : "faq-panel"}>
         <div className="faq-panel__head" onClick={this.togglePanel}>
           <div className="faq-panel__name">{name}</div>
           <SvgIcon name="collapse-arrow" />

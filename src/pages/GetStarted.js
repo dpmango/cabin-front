@@ -17,6 +17,7 @@ class Profile extends React.Component {
   };
 
   componentDidMount(){
+    this.props.aosInst.refreshHard();
     this.props.setHeaderClass('header--logo-only');
   }
 
