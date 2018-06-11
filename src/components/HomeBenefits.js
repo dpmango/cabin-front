@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import SvgIcon from '../components/SvgIcon';
 import debounce from 'lodash/debounce';
 import Swiper from 'react-id-swiper';
 
 import HomeBenefitsList from '../components/HomeBenefitsList';
+import Testimonial from '../components/Testimonial';
 
 export default class HomeBenefits extends Component {
   constructor(props){
@@ -37,6 +37,13 @@ export default class HomeBenefits extends Component {
       this.setState({ isMobile: false })
     }
   };
+
+  refreshAOS = (index: number, lastIndex: number, event: Event) => {
+    this.props.aosInst.refreshHard();
+    setTimeout( () => {
+      this.props.aosInst.refreshHard();
+    }, 100)
+  }
 
   renderContent = () => {
     if (this.state.isMobile) {
@@ -91,7 +98,7 @@ export default class HomeBenefits extends Component {
       )
     } else {
       return (
-        <Tabs className="tabs-pane" defaultIndex={1}>
+        <Tabs className="tabs-pane" defaultIndex={1} onSelect={this.refreshAOS}>
           <TabList className="tabs-pane__list">
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Incorporation</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Starting up</Tab>
@@ -139,32 +146,22 @@ class TabContent1 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile">
+          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations
           </h3>
           <HomeBenefitsList activeIndex="1" />
         </div>
         <div className="home-benefits__content-right">
-          <h3>
+          <h3 data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations
           </h3>
-          <div className="testimonial">
-            <div className="testimonial__wrapper">
-              <div className="testimonial__icon">
-                <SvgIcon name="quote" />
-              </div>
-              <div className="testimonial__content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu</p>
-                <div className="testimonial__author">
-                  <div className="testimonial__author-avatar">
-                    <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
-                  </div>
-                  <div className="testimonial__author-text"><span>John Tan,</span> CEO at Acme Pte. Ltd.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-benefits__content-cta">
+          <Testimonial
+            content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+            authorName="John Tan"
+            authorTitle="CEO at Acme Pte. Ltd."
+            authorImage="avatar-1"
+          />
+          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -178,33 +175,23 @@ class TabContent2 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile">
+          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="3" />
         </div>
         <div className="home-benefits__content-right">
-          <h3>
+          <h3 data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
-          <div className="testimonial">
-            <div className="testimonial__wrapper">
-              <div className="testimonial__icon">
-                <SvgIcon name="quote" />
-              </div>
-              <div className="testimonial__content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu</p>
-                <div className="testimonial__author">
-                  <div className="testimonial__author-avatar">
-                    <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
-                  </div>
-                  <div className="testimonial__author-text"><span>John Tan,</span> CEO at Acme Pte. Ltd.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-benefits__content-cta">
+          <Testimonial
+            content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+            authorName="John Tan"
+            authorTitle="CEO at Acme Pte. Ltd."
+            authorImage="avatar-1"
+          />
+          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -218,33 +205,23 @@ class TabContent3 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile">
+          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="5" />
         </div>
         <div className="home-benefits__content-right">
-          <h3>
+          <h3 data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
-          <div className="testimonial">
-            <div className="testimonial__wrapper">
-              <div className="testimonial__icon">
-                <SvgIcon name="quote" />
-              </div>
-              <div className="testimonial__content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu</p>
-                <div className="testimonial__author">
-                  <div className="testimonial__author-avatar">
-                    <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
-                  </div>
-                  <div className="testimonial__author-text"><span>John Tan,</span> CEO at Acme Pte. Ltd.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-benefits__content-cta">
+          <Testimonial
+            content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+            authorName="John Tan"
+            authorTitle="CEO at Acme Pte. Ltd."
+            authorImage="avatar-1"
+          />
+          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -258,33 +235,23 @@ class TabContent4 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile">
+          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="7" />
         </div>
         <div className="home-benefits__content-right">
-          <h3>
+          <h3 data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
-          <div className="testimonial">
-            <div className="testimonial__wrapper">
-              <div className="testimonial__icon">
-                <SvgIcon name="quote" />
-              </div>
-              <div className="testimonial__content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu</p>
-                <div className="testimonial__author">
-                  <div className="testimonial__author-avatar">
-                    <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
-                  </div>
-                  <div className="testimonial__author-text"><span>John Tan,</span> CEO at Acme Pte. Ltd.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-benefits__content-cta">
+          <Testimonial
+            content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+            authorName="John Tan"
+            authorTitle="CEO at Acme Pte. Ltd."
+            authorImage="avatar-1"
+          />
+          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -298,33 +265,23 @@ class TabContent5 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile">
+          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="8" />
         </div>
         <div className="home-benefits__content-right">
-          <h3>
+          <h3 data-aos="fade-up" data-aos-delay="250">
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
-          <div className="testimonial">
-            <div className="testimonial__wrapper">
-              <div className="testimonial__icon">
-                <SvgIcon name="quote" />
-              </div>
-              <div className="testimonial__content">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu</p>
-                <div className="testimonial__author">
-                  <div className="testimonial__author-avatar">
-                    <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
-                  </div>
-                  <div className="testimonial__author-text"><span>John Tan,</span> CEO at Acme Pte. Ltd.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-benefits__content-cta">
+          <Testimonial
+            content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+            authorName="John Tan"
+            authorTitle="CEO at Acme Pte. Ltd."
+            authorImage="avatar-1"
+          />
+          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>

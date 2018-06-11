@@ -20,12 +20,13 @@ export default class HomeBenefitsList extends Component {
     return (
       <ul className="home-benefits__list">
         {listNames.map((el, i) => {
+          const aosDelay = i * 50
           return (
             <li key={i} className={i+1 > activeIndex ? 'is-disabled' : ''}>
-              <div className="home-benefits__list-icon">
+              <div className="home-benefits__list-icon" data-aos="zoom-in" data-aos-delay={aosDelay}>
                 <SvgIcon name="check" />
               </div>
-              <span>{el}</span>
+              <span data-aos="fade-right" data-aos-delay={aosDelay}>{el}</span>
             </li>
           )
         })}

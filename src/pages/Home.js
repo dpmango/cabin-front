@@ -31,7 +31,7 @@ class Home extends Component {
         <HomeHero />
         <HomeLogos />
         {/* <HomePromo /> */}
-        <HomeBenefits />
+        <HomeBenefits aosInst={this.props.aosInst}/>
         <HomeFeatures />
 
         <GetStartedBottom />
