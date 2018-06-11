@@ -137,7 +137,7 @@ class SignupStep2 extends Component {
     return(
       <div className="container">
         <div className="signup__box">
-          <div className="signup__progress" data-aos="fade-right">
+          <div className="signup__progress" data-aos="fade-down">
             <div className="signup__progress-line">
               <div className="signup__progress-fill" style={{"width" : "33%"}}>
                 <div className="signup__progress-name">Step 1</div>

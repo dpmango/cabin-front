@@ -21,6 +21,10 @@ class Profile extends React.Component {
     this.props.setHeaderClass('header--logo-only');
   }
 
+  componentDidUpdate(){
+    this.props.aosInst.refreshHard();
+  }
+
   renderStep = () => {
     const { signupStep } = this.props;
 
