@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import GetStartedBottom from '../components/GetStartedBottom';
-
 class Home extends Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
+import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 import 'airbnb-js-shims';
@@ -54,6 +55,8 @@ class SignupStep4 extends Component {
 
     const { meeting_date, meeting_time, date, email_instead } = this.state;
 
+    let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
+
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
@@ -61,7 +64,9 @@ class SignupStep4 extends Component {
           meeting_time: meeting_time ? meeting_time.label : null,
           email_instead: email_instead,
           ispending: false,
-          isfollowup: false
+          isfollowup: false,
+          pricing_plan: this.props.pricingPlan,
+          pricing_options: pricingOptionsStr
         }
       })
       .then((res) => {
@@ -201,7 +206,10 @@ class SignupStep4 extends Component {
 
 const mapStateToProps = (state) => ({
   signupId: state.signup.signupId,
-  signupFields: state.signup.fields
+  signupFields: state.signup.fields,
+  pricingPlan: state.pricing.selectedPlan,
+  pricingOptions: state.pricing.pricingOptions,
+  pricingOptionsSub: state.pricing.pricingOptionsSub
 });
 
 const mapDispatchToProps = (dispatch) => ({

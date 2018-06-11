@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import api from '../services/Api';
+import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
@@ -35,7 +36,6 @@ class SignupStep2 extends Component {
     };
 
     this.formRef = React.createRef();
-
   }
 
   formInvalid = () => {
@@ -67,7 +67,7 @@ class SignupStep2 extends Component {
   nextStep = () => {
     const { first_name, last_name, company_name, email, phone } = this.state;
 
-    let pricingOptionsStr = this.buildOptionsString();
+    let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
 
     const leadObj = {
       first_name: first_name,
@@ -109,49 +109,6 @@ class SignupStep2 extends Component {
         });
     }
 
-  }
-
-  buildOptionsString = () => {
-
-    const { pricingOptions, pricingOptionsSub } = this.props;
-    const pricingOptionsPresent = pricingOptions && pricingOptions.length > 0
-    const pricingOptionsSubPresent = pricingOptionsSub && pricingOptionsSub.length > 0
-    let str = "";
-    let totalPrice = 0;
-
-
-    // watch if box without options present
-    if ( pricingOptionsPresent ){
-      pricingOptions.sort( (a,b) => a.id > b.id ).forEach( (option, i) => {
-        let index = i + 1
-
-        if ( pricingOptionsSubPresent ){
-          const connectedSubOption = pricingOptionsSub.filter( x => x.boxId === option.id );
-
-          if ( connectedSubOption && connectedSubOption.length > 0 ){
-            // build str with option
-            const subOpt = connectedSubOption[0];
-            str += index + '. ' + option.name + ' (' + subOpt.name + ') (' + subOpt.price + '), '
-            totalPrice += this.parsePrice(subOpt.price)
-          } else {
-            // no option
-            str += index + '. ' + option.name + ' (' + option.price + ') , '
-            totalPrice += this.parsePrice(option.price)
-          }
-        } else {
-          str += index + '. ' + option.name + ' (' + option.price + ') , '
-          totalPrice += this.parsePrice(option.price)
-        }
-      })
-
-      str += ' || Total price: S$' + totalPrice
-    }
-
-    return str
-  }
-
-  parsePrice = (str) => {
-    return Number((str).match(/\d+$/))
   }
 
   updateSignup = () => {

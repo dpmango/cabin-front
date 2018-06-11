@@ -5,6 +5,7 @@ import Formsy from 'formsy-react';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import api from '../services/Api';
+import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
@@ -65,6 +66,8 @@ class SignupStep3 extends Component {
   nextStep = () => {
     const {company_industry, company_old, company_employees} = this.state
 
+    let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
+
     // patch lead
     // post value to API, but keep object for state
     api
@@ -73,6 +76,8 @@ class SignupStep3 extends Component {
           company_industry: company_industry.value,
           company_old: company_old.value,
           company_employees: company_employees.value,
+          pricing_plan: this.props.pricingPlan,
+          pricing_options: pricingOptionsStr
         }
       })
       .then((res) => {
@@ -227,7 +232,10 @@ class SignupStep3 extends Component {
 
 const mapStateToProps = (state) => ({
   signupId: state.signup.signupId,
-  signupFields: state.signup.fields
+  signupFields: state.signup.fields,
+  pricingPlan: state.pricing.selectedPlan,
+  pricingOptions: state.pricing.pricingOptions,
+  pricingOptionsSub: state.pricing.pricingOptionsSub
 });
 
 const mapDispatchToProps = (dispatch) => ({
