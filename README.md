@@ -12,10 +12,10 @@ http://cabin.surge.sh
 - [Gulp](#gulp)
 - [Important notes](#important-notes)
 
-### How to start
-`yarn developer` - run gulp and react scripts start
-`yarn builder` - run gulp in production mode and react scripts build folder
-`yarn surge` - deploy to surge
+## How to start
+* `yarn developer` - run gulp and react scripts start
+* `yarn builder` - run gulp in production mode and react scripts build folder
+* `yarn surge` - deploy to surge
 
 ## Back-end
 Backend is powered by Ruby on Rails in API only mode with Active Admin gem. Follow instructions on [Cabin backend repository](https://gitlab.com/cabin-landing-page/cabin-back) for local setup.
