@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
+import SvgIcon from '../components/SvgIcon';
+
 class Home extends Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,
@@ -17,7 +19,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home">
+      <React.Fragment>
         <Helmet>
           <title>404 - Page not found || CABIN</title>
         </Helmet>
@@ -25,14 +27,21 @@ class Home extends Component {
         <div className="not-found">
           <div className="container container--narrow">
             <div className="not-found__wrapper">
-              <div className="not-found__title">4<span>0</span>4</div>
-              <div className="not-found__desc t-paragraph">Page does not exist</div>
-              <div className="not-found__action"><Link to="/">Navigate to Homepage</Link> </div>
+              <div className="not-found__image">
+              </div>
+              <h2 className="not-found__title">No page found.</h2>
+              <p className="not-found__desc t-paragraph">We can’t seem to find the page you’re looking for.</p>
+              <div className="signup__nav signup__nav--complete" data-aos="fade-up" data-aos-delay="250">
+                <a className="signup__nav-back" onClick={this.completeSignup}>
+                  <SvgIcon name="back-arrow" />
+                  <span>Go Back to the Homepage</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-      </div>
+      </React.Fragment>
     );
   }
 }

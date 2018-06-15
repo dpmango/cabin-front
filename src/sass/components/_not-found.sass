@@ -5,23 +5,19 @@
     flex-direction: column
     justify-content: center
     align-items: center
+    text-align: center
     padding: 120px 0 80px
   &__title
-    font-weight: 500
-    font-size: 80px
-    text-align: center
-    span
-      color: $colorBlue
+    margin-bottom: 0
   &__desc
-      text-align: center
-  &__action
-    text-align: center
-    margin-top: 15px
-    font-size: 14px
-    color: $fontColorGray
-    a
-      display: inline-block
-      transition: .25s $ease
-      color: $colorBlue
-      &:hover
-        color: $colorGreen
+    // text-align: center
+
+  &__image
+    size: 370px 270px
+    background: $lightBg
+    margin-bottom: 35px
+
++r($tablet)
+  .not-found
+    &__image
+      size: 270px 200px

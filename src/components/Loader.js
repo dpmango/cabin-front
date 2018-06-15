@@ -20,9 +20,10 @@ export default class Loader extends Component {
       )
     } else if (pastDelay) {
       // When the loader has taken longer than the delay
-      return (
-        <div className="loader__desc">Loading...</div>
-      );
+      return null;
+      // return (
+      //   <div className="loader__desc">Loading...</div>
+      // );
     } else {
       // When the loader has just started
       return null;
@@ -38,11 +39,11 @@ export default class Loader extends Component {
     } else {
       return(
         <div className="loader">
-          <div className='preloader-squares'>
-            <div className='square'></div>
-            <div className='square'></div>
-            <div className='square'></div>
-            <div className='square'></div>
+          <div className='preloader-dots'>
+            <div className='dot'></div>
+            <div className='dot'></div>
+            <div className='dot'></div>
+            <div className='dot'></div>
           </div>
           { this.descriptionBlock() }
         </div>

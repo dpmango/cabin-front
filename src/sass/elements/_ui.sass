@@ -1,6 +1,19 @@
 .ui-group
   position: relative
   margin-bottom: 35px
+  /* required as a fix for react-select dropdown
+  /* because of shadow fromt .Select-control on top of dropdown
+  &:nth-child(1)
+    z-index: 5
+  &:nth-child(2)
+    z-index: 4
+  &:nth-child(3)
+    z-index: 3
+  &:nth-child(4)
+    z-index: 2
+  &:nth-child(5)
+    z-index: 1
+
   > label
     display: block
     font-size: 16px
@@ -68,7 +81,7 @@
   &.is-active
     .ui-checkbox__label
       &::before
-        border-color: $colorGreen
+        // border-color: $colorBlue
       &::after
         transform: translateY(-50%) scale(1)
   &__label
@@ -95,14 +108,14 @@
       transition: all $transitionSpeed ease-in-out
     &::after
       position: absolute
-      left: 6px
+      left: 5px
       top: 50%
       transform: translateY(-50%) scale(0)
       display: inline-block
       content: ' '
-      size: 10px
-      background: $colorGreen
-      border-radius: 50%
+      size: 12px
+      background: $colorBlue
+      // border-radius: 50%
       transition: transform .2s ease
     span
       display: inline-block

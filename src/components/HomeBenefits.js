@@ -38,7 +38,7 @@ export default class HomeBenefits extends Component {
     }
   };
 
-  refreshAOS = (index: number, lastIndex: number, event: Event) => {
+  refreshAOS = (index, lastIndex, event) => {
     this.props.aosInst.refreshHard();
     setTimeout( () => {
       this.props.aosInst.refreshHard();
