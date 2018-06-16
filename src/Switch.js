@@ -15,7 +15,8 @@ class RenderSwitch extends React.Component {
     this.aos.init({
       duration: 400,
       offset: 0,
-      easing: 'ease-in-sine'
+      easing: 'ease-in-sine',
+      once: true
     })
   }
   componentDidUpdate(prevProps) {
