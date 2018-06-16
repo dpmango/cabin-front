@@ -36,6 +36,8 @@ export default class HomeBenefits extends Component {
     } else {
       this.setState({ isMobile: false })
     }
+
+    this.refreshAOS()
   };
 
   refreshAOS = (index, lastIndex, event) => {

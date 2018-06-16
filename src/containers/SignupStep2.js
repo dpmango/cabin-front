@@ -207,6 +207,7 @@ class SignupStep2 extends Component {
                 />
                 <FormInput
                   name="phone"
+                  type="tel"
                   placeholder="Phone Number"
                   value={phone}
                   mask={['+','6','5', ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}

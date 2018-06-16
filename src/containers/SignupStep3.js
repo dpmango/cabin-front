@@ -150,6 +150,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_industry"
+                    searchable={false}
                     autosize={false}
                     value={company_industry}
                     onChange={this.handleSelectChange.bind(this, 'company_industry')}
@@ -160,6 +161,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_old"
+                    searchable={false}
                     autosize={false}
                     value={company_old}
                     onChange={this.handleSelectChange.bind(this, 'company_old')}
@@ -170,6 +172,7 @@ class SignupStep3 extends Component {
                 <div className="ui-group">
                   <Select
                     name="company_employees"
+                    searchable={false}
                     autosize={false}
                     value={company_employees}
                     onChange={this.handleSelectChange.bind(this, 'company_employees')}

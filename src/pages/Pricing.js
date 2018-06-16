@@ -77,6 +77,7 @@ class Pricing extends Component {
               <Select
                 className="Select-white"
                 name="mobile-pricing-nav"
+                searchable={false}
                 autosize={false}
                 value={selectValue}
                 onChange={this.mobileNavChange}

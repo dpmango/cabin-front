@@ -20,6 +20,8 @@ class FormInput extends Component {
   render(){
     const { name, placeholder, mask } = this.props
 
+    const type = this.props.type ? this.props.type : "text"
+    
     // An error message is returned only if the component is invalid
     const errorMessage = this.props.isFormSubmitted() ? this.props.getErrorMessage() : null;
     const parentClass = this.props.isFormSubmitted() ? this.props.isValid() ? 'ui-group' : 'ui-group has-error' : 'ui-group'
@@ -28,7 +30,7 @@ class FormInput extends Component {
       return (
         <div className={parentClass}>
           <MaskedInput
-            type="text"
+            type={type}
             mask={mask}
             guide={false}
             name={name}
@@ -43,7 +45,7 @@ class FormInput extends Component {
       return(
         <div className={parentClass}>
           <input
-            type="text"
+            type={type}
             name={name}
             placeholder={placeholder}
             onChange={this.changeValue}

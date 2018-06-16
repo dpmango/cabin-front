@@ -145,6 +145,7 @@ class SignupStep4 extends Component {
                 <div className="signup__datetime-col">
                   <Select
                     name="meeting_time"
+                    searchable={false}
                     autosize={false}
                     value={meeting_time}
                     onChange={this.handleSelectChange}
