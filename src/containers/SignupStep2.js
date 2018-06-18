@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
+import PhoneInput from 'react-phone-number-input'
+import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
 import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
@@ -205,7 +207,20 @@ class SignupStep2 extends Component {
                   onChangeHandler={this.handleChange}
                   required
                 />
-                <FormInput
+                <div className="ui-group">
+                  <div className="ui-phone">
+                    <PhoneInput
+                  		placeholder="Phone Number"
+                  		value={ phone }
+                      country={'SG'}
+                      displayInitialValueAsLocalNumber={true}
+                  		onChange={ phone => this.setState({ phone }) }
+                      // indicateInvalid
+                      // error={ phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' }
+                    />
+                  </div>
+                </div>
+                {/* <FormInput
                   name="phone"
                   type="tel"
                   placeholder="Phone Number"
@@ -220,7 +235,7 @@ class SignupStep2 extends Component {
                     isDefaultRequiredValue: 'Please fill phone'
                   }}
                   required
-                />
+                />*/}
               </Formsy>
             </div>
           </div>

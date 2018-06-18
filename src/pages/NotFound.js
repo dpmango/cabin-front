@@ -32,10 +32,10 @@ class Home extends Component {
               <h2 className="not-found__title">No page found.</h2>
               <p className="not-found__desc t-paragraph">We can’t seem to find the page you’re looking for.</p>
               <div className="signup__nav signup__nav--complete" data-aos="fade-up" data-aos-delay="250">
-                <a className="signup__nav-back" onClick={this.completeSignup}>
+                <Link to="/" className="signup__nav-back">
                   <SvgIcon name="back-arrow" />
                   <span>Go Back to the Homepage</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

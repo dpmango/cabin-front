@@ -29,10 +29,10 @@
     border-radius: 3px
     border: 1px solid rgba($fontColorGray, .5)
     font-size: 14px
-    line-height: 1.33
+    line-height: 2
     color: $fontColorGray
     box-shadow: none
-    padding: 23px 15px 21px
+    padding: 18px 15px 16px
     transition: .25s $ease
     &::placeholder
       color: rgba($fontColorGray, .5)
@@ -68,6 +68,34 @@
     background: $colorRed
 
 
+.ui-phone
+  display: block
+  font-family: $defaultFamily
+  width: 100%
+  height: auto
+  background: white
+  border-radius: 3px
+  border: 1px solid rgba($fontColorGray, .5)
+  font-size: 14px
+  line-height: 2
+  color: $fontColorGray
+  box-shadow: none
+  padding: 0px 15px 0px
+  transition: .25s $ease
+  .rrui__input
+    height: auto
+  .rrui__input-field
+    font-size: 14px
+    line-height: 2
+    padding: 18px 0px 16px
+  .rrui__select
+    padding-bottom: 2px
+    .rrui__input
+      // font-size: 0
+      line-height: 0
+      height: 15px
+  .react-phone-number-input__country.rrui__select--collapsed
+    margin-right: 15px
 
 // Checkbox
 .ui-checkbox
