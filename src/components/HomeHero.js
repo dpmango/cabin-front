@@ -12,6 +12,9 @@ export default class HomeHero extends Component {
             <SignupEmail extraClass="home-hero__form" />
           </div>
         </div>
+        <div className="home-hero__bg">
+          <img src={require(`../images/homeHeroIllustration.png`)} srcSet={require(`../images/homeHeroIllustration@2x.png`)  + ' 2x'} alt=""/>
+        </div>
       </div>
     )
   }

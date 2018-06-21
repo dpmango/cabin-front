@@ -16,7 +16,7 @@ export default class HomeFeatures extends Component {
               <div className="home-features__col">
                 <div className="home-features-card" data-aos="fade-up" data-aos-delay="300">
                   <div className="home-features-card__image">
-
+                    <i className="icon icon-homeFeatures-1"></i>
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Fully digital</div>
@@ -27,7 +27,7 @@ export default class HomeFeatures extends Component {
               <div className="home-features__col">
                 <div className="home-features-card" data-aos="fade-up" data-aos-delay="400">
                   <div className="home-features-card__image">
-
+                    <i className="icon icon-homeFeatures-2"></i>
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Thoughtful humans</div>
@@ -38,7 +38,7 @@ export default class HomeFeatures extends Component {
               <div className="home-features__col">
                 <div className="home-features-card" data-aos="fade-up" data-aos-delay="500">
                   <div className="home-features-card__image">
-
+                    <i className="icon icon-homeFeatures-3"></i>
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Tailored services</div>
@@ -49,7 +49,7 @@ export default class HomeFeatures extends Component {
               <div className="home-features__col">
                 <div className="home-features-card" data-aos="fade-up" data-aos-delay="600">
                   <div className="home-features-card__image">
-
+                    <i className="icon icon-homeFeatures-4"></i>
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Affordable</div>
