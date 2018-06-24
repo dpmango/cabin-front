@@ -36,23 +36,23 @@ export default class Professionals extends Component {
       <div className="professionals">
         <div className="container">
           <div className="t-center">
-            <span className="t-small" data-aos="fade-up">You are in good hands</span>
-            <h2 data-aos="fade-up" data-aos-delay="150">Cabin is powered by a team of thoughtful professionals</h2>
+            <span className="t-small">You are in good hands</span>
+            <h2>Cabin is powered by a team of thoughtful professionals</h2>
           </div>
 
           { isAlt &&
             <div className="professionals__logos">
-              <div className="professionals__logos-el" data-aos="fade-up" data-aos-delay="250">
+              <div className="professionals__logos-el">
                 <i className="icon icon-logo-ISCA" />
               </div>
-              <div className="professionals__logos-el" data-aos="fade-up" data-aos-delay="350">
+              <div className="professionals__logos-el">
                 <i className="icon icon-logo-ACCA" />
               </div>
-              <div className="professionals__logos-el" data-aos="fade-up" data-aos-delay="450">
+              <div className="professionals__logos-el">
                 <i className="icon icon-logo-ACRA" />
                 <span>Registered Filing Agent: FA20170616</span>
               </div>
-              <div className="professionals__logos-el" data-aos="fade-up" data-aos-delay="550">
+              <div className="professionals__logos-el">
                 <i className="icon icon-logo-Xero" />
               </div>
             </div>

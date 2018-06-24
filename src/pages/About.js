@@ -25,14 +25,14 @@ class About extends Component {
         </Helmet>
 
         <div className="hero">
-          <div className="hero__bg" data-aos="fade-left" data-aos-delay="500">
+          <div className="hero__bg">
             <img src={require('../images/aboutHeroImg.png')} srcSet={require('../images/aboutHeroImg@2x.png')  + ' 2x'} alt=""/>
           </div>
           <div className="container container--narrow">
             <div className="hero__wrapper">
-              <span className="t-small" data-aos="fade-up">About us</span>
-              <h2 data-aos="fade-up" data-aos-delay="150">Powered by thoughtful humans</h2>
-              <p className="t-paragraph" data-aos="fade-up" data-aos-delay="300">Founded by an experienced team that understands your business</p>
+              <span className="t-small">About us</span>
+              <h2>Powered by thoughtful humans</h2>
+              <p className="t-paragraph">Founded by an experienced team that understands your business</p>
             </div>
           </div>
         </div>
@@ -40,25 +40,25 @@ class About extends Component {
         <div className="title-section">
           <div className="container">
             <div className="title-section__wrapper">
-              <h2 data-aos="fade-up">Our Mission</h2>
-              <p className="t-paragraph" data-aos="fade-up" data-aos-delay="150">We make office operations simple and fuss-free for small and medium businesses. We bring clarity to the numbers and help business owners make better decisions. </p>
+              <h2>Our Mission</h2>
+              <p className="t-paragraph">We make office operations simple and fuss-free for small and medium businesses. We bring clarity to the numbers and help business owners make better decisions. </p>
             </div>
           </div>
         </div>
 
         <div className="people">
           <div className="people__wrapper">
-            <div className="people__left" data-aos="fade-right">
+            <div className="people__left">
               <div className="people__image">
                 <img src={require('../images/aboutPeople.jpg')} srcSet={require('../images/aboutPeople@2x.jpg')  + ' 2x'} alt=""/>
               </div>
             </div>
             <div className="people__right">
               <div className="people__content">
-                <span className="t-small" data-aos="fade-up">People</span>
-                <h2 data-aos="fade-up" data-aos-delay="150">Cabin is founded by an experienced team that understands your business.</h2>
+                <span className="t-small">People</span>
+                <h2 data-aos-delay="150">Cabin is founded by an experienced team that understands your business.</h2>
                 <div className="people__list">
-                  <div className="people__person" data-aos="fade-up" data-aos-delay="250">
+                  <div className="people__person" data-aos-delay="250">
                     <div className="people__person-title"><span>Rifeng Gao,</span> Co-Founder</div>
                     <div className="people__person-description">
                       CFO and Co-Founder, Grain<br/>
@@ -67,7 +67,7 @@ class About extends Component {
                       Forbes 30 under 30
                     </div>
                   </div>
-                  <div className="people__person" data-aos="fade-up" data-aos-delay="350">
+                  <div className="people__person" data-aos-delay="350">
                     <div className="people__person-title"><span>Isaac Loh,</span> Co-Founder</div>
                     <div className="people__person-description">
                       Senior Business Analyst, Vance Group<br/>

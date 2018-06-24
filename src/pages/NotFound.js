@@ -28,10 +28,11 @@ class Home extends Component {
           <div className="container container--narrow">
             <div className="not-found__wrapper">
               <div className="not-found__image">
+                
               </div>
               <h2 className="not-found__title">No page found.</h2>
               <p className="not-found__desc t-paragraph">We can’t seem to find the page you’re looking for.</p>
-              <div className="signup__nav signup__nav--complete" data-aos="fade-up" data-aos-delay="250">
+              <div className="signup__nav signup__nav--complete">
                 <Link to="/" className="signup__nav-back">
                   <SvgIcon name="back-arrow" />
                   <span>Go Back to the Homepage</span>

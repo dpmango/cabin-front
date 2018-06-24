@@ -7,7 +7,7 @@ export default class Testimonial extends Component {
     const { content, authorImage, authorName, authorTitle } = this.props;
 
     return(
-      <div className="testimonial" data-aos="fade-up" data-aos-delay="350">
+      <div className="testimonial">
         <div className="testimonial__wrapper">
           <div className="testimonial__icon">
             <SvgIcon name="quote" />

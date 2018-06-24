@@ -40,13 +40,13 @@ class SignupStep5 extends Component {
 
     return(
       <div className="container">
-        <div className="t-center">
-          <h2 data-aos="fade-up">Thank you!</h2>
-          <p className="t-paragraph" data-aos="fade-up" data-aos-delay="150">We’ll get in touch with you soon.</p>
-          <div className="signup__sucess" data-aos="fade-up" data-aos-delay="300">
+        <div className="t-center" data-aos="fade-up">
+          <h2>Thank you!</h2>
+          <p className="t-paragraph">We’ll get in touch with you soon.</p>
+          <div className="signup__sucess">
 
           </div>
-          <div className="signup__nav signup__nav--complete" data-aos="fade-up" data-aos-delay="450">
+          <div className="signup__nav signup__nav--complete">
             <a className="signup__nav-back" onClick={this.completeSignup}>
               <SvgIcon name="back-arrow" />
               <span>Go Back to the Homepage</span>

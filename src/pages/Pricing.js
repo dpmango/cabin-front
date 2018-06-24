@@ -50,17 +50,17 @@ class Pricing extends Component {
 
     const heroRender = (
       <div className="hero">
-        <div className="hero__bg" data-aos="fade-left" data-aos-delay="600">
+        <div className="hero__bg">
           <img src={require('../images/pricingHeroImg.png')} srcSet={require('../images/pricingHeroImg@2x.png')  + ' 2x'} alt=""/>
         </div>
         <div className="container container--narrow">
           <div className="hero__wrapper">
-            <span className="t-small" data-aos="fade-up">Pricing</span>
-            <h2 data-aos="fade-up" data-aos-delay="150">Simple and transparent pricing</h2>
-            <p className="t-paragraph" data-aos="fade-up" data-aos-delay="300">Pick a plan that is best suited to your needs and budget</p>
+            <span className="t-small">Pricing</span>
+            <h2>Simple and transparent pricing</h2>
+            <p className="t-paragraph">Pick a plan that is best suited to your needs and budget</p>
           </div>
         </div>
-        <div className="hero__nav" data-aos="fade-up" data-aos-delay="400">
+        <div className="hero__nav">
           <div className="container container--narrow">
             <div className="hero__nav-wrapper">
               <NavLink exact={true} to="/pricing" className="hero__nav-el" activeClassName='is-active'>

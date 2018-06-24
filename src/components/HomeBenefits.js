@@ -132,9 +132,9 @@ export default class HomeBenefits extends Component {
     return(
       <div className="home-benefits">
         <div className="container container--narrow">
-          <span className="t-small" data-aos="fade-up">How businesses are using Cabin</span>
-          <h2 data-aos="fade-up" data-aos-delay="150">Whichever stage of growth you are at, we have something for you.</h2>
-          <div className="home-benefits__tabs" data-aos="fade-up" data-aos-delay="300">
+          <span className="t-small">How businesses are using Cabin</span>
+          <h2>Whichever stage of growth you are at, we have something for you.</h2>
+          <div className="home-benefits__tabs">
             { this.renderContent() }
           </div>
         </div>
@@ -148,13 +148,13 @@ class TabContent1 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
+          <h3 className="for-mobile">
             Business owners handle back office operations
           </h3>
           <HomeBenefitsList activeIndex="1" />
         </div>
-        <div className="home-benefits__content-right">
-          <h3 data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+          <h3>
             Business owners handle back office operations
           </h3>
           <Testimonial
@@ -163,7 +163,7 @@ class TabContent1 extends React.Component {
             authorTitle="CEO at Acme Pte. Ltd."
             authorImage="avatar-1"
           />
-          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
+          <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -177,13 +177,13 @@ class TabContent2 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
+          <h3 className="for-mobile">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="3" />
         </div>
-        <div className="home-benefits__content-right">
-          <h3 data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+          <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
@@ -193,7 +193,7 @@ class TabContent2 extends React.Component {
             authorTitle="CEO at Acme Pte. Ltd."
             authorImage="avatar-1"
           />
-          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
+          <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -207,13 +207,13 @@ class TabContent3 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
+          <h3 className="for-mobile">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="5" />
         </div>
-        <div className="home-benefits__content-right">
-          <h3 data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+          <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
@@ -223,7 +223,7 @@ class TabContent3 extends React.Component {
             authorTitle="CEO at Acme Pte. Ltd."
             authorImage="avatar-1"
           />
-          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
+          <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -237,13 +237,13 @@ class TabContent4 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
+          <h3 className="for-mobile">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="7" />
         </div>
-        <div className="home-benefits__content-right">
-          <h3 data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+          <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
@@ -253,7 +253,7 @@ class TabContent4 extends React.Component {
             authorTitle="CEO at Acme Pte. Ltd."
             authorImage="avatar-1"
           />
-          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
+          <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>
@@ -267,13 +267,13 @@ class TabContent5 extends React.Component {
     return(
       <div className="home-benefits__content">
         <div className="home-benefits__content-left">
-          <h3 className="for-mobile" data-aos="fade-up" data-aos-delay="250">
+          <h3 className="for-mobile">
             Business owners handle back office operations <span>+</span> Cabin <br/> handles compliance
           </h3>
           <HomeBenefitsList activeIndex="8" />
         </div>
-        <div className="home-benefits__content-right">
-          <h3 data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+          <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
           </h3>
@@ -283,7 +283,7 @@ class TabContent5 extends React.Component {
             authorTitle="CEO at Acme Pte. Ltd."
             authorImage="avatar-1"
           />
-          <div className="home-benefits__content-cta" data-aos="fade-up" data-aos-delay="500">
+          <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Compliance</span> Plan</Link>
           </div>
         </div>

@@ -6,15 +6,15 @@ export default class HomeFeatures extends Component {
       <div className="home-features">
         <div className="container">
           <div className="t-center">
-            <span className="t-small" data-aos="fade-up">How are we different</span>
-            <h2 data-aos="fade-up" data-aos-delay="150">We are built for the modern business</h2>
+            <span className="t-small">How are we different</span>
+            <h2>We are built for the modern business</h2>
           </div>
         </div>
         <div className="home-features__bg-holder">
           <div className="container">
             <div className="home-features__wrapper">
               <div className="home-features__col">
-                <div className="home-features-card" data-aos="fade-up" data-aos-delay="300">
+                <div className="home-features-card">
                   <div className="home-features-card__image">
                     <i className="icon icon-homeFeatures-1"></i>
                   </div>
@@ -25,7 +25,7 @@ export default class HomeFeatures extends Component {
                 </div>
               </div>
               <div className="home-features__col">
-                <div className="home-features-card" data-aos="fade-up" data-aos-delay="400">
+                <div className="home-features-card">
                   <div className="home-features-card__image">
                     <i className="icon icon-homeFeatures-2"></i>
                   </div>
@@ -36,7 +36,7 @@ export default class HomeFeatures extends Component {
                 </div>
               </div>
               <div className="home-features__col">
-                <div className="home-features-card" data-aos="fade-up" data-aos-delay="500">
+                <div className="home-features-card">
                   <div className="home-features-card__image">
                     <i className="icon icon-homeFeatures-3"></i>
                   </div>
@@ -47,7 +47,7 @@ export default class HomeFeatures extends Component {
                 </div>
               </div>
               <div className="home-features__col">
-                <div className="home-features-card" data-aos="fade-up" data-aos-delay="600">
+                <div className="home-features-card">
                   <div className="home-features-card__image">
                     <i className="icon icon-homeFeatures-4"></i>
                   </div>

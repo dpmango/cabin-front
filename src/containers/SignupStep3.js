@@ -123,8 +123,8 @@ class SignupStep3 extends Component {
     }
     return(
       <div className="container">
-        <div className="signup__box">
-          <div className="signup__progress" data-aos="fade-down">
+        <div className="signup__box" data-aos="fade-up">
+          <div className="signup__progress">
             <div className="signup__progress-line">
               <div className="signup__progress-fill" style={{"width" : "66%"}}>
                 <div className="signup__progress-name">Step 2</div>
@@ -133,13 +133,13 @@ class SignupStep3 extends Component {
           </div>
 
           <div className="signup__wrapper">
-            <div className="signup__left" data-aos="fade-right" data-aos-delay="150">
+            <div className="signup__left">
               <div className="signup__avatar signup__avatar--small">
                 <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
               </div>
               <h2>Help us understand a little bit more about your company</h2>
             </div>
-            <div className="signup__right" data-aos="fade-up" data-aos-delay="250">
+            <div className="signup__right">
               <Formsy
                 className="signup__form"
                 onValidSubmit={this.handleSubmit}
@@ -216,7 +216,7 @@ class SignupStep3 extends Component {
 
         </div>
 
-        <div className="signup__nav" data-aos="fade-up" data-aos-delay="400">
+        <div className="signup__nav">
           <a className="signup__nav-back" onClick={this.prevStep}>
             <SvgIcon name="back-arrow" />
             <span>Go Back</span>

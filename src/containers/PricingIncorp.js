@@ -57,7 +57,7 @@ class PricingIncorp extends Component {
           <title>Pricing Incorporation || CABIN</title>
         </Helmet>
 
-      <div className="pricing-scope" data-aos="fade-up" data-aos-offset="200">
+      <div className="pricing-scope" data-aos="fade-up">
         <div className="container container--narrow">
           <div className="pricing-scope__holder">
             <div className="pricing-scope__box">
@@ -105,16 +105,15 @@ class PricingIncorp extends Component {
         </div>
       </div>
 
-
-      <div className="pricing-options">
+      <div className="pricing-options" data-aos="fade-up">
         <div className="container">
           <div className="pricing-options__heading">
-            <h2 data-aos="fade-up">Additional requirements</h2>
-            <p className="t-paragraph" data-aos="fade-up" data-aos-delay="150">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
+            <h2>Additional requirements</h2>
+            <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
           </div>
-          <div className="pricing-options__section-name" data-aos="fade-up" data-aos-offset="150" data-aos-delay="100">Corporate Secretary</div>
+          <div className="pricing-options__section-name">Corporate Secretary</div>
           <div className="pricing-options__grid">
-            <div className="pricing-options__col" data-aos="fade-up" data-aos-offset="150" data-aos-delay="200">
+            <div className="pricing-options__col">
               <div className="pricing-options__section">
                 <PricingOption
                   name="Non-shares related matters"
@@ -137,7 +136,7 @@ class PricingIncorp extends Component {
                 />
               </div>
             </div>
-            <div className="pricing-options__col" data-aos="fade-up" data-aos-offset="150" data-aos-delay="400">
+            <div className="pricing-options__col">
               <div className="pricing-options__section">
                 <PricingOption
                   name="Corporate Shareholder Involved"
@@ -163,9 +162,9 @@ class PricingIncorp extends Component {
         </div>
       </div>
 
-      <div className="faq">
+      <div className="faq" data-aos="fade-up">
         <div className="t-center">
-          <h2 data-aos="fade-up">FAQ</h2>
+          <h2>FAQ</h2>
         </div>
         <div className="container container--narrow">
           {faqContent.map((el, i) => (
