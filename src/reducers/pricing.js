@@ -2,9 +2,10 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   selectedPlan: 'General',
-  slider: null,
+  builderSection: 1,
   pricingOptions: [],
-  pricingOptionsSub: []
+  pricingOptionsSub: [],
+  slider: null
 }
 
 const pricing = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const pricing = (state = initialState, action) => {
       return {
         ...state,
         selectedPlan: action.payload,
+      }
+
+    case types.SET_PRICING_SECTION:
+      return {
+        ...state,
+        builderSection: action.payload,
       }
 
     case types.ADD_PRICING_OPTION:
@@ -55,6 +62,7 @@ const pricing = (state = initialState, action) => {
         ...state,
         pricingOptionsSub: []
       }
+
     case types.SET_PRICING_SLIDER:
       return {
         ...state,

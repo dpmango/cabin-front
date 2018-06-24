@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
-import PricingBuilderSection from '../components/PricingBuilderSection';
+import PricingBuilderSection from '../containers/PricingBuilderSection';
 import PricingFloatNav from '../containers/PricingFloatNav';
 
 class PricingCustom extends Component {
@@ -43,6 +43,7 @@ class PricingCustom extends Component {
         </div>
 
         <PricingBuilderSection
+          sectionIndex={1}
           headerStep="Step 1"
           headerName="Accounting and Tax"
           headerDesc="Pick a plan base on the scale of your business"
@@ -51,6 +52,7 @@ class PricingCustom extends Component {
           boxes={[
             {
               id: 1,
+              isRequired: true,
               name: "Monthly accounting and tax services",
               price: "S$200",
               pricePer: "per month",
@@ -118,6 +120,7 @@ class PricingCustom extends Component {
         />
 
         <PricingBuilderSection
+          sectionIndex={2}
           headerStep="Step 2"
           headerName="Corporate Secretary"
           headerDesc="Have Cabin take care of all your corporate secretarial compliance requirements"
@@ -148,6 +151,7 @@ class PricingCustom extends Component {
         />
 
         <PricingBuilderSection
+          sectionIndex={3}
           headerStep="Step 3"
           headerName="Cabin as your Back Office"
           headerDesc="Let Cabin do the hard work so you don’t have to"

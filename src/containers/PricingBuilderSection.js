@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { SET_PRICING_SECTION } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
 
+import ScrollTo from '../services/ScrollTo';
 import SvgIcon from '../components/SvgIcon';
 import PricingBuilderBox from '../containers/PricingBuilderBox';
 
-export default class PricingBuilderSection extends Component {
+class PricingBuilderSection extends Component {
   static propTypes = {
     headerStep: PropTypes.string,
     headerName: PropTypes.string,
     headerDesc: PropTypes.string,
     headerTooltipContent: PropTypes.string,
-    boxes: PropTypes.array
+    boxes: PropTypes.array,
+    sectionIndex: PropTypes.number,
+    pricingBuilderSection: PropTypes.number,
+    setPricingSection: PropTypes.func
   };
+
+  constructor(){
+    super();
+
+    this.sectionRef = React.createRef();
+  }
+
+  scrollToSection = () => {
+    ScrollTo(this.sectionRef.current.offsetTop, 1000)
+  }
 
   render(){
 
-    const { headerStep, headerName, headerDesc, headerTooltipContent, boxes } = this.props;
+    const { headerStep, headerName, headerDesc, headerTooltipContent, boxes, pricingBuilderSection, sectionIndex } = this.props;
 
     return(
-      <div className="p-builder">
+      <div className={"p-builder" + (pricingBuilderSection >= sectionIndex ? " is-active" : "") } ref={this.sectionRef} data-index={sectionIndex}>
         <div className="container container--narrow">
           <div className="p-builder__header">
             <div className="t-small">{headerStep}</div>
@@ -42,6 +58,7 @@ export default class PricingBuilderSection extends Component {
           { boxes && boxes.map((box, i) => (
             <PricingBuilderBox
               key={i}
+              isRequired={box.isRequired}
               id={box.id}
               pricingOptions={box.pricingOptions}
               boxList={box.boxList}
@@ -61,3 +78,13 @@ export default class PricingBuilderSection extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  pricingBuilderSection: state.pricing.builderSection,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setPricingSection: (data) => dispatch({ type: SET_PRICING_SECTION, payload: data }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderSection);

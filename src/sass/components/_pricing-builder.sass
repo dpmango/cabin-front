@@ -1,6 +1,23 @@
-
+/* PRICING
 .p-builder
   margin: 120px 0 150px 0
+  display: none
+  &.is-active
+    display: block
+
+  /* in first section - show only first
+  &[data-index="1"]
+    .p-builder-box
+      display: none
+      /* first child is a header
+      /* need tweking if html will change
+      &:nth-child(2)
+        display: block
+      &.is-choosen
+        + .p-builder-box
+          display: block
+
+
   &__header
     h2
       margin-top: 0.25em
@@ -156,6 +173,14 @@
     border-radius: 3px
     padding: 40px 65px 30px
     margin-top: -10px
+    &.is-required
+      .p-builder-option
+        animation: optionAttentionRequired 2s ease
+        animation-iteration-count: infinite
+        &__wrapper
+          animation: optionAttentionRequiredWrapper 2s ease
+          animation-iteration-count: infinite
+
     &-list
       display: flex
       flex-wrap: wrap
@@ -281,13 +306,6 @@
     opacity: .5
     cursor: pointer
     transition: .25s $ease
-    &:hover
-      opacity: .7
-    &.is-selected
-      opacity: 1
-      box-shadow: 0 0 20px 0 rgba(0,0,0,0.15)
-      .p-builder-option__head
-        border-color: $colorBlue
   &__head
     display: flex
     align-items: center
@@ -311,6 +329,56 @@
       &:last-child
         font-size: 14px
         margin-top: 5px
+
+/* disable interactions if it's animating
+.p-builder-box__options:not(.is-required)
+  .p-builder-option__wrapper
+    &:hover
+      opacity: .7
+    &.is-selected
+      opacity: 1
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.15)
+      .p-builder-option__head
+        border-color: $colorBlue
+
+
+@keyframes optionAttentionRequired
+  // from
+  //   transform: scale3d(1, 1, 1)
+  //
+  // 10%,
+  // 20%
+  //   transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg)
+  //
+  // 30%,
+  // 50%,
+  // 70%,
+  // 90%
+  //   transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg)
+  //
+  // 40%,
+  // 60%,
+  // 80%
+  //   transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg)
+  //
+  // to
+  //   transform: scale3d(1, 1, 1)
+
+  from
+    transform: scale3d(1, 1, 1)
+  50%
+    transform: scale3d(1.04, 1.04, 1.04)
+  to
+    transform: scale3d(1, 1, 1)
+
+@keyframes optionAttentionRequiredWrapper
+  from
+    opacity: .7
+  50%
+    opacity: .9
+  to
+    opacity: .7
+
 
 +r($tablet)
   .p-builder-option

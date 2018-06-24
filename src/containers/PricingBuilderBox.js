@@ -21,6 +21,7 @@ class PricingBuilderBox extends Component {
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
+    isRequired: PropTypes.bool,
     rangeSlider: PropTypes.bool,
     addPricingOption: PropTypes.func,
     removePricingOption: PropTypes.func,
@@ -174,7 +175,8 @@ class PricingBuilderBox extends Component {
 
   render(){
 
-    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, rangeSlider } = this.props;
+    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
+    const { activeOptionId } = this.state;
 
     return(
       <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")}>
@@ -215,11 +217,11 @@ class PricingBuilderBox extends Component {
         </div>
 
         { pricingOptions &&
-          <div className="p-builder-box__options">
+          <div className={ "p-builder-box__options " + (isRequired && !activeOptionId ? "is-required" : "") }>
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
-                let isActiveOption = this.state.activeOptionId === i
+                let isActiveOption = activeOptionId === i
 
                 return(
                   <PricingBuilderOption
