@@ -61,6 +61,16 @@ class SignupStep4 extends Component {
     return [year, month, day].join('-');
   }
 
+  formatTime = (date) => {
+    var hours = '' + date.getHours(),
+        minutes = '' + date.getMinutes()
+
+    if (hours.length < 2) hours = '0' + hours;
+    if (minutes.length < 2) minutes = '0' + minutes;
+
+    return [hours, minutes].join(':');
+  }
+
   // transform the hour:minute to comparable number
   convertTimeStr = (v, toUTC) => {
     const times = v.split(':');
@@ -86,7 +96,10 @@ class SignupStep4 extends Component {
     if ( date ){
       // var utcDate = new Date(date._d).toISOString();
       // console.log(utcDate)
-      var formatedDate = this.formatDate(date._d)
+      var formatedDate = this.formatDate(date._d);
+      var newDate = new Date();
+      var todayFormated = this.formatDate(newDate);
+      var todayTime = this.formatTime(newDate);
 
       // pass yyyy-mm-dd as a param
       api
@@ -105,6 +118,16 @@ class SignupStep4 extends Component {
                    this.convertTimeStr(y.end) >= this.convertTimeStr(x, true)
           })
         );
+
+        // if selected the today day - filter out past times
+        if ( formatedDate === todayFormated ){
+          availableDates = availableDates.filter( x =>
+            !res.data.some(y => {
+              return this.convertTimeStr("0:00", true) <= this.convertTimeStr(x, true) &&
+                     this.convertTimeStr(todayTime, true) >= this.convertTimeStr(x, true)
+            })
+          );
+        }
 
         // this is just for testing
         // let removedDates = this.selectableTimes.filter( x =>
