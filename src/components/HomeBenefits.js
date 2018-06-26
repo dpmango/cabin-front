@@ -153,7 +153,7 @@ class TabContent1 extends React.Component {
           </h3>
           <HomeBenefitsList activeIndex="1" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
           <h3>
             Business owners handle back office operations
           </h3>
@@ -182,7 +182,7 @@ class TabContent2 extends React.Component {
           </h3>
           <HomeBenefitsList activeIndex="3" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
           <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
@@ -212,7 +212,7 @@ class TabContent3 extends React.Component {
           </h3>
           <HomeBenefitsList activeIndex="5" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
           <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
@@ -242,7 +242,7 @@ class TabContent4 extends React.Component {
           </h3>
           <HomeBenefitsList activeIndex="7" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
           <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance
@@ -272,7 +272,7 @@ class TabContent5 extends React.Component {
           </h3>
           <HomeBenefitsList activeIndex="8" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade-up" data-aos-delay="250">
+        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
           <h3>
             Business owners handle back office operations <br/>
             <span>+</span> Cabin handles compliance

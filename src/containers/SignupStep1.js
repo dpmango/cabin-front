@@ -18,7 +18,7 @@ class SignupStep1 extends Component {
     return(
       <div className="container">
         { /* to do - set delay to fade out before page transition? */ }
-        <div className="signup__box" data-aos="fade-up">
+        <div className="signup__box" data-aos="fade">
           <div className="signup__intro">
             <div className="signup__wrapper">
               <div className="signup__left">
