@@ -28,14 +28,41 @@ class SignupStep4 extends Component {
       meeting_date: props.signupFields.meeting_date,
       meeting_time: props.signupFields.meeting_time,
       email_instead: props.signupFields.email_instead,
+      meeting_time_options: []
     };
+
+    this.selectableTimes = [
+      "8:00", "8:30", "9:00", "9:30",
+      "10:00", "10:30", "11:00", "11:30",
+      "12:00", "12:30", "13:00", "13:30",
+      "14:00", "14:30", "15:00", "15:30",
+      "16:00", "16:30", "17:00", "17:30",
+      "18:00", "18:30", "19:00", "19:30",
+      "20:00"
+    ]
   }
 
   handleSelectChange = (e) => {
     this.setState({
       meeting_time: e,
-      // meeting_time: e ? e.label : null
     });
+  }
+
+  formatDate = (date) => {
+    var month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  mapArrToSelect = (arr) => {
+    return arr.map( x => {
+      return { value: x, label: x }
+    })
   }
 
   handleDateChange = (date) => {
@@ -43,6 +70,37 @@ class SignupStep4 extends Component {
       date: date,
       meeting_date: date ? date._d : null
     });
+
+    if ( date ){
+      // var utcDate = new Date(date._d).toISOString();
+      // console.log(utcDate)
+      var formatedDate = this.formatDate(date._d)
+
+      // pass yyyy-mm-dd as a param
+      api
+      .get('calendar/' + formatedDate)
+      .then((res) => {
+
+        // transform the hour:minute to comparable number
+        function t(v) {
+          const times = v.split(':');
+          return Number(times[0]) * 60 + Number(times[1]);
+        }
+
+        // filter the values
+        // The Array.some is used to see if the selectable time is
+        // inside of a booked period
+        let availableDates = this.selectableTimes.filter( x =>
+          !res.data.some(y => t(y.start) <= t(x) && t(y.end) >= t(x)));
+
+        // res data
+        // [{name: "event", start: "16:30", end: "17:30"}]
+
+        this.setState({
+          meeting_time_options: availableDates
+        });
+      });
+    }
   }
 
   checkboxClick = () => {
@@ -95,7 +153,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, email_instead } = this.state;
+    const { date, meeting_time, focused, email_instead, meeting_time_options } = this.state;
 
     return(
       <div className="container">
@@ -150,22 +208,8 @@ class SignupStep4 extends Component {
                     value={meeting_time}
                     onChange={this.handleSelectChange}
                     placeholder="Select time"
-                    options={[
-                      { value: '08', label: '08:00' },
-                      { value: '09', label: '09:00' },
-                      { value: '10', label: '10:00' },
-                      { value: '11', label: '11:00' },
-                      { value: '12', label: '12:00' },
-                      { value: '13', label: '13:00' },
-                      { value: '14', label: '14:00' },
-                      { value: '15', label: '15:00' },
-                      { value: '16', label: '16:00' },
-                      { value: '17', label: '17:00' },
-                      { value: '18', label: '18:00' },
-                      { value: '19', label: '19:00' },
-                      { value: '20', label: '20:00' },
-                      { value: '21', label: '21:00' },
-                    ]}
+                    noResultsText="Please select date"
+                    options={this.mapArrToSelect(meeting_time_options)}
                   />
                 </div>
 
@@ -181,8 +225,6 @@ class SignupStep4 extends Component {
                   />
                 </div>
               </div>
-
-
             </div>
           </div>
 
