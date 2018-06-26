@@ -40,6 +40,8 @@ class SignupStep4 extends Component {
       "18:00", "18:30", "19:00", "19:30",
       "20:00"
     ]
+
+    this.clientTimeZoneOffset = new Date().getTimezoneOffset();
   }
 
   handleSelectChange = (e) => {
@@ -57,6 +59,16 @@ class SignupStep4 extends Component {
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+  // transform the hour:minute to comparable number
+  convertTimeStr = (v, toUTC) => {
+    const times = v.split(':');
+    let result = Number(times[0]) * 60 + Number(times[1]);
+    if (toUTC){
+      result = result + this.clientTimeZoneOffset
+    }
+    return result
   }
 
   mapArrToSelect = (arr) => {
@@ -81,20 +93,29 @@ class SignupStep4 extends Component {
       .get('calendar/' + formatedDate)
       .then((res) => {
 
-        // transform the hour:minute to comparable number
-        function t(v) {
-          const times = v.split(':');
-          return Number(times[0]) * 60 + Number(times[1]);
-        }
+        // res.data.end and res.data.start comes in UTC
+        // [{name: "event", start: "16:30", end: "17:30"}]
 
         // filter the values
         // The Array.some is used to see if the selectable time is
         // inside of a booked period
         let availableDates = this.selectableTimes.filter( x =>
-          !res.data.some(y => t(y.start) <= t(x) && t(y.end) >= t(x)));
+          !res.data.some(y => {
+            return this.convertTimeStr(y.start) <= this.convertTimeStr(x, true) &&
+                   this.convertTimeStr(y.end) >= this.convertTimeStr(x, true)
+          })
+        );
 
-        // res data
-        // [{name: "event", start: "16:30", end: "17:30"}]
+        // this is just for testing
+        // let removedDates = this.selectableTimes.filter( x =>
+        //   res.data.some(y => {
+        //     return this.convertTimeStr(y.start) <= this.convertTimeStr(x, true) &&
+        //            this.convertTimeStr(y.end) >= this.convertTimeStr(x, true)
+        //   })
+        // );
+
+        // console.log('availableDates', availableDates);
+        // console.log('removedDates', removedDates)
 
         this.setState({
           meeting_time_options: availableDates
