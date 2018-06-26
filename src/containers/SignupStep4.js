@@ -10,6 +10,7 @@ import Select from 'react-select';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
+import {formatDate, formatTime} from '../services/FormatDate';
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
 
@@ -50,27 +51,6 @@ class SignupStep4 extends Component {
     });
   }
 
-  formatDate = (date) => {
-    var month = '' + (date.getMonth() + 1),
-        day = '' + date.getDate(),
-        year = date.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
-
-  formatTime = (date) => {
-    var hours = '' + date.getHours(),
-        minutes = '' + date.getMinutes()
-
-    if (hours.length < 2) hours = '0' + hours;
-    if (minutes.length < 2) minutes = '0' + minutes;
-
-    return [hours, minutes].join(':');
-  }
-
   // transform the hour:minute to comparable number
   convertTimeStr = (v, toUTC) => {
     const times = v.split(':');
@@ -81,9 +61,17 @@ class SignupStep4 extends Component {
     return result
   }
 
+  convertToTimeStr = (v) => {
+    console.log( v % 60 )
+    return Math.floor(v / 60) + ":" + (v % 60)
+  }
+
+
   mapArrToSelect = (arr) => {
     return arr.map( x => {
-      return { value: x, label: x }
+      let endTime = this.convertToTimeStr( this.convertTimeStr(x) + 15 ) // add 15 mins
+      let val = x + ' - ' + endTime
+      return { value: val, label: val }
     })
   }
 
@@ -96,10 +84,10 @@ class SignupStep4 extends Component {
     if ( date ){
       // var utcDate = new Date(date._d).toISOString();
       // console.log(utcDate)
-      var formatedDate = this.formatDate(date._d);
+      var formatedDate = formatDate(date._d);
       var newDate = new Date();
-      var todayFormated = this.formatDate(newDate);
-      var todayTime = this.formatTime(newDate);
+      var todayFormated = formatDate(newDate);
+      var todayTime = formatTime(newDate);
 
       // pass yyyy-mm-dd as a param
       api
