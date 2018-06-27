@@ -32,6 +32,7 @@ class SignupStep4 extends Component {
       meeting_time_options: []
     };
 
+    // define selectable times in manager local time
     this.selectableTimes = [
       "8:00", "8:30", "9:00", "9:30",
       "10:00", "10:30", "11:00", "11:30",
@@ -39,10 +40,35 @@ class SignupStep4 extends Component {
       "14:00", "14:30", "15:00", "15:30",
       "16:00", "16:30", "17:00", "17:30",
       "18:00", "18:30", "19:00", "19:30",
-      "20:00"
+      "20:00", "20:30", "21:00", "21:30"
     ]
 
     this.clientTimeZoneOffset = new Date().getTimezoneOffset();
+    // this.clientTimeZoneOffset = 240 // NY (UTC-4) test
+    this.managerTimeZoneOffeset = -480 // UTC +8 (Singapure);
+    this.timeZoneDiff = this.managerTimeZoneOffeset
+    if ( Math.sign(this.clientTimeZoneOffset) === 1 ){
+      // if offset is possitive (UTC - timzeone)
+      this.timeZoneDiff = Math.abs(this.timeZoneDiff) + this.clientTimeZoneOffset
+    } else {
+      this.timeZoneDiff = this.timeZoneDiff - this.clientTimeZoneOffset
+    }
+
+    // array of available times in client local timezone
+    this.selectableTimesLocal = this.selectableTimes.map( x =>
+      this.convertToTimeStr(this.convertTimeStr(x) + this.timeZoneDiff));
+
+    // filter out times less 0:00 and more 24:00
+    this.selectableTimesInRange = this.selectableTimesLocal.filter( x => {
+        return this.convertTimeStr("0:00") <= this.convertTimeStr(x) &&
+               this.convertTimeStr("24:00") >= this.convertTimeStr(x)
+      }
+    );
+
+    // console.log(this.selectableTimesInRange)
+
+    this.clientTimeZoneOffsetVerbose = "GMT" + ((this.clientTimeZoneOffset < 0 ? '+' : '-' ) +
+            parseInt(Math.abs(this.clientTimeZoneOffset/60)))
   }
 
   handleSelectChange = (e) => {
@@ -52,20 +78,25 @@ class SignupStep4 extends Component {
   }
 
   // transform the hour:minute to comparable number
-  convertTimeStr = (v, toUTC) => {
+  convertTimeStr = (v, utcToLocal, toUTC) => {
     const times = v.split(':');
     let result = Number(times[0]) * 60 + Number(times[1]);
-    if (toUTC){
+    if (utcToLocal === true){
+      result = result + this.timeZoneDiff
+    }
+    if (toUTC === true){
       result = result + this.clientTimeZoneOffset
     }
     return result
   }
 
+  // convert number to hour:minute string
   convertToTimeStr = (v) => {
-    console.log( v % 60 )
-    return Math.floor(v / 60) + ":" + (v % 60)
+    let hours = Math.floor(v / 60);
+    let minutes = '' + Math.abs(v % 60); // to str
+    if (minutes.length === 1) minutes = '0' + minutes;
+    return [hours, minutes].join(':');
   }
-
 
   mapArrToSelect = (arr) => {
     return arr.map( x => {
@@ -100,28 +131,31 @@ class SignupStep4 extends Component {
         // filter the values
         // The Array.some is used to see if the selectable time is
         // inside of a booked period
-        let availableDates = this.selectableTimes.filter( x =>
+        let availableDates = this.selectableTimesInRange.filter( x =>
           !res.data.some(y => {
-            return this.convertTimeStr(y.start) <= this.convertTimeStr(x, true) &&
-                   this.convertTimeStr(y.end) >= this.convertTimeStr(x, true)
+            return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
+                   this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
           })
         );
 
         // if selected the today day - filter out past times
         if ( formatedDate === todayFormated ){
+          // emulate as some event was created starting at 0:00 and ending at current time
+          // x is in local time already, 0:00 is also local
+          let todayData = [{start: "0:00", end: todayTime}];
           availableDates = availableDates.filter( x =>
-            !res.data.some(y => {
-              return this.convertTimeStr("0:00", true) <= this.convertTimeStr(x, true) &&
-                     this.convertTimeStr(todayTime, true) >= this.convertTimeStr(x, true)
+            !todayData.some(y => {
+              return this.convertTimeStr(y.start) <= this.convertTimeStr(x) &&
+                     this.convertTimeStr(y.end) >= this.convertTimeStr(x)
             })
           );
         }
 
         // this is just for testing
-        // let removedDates = this.selectableTimes.filter( x =>
+        // let removedDates = this.selectableTimesInRange.filter( x =>
         //   res.data.some(y => {
-        //     return this.convertTimeStr(y.start) <= this.convertTimeStr(x, true) &&
-        //            this.convertTimeStr(y.end) >= this.convertTimeStr(x, true)
+        //     return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
+        //            this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
         //   })
         // );
 
@@ -246,6 +280,10 @@ class SignupStep4 extends Component {
                 </div>
 
               </div>
+              <div className="signup__datetime-hint">
+                Select time in your local timezone {this.clientTimeZoneOffsetVerbose}
+              </div>
+
 
               <div className="signup__email-instead">
                 <div className="ui-group">
