@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
+import { Tooltip } from 'react-tippy';
 
 import PricingSliderDb from '../store/PricingSliderDb'
 
 import PricingBuilderOption from '../components/PricingBuilderOption';
 import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
+import SvgIcon from '../components/SvgIcon';
 
 class PricingBuilderBox extends Component {
 
@@ -175,7 +177,7 @@ class PricingBuilderBox extends Component {
 
   render(){
 
-    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
+    const { name, price, pricePer, priceStartingFrom, helpText, ctaText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
     const { activeOptionId } = this.state;
 
     return(
@@ -212,7 +214,16 @@ class PricingBuilderBox extends Component {
           }
 
           { helpText &&
-            <div className="p-builder-box__help-text">{helpText}</div>
+            <div className="p-builder-box__help-text">
+              {helpText.name}
+              <Tooltip
+                title={helpText.tooltip}
+                position="top"
+                distance="10"
+                arrow="true">
+                  <SvgIcon name="question-circle" />
+              </Tooltip>
+            </div>
           }
         </div>
 

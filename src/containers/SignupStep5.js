@@ -42,14 +42,14 @@ class SignupStep5 extends Component {
       <div className="container">
         <div className="t-center" data-aos="fade-up">
           <h2>Thank you!</h2>
-          <p className="t-paragraph">We’ll get in touch with you soon.</p>
+          <p className="t-paragraph">We will get in touch with you shortly.</p>
           <div className="signup__sucess">
-
+            <SvgIcon name="signup-sucess" />
           </div>
           <div className="signup__nav signup__nav--complete">
             <a className="signup__nav-back" onClick={this.completeSignup}>
               <SvgIcon name="back-arrow" />
-              <span>Go Back to the Homepage</span>
+              <span>Back to homepage</span>
             </a>
           </div>
         </div>

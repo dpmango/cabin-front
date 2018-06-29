@@ -31,8 +31,8 @@ class About extends Component {
           <div className="container container--narrow">
             <div className="hero__wrapper">
               <span className="t-small">About us</span>
-              <h2>Powered by thoughtful humans</h2>
-              <p className="t-paragraph">Founded by an experienced team that understands your business</p>
+              <h2>Modern online accounting firm</h2>
+              <p className="t-paragraph">Powered by thoughtful humans and technology</p>
             </div>
           </div>
         </div>
@@ -40,8 +40,8 @@ class About extends Component {
         <div className="title-section">
           <div className="container">
             <div className="title-section__wrapper">
-              <h2>Our Mission</h2>
-              <p className="t-paragraph">We make office operations simple and fuss-free for small and medium businesses. We bring clarity to the numbers and help business owners make better decisions. </p>
+              <h2>Our mission</h2>
+              <p className="t-paragraph">We make back-office operations <strong>simple</strong> and <strong>fuss-free</strong> for businesses. We bring clarity to the numbers and help business owners make <strong>better decisions.</strong></p>
             </div>
           </div>
         </div>
@@ -55,8 +55,8 @@ class About extends Component {
             </div>
             <div className="people__right">
               <div className="people__content">
-                <span className="t-small">People</span>
-                <h2 data-aos-delay="150">Cabin is founded by an experienced team that understands your business.</h2>
+                <span className="t-small">Founders</span>
+                <h2 data-aos-delay="150">Cabin is founded by an experienced team that understands your business</h2>
                 <div className="people__list">
                   <div className="people__person" data-aos-delay="250">
                     <div className="people__person-title"><span>Rifeng Gao,</span> Co-Founder</div>
@@ -71,9 +71,8 @@ class About extends Component {
                     <div className="people__person-title"><span>Isaac Loh,</span> Co-Founder</div>
                     <div className="people__person-description">
                       Senior Business Analyst, Vance Group<br/>
-                      MSc. Cambridge University, Fitzwilliam<br/>
-                      College Honorary Cambridge <br/>
-                      Commonwealth Trust Scholar
+                      MSc. Cambridge University, Fitzwilliam College <br/>
+                      Honorary Cambridge Commonwealth Trust Scholar
                     </div>
                   </div>
                 </div>

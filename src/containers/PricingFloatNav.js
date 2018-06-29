@@ -95,7 +95,7 @@ class PricingFloatNav extends Component {
         <div className="container container--narrow">
           <div className="pricing-float__wrapper">
             <div className="pricing-float__summary">
-              <span className="pricing-float__summary-holder">Your Custom Plan:</span>
+              <span className="pricing-float__summary-holder">Your <strong>Customised Finance Team</strong> plan:</span>
               <div className="pricing-float__summary-price">
                 <span>S${summaryPrice}</span>
                 <span>per month</span>

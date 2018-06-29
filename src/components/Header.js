@@ -82,7 +82,7 @@ class Header extends React.Component {
                 <i className="icon icon-cabin-logo" />
               </NavLink>
               <a href="tel:+65 3158 5495" className="header__phone">
-                <span>Call us at <span className="header__phone-tel">+65 3158 5495</span></span>
+                <span>Have an enquiry? <span className="header__phone-tel">+65 3158 5495</span></span>
               </a>
               <ul className="header__menu">
                 {routes.map(route =>

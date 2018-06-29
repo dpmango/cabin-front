@@ -36,12 +36,23 @@ export default class PricingTableTr extends Component {
 
         { checks.map((col, i) => {
           let ShowCheckMark = typeof(col) === "boolean" ? col : false
-          let ShowContentText = typeof(col) === "string" ? true : false
+          let ShowContentText = typeof(col) === "object" ? true : false
 
           return(
             <div className="pricing-table__td" key={i}>
               { ShowCheckMark && <div className="pricing-table__checkmark"><SvgIcon name="check" /></div> }
-              { ShowContentText && <span className="pricing-table__td-content">{col}</span> }
+              { ShowContentText &&
+                <span className="pricing-table__td-content">
+                  {col.name}
+                  <Tooltip
+                    title={col.tooltipContent}
+                    position="left"
+                    distance="10"
+                    arrow="true">
+                    <SvgIcon name="question-circle" />
+                  </Tooltip>
+                </span>
+              }
             </div>
           );
 

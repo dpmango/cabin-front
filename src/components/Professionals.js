@@ -37,7 +37,7 @@ export default class Professionals extends Component {
         <div className="container">
           <div className="t-center">
             <span className="t-small">You are in good hands</span>
-            <h2>Cabin is powered by a team of thoughtful professionals</h2>
+            <h2>Cabin is powered by a team of qualified and thoughtful professionals</h2>
           </div>
 
           { isAlt &&

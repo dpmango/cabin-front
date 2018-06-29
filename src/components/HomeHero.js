@@ -7,8 +7,8 @@ export default class HomeHero extends Component {
       <div className="home-hero">
         <div className="container">
           <div className="home-hero__wrapper">
-            <h1>Turn messy documents into accurate financial statements.</h1>
-            <div className="t-paragraph">Online accounting and corporate secretary service starting at <span>$200 per month</span></div>
+            <h1>Fuss-free accounting. Make better decisions.</h1>
+            <div className="t-paragraph">Cabin is an online accounting and corporate secretary service. Starting at an affordable <span>$200/month</span>, we help you make better financial decisions for your business.</div>
             <SignupEmail extraClass="home-hero__form" />
           </div>
         </div>

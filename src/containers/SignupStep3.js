@@ -112,13 +112,28 @@ class SignupStep3 extends Component {
 
     const selectValues = {
       company_industry: [
-        'Finances', 'Manufacturing', 'Information Technology', 'Medicine'
+        "Food and beverages",
+        "Retail",
+        "Digital or creative agency",
+        "Interior design",
+        "Technology",
+        "Professional services",
+        "Logistics",
+        "Others"
       ],
       company_old: [
-        'less than 1y', '1-3 years'
+        "Not yet incorporated",
+        "Less than 6 months",
+        "6 months to 1 year",
+        "1 - 3 years",
+        "More than 3 years"
       ],
       company_employees: [
-        '1-5', '5-10', '10-25', '25-50', '50-100'
+        "< 5",
+        "5 - 10",
+        "11 - 25",
+        "25 - 50",
+        "50 - 100"
       ]
     }
     return(

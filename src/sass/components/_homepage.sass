@@ -31,19 +31,33 @@
     // width: 100%
     right: 0
     width: 50%
+    top: 70px
     bottom: 0
     font-size: 0
-    // display: flex
-    // justify-content: flex-end
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    justify-content: flex-end
     pointer-events: none
     user-select: none
+    text-align: right
+
     img
       max-width: 100%
+      max-height: 100%
 
 +r($mobile)
   .home-hero
     &__form
       margin-top: 45px
+    &__wrapper
+      padding-bottom: 450px
+    &__bg
+      width: 100%
++r($mobile-s)
+  .home-hero
+    &__wrapper
+      padding-bottom: 350px
 
 .home-logos
   position: relative
@@ -173,6 +187,19 @@
       &.for-mobile
         display: none
 
+    .t-paragraph
+      line-height: 1.53
+      font-size: 15px
+      // max-width: 440px
+      &.for-mobile
+        display: none
+
+    .ico-question-circle
+      margin-left: 6px
+      color: $colorBlue
+      font-size: 17px
+      transform: translateY(3px)
+
   &__list
     list-style: none
     margin: 0 auto
@@ -234,6 +261,10 @@
           margin-bottom: 20px
 
       h3
+        display: none
+        &.for-mobile
+          display: block
+      .t-paragraph
         display: none
         &.for-mobile
           display: block
@@ -403,8 +434,11 @@
     max-width: 25%
     min-width: 1px
     min-height: 0
+    display: flex
+    flex-direction: column
 
   &-card
+    flex: 1 0 auto
     padding: 45px 15px 30px
     background: #FFFFFF
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)

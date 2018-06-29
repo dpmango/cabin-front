@@ -28,7 +28,7 @@ class Home extends Component {
           <div className="container container--narrow">
             <div className="not-found__wrapper">
               <div className="not-found__image">
-                
+                404
               </div>
               <h2 className="not-found__title">No page found.</h2>
               <p className="not-found__desc t-paragraph">We can’t seem to find the page you’re looking for.</p>

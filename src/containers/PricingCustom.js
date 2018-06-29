@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
+import FaqPanel from '../components/FaqPanel';
 import PricingBuilderSection from '../containers/PricingBuilderSection';
 import PricingFloatNav from '../containers/PricingFloatNav';
 
@@ -22,6 +23,18 @@ class PricingCustom extends Component {
   }
 
   render() {
+    const faqContent = [
+      {
+        name: 'How do prices change as I grow?',
+        content: 'We adjust our fees only when there is a structural change in the complexity and volume of the work required. To not penalise you for once-off fluctuation in the volume of transactions, we will only make adjustments to your pricing tier if the number of bank transactions exceeds or fall below the mid-point mark between pricing tiers for 3 consecutive months. ',
+        isDefaultOpened: true
+      },
+      {
+        name: 'What is your cancellation policy?',
+        content: 'We will require at least one month’s notice in order to ensure a smooth transition. A refundable deposit equivalent to one month’s of fees is held to be used to offset any payments due. '
+      },
+    ]
+
     return (
       <React.Fragment>
         <Helmet>
@@ -35,9 +48,9 @@ class PricingCustom extends Component {
           <div className="container container--narrow">
             <div className="hero__wrapper">
               <span className="t-small">Pricing</span>
-              <h2>Custom Plan</h2>
-              <p className="t-paragraph">Comprehensive monthly plan with everything you need in one affordable monthly subscription.</p>
-              <div className="hero__info">This is a pricing calculator to help you understand our pricing structure. Don’t worry about getting it right, our sales team will spend time to understand your business needs and propose a plan that is right for you. </div>
+              <h2>Customised Finance Team Plan</h2>
+              <p className="t-paragraph">Comprehensive monthly plan with everything you need to handle your day-to-day finance operations in one affordable monthly subscription. </p>
+              <div className="hero__info">This is a pricing calculator to help you understand our pricing structure. Don’t worry about getting it right, our sales team will spend time understanding your business needs and propose a plan that is right for you. </div>
             </div>
           </div>
         </div>
@@ -46,9 +59,7 @@ class PricingCustom extends Component {
           sectionIndex={1}
           headerStep="Step 1"
           headerName="Accounting and Tax"
-          headerDesc="Pick a plan base on the scale of your business"
-          headerTooltipContent="We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction. We may exercise our own discretion to not count repeated transactions of the same nature. "
-
+          headerDesc="Start with the core accounting and tax plan"
           boxes={[
             {
               id: 1,
@@ -57,7 +68,11 @@ class PricingCustom extends Component {
               price: "S$200",
               pricePer: "per month",
               priceStartingFrom: true,
-              helpText: "*Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donations claims to fully utilise your tax allowance.",
+              helpText: {
+                name: "Pick a plan base on the scale of your business",
+                tooltip: "Our aim is to make pricing simple and transparent. In comparing different pricing models, we found that bank the number of bank transactions correlates closely with the complexity of wrok required. Every deposit or withdrawal on your bank statement counts as a single transaction. However we may exercise our own discretion to not count repeated transactions of the same nature. "
+              },
+              // helpText: "*Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donations claims to fully utilise your tax allowance.",
               pricingOptions: [
                 {
                   name: "<25 bank transactions",
@@ -70,33 +85,39 @@ class PricingCustom extends Component {
                   pricePer: "per month"
                 },
                 {
-                  name: "75 - 125 bank transactions",
+                  name: "76 - 125 bank transactions",
                   price: "S$550",
                   pricePer: "per month"
                 },
                 {
-                  name: "125 - 200 bank transactions",
+                  name: "126 - 200 bank transactions",
                   price: "S$650",
                   pricePer: "per month"
                 },
                 {
-                  name: "200 - 300 bank transactions",
+                  name: "201 - 300 bank transactions",
                   price: "S$850",
                   pricePer: "per month"
                 }
               ],
               boxList: [
                 [
-                  "Monthly management reports (P&L, balance sheet, cash flow statement)",
+                  "Monthly management reports: Profit and Loss, Balance Sheet, and Cash Flow Statement",
+                  "Monthly scorecard of key financial metrics",
                   "Bookkeeping",
                   "Bank reconciliation",
-                  "Software subscription"
                 ],
                 [
-                  "Annual Financial Statements based on Singapore Financial Reporting Standards (SFRS)",
+                  "Software subscription",
+                  {
+                    name: "Unaudited Annual Financial Statements",
+                    tooltip: "Prepared based on Singapore Financial Reporting Standards (SFRS)"
+                  },
                   "Annual corporate tax computation and filing (ECI and Form C-S)",
-                  "Tax optimisation and planning*",
-                  "GST computation and quarterly GST F5 submission (for GST-registered company)"
+                  {
+                    name: "Tax optimisation and planning (?)",
+                    tooltip: "Cabin’s tax optimisation and planning service thoroughly comb through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donations claim to fully utilise your tax allowance."
+                  }
                 ]
               ]
             },
@@ -135,15 +156,13 @@ class PricingCustom extends Component {
               priceStartingFrom: false,
               boxList: [
                 [
-                  "Provision of qualified person as Company Secretary",
-                  "Safekeeping and updates to Company Registers and Minute Books",
+                  "Provision of a qualified person as your company secretary",
+                  "Safekeeping and updates to Company Registers",
                   "Preparation of Annual General Meeting (AGM) documents",
-                  "Filing of Annual Return to ACRA"
                 ],
                 [
-                  "Advisory on Corporate Secretarial compliance matters",
-                  "Reminder to inform you of your filing due dates",
-                  "Unlimited non-shares related resolutions and secretarial matters"
+                  "Filing of Annual Return to ACRA",
+                  "Advisory on Corporate Secretarial compliance matters"
                 ]
               ]
             }
@@ -153,94 +172,110 @@ class PricingCustom extends Component {
         <PricingBuilderSection
           sectionIndex={3}
           headerStep="Step 3"
-          headerName="Cabin as your Back Office"
+          headerName="Day-to-day finance operations"
           headerDesc="Let Cabin do the hard work so you don’t have to"
 
           boxes={[
             {
               id: 4,
-              name: "Accounts payable service",
+              name: "Accounts payable",
+              isPopular: true,
               isAddon: true,
               price: "S$200",
               pricePer: "per month",
               priceStartingFrom: true,
               pricingOptions: [
                 {
-                  name: "<25 bank transactions",
+                  name: "<10 payments",
                   price: "+S$200",
                   pricePer: "per month"
                 },
                 {
-                  name: "25 - 75 bank transactions",
-                  price: "+S$350",
+                  name: "10 - 25 payments",
+                  price: "+S$300",
                   pricePer: "per month"
                 },
                 {
-                  name: "75 - 125 bank transactions",
-                  price: "+S$450",
+                  name: "26 - 50 payments",
+                  price: "+S$475",
+                  pricePer: "per month"
+                },
+                {
+                  name: "51 - 75 payments",
+                  price: "+S$625",
+                  pricePer: "per month"
+                },
+                {
+                  name: "76 - 100 payments",
+                  price: "+S$750",
                   pricePer: "per month"
                 }
               ],
               boxList: [
                 [
-                  "Dedicated email inbox for payments requests",
-                  "Verification of invoices against payment requests",
-                  "Preparation of payments via bank transfer"
+                  "Dedicated email inbox for supplier payments requests",
+                  "Verification of invoices against the statement of accounts",
+                  "Preparation of payments via bank transfer ",
                 ],
                 [
-                  "Working capital optimisation",
-                  "2 payments cycle a month"
+                  {
+                    name: "Working capital optimisation",
+                    tooltip: "Payments are made just in time, based on the supplier’s credit terms"
+                  },
                 ]
               ]
             },
             {
               id: 5,
-              name: "Accounts receivable service",
+              name: "Accounts receivable",
               isAddon: true,
               price: "S$250",
               pricePer: "per month",
               priceStartingFrom: true,
               pricingOptions: [
                 {
-                  name: "<100 outstanding invoices",
-                  price: "+S$250",
+                  name: "<25 unpaid invoices",
+                  price: "+S$200",
                   pricePer: "per month"
                 },
                 {
-                  name: "100-200 outstanding invoices",
-                  price: "+S$350",
+                  name: "25 - 50 unpaid invoices",
+                  price: "+S$300",
                   pricePer: "per month"
                 },
                 {
-                  name: "200-300 outstanding invoices",
+                  name: "51 - 100 unpaid invoices",
                   price: "+S$450",
+                  pricePer: "per month"
+                },
+                {
+                  name: "101 - 200 unpaid invoices",
+                  price: "+S$600",
+                  pricePer: "per month"
+                },
+                {
+                  name: "201 - 400 unpaid invoices",
+                  price: "+S$750",
                   pricePer: "per month"
                 }
               ],
               boxList: [
                 [
                   "Weekly reconciliation of paid invoices",
-                  "Receivables chasing and reminder",
-                  "Frequency: 3x email, 2x phone call per overdue invoice"
+                  "Weekly receivables chasing and reminder",
+                  "5x automated email reminders + 2x phone call chaser per overdue invoice",
+                  "Monthly aged receivables report"
                 ],
               ]
             },
             {
               id: 6,
-              name: "Payroll service",
+              name: "Payroll",
               isAddon: true,
               price: "S$250",
               pricePer: "per month",
               priceStartingFrom: true,
-              // rangeSlider ?
               rangeSlider: true,
-              // pricingOptions: [
-              //   {
-              //     name: "<100 outstanding invoices",
-              //     price: "+S$250",
-              //     pricePer: "per month"
-              //   }
-              // ],
               boxList: [
                 [
                   "Monthly payroll computation",
@@ -248,38 +283,50 @@ class PricingCustom extends Component {
                 ],
                 [
                   "Electronic leave management system",
-                  "Annual IRA8 or AIS submission. IR21 submission when required"
+                  "Annual IRA8 or AIS submission. IR21 submission when required",
+                  "Staff expense claims included if paired with Accounts Payable service"
                 ]
               ]
             },
             {
               id: 7,
-              name: "Cabin assistant ",
+              name: "Cabin assistant",
               isAddon: true,
-              price: "S$150",
+              price: "S$125",
               pricePer: "per month",
               priceStartingFrom: true,
               pricingOptions: [
                 {
-                  name: "<50 documents per month",
-                  price: "+S$150",
+                  name: "<25 documents",
+                  price: "+S$125",
                   pricePer: "per month"
                 },
                 {
-                  name: "50-150 documents per month",
-                  price: "+S$250",
+                  name: "25-75 documents",
+                  price: "+S$200",
                   pricePer: "per month"
                 },
                 {
-                  name: "150-300 outstanding invoices",
-                  price: "+S$350",
+                  name: "76 - 150 documents",
+                  price: "+S$300",
+                  pricePer: "per month"
+                },
+                {
+                  name: "151 - 250 documents",
+                  price: "+S$450",
+                  pricePer: "per month"
+                },
+                {
+                  name: "251 - 400 documents",
+                  price: "+S$650",
                   pricePer: "per month"
                 }
               ],
               boxList: [
                 [
-                  "Consolidate all your documents into a box placed at your office Once a month, a dedicated bookkeeper will visit your office	",
-                  "All documents scanning and filing will be all taken care of"
+                  "Consolidate all finance source documents (bills and invoices) into a box ",
+                  "Box will be collected by Cabin at the end of the month",
+                  "Documents will be scanned, filed, and entered into our accounting system"
                 ],
               ]
             },
@@ -314,7 +361,82 @@ class PricingCustom extends Component {
 
         />
 
+        <PricingBuilderSection
+          sectionIndex={4}
+          headerStep="Step 4"
+          headerName="Complex accounting requirements"
+          headerDesc="If your business has complex requirements, we will tailor a plan for you"
+          boxes={[
+            {
+              id: 8,
+              name: "Profit center tracking",
+              isAddon: true,
+              price: "Get a quote",
+              pricePer: "",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Multiple outlets or product lines sales and cost tracking",
+                ]
+              ]
+            },
+            {
+              id: 9,
+              name: "Complex revenue recognition",
+              isAddon: true,
+              price: "Get a quote",
+              pricePer: "",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Detailed unearned revenue tracking or unconventional revenue recognition",
+                ]
+              ]
+            },
+            {
+              id: 10,
+              name: "Projections and budget tracking",
+              isAddon: true,
+              price: "Get a quote",
+              pricePer: "",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Projections and budgeting model building",
+                  "Monthly updates to compare actuals vs. budget/projection"
+                ]
+              ]
+            },
+            {
+              id: 11,
+              name: "Finance team management",
+              isAddon: true,
+              price: "Get a quote",
+              pricePer: "",
+              priceStartingFrom: false,
+              boxList: [
+                [
+                  "Paired with your in-house finance executive(s)",
+                  "Finance operations process building and management"
+                ]
+              ]
+            },
+          ]}
+
+        />
+
         <PricingFloatNav heroHeight={this.state.heroHeight} />
+
+        <div className="faq" data-aos="fade-up">
+          <div className="t-center">
+            <h2>FAQ</h2>
+          </div>
+          <div className="container container--narrow">
+            {faqContent.map((el, i) => (
+              <FaqPanel key={i} name={el.name} content={el.content} isOpenedByDefault={el.isDefaultOpened} />
+            ))}
+          </div>
+        </div>
 
       </React.Fragment>
     );

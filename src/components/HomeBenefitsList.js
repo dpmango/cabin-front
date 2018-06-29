@@ -3,25 +3,26 @@ import SvgIcon from '../components/SvgIcon';
 
 export default class HomeBenefitsList extends Component {
   render(){
-    const { activeIndex } = this.props
+    const { activeIndex, activeIndexes } = this.props
 
     const listNames = [
-      "Annual financial statements",
       "Corporate secretary",
+      "Annual financial statements",
       "Tax filings",
-      "Book-keeping",
+      "Bookkeeping",
       "Monthly reports",
       "Payroll & expense claims",
       "Accounts payable",
       "Accounts receivable",
-      "People operations (HR)"
+      "Complex accounting requirements",
+      "Finance team management"
     ]
 
     return (
       <ul className="home-benefits__list" data-aos data-active-index={activeIndex}>
         {listNames.map((el, i) => {
           return (
-            <li key={i} className={i+1 > activeIndex ? 'is-disabled' : ''}>
+            <li key={i} className={activeIndexes ? activeIndexes.indexOf(i+1) !== -1 ? '' : 'is-disabled' : i+1 > activeIndex ? 'is-disabled' : ''}>
               <div className="home-benefits__list-icon">
                 <SvgIcon name="check" />
               </div>

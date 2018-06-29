@@ -82,7 +82,16 @@ class SignupStep4 extends Component {
     const times = v.split(':');
     let result = Number(times[0]) * 60 + Number(times[1]);
     if (utcToLocal === true){
-      result = result + this.timeZoneDiff
+      // result = result + this.timeZoneDiff
+      if ( Math.sign(this.clientTimeZoneOffset) === 1 ){
+        // if offset is possitive (UTC - timzeone)
+        // console.log(result, result - this.clientTimeZoneOffset)
+        result = result - this.clientTimeZoneOffset
+      } else {
+        // console.log(result, result - this.clientTimeZoneOffset)
+        result = result - this.clientTimeZoneOffset // minus when UTC +
+      }
+
     }
     if (toUTC === true){
       result = result + this.clientTimeZoneOffset
@@ -131,6 +140,7 @@ class SignupStep4 extends Component {
         // filter the values
         // The Array.some is used to see if the selectable time is
         // inside of a booked period
+        // let TestData = [{start: "00:00", end: "01:00"}];
         let availableDates = this.selectableTimesInRange.filter( x =>
           !res.data.some(y => {
             return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
@@ -142,7 +152,7 @@ class SignupStep4 extends Component {
         if ( formatedDate === todayFormated ){
           // emulate as some event was created starting at 0:00 and ending at current time
           // x is in local time already, 0:00 is also local
-          let todayData = [{start: "0:00", end: todayTime}];
+          let todayData = [{start: "00:00", end: todayTime}];
           availableDates = availableDates.filter( x =>
             !todayData.some(y => {
               return this.convertTimeStr(y.start) <= this.convertTimeStr(x) &&
@@ -152,15 +162,15 @@ class SignupStep4 extends Component {
         }
 
         // this is just for testing
-        // let removedDates = this.selectableTimesInRange.filter( x =>
-        //   res.data.some(y => {
-        //     return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
-        //            this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
-        //   })
-        // );
+        let removedDates = this.selectableTimesInRange.filter( x =>
+          res.data.some(y => {
+            return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
+                   this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
+          })
+        );
 
-        // console.log('availableDates', availableDates);
-        // console.log('removedDates', removedDates)
+        console.log('availableDates', availableDates);
+        console.log('removedDates', removedDates)
 
         this.setState({
           meeting_time_options: availableDates
