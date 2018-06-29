@@ -12,8 +12,8 @@ export default class HomeLogos extends Component {
               <HomeLogosEl iconName="grain" tooltipContent="Online restaurant" />
               <HomeLogosEl iconName="canny" tooltipContent="Digital marketing" />
               <HomeLogosEl iconName="elements" tooltipContent="Spa and wellness group" />
-              <HomeLogosEl iconName="bbounce" tooltipContent="bbounce tooltip content" />
-              <HomeLogosEl iconName="seventeen" tooltipContent="seventeen tooltip content" />
+              <HomeLogosEl iconName="waa" tooltipContent="Fast-casual restaurant" />
+              <HomeLogosEl iconName="style" tooltipContent="Designer clothing subscription" />
               <HomeLogosEl iconName="poh" tooltipContent="Retail chain" />
             </div>
           </div>
