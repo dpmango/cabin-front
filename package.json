@@ -60,6 +60,7 @@
     "run-sequence": "^2.2.1",
     "svg4everybody": "^2.1.9",
     "through2": "^2.0.3",
+    "typograf": "^6.7.2",
     "viewport-units-buggyfill": "^0.6.2",
     "vinyl-buffer": "^1.0.1"
   },

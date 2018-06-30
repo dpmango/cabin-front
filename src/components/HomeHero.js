@@ -7,8 +7,8 @@ export default class HomeHero extends Component {
       <div className="home-hero">
         <div className="container">
           <div className="home-hero__wrapper">
-            <h1>Fuss-free accounting. Make better decisions.</h1>
-            <div className="t-paragraph">Cabin is an online accounting and corporate secretary service. Starting at an affordable <span>$200/month</span>, we help you make better financial decisions for your business.</div>
+            <h1>Fuss-free accounting.<br/> Make better decisions.</h1>
+            <div className="t-paragraph">Cabin is&nbsp;an&nbsp;online accounting and corporate secretary service. Starting&nbsp;at&nbsp;an&nbsp;affordable <span>$200/month</span>, we&nbsp;help you make better financial decisions for your business.</div>
             <SignupEmail extraClass="home-hero__form" />
           </div>
         </div>

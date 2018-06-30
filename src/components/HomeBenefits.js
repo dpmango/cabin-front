@@ -57,6 +57,7 @@ export default class HomeBenefits extends Component {
         loop: false,
         watchOverflow: false,
         slidesPerView: 1,
+        initialSlide: 2,
         normalizeSlideIndex: true,
         freeMode: false,
         slidesOffsetBefore: 0,
@@ -102,7 +103,7 @@ export default class HomeBenefits extends Component {
       )
     } else {
       return (
-        <Tabs className="tabs-pane" defaultIndex={1} onSelect={this.refreshAOS}>
+        <Tabs className="tabs-pane" defaultIndex={2} onSelect={this.refreshAOS}>
           <TabList className="tabs-pane__list">
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Incorporation</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">First 6 months</Tab>

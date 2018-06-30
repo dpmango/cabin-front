@@ -329,33 +329,6 @@ class PricingCustom extends Component {
                   "Documents will be scanned, filed, and entered into our accounting system"
                 ],
               ]
-            },
-            {
-              id: 8,
-              name: "Cost center profitability tracking",
-              isAddon: true,
-              price: "+S$75",
-              pricePer: "per month",
-              priceStartingFrom: false,
-              boxList: [
-                [
-                  "Outlet or product line sales and cost tracking",
-                ]
-              ]
-            },
-            {
-              id: 9,
-              name: "Projections and budget tracking",
-              isAddon: true,
-              price: "+S$125",
-              pricePer: "per month",
-              priceStartingFrom: false,
-              boxList: [
-                [
-                  "Projections and budgeting based on proposed business model (fees charged separately)",
-                  "Monthly updates to compare actuals vs. budget/projections"
-                ]
-              ]
             }
           ]}
 
@@ -371,6 +344,7 @@ class PricingCustom extends Component {
               id: 8,
               name: "Profit center tracking",
               isAddon: true,
+              isQuoteRequired: true,
               price: "Get a quote",
               pricePer: "",
               priceStartingFrom: false,
@@ -384,6 +358,7 @@ class PricingCustom extends Component {
               id: 9,
               name: "Complex revenue recognition",
               isAddon: true,
+              isQuoteRequired: true,
               price: "Get a quote",
               pricePer: "",
               priceStartingFrom: false,
@@ -397,6 +372,7 @@ class PricingCustom extends Component {
               id: 10,
               name: "Projections and budget tracking",
               isAddon: true,
+              isQuoteRequired: true,
               price: "Get a quote",
               pricePer: "",
               priceStartingFrom: false,
@@ -411,6 +387,7 @@ class PricingCustom extends Component {
               id: 11,
               name: "Finance team management",
               isAddon: true,
+              isQuoteRequired: true,
               price: "Get a quote",
               pricePer: "",
               priceStartingFrom: false,

@@ -23,6 +23,7 @@ class PricingBuilderBox extends Component {
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
+    isQuoteRequired: PropTypes.bool,
     isRequired: PropTypes.bool,
     rangeSlider: PropTypes.bool,
     addPricingOption: PropTypes.func,
@@ -155,6 +156,8 @@ class PricingBuilderBox extends Component {
 
 
   rangeSliderChange = (val) => {
+    // 10 is a minumum
+    val = val <= 10 ? 10 : val
     this.setState({
       sliderVal: val,
       sliderValPrice: PricingSliderDb[val - 1]
@@ -193,11 +196,11 @@ class PricingBuilderBox extends Component {
               <div className="p-builder-box__toggle" onClick={this.changeOtions}></div>
             }
             <div className="p-builder-box__name">{name}</div>
-            { isAddon &&
+            { /*isAddon &&
               <div className="p-builder-box__head-icon">
                 <i className="icon icon-optionBox" />
               </div>
-            }
+            */ }
             <div className="p-builder-box__price">
               { priceStartingFrom &&
                 <span className="p-builder-box__price-top">starting at</span>
@@ -228,7 +231,7 @@ class PricingBuilderBox extends Component {
         </div>
 
         { pricingOptions &&
-          <div className={ "p-builder-box__options " + (isRequired && !activeOptionId ? "is-required" : "") }>
+          <div className={ "p-builder-box__options " + (isRequired && activeOptionId === null ? "is-required" : "") }>
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
@@ -264,7 +267,7 @@ class PricingBuilderBox extends Component {
                 onAfterChange={this.rangeSliderAfterChange}
               />
 
-              <div className={"p-builder-box-slider__val " + (this.state.sliderVal ? "is-visible" : "")}>{this.state.sliderVal} employees</div>
+              <div className={"p-builder-box-slider__val " + (this.state.sliderVal ? "is-visible" : "")}>{this.state.sliderVal <= 10 ? 10 : this.state.sliderVal } employees</div>
 
               <div className={"p-builder-box-slider__price " + (this.state.sliderVal ? "is-visible" : "")}>
                 <div className="p-builder-box-slider__price-box">

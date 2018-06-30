@@ -56,12 +56,15 @@ class PricingFloatNav extends Component {
   getTotal = () => {
 
     const { pricingOptions, pricingOptionsSub } = this.props;
-    let calc = 0;
+    let calc = {
+      price: 0,
+      haveQuoteReguired: false
+    };
 
     // add all suboptions first
     if ( pricingOptionsSub && pricingOptionsSub.length > 0 ){
       pricingOptionsSub.forEach( (sub) => {
-        calc += this.parsePrice(sub.price)
+        calc.price += this.parsePrice(sub.price)
       })
     }
 
@@ -69,7 +72,11 @@ class PricingFloatNav extends Component {
     if ( pricingOptions && pricingOptions.length > 0 ){
       pricingOptions.forEach( (option) => {
         if ( !pricingOptionsSub.some( x => x.boxId === option.id ) ){
-          calc += this.parsePrice(option.price);
+          if ( this.parsePrice(option.price) === 0 ){
+            // if price is 0 - than selected "quote required"
+            calc.haveQuoteReguired = true;
+          }
+          calc.price += this.parsePrice(option.price);
         }
       })
     }
@@ -88,17 +95,20 @@ class PricingFloatNav extends Component {
   render(){
     // calculate Price summ
     const { isScrolledAfterHero } = this.state;
-    let summaryPrice = this.getTotal();
+    let summary = this.getTotal();
 
     return(
-      <div className={ summaryPrice > 0 && isScrolledAfterHero ? "pricing-float is-active" : "pricing-float"}>
+      <div className={ summary.price > 0 && isScrolledAfterHero ? "pricing-float is-active" : "pricing-float"}>
         <div className="container container--narrow">
           <div className="pricing-float__wrapper">
             <div className="pricing-float__summary">
               <span className="pricing-float__summary-holder">Your <strong>Customised Finance Team</strong> plan:</span>
               <div className="pricing-float__summary-price">
-                <span>S${summaryPrice}</span>
+                <span>S${summary.price}</span>
                 <span>per month</span>
+                { summary.haveQuoteReguired &&
+                  <span>+ additional quote required</span>
+                }
               </div>
             </div>
             <Link

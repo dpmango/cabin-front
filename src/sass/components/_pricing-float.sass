@@ -36,15 +36,22 @@
         &:first-child
           font-size: 24px
           color: $fontColor
-        &:last-child
+        &:nth-child(2)
+          /* per verbose
+          font-size: 14px
+          margin-left: 5px
+        &:nth-child(3)
+          /* addional quote
           font-size: 14px
           margin-left: 5px
 
   &__cta
+    flex: 0 0 auto
     margin-left: auto
     display: flex
     align-items: center
     cursor: pointer
+    padding-left: 20px
     &-text
       font-size: 12px
       font-weight: 500
