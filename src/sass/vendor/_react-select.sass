@@ -269,6 +269,28 @@
 .Select-menu
   max-height: 198px
   overflow-y: auto
+  &::-webkit-scrollbar
+    width: 8px
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+
+  /* Track
+
+  &::-webkit-scrollbar-track
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)
+    background: transparent
+    border-radius: 5px
+
+  /* Handle
+
+  &::-webkit-scrollbar-thumb
+    border-radius: 5px
+    background: rgba(black, 0.4)
+    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5)
+    &:window-inactive
+      background: rgba(black, 0.2)
 
 .Select-option
   box-sizing: border-box
