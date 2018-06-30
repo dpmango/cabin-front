@@ -36,7 +36,7 @@ class PricingDormant extends Component {
       },
       {
         name: 'If I have minimal transactions do I count as a dormant company?',
-        content: 'A Dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our <a href="/pricing">Annual Reporting</a> plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year. '
+        content: 'A dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our <a href="/pricing">Annual Reporting</a> plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year. '
       }
     ]
 
@@ -46,7 +46,7 @@ class PricingDormant extends Component {
         <div className="pricing-scope__price-for">per year</div>
         <div className="pricing-scope__tooltip">
           <Tooltip
-            title="A Dormant company is defined by ACRA as a company without any bank transactions other than corporate secretarial fees, accounting and auditor fees, and ACRA fees."
+            title="A dormant company is defined by ACRA as a company without any bank transactions other than corporate secretarial fees, accounting and auditor fees, and ACRA fees."
             position="left"
             distance="10"
             arrow="true">
@@ -89,7 +89,7 @@ class PricingDormant extends Component {
                   [
                     {
                       name: "Unaudited Annual Financial Statements",
-                      tooltip: "A Dormant company is defined by ACRA as a company without any bank transactions other than corporate secretarial fees, accounting and auditor fees, and ACRA fees."
+                      tooltip: "Prepared based on Singapore Financial Reporting Standards (SFRS)"
                     },
                     "Tax computation and filing"
                   ]
@@ -171,7 +171,7 @@ class PricingDormant extends Component {
               <div className="pricing-options__section-name">Accounting and Tax</div>
               <div className="pricing-options__section">
                 <PricingOption
-                  name="XXBRL filing required (financial statements highlights)"
+                  name="XBRL filing required (financial statements highlights)"
                   tooltipContent="Required for insolvent exempt private companies or companies regulated by MAS"
                   price="S$250"
                   withoutPlus={true}

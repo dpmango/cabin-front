@@ -142,7 +142,7 @@ class SignupStep2 extends Component {
           <div className="signup__progress">
             <div className="signup__progress-line">
               <div className="signup__progress-fill" style={{"width" : "33%"}}>
-                <div className="signup__progress-name">Step 1</div>
+                <div className="signup__progress-name">Step 1 of 3</div>
               </div>
             </div>
           </div>

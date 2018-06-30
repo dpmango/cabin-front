@@ -23,8 +23,8 @@ class Pricing extends Component {
 
     this.selectOptions = [
       { value: '/pricing', label: 'Core plans' },
-      { value: '/pricing/incorporation', label: 'Incorporation plans' },
-      { value: '/pricing/dormant', label: 'Dormant plans' }
+      { value: '/pricing/incorporation', label: 'Incorporation' },
+      { value: '/pricing/dormant', label: 'Dormant company' }
     ]
 
     this.state = {
@@ -67,10 +67,10 @@ class Pricing extends Component {
                 Core plans
               </NavLink>
               <NavLink to="/pricing/incorporation" className="hero__nav-el" activeClassName='is-active'>
-                Incorporation plans
+                Incorporation
               </NavLink>
               <NavLink to="/pricing/dormant" className="hero__nav-el" activeClassName='is-active'>
-                Dormant plans
+                Dormant company
               </NavLink>
             </div>
             <div className="hero__nav-mobile">

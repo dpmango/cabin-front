@@ -20,7 +20,7 @@ export default class HomeFeatures extends Component {
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Fully digital</div>
-                    <p>Paperless with enterprise-level security. Instant access anywhere.</p>
+                    <p>Paperless, cloud-based, with enterprise-level security.</p>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@ export default class HomeFeatures extends Component {
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Tailored services</div>
-                    <p>Our modular services are fully customisable to suit your business needs.</p>
+                    <p>Modular services customisable to your business needs.</p>
                   </div>
                 </div>
               </div>
@@ -53,7 +53,7 @@ export default class HomeFeatures extends Component {
                   </div>
                   <div className="home-features-card__content">
                     <div className="home-features-card__name">Affordable</div>
-                    <p>Pay only for what you need. We use technology to bring the cost down.</p>
+                    <p>Pay only for what you need. Efficient tech-enabled processes. </p>
                   </div>
                 </div>
               </div>

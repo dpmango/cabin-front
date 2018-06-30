@@ -50,6 +50,16 @@ class About extends Component {
           <div className="people__wrapper">
             <div className="people__left">
               <div className="people__image">
+                <div className="people__hover-tooltip people__hover-tooltip--isaac">
+                  <div className="people__hover-wrapper">
+                    Hi, I’m <span>Isaac</span>
+                  </div>
+                </div>
+                <div className="people__hover-tooltip people__hover-tooltip--rifeng">
+                  <div className="people__hover-wrapper">
+                    Hi, I’m <span>Rifeng</span>
+                  </div>
+                </div>
                 <img src={require('../images/aboutPeople.jpg')} srcSet={require('../images/aboutPeople@2x.jpg')  + ' 2x'} alt=""/>
               </div>
             </div>

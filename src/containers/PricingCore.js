@@ -98,7 +98,7 @@ class PricingCore extends Component {
                   </Link>
                 </div>
                 <div className="pricing-scope__compare">
-                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                  <a onClick={this.scrollToTable} className="learn-more">Compare features <SvgIcon name="right-arrow" /></a>
                 </div>
               </div>
 
@@ -140,7 +140,7 @@ class PricingCore extends Component {
                   </Link>
                 </div>
                 <div className="pricing-scope__compare">
-                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                  <a onClick={this.scrollToTable} className="learn-more">Compare features <SvgIcon name="right-arrow" /></a>
                 </div>
               </div>
 
@@ -167,8 +167,8 @@ class PricingCore extends Component {
                         "Tax computation and filing",
                         "Monthly management reports",
                         "Accounts payable and receivable service",
-                        "Payroll",
-                        "Financial planning and analysis"
+                        "Payroll and staff expense claims",
+                        "Complex accounting requirements"
                       ]
                     ]}
                   />
@@ -180,7 +180,7 @@ class PricingCore extends Component {
                   <div className="pricing-scope__price">
                     <div className="pricing-scope__price-starting">From</div>
                     <div className="pricing-scope__price-main">S$200</div>
-                    <div className="pricing-scope__price-for">per year</div>
+                    <div className="pricing-scope__price-for">per month</div>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -192,7 +192,7 @@ class PricingCore extends Component {
                   </Link>
                 </div>
                 <div className="pricing-scope__compare">
-                  <a onClick={this.scrollToTable} className="learn-more">Compare Features <SvgIcon name="right-arrow" /></a>
+                  <a onClick={this.scrollToTable} className="learn-more">Compare features <SvgIcon name="right-arrow" /></a>
                 </div>
 
               </div>
@@ -457,7 +457,7 @@ class PricingCore extends Component {
                     withoutPlus={true}
                   />
                   <PricingOption
-                    name="XXBRL filing required (financial statements highlights)"
+                    name="XBRL filing required (financial statements highlights)"
                     tooltipContent="Required for insolvent exempt private companies or companies regulated by MAS"
                     price="S$250"
                     withoutPlus={true}
