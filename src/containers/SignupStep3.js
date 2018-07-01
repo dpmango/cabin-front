@@ -25,10 +25,18 @@ class SignupStep3 extends Component {
       company_industry: props.signupFields.company_industry,
       company_old: props.signupFields.company_old,
       company_employees: props.signupFields.company_employees,
-      canSubmit: false
+      canSubmit: false,
+      isTransitioningNext: false
     };
 
     this.formRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
 
   formInvalid = () => {
@@ -81,14 +89,23 @@ class SignupStep3 extends Component {
         }
       })
       .then((res) => {
-        this.props.setSignupStep(4);
 
-        this.props.setSignupFields({
-          ...this.props.signupFields,
-          company_industry: company_industry,
-          company_old: company_old,
-          company_employees: company_employees,
-        })
+        this.setState({ isTransitioningNext: true })
+
+        setTimeout(() => {
+          this.props.setSignupStep(4);
+
+          this.props.setSignupFields({
+            ...this.props.signupFields,
+            company_industry: company_industry,
+            company_old: company_old,
+            company_employees: company_employees,
+          })
+
+          this.setState({ isTransitioningNext: false });
+
+        }, 400)
+
 
       })
       .catch(function (error) {
@@ -108,7 +125,7 @@ class SignupStep3 extends Component {
   }
 
   render(){
-    const { company_industry, company_old, company_employees } = this.state;
+    const { company_industry, company_old, company_employees, isTransitioningNext } = this.state;
 
     const selectValues = {
       company_industry: [
@@ -137,111 +154,86 @@ class SignupStep3 extends Component {
       ]
     }
     return(
-      <div className="container">
-        <div className="signup__box" data-aos="fade-up">
-          <div className="signup__progress">
-            <div className="signup__progress-line">
-              <div className="signup__progress-fill" style={{"width" : "66%"}}>
-                <div className="signup__progress-name">Step 2 of 3</div>
-              </div>
-            </div>
+      <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
+        <div className="signup__left">
+          <div className="signup__avatar signup__avatar--small">
+            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
-
-          <div className="signup__wrapper">
-            <div className="signup__left">
-              <div className="signup__avatar signup__avatar--small">
-                <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
-              </div>
-              <h2>Help us understand a little bit more about your company</h2>
-            </div>
-            <div className="signup__right">
-              <Formsy
-                className="signup__form"
-                onValidSubmit={this.handleSubmit}
-                onValid={this.formValid}
-                onInvalid={this.formInvalid}
-                ref={this.formRef}
-              >
-                <div className="ui-group">
-                  <Select
-                    name="company_industry"
-                    searchable={false}
-                    autosize={false}
-                    value={company_industry}
-                    onChange={this.handleSelectChange.bind(this, 'company_industry')}
-                    placeholder="Which industry are you in?"
-                    options={this.mapArrToSelect(selectValues.company_industry)}
-                  />
-                </div>
-                <div className="ui-group">
-                  <Select
-                    name="company_old"
-                    searchable={false}
-                    autosize={false}
-                    value={company_old}
-                    onChange={this.handleSelectChange.bind(this, 'company_old')}
-                    placeholder="How old is your company?"
-                    options={this.mapArrToSelect(selectValues.company_old)}
-                  />
-                </div>
-                <div className="ui-group">
-                  <Select
-                    name="company_employees"
-                    searchable={false}
-                    autosize={false}
-                    value={company_employees}
-                    onChange={this.handleSelectChange.bind(this, 'company_employees')}
-                    placeholder="How many staff are there in your company?"
-                    options={this.mapArrToSelect(selectValues.company_employees)}
-                  />
-                </div>
-                {/* <FormInput
-                  name="company_industry"
-                  placeholder="Which industry are you in?"
-                  value={company_industry}
-                  validationErrors={{
-                    isDefaultRequiredValue: 'This field is required',
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                /> */}
-                {/* <FormInput
-                  name="company_old"
-                  placeholder="How old is your company?"
-                  value={company_old}
-                  validationErrors={{
-                    isDefaultRequiredValue: 'This field is required',
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                />
-                <FormInput
-                  name="company_employees"
-                  placeholder="How many staff are there in your company?"
-                  value={company_employees}
-                  validationErrors={{
-                    isDefaultRequiredValue: 'This field is required',
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                /> */}
-              </Formsy>
-            </div>
-          </div>
-
+          <h2>Help us understand a little bit more about your company</h2>
         </div>
-
-        <div className="signup__nav">
-          <a className="signup__nav-back" onClick={this.prevStep}>
-            <SvgIcon name="back-arrow" />
-            <span>Go Back</span>
-          </a>
-
-          <a className="btn btn--small" onClick={this.submitForm}>
-            <span>Next</span>
-          </a>
+        <div className="signup__right">
+          <Formsy
+            className="signup__form"
+            onValidSubmit={this.handleSubmit}
+            onValid={this.formValid}
+            onInvalid={this.formInvalid}
+            ref={this.formRef}
+          >
+            <div className="ui-group">
+              <Select
+                name="company_industry"
+                searchable={false}
+                autosize={false}
+                value={company_industry}
+                onChange={this.handleSelectChange.bind(this, 'company_industry')}
+                placeholder="Which industry are you in?"
+                options={this.mapArrToSelect(selectValues.company_industry)}
+              />
+            </div>
+            <div className="ui-group">
+              <Select
+                name="company_old"
+                searchable={false}
+                autosize={false}
+                value={company_old}
+                onChange={this.handleSelectChange.bind(this, 'company_old')}
+                placeholder="How old is your company?"
+                options={this.mapArrToSelect(selectValues.company_old)}
+              />
+            </div>
+            <div className="ui-group">
+              <Select
+                name="company_employees"
+                searchable={false}
+                autosize={false}
+                value={company_employees}
+                onChange={this.handleSelectChange.bind(this, 'company_employees')}
+                placeholder="How many staff are there in your company?"
+                options={this.mapArrToSelect(selectValues.company_employees)}
+              />
+            </div>
+            {/* <FormInput
+              name="company_industry"
+              placeholder="Which industry are you in?"
+              value={company_industry}
+              validationErrors={{
+                isDefaultRequiredValue: 'This field is required',
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            /> */}
+            {/* <FormInput
+              name="company_old"
+              placeholder="How old is your company?"
+              value={company_old}
+              validationErrors={{
+                isDefaultRequiredValue: 'This field is required',
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            />
+            <FormInput
+              name="company_employees"
+              placeholder="How many staff are there in your company?"
+              value={company_employees}
+              validationErrors={{
+                isDefaultRequiredValue: 'This field is required',
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            /> */}
+          </Formsy>
         </div>
-
       </div>
     )
   }

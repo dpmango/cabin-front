@@ -40,7 +40,7 @@ class SignupStep5 extends Component {
 
     return(
       <div className="container">
-        <div className="t-center" data-aos="fade-up">
+        <div className="t-center" data-aos="fade">
           <h2>Thank you!</h2>
           <p className="t-paragraph">We will get in touch with you shortly.</p>
           <div className="signup__sucess">

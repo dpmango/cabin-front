@@ -29,7 +29,8 @@ class SignupStep4 extends Component {
       meeting_date: props.signupFields.meeting_date,
       meeting_time: props.signupFields.meeting_time,
       email_instead: props.signupFields.email_instead,
-      meeting_time_options: []
+      meeting_time_options: [],
+      isTransitioningNext: false
     };
 
     // define selectable times in manager local time
@@ -66,6 +67,13 @@ class SignupStep4 extends Component {
 
     this.clientTimeZoneOffsetVerbose = "GMT" + ((this.clientTimeZoneOffset < 0 ? '+' : '-' ) +
             parseInt(Math.abs(this.clientTimeZoneOffset/60)))
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
 
   handleSelectChange = (e) => {
@@ -182,6 +190,11 @@ class SignupStep4 extends Component {
     })
   }
 
+  submitForm = () => {
+    // trigger from SignupContainer via refs
+    this.nextStep();
+  }
+
   nextStep = () => {
 
     const { meeting_date, meeting_time, date, email_instead } = this.state;
@@ -201,15 +214,23 @@ class SignupStep4 extends Component {
         }
       })
       .then((res) => {
-        this.props.setSignupStep(5);
 
-        this.props.setSignupFields({
-          ...this.props.signupFields,
-          date: date,
-          meeting_date: meeting_date,
-          meeting_time: meeting_time,
-          email_instead: email_instead
-        })
+        this.setState({ isTransitioningNext: true })
+
+        setTimeout(() => {
+          this.props.setSignupStep(5);
+
+          this.props.setSignupFields({
+            ...this.props.signupFields,
+            date: date,
+            meeting_date: meeting_date,
+            meeting_time: meeting_time,
+            email_instead: email_instead
+          })
+
+          this.setState({ isTransitioningNext: false });
+
+        }, 400)
 
       })
       .catch(function (error) {
@@ -226,103 +247,79 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, email_instead, meeting_time_options } = this.state;
+    const { date, meeting_time, focused, email_instead, meeting_time_options, isTransitioningNext } = this.state;
 
     return(
-      <div className="container">
-        <div className="signup__box" data-aos="fade-up">
-          <div className="signup__progress">
-            <div className="signup__progress-line">
-              <div className="signup__progress-fill" style={{"width" : "100%"}}>
-                <div className="signup__progress-name signup__progress-name--last">Step 3 of 3</div>
+      <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
+        <div className="signup__left">
+          <div className="signup__avatar signup__avatar--small">
+            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+          </div>
+          <h2>Let me know when is a good time to reach out</h2>
+        </div>
+        <div className="signup__right">
+          <div className="ui-group">
+            <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
+          </div>
+          <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") }>
+            <div className="signup__datetime-col">
+              <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
+                <SingleDatePicker
+                  date={date} // momentPropTypes.momentObj or null
+                  onDateChange={this.handleDateChange} // PropTypes.func.isRequired
+                  focused={focused} // PropTypes.bool
+                  placeholder="Select date"
+                  noBorder={true}
+                  block={true}
+                  hideKeyboardShortcutsPanel={true}
+                  // showDefaultInputIcon={true}
+                  customInputIcon={datePickerIcon}
+                  inputIconPosition="after"
+                  displayFormat="DD-MM-YYYY"
+                  anchorDirection="left"
+                  numberOfMonths={1}
+                  horizontalMargin={0}
+                  onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                  id="datepicker" // PropTypes.string.isRequired,
+                  isOutsideRange={(date) => {
+                    let day = date._d.getDay()
+                    return (day === 6) || (day === 0) ? true : false
+                  }}
+                />
               </div>
             </div>
+            <div className="signup__datetime-col">
+              <Select
+                name="meeting_time"
+                searchable={false}
+                autosize={false}
+                value={meeting_time}
+                onChange={this.handleSelectChange}
+                placeholder="Select time"
+                noResultsText="Please select date"
+                options={this.mapArrToSelect(meeting_time_options)}
+              />
+            </div>
+
+          </div>
+          <div className="signup__datetime-hint">
+            Select time in your local timezone {this.clientTimeZoneOffsetVerbose}
           </div>
 
-          <div className="signup__wrapper">
-            <div className="signup__left">
-              <div className="signup__avatar signup__avatar--small">
-                <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
-              </div>
-              <h2>Let me know when is a good time to reach out</h2>
-            </div>
-            <div className="signup__right">
-              <div className="ui-group">
-                <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
-              </div>
-              <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") }>
-                <div className="signup__datetime-col">
-                  <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
-                    <SingleDatePicker
-                      date={date} // momentPropTypes.momentObj or null
-                      onDateChange={this.handleDateChange} // PropTypes.func.isRequired
-                      focused={focused} // PropTypes.bool
-                      placeholder="Select date"
-                      noBorder={true}
-                      block={true}
-                      hideKeyboardShortcutsPanel={true}
-                      // showDefaultInputIcon={true}
-                      customInputIcon={datePickerIcon}
-                      inputIconPosition="after"
-                      displayFormat="DD-MM-YYYY"
-                      anchorDirection="left"
-                      numberOfMonths={1}
-                      horizontalMargin={0}
-                      onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-                      id="datepicker" // PropTypes.string.isRequired,
-                      isOutsideRange={(date) => {
-                        let day = date._d.getDay()
-                        return (day === 6) || (day === 0) ? true : false
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="signup__datetime-col">
-                  <Select
-                    name="meeting_time"
-                    searchable={false}
-                    autosize={false}
-                    value={meeting_time}
-                    onChange={this.handleSelectChange}
-                    placeholder="Select time"
-                    noResultsText="Please select date"
-                    options={this.mapArrToSelect(meeting_time_options)}
-                  />
-                </div>
 
-              </div>
-              <div className="signup__datetime-hint">
-                Select time in your local timezone {this.clientTimeZoneOffsetVerbose}
-              </div>
-
-
-              <div className="signup__email-instead">
-                <div className="ui-group">
-                  <CheckBox
-                    name="email_instead"
-                    isAcitve={email_instead}
-                    text="Email me instead"
-                    clickHandler={this.checkboxClick}
-                  />
-                </div>
-              </div>
+          <div className="signup__email-instead">
+            <div className="ui-group">
+              <CheckBox
+                name="email_instead"
+                isAcitve={email_instead}
+                text="Email me instead"
+                clickHandler={this.checkboxClick}
+              />
             </div>
           </div>
-
         </div>
-
-        <div className="signup__nav">
-          <a className="signup__nav-back" onClick={this.prevStep}>
-            <SvgIcon name="back-arrow" />
-            <span>Go Back</span>
-          </a>
-
-          <a className="btn btn--huge" onClick={this.nextStep}>
-            <span>Submit</span>
-          </a>
-        </div>
-
       </div>
+
     )
   }
 }

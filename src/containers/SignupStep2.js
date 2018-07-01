@@ -34,10 +34,18 @@ class SignupStep2 extends Component {
       company_name:  props.signupFields.company_name,
       email: props.signupEmail,
       phone: props.signupFields.phone,
-      formIsValid: false
+      formIsValid: false,
+      isTransitioningNext: false
     };
 
     this.formRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
   }
 
   formInvalid = () => {
@@ -117,16 +125,24 @@ class SignupStep2 extends Component {
 
     const { first_name, last_name, company_name, phone } = this.state;
 
-    this.props.setSignupStep(3);
+    this.setState({ isTransitioningNext: true })
 
-    this.props.setSignupFields({
-      ...this.props.signupFields,
-      first_name: first_name,
-      last_name: last_name,
-      company_name: company_name,
-      // no email because it's outside signupFileds 1lvl top
-      phone: phone,
-    })
+    setTimeout(() => {
+      this.props.setSignupStep(3);
+
+      this.props.setSignupFields({
+        ...this.props.signupFields,
+        first_name: first_name,
+        last_name: last_name,
+        company_name: company_name,
+        // no email because it's outside signupFileds 1lvl top
+        phone: phone,
+      })
+
+      this.setState({ isTransitioningNext: false })
+
+    }, 400)
+
   }
 
   prevStep = () => {
@@ -134,126 +150,104 @@ class SignupStep2 extends Component {
   }
 
   render(){
-    const { first_name, last_name, company_name, email, phone } = this.state;
+    const { first_name, last_name, company_name, email, phone, isTransitioningNext } = this.state;
 
     return(
-      <div className="container">
-        <div className="signup__box" data-aos="fade-up">
-          <div className="signup__progress">
-            <div className="signup__progress-line">
-              <div className="signup__progress-fill" style={{"width" : "33%"}}>
-                <div className="signup__progress-name">Step 1 of 3</div>
+
+      <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
+        <div className="signup__left">
+          <div className="signup__avatar signup__avatar--small">
+            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+          </div>
+          <h2>Tell us a little about yourself</h2>
+        </div>
+        <div className="signup__right">
+          <Formsy
+            className="signup__form"
+            onValidSubmit={this.handleSubmit}
+            onValid={this.formValid}
+            onInvalid={this.formInvalid}
+            ref={this.formRef}
+          >
+            <FormInput
+              name="first_name"
+              placeholder="First Name"
+              value={first_name}
+              validations="minLength:3"
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill your first name',
+                minLength: 'Name is too short'
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            />
+            <FormInput
+              name="last_name"
+              placeholder="Last Name"
+              value={last_name}
+              validations="minLength:3"
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill your last name',
+                minLength: 'Last name is too short'
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            />
+            <FormInput
+              name="company_name"
+              placeholder="Company Name"
+              value={company_name}
+              onChangeHandler={this.handleChange}
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill company name'
+              }}
+              required
+            />
+            <FormInput
+              name="email"
+              placeholder="Email"
+              value={email}
+              validations="isEmail"
+              validationErrors={{
+                isEmail: "This is not a valid email",
+                isDefaultRequiredValue: 'Please fill email'
+              }}
+              onChangeHandler={this.handleChange}
+              required
+            />
+            <div className="ui-group">
+              <div className="ui-phone">
+                <PhoneInput
+              		placeholder="Phone Number"
+              		value={ phone }
+                  country={'SG'}
+                  displayInitialValueAsLocalNumber={true}
+              		onChange={ phone => this.setState({ phone }) }
+                  // indicateInvalid
+                  // error={ phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' }
+                />
               </div>
             </div>
-          </div>
-          <div className="signup__wrapper">
-            <div className="signup__left">
-              <div className="signup__avatar signup__avatar--small">
-                <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
-              </div>
-              <h2>Tell us a little about yourself</h2>
-            </div>
-            <div className="signup__right">
-              <Formsy
-                className="signup__form"
-                onValidSubmit={this.handleSubmit}
-                onValid={this.formValid}
-                onInvalid={this.formInvalid}
-                ref={this.formRef}
-              >
-                <FormInput
-                  name="first_name"
-                  placeholder="First Name"
-                  value={first_name}
-                  validations="minLength:3"
-                  validationErrors={{
-                    isDefaultRequiredValue: 'Please fill your first name',
-                    minLength: 'Name is too short'
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                />
-                <FormInput
-                  name="last_name"
-                  placeholder="Last Name"
-                  value={last_name}
-                  validations="minLength:3"
-                  validationErrors={{
-                    isDefaultRequiredValue: 'Please fill your last name',
-                    minLength: 'Last name is too short'
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                />
-                <FormInput
-                  name="company_name"
-                  placeholder="Company Name"
-                  value={company_name}
-                  onChangeHandler={this.handleChange}
-                  validationErrors={{
-                    isDefaultRequiredValue: 'Please fill company name'
-                  }}
-                  required
-                />
-                <FormInput
-                  name="email"
-                  placeholder="Email"
-                  value={email}
-                  validations="isEmail"
-                  validationErrors={{
-                    isEmail: "This is not a valid email",
-                    isDefaultRequiredValue: 'Please fill email'
-                  }}
-                  onChangeHandler={this.handleChange}
-                  required
-                />
-                <div className="ui-group">
-                  <div className="ui-phone">
-                    <PhoneInput
-                  		placeholder="Phone Number"
-                  		value={ phone }
-                      country={'SG'}
-                      displayInitialValueAsLocalNumber={true}
-                  		onChange={ phone => this.setState({ phone }) }
-                      // indicateInvalid
-                      // error={ phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' }
-                    />
-                  </div>
-                </div>
-                {/* <FormInput
-                  name="phone"
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={phone}
-                  mask={['+','6','5', ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
-                  onChangeHandler={this.handleChange}
-                  validations={{
-                    matchRegexp: /\+65 \d{4} \d{4}/
-                  }}
-                  validationErrors={{
-                    matchRegexp: "Phone number is not valid",
-                    isDefaultRequiredValue: 'Please fill phone'
-                  }}
-                  required
-                />*/}
-              </Formsy>
-            </div>
-          </div>
-
+            {/* <FormInput
+              name="phone"
+              type="tel"
+              placeholder="Phone Number"
+              value={phone}
+              mask={['+','6','5', ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
+              onChangeHandler={this.handleChange}
+              validations={{
+                matchRegexp: /\+65 \d{4} \d{4}/
+              }}
+              validationErrors={{
+                matchRegexp: "Phone number is not valid",
+                isDefaultRequiredValue: 'Please fill phone'
+              }}
+              required
+            />*/}
+          </Formsy>
         </div>
-
-        <div className="signup__nav">
-          <a className="signup__nav-back" onClick={this.prevStep}>
-            <SvgIcon name="back-arrow" />
-            <span>Go Back</span>
-          </a>
-
-          <a className="btn btn--small" onClick={this.submitForm}>
-            <span>Next</span>
-          </a>
-        </div>
-
       </div>
+
     )
   }
 }

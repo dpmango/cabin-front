@@ -16,6 +16,13 @@
     margin-left: -15px
     margin-right: -15px
     padding: 50px 100px 0px
+    &.fade-out
+      // transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715)
+      transform: translate3d(-20px, 0, 0) !important
+      // transition-duration: .4s
+      // transition-property: opacity,transform
+      opacity: 0 !important
+
   &__left
     flex: 0 1 50%
     max-width: 50%
@@ -84,6 +91,7 @@
       top: 0
       bottom: 0
       left: 0
+      transition: width .25s $ease
   &__nav
     position: relative
     z-index: 1
