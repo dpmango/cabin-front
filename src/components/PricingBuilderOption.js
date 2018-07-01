@@ -11,14 +11,37 @@ export default class PricingBuilderOption extends Component {
     clickHandler: PropTypes.func
   };
 
+  componentDidMount() {
+    // create refs for first option
+    // to be called ouside this componenet as method    
+    if ( this.props.index === 0 ){
+      this.props.onRef(this)
+    }
+  }
+  componentWillUnmount() {
+    if ( this.props.index === 0 ){
+      this.props.onRef(undefined)
+    }
+  }
+
+  computeClickHandler = () => {
+
+    const { index, name, price } = this.props;
+
+    // let curTarget = e.currentTarget
+    // let curIndex = Number(curTarget.getAttribute('data-index'));
+    // let curName = curTarget.getAttribute('data-name');
+    // let curPrice = curTarget.getAttribute('data-price');
+
+    this.props.clickHandler(index, name, price)
+  }
+
+
   // to separate str to lines on mobile
   renderName = (str) => {
-    let firstLetter, newStr
+    let firstLetter
     firstLetter = str.match(/[A-Za-z]/)[0]
-    // firstLetterIndex = str.indexOf(firstLetter)
-    newStr = str.replace(firstLetter, '<br />' + firstLetter);
-
-    return newStr
+    return str.replace(firstLetter, '<br />' + firstLetter);
   }
 
   render(){
@@ -26,7 +49,7 @@ export default class PricingBuilderOption extends Component {
     const { name, price, pricePer, index, isActiveOption } = this.props;
 
     return(
-      <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.props.clickHandler}>
+      <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.computeClickHandler}>
         <div className={"p-builder-option__wrapper " + (isActiveOption ? "is-selected" : " ")}>
           <div className="p-builder-option__head">
             <div className="p-builder-option__name">{this.renderName(name).split('<br />').map((item, key) => <span key={key}>{item}</span>)}

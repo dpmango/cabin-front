@@ -171,6 +171,7 @@
 
 
   &__options
+    display: none
     position: relative
     z-index: 1
     background: #F6F7FB
@@ -184,6 +185,10 @@
         &__wrapper
           animation: optionAttentionRequiredWrapper 2s ease
           animation-iteration-count: infinite
+    &.have-selected
+      display: block
+    &.always-visible
+      display: block
 
     &-list
       display: flex

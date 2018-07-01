@@ -63,6 +63,7 @@ class PricingBuilderBox extends Component {
     }
   }
 
+  // master function with routing
   changeOtions = (fromOption, optionObj) => {
     if ( fromOption === true ){
       this.setState({isAddonActive: true}, () => {
@@ -83,12 +84,26 @@ class PricingBuilderBox extends Component {
 
   }
 
+  // box toggler (main option)
   changePricingBox = () => {
 
     const { name, price, id, pricingOptionsState } = this.props;
     const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
 
     if ( this.state.isAddonActive ){
+      // emulate click to add first SubOption
+      // * if any and if not active present
+      if ( this.optionChild && this.state.activeOptionId === null ){
+        this.optionChild.computeClickHandler();
+      }
+
+      // enable slider also
+      if ( this.state.sliderVal === null ){
+        this.rangeSliderChange(10);
+        this.rangeSliderAfterChange(10)
+      }
+
+
 
       const isAddedAlready = positionInStateArray !== -1
 
@@ -115,6 +130,7 @@ class PricingBuilderBox extends Component {
 
   }
 
+  // option toggler (sub option)
   changePricingOption = (name, price) => {
 
     this.clearAllOptions();
@@ -140,12 +156,8 @@ class PricingBuilderBox extends Component {
 
   }
 
-  pricingOptionClickHandler = (e) => {
-    let curTarget = e.currentTarget
-    let curIndex = Number(curTarget.getAttribute('data-index'));
-    let curName = curTarget.getAttribute('data-name');
-    let curPrice = curTarget.getAttribute('data-price');
-
+  pricingOptionClickHandler = (curIndex, curName, curPrice) => {
+    // options calculated inside PricingBuilderOption
     if ( this.state.activeOptionId !== curIndex ){ // do nothing clicking active el
       this.changeOtions(true,{
         curIndex, curName, curPrice
@@ -154,7 +166,7 @@ class PricingBuilderBox extends Component {
 
   }
 
-
+  // Slider functions
   rangeSliderChange = (val) => {
     // 10 is a minumum
     val = val <= 10 ? 10 : val
@@ -181,7 +193,7 @@ class PricingBuilderBox extends Component {
   render(){
 
     const { name, price, pricePer, priceStartingFrom, helpText, ctaText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
-    const { activeOptionId } = this.state;
+    const { activeOptionId, sliderVal, sliderValPrice } = this.state;
 
     return(
       <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")}>
@@ -231,7 +243,11 @@ class PricingBuilderBox extends Component {
         </div>
 
         { pricingOptions &&
-          <div className={ "p-builder-box__options " + (isRequired && activeOptionId === null ? "is-required" : "") }>
+          <div className={ "p-builder-box__options "
+            + (isRequired ? "always-visible " : "" )
+            + (isRequired && activeOptionId === null ? "is-required " : "")
+            + (activeOptionId !== null ? "have-selected " : "")
+            }>
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
@@ -245,6 +261,7 @@ class PricingBuilderBox extends Component {
                     price={option.price}
                     pricePer={option.pricePer}
                     isActiveOption={isActiveOption}
+                    onRef={ i === 0 ? ref => (this.optionChild = ref) : undefined }
                     clickHandler={this.pricingOptionClickHandler}
                   />
                 )
@@ -256,22 +273,24 @@ class PricingBuilderBox extends Component {
         }
 
         { rangeSlider &&
-          <div className="p-builder-box__options">
+          <div className={"p-builder-box__options "
+            + (activeOptionId !== null ? "have-selected " : "")
+            }>
             <div className="p-builder-box-slider">
               <Slider
                 defaultValue={0}
-                value={this.state.sliderVal}
+                value={sliderVal}
                 min={0}
                 max={50}
                 onChange={this.rangeSliderChange}
                 onAfterChange={this.rangeSliderAfterChange}
               />
 
-              <div className={"p-builder-box-slider__val " + (this.state.sliderVal ? "is-visible" : "")}>{this.state.sliderVal <= 10 ? 10 : this.state.sliderVal } employees</div>
+              <div className={"p-builder-box-slider__val " + (sliderVal ? "is-visible" : "")}>{sliderVal <= 10 ? 10 : sliderVal } employees</div>
 
-              <div className={"p-builder-box-slider__price " + (this.state.sliderVal ? "is-visible" : "")}>
+              <div className={"p-builder-box-slider__price " + (sliderVal ? "is-visible" : "")}>
                 <div className="p-builder-box-slider__price-box">
-                  <span>+S${this.state.sliderValPrice}</span>
+                  <span>+S${sliderValPrice}</span>
                   <span>per month</span>
                 </div>
               </div>
