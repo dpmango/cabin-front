@@ -52,134 +52,134 @@ class PricingIncorp extends Component {
     )
 
     return(
-      <React.Fragment>
+      <div data-aos="fade">
         <Helmet>
           <title>Pricing Incorporation || CABIN</title>
         </Helmet>
 
-      <div className="pricing-scope" data-aos="fade-up">
-        <div className="container container--narrow">
-          <div className="pricing-scope__holder">
-            <div className="pricing-scope__box">
-              <div className="pricing-scope__head">
-                <div className="pricing-scope__icon">
-                  <i className="icon icon-pricing-corporate" />
+        <div className="pricing-scope" >
+          <div className="container container--narrow">
+            <div className="pricing-scope__holder">
+              <div className="pricing-scope__box">
+                <div className="pricing-scope__head">
+                  <div className="pricing-scope__icon">
+                    <i className="icon icon-pricing-corporate" />
+                  </div>
+                  <div className="pricing-scope__names">
+                    <div className="pricing-scope__name">Incorporation</div>
+                    <div className="pricing-scope__description">I want to incorporate a company </div>
+                  </div>
+                  <div className="pricing-scope__price">
+                    { PricingScopePrice }
+                  </div>
                 </div>
-                <div className="pricing-scope__names">
-                  <div className="pricing-scope__name">Incorporation</div>
-                  <div className="pricing-scope__description">I want to incorporate a company </div>
-                </div>
-                <div className="pricing-scope__price">
+                <PricingScopeList
+                  list={[
+                    [
+                      "Company name search and reservation",
+                      "Company structure and Constitution advisory",
+                      "Minutes and resolution of First Director’s Meeting",
+                    ],
+                    [
+                      "Share certificates issuance",
+                      "Form 45 and Form 45B",
+                      "Provision of a qualified person as your company secretary (12 months)"
+                    ]
+                  ]}
+                />
+
+                <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
               </div>
-              <PricingScopeList
-                list={[
-                  [
-                    "Company name search and reservation",
-                    "Company structure and Constitution advisory",
-                    "Minutes and resolution of First Director’s Meeting",
-                  ],
-                  [
-                    "Share certificates issuance",
-                    "Form 45 and Form 45B",
-                    "Provision of a qualified person as your company secretary (12 months)"
-                  ]
-                ]}
-              />
 
-              <div className="pricing-scope__price pricing-scope__price--mobile">
-                { PricingScopePrice }
-              </div>
-            </div>
-
-            <div className="pricing-scope__cta">
-              <Link to="/get-started"
-                onClick={this.onSelectPlanClick.bind(this, 'Incorporation (S$450)')}
-                onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
-                className="btn btn--mega btn--block">
-                Select <span>Incorporation</span> Plan
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="pricing-options" data-aos="fade-up">
-        <div className="container">
-          <div className="pricing-options__heading">
-            <h2>Additional requirements</h2>
-            <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
-          </div>
-          <div className="pricing-options__section-name">Corporate Secretary</div>
-          <div className="pricing-options__grid">
-            <div className="pricing-options__col">
-              <div className="pricing-options__section">
-                <PricingOption
-                  name="Non-shares matters"
-                  tooltipContent="For example: Board approval of contracts and agreement, Opening/termination of bank accounts, Change of bank signatories, Change of financial year end, Extension of Annual General Meeting (AGM) deadline, Approval of Director’s remuneration, etc."
-                  price="S$50"
-                  pricePer="per transaction"
-                />
-                <PricingOption
-                  name="Shares matters"
-                  tooltipContent="For example: Transfer of shares, Replacement of share certificates, Issuance of dividends and bonus, Share allotment for new shareholders, etc"
-                  price="S$75"
-                  pricePer="per transaction"
-                />
-                <PricingOption
-                  name="Complex matters"
-                  tooltipContent="For example: Instatement of Employee Stock Option Scheme (ESOS, Share buyback - equal access (Section 76C) or selective acquisition (Section 76D), Reduction of share capital (Section 78B), Striking off or unwinding of Company, etc."
-                  price="S$150"
-                  priceSuf="from"
-                  pricePer="per transaction"
-                />
-
-              </div>
-            </div>
-            <div className="pricing-options__col">
-              <div className="pricing-options__section">
-                <PricingOption
-                  name="Corporate shareholder involved"
-                  tooltipContent="Applicable if a corporate shareholder has more than 25% shareholding. Additional due diligence and compliance processes required by MAS’s anti-money laundering regulation"
-                  price="S$100"
-                  pricePer="per entity<br>per year"
-                />
-                <PricingOption
-                  name="5th director/shareholder onwards"
-                  tooltipContent="Additional administrative and recording keeping processes required"
-                  price="S$25"
-                  pricePer="per individual<br>per year"
-                />
-                <PricingOption
-                  name="Provision of registered address"
-                  tooltipContent="Inclusive of weekly mail scanning service. Mail forwarding service will be provided upon request (S$10 per package + courier fees)."
-                  price="S$300"
-                  pricePer="per year"
-                />
-                <PricingOption
-                  name="Provision of Nominee Director"
-                  tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
-                  price="S$2000"
-                  pricePer="per year"
-                />
+              <div className="pricing-scope__cta">
+                <Link to="/get-started"
+                  onClick={this.onSelectPlanClick.bind(this, 'Incorporation (S$450)')}
+                  onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                  className="btn btn--mega btn--block">
+                  Select <span>Incorporation</span> Plan
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="faq" data-aos="fade-up">
-        <div className="t-center">
-          <h2>FAQ</h2>
+        <div className="pricing-options" >
+          <div className="container">
+            <div className="pricing-options__heading">
+              <h2>Additional requirements</h2>
+              <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
+            </div>
+            <div className="pricing-options__section-name">Corporate Secretary</div>
+            <div className="pricing-options__grid">
+              <div className="pricing-options__col">
+                <div className="pricing-options__section">
+                  <PricingOption
+                    name="Non-shares matters"
+                    tooltipContent="For example: Board approval of contracts and agreement, Opening/termination of bank accounts, Change of bank signatories, Change of financial year end, Extension of Annual General Meeting (AGM) deadline, Approval of Director’s remuneration, etc."
+                    price="S$50"
+                    pricePer="per transaction"
+                  />
+                  <PricingOption
+                    name="Shares matters"
+                    tooltipContent="For example: Transfer of shares, Replacement of share certificates, Issuance of dividends and bonus, Share allotment for new shareholders, etc"
+                    price="S$75"
+                    pricePer="per transaction"
+                  />
+                  <PricingOption
+                    name="Complex matters"
+                    tooltipContent="For example: Instatement of Employee Stock Option Scheme (ESOS, Share buyback - equal access (Section 76C) or selective acquisition (Section 76D), Reduction of share capital (Section 78B), Striking off or unwinding of Company, etc."
+                    price="S$150"
+                    priceSuf="from"
+                    pricePer="per transaction"
+                  />
+
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                <div className="pricing-options__section">
+                  <PricingOption
+                    name="Corporate shareholder involved"
+                    tooltipContent="Applicable if a corporate shareholder has more than 25% shareholding. Additional due diligence and compliance processes required by MAS’s anti-money laundering regulation"
+                    price="S$100"
+                    pricePer="per entity<br>per year"
+                  />
+                  <PricingOption
+                    name="5th director/shareholder onwards"
+                    tooltipContent="Additional administrative and recording keeping processes required"
+                    price="S$25"
+                    pricePer="per individual<br>per year"
+                  />
+                  <PricingOption
+                    name="Provision of registered address"
+                    tooltipContent="Inclusive of weekly mail scanning service. Mail forwarding service will be provided upon request (S$10 per package + courier fees)."
+                    price="S$300"
+                    pricePer="per year"
+                  />
+                  <PricingOption
+                    name="Provision of Nominee Director"
+                    tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
+                    price="S$2000"
+                    pricePer="per year"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="container container--narrow">
-          {faqContent.map((el, i) => (
-            <FaqPanel key={i} name={el.name} content={el.content} isOpenedByDefault={el.isDefaultOpened} />
-          ))}
+
+        <div className="faq" >
+          <div className="t-center">
+            <h2>FAQ</h2>
+          </div>
+          <div className="container container--narrow">
+            {faqContent.map((el, i) => (
+              <FaqPanel key={i} name={el.name} content={el.content} isOpenedByDefault={el.isDefaultOpened} />
+            ))}
+          </div>
         </div>
       </div>
-      </React.Fragment>
     )
   }
 }

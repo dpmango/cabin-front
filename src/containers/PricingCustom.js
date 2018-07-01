@@ -404,7 +404,7 @@ class PricingCustom extends Component {
 
         <PricingFloatNav heroHeight={this.state.heroHeight} />
 
-        <div className="faq" data-aos="fade-up">
+        <div className="faq">
           <div className="t-center">
             <h2>FAQ</h2>
           </div>

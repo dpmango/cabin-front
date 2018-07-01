@@ -149,7 +149,7 @@ export default class HomeBenefits extends Component {
 class TabContent1 extends React.Component {
   render(){
     return(
-      <div className="home-benefits__content">
+      <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
             Incorporate your company in less than 24 hours
@@ -157,18 +157,17 @@ class TabContent1 extends React.Component {
           <p className="t-paragraph for-mobile">Do so remotely and fully guided by one of our thoughtful staff</p>
           <HomeBenefitsList activeIndex="1" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
+        <div className="home-benefits__content-right">
           <h3>
             Incorporate your company in less than 24 hours
           </h3>
           <p className="t-paragraph">Do so remotely and fully guided by one of our thoughtful staff</p>
-          {/* <Testimonial
-            hidden={true}
-            content="TBD"
+          <Testimonial
+            content="Setting Up a business in Singapore was simple with Cabin! They <strong>answered all my additional questions,</strong> while keeping things <strong>simple, speedy, easy and fuss free</strong> while ensuring personalised service."
             authorName="Meera Jane"
             authorTitle="Co-Founder, Asia Photo Collective"
             authorImage="avatar-1"
-          /> */}
+          />
           <div className="home-benefits__content-cta">
             <Link to="/pricing/incorporation" className="btn btn--mega btn--block">Check out Cabin’s <span>Incorporation</span> Plan</Link>
           </div>
@@ -181,7 +180,7 @@ class TabContent1 extends React.Component {
 class TabContent2 extends React.Component {
   render(){
     return(
-      <div className="home-benefits__content">
+      <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
             Appoint a corporate secretary to meet your ACRA requirement
@@ -196,7 +195,7 @@ class TabContent2 extends React.Component {
           <p className="t-paragraph for-mobile">We will do a thorough sweep to make sure all the required statutory documents are in place</p>
           <HomeBenefitsList activeIndex="1" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
+        <div className="home-benefits__content-right">
           <h3>
             Appoint a corporate secretary to meet your ACRA requirement
             <Tooltip
@@ -226,7 +225,7 @@ class TabContent2 extends React.Component {
 class TabContent3 extends React.Component {
   render(){
     return(
-      <div className="home-benefits__content">
+      <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
             Stay on top of your accounting and tax filings
@@ -242,7 +241,7 @@ class TabContent3 extends React.Component {
           </p>
           <HomeBenefitsList activeIndex="4" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
+        <div className="home-benefits__content-right">
           <h3>
             Stay on top of your accounting and tax filings
           </h3>
@@ -273,7 +272,7 @@ class TabContent3 extends React.Component {
 class TabContent4 extends React.Component {
   render(){
     return(
-      <div className="home-benefits__content">
+      <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
             Have all your finance operations covered
@@ -281,7 +280,7 @@ class TabContent4 extends React.Component {
           <p className="t-paragraph for-mobile">Gain access to a full-fledged and professional finance team at a fraction of the costs of hiring in-house</p>
           <HomeBenefitsList activeIndex="8" />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
+        <div className="home-benefits__content-right">
           <h3>
             Have all your finance operations covered
           </h3>
@@ -304,7 +303,7 @@ class TabContent4 extends React.Component {
 class TabContent5 extends React.Component {
   render(){
     return(
-      <div className="home-benefits__content">
+      <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
             Pair your finance executive with Cabin
@@ -314,17 +313,17 @@ class TabContent5 extends React.Component {
             1,2,3,5,9,10
           ]} />
         </div>
-        <div className="home-benefits__content-right" data-aos="fade" data-aos-delay="250">
+        <div className="home-benefits__content-right">
           <h3>
             Pair your finance executive with Cabin
           </h3>
           <p className="t-paragraph">When it is time to bring your finance operations in-house, we will pair with your finance executive to build the right finance processes</p>
-          {/* <Testimonial
-            content="TBD"
+          <Testimonial
+            content="Cabin has been a great finance partner for us. Their <strong>strong understanding of the fundamentals</strong> allowed them to <strong>easily adapt to tax and accounting complexities</strong> of a unique business like ours. They always encourage deep discussions about our business to find process improvement opportunities whenever possible. The <strong>collaboration with our internal Jakarta-based finance team has been seamless</strong> and we consider them as our smart and reliable finance partner for Singapore."
             authorName="Chris Halim"
             authorTitle="Co-Founder, Style Theory"
             authorImage="avatar-1"
-          /> */}
+          />
           <div className="home-benefits__content-cta">
             <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <span>Customised Finance Team</span> Plan</Link>
           </div>

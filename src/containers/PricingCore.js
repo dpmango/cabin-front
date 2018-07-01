@@ -57,12 +57,12 @@ class PricingCore extends Component {
     ]
 
     return(
-      <React.Fragment>
+      <div data-aos="fade">
         <Helmet>
           <title>Pricing Core || CABIN</title>
         </Helmet>
 
-        <div className="pricing-scope" data-aos="fade-up">
+        <div className="pricing-scope" >
           <div className="container">
             <div className="pricing-scope__grid">
 
@@ -201,7 +201,7 @@ class PricingCore extends Component {
           </div>
         </div>
 
-        <div className="pricing-table" data-aos="fade-up" ref={this.tableRef}>
+        <div className="pricing-table"  ref={this.tableRef}>
           <div className="container">
             <div className="t-center">
               <h2>Detailed Features</h2>
@@ -226,7 +226,7 @@ class PricingCore extends Component {
                     <div className="pricing-table__td">
                       <div className="pricing-table__head pricing-table__head--popular">
                         <i className="icon icon-pricing-full-stack" />
-                        <div className="pricing-table__head-name">Customised Finance Team</div>
+                        <div className="pricing-table__head-name">Customised <br/>Finance Team</div>
                         <div className="pricing-table__head-tag">Most Popular</div>
                       </div>
                     </div>
@@ -385,7 +385,7 @@ class PricingCore extends Component {
           </div>
         </div>
 
-        <div className="pricing-options" data-aos="fade-up">
+        <div className="pricing-options" >
           <div className="container">
             <div className="pricing-options__heading">
               <h2>Additional requirements</h2>
@@ -480,7 +480,7 @@ class PricingCore extends Component {
           </div>
         </div>
 
-        <div className="faq" data-aos="fade-up">
+        <div className="faq" >
           <div className="t-center">
             <h2>FAQ</h2>
           </div>
@@ -490,7 +490,7 @@ class PricingCore extends Component {
             ))}
           </div>
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }

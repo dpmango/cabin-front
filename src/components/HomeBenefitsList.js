@@ -19,7 +19,7 @@ export default class HomeBenefitsList extends Component {
     ]
 
     return (
-      <ul className="home-benefits__list" data-aos data-active-index={activeIndex}>
+      <ul className="home-benefits__list" data-aos data-aos-offset="-2000" data-active-index={activeIndex}>
         {listNames.map((el, i) => {
           return (
             <li key={i} className={activeIndexes ? activeIndexes.indexOf(i+1) !== -1 ? '' : 'is-disabled' : i+1 > activeIndex ? 'is-disabled' : ''}>

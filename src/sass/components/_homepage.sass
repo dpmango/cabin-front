@@ -6,8 +6,8 @@
     position: relative
     z-index: 2
   &__wrapper
-    padding-top: 100px
-    padding-bottom: 60px
+    padding-top: 160px
+    padding-bottom: 120px
     // show logos on first screen
     min-height: calc(100vh - 111px)
     display: flex
@@ -34,14 +34,22 @@
     display: flex
     flex-direction: column
     align-items: flex-end
+    // align-items: flex-start
     justify-content: flex-end
     pointer-events: none
     user-select: none
     text-align: right
 
     img
-      max-width: 100%
-      max-height: 100%
+      width: 691px
+      height: 578px
+      // max-width: 100%
+      // max-height: 100%
+
++r(1380)
+  .home-hero
+    &__bg
+      align-items: flex-start
 
 +r($mobile)
   .home-hero
@@ -54,6 +62,11 @@
       width: 100%
       display: block
       overflow: hidden
+      img
+        max-width: 100%
+        max-width: 100%
+        width: auto
+        height: auto
       &::after
         display: inline-block
         content: ' '
@@ -199,6 +212,8 @@
       padding: 0 15px
       .testimonial
         margin: 35px 0 40px
+      .btn
+        +text-overflow
     h3
       span
         color: $colorGreen
@@ -540,8 +555,9 @@
     /* blank class in html
     /* used as scrollmonitor for custom animation
     &.aos-animate
-      /* show active one by one
-      li:not(.is-disabled)
+      /* show active one by one (removed)
+      // li:not(.is-disabled)
+      li
         .home-benefits__list-icon
           opacity: 1
           transform: translateZ(0) scale(1)
@@ -579,50 +595,50 @@
           .home-benefits__list-icon, span
             transition-delay: .55s
       /* shpw not active all by group
-      li.is-disabled
-        .home-benefits__list-icon
-          opacity: 1
-          transform: translateZ(0) scale(1)
-        span
-          opacity: 1
-          transform: translateZ(0)
-      &[data-active-index="1"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .2s
-      &[data-active-index="2"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .25s
-      &[data-active-index="3"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .3s
-      &[data-active-index="4"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .35s
-      &[data-active-index="5"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .4s
-      &[data-active-index="6"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .45s
-      &[data-active-index="7"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .5s
-      &[data-active-index="8"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .55s
-      &[data-active-index="9"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .6s
-      &[data-active-index="10"]
-        li.is-disabled
-          .home-benefits__list-icon, span
-            transition-delay: .65s
+      // li.is-disabled
+      //   .home-benefits__list-icon
+      //     opacity: 1
+      //     transform: translateZ(0) scale(1)
+      //   span
+      //     opacity: 1
+      //     transform: translateZ(0)
+      // &[data-active-index="1"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .2s
+      // &[data-active-index="2"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .25s
+      // &[data-active-index="3"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .3s
+      // &[data-active-index="4"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .35s
+      // &[data-active-index="5"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .4s
+      // &[data-active-index="6"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .45s
+      // &[data-active-index="7"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .5s
+      // &[data-active-index="8"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .55s
+      // &[data-active-index="9"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .6s
+      // &[data-active-index="10"]
+      //   li.is-disabled
+      //     .home-benefits__list-icon, span
+      //       transition-delay: .65s
