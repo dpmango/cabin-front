@@ -8,7 +8,7 @@ import api from '../services/Api';
 import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
 
-import SvgIcon from '../components/SvgIcon';
+// import SvgIcon from '../components/SvgIcon';
 // import FormInput from '../components/FormInput';
 
 class SignupStep3 extends Component {

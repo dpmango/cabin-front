@@ -36,7 +36,12 @@ class PricingDormant extends Component {
       },
       {
         name: 'If I have minimal transactions do I count as a dormant company?',
-        content: 'A dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our <a href="/pricing">Annual Reporting</a> plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year. '
+        content:
+          <React.Fragment>
+            A dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our
+            <Link to="/pricing"> Annual Reporting </Link>
+            plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year.
+          </React.Fragment>
       }
     ]
 

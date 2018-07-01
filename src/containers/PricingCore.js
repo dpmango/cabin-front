@@ -297,7 +297,7 @@ class PricingCore extends Component {
                     checks={[
                       false,
                       {
-                        name: "S$250 per 100 transactions",
+                        name: "S$150 per 50 transactions",
                         tooltipContent: "We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction"
                       },
                       true

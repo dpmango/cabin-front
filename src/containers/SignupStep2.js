@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
-import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
+// import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
 import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
 
-import SvgIcon from '../components/SvgIcon';
+// import SvgIcon from '../components/SvgIcon';
 import FormInput from '../components/FormInput';
 
 class SignupStep2 extends Component {

@@ -88,7 +88,7 @@ export default class HomeBenefits extends Component {
             </div>
           </div>
           <div className="home-benefits__slide">
-            <div className="home-benefits__slide-name">Scaling Up</div>
+            <div className="home-benefits__slide-name">Scaling up</div>
             <div className="tabs-pane__panel">
               <TabContent4 />
             </div>
@@ -108,7 +108,7 @@ export default class HomeBenefits extends Component {
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Incorporation</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">First 6 months</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Financial year end</Tab>
-            <Tab className="tabs-pane__tab" selectedClassName="is-selected">Scaling Up</Tab>
+            <Tab className="tabs-pane__tab" selectedClassName="is-selected">Scaling up</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Mature</Tab>
           </TabList>
 
@@ -163,7 +163,7 @@ class TabContent1 extends React.Component {
           </h3>
           <p className="t-paragraph">Do so remotely and fully guided by one of our thoughtful staff</p>
           <Testimonial
-            content="Setting Up a business in Singapore was simple with Cabin! They <strong>answered all my additional questions,</strong> while keeping things <strong>simple, speedy, easy and fuss free</strong> while ensuring personalised service."
+            content="Setting up a business in Singapore was simple with Cabin! They <strong>answered all my additional questions,</strong> while keeping things <strong>simple, speedy, easy and fuss free</strong> while ensuring personalised service."
             authorName="Meera Jane"
             authorTitle="Co-Founder, Asia Photo Collective"
             authorImage="avatar-1"
@@ -211,7 +211,7 @@ class TabContent2 extends React.Component {
             content="Cabin makes everything <strong>super streamlined</strong>, is <strong>priced fairly</strong> and is probably the <strong>most modern corporate services provider</strong> ever. A breath of fresh air in an industry as old as the Company Act and where most other providers don't feel like they belong in the 21st century. Cabin's service has got us totally covered so we can focus our efforts on growth instead."
             authorName="CJ Leow"
             authorTitle="Co-Founder, pslove"
-            authorImage="avatar-1"
+            authorImage="avatar-2"
           />
           <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Corporate secretary</span> Plan</Link>
@@ -258,7 +258,7 @@ class TabContent3 extends React.Component {
             content="Our entire business group relies on Cabin to do our financial reporting and taxes. We have multiple financial year ends and varied businesses. Now, we <strong>never have to worry about missing deadlines or errors in filings.</strong> Cabin has been right on track and even provided <strong>useful insights</strong> which never saw previously."
             authorName="Lucy Chng"
             authorTitle="Director, Elements Wellness Group"
-            authorImage="avatar-1"
+            authorImage="avatar-3"
           />
           <div className="home-benefits__content-cta">
             <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Annual Reporting</span> Plan</Link>
@@ -289,7 +289,7 @@ class TabContent4 extends React.Component {
             content="Outsourcing our finance operations (including accounts payable and expense claims) to Cabin <strong>freed us up from administrative work.</strong> We love how Cabin is proactive in <strong>extrapolating insights on our financial performance</strong> and suggesting ways to improve our workflow so we can run our business more efficiently!"
             authorName="Diana Teo"
             authorTitle="Director, Waa Cow"
-            authorImage="avatar-1"
+            authorImage="avatar-4"
           />
           <div className="home-benefits__content-cta">
             <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <span>Customised Finance Team</span> Plan</Link>
@@ -322,7 +322,7 @@ class TabContent5 extends React.Component {
             content="Cabin has been a great finance partner for us. Their <strong>strong understanding of the fundamentals</strong> allowed them to <strong>easily adapt to tax and accounting complexities</strong> of a unique business like ours. They always encourage deep discussions about our business to find process improvement opportunities whenever possible. The <strong>collaboration with our internal Jakarta-based finance team has been seamless</strong> and we consider them as our smart and reliable finance partner for Singapore."
             authorName="Chris Halim"
             authorTitle="Co-Founder, Style Theory"
-            authorImage="avatar-1"
+            authorImage="avatar-5"
           />
           <div className="home-benefits__content-cta">
             <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <span>Customised Finance Team</span> Plan</Link>

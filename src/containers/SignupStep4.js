@@ -66,7 +66,7 @@ class SignupStep4 extends Component {
     // console.log(this.selectableTimesInRange)
 
     this.clientTimeZoneOffsetVerbose = "GMT" + ((this.clientTimeZoneOffset < 0 ? '+' : '-' ) +
-            parseInt(Math.abs(this.clientTimeZoneOffset/60)))
+            parseInt(Math.abs(this.clientTimeZoneOffset/60),10))
   }
 
   componentDidMount() {

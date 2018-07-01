@@ -31,27 +31,27 @@ export default class FaqPanel extends Component {
     const { isOpened } = this.state
 
     // https://github.com/facebook/react-native/issues/3148
-    let contentWithLink;
-
-    let tokens = content.split(/\s/);
-
-    contentWithLink = map(tokens, (token, i) => {
-      let hasSpace = i !== (tokens.length - 1);
-      let maybeSpace = hasSpace ? ' ' : '';
-
-      if (token.match(/^http\:\//)) {
-        return (
-          <Link
-            key={i}
-            to={{uri: token}}
-            >
-            {token}{maybeSpace}
-          </Link>
-        );
-      } else {
-        return token + maybeSpace;
-      }
-    });
+    // let contentWithLink;
+    //
+    // let tokens = content.split(/\s/);
+    //
+    // contentWithLink = map(tokens, (token, i) => {
+    //   let hasSpace = i !== (tokens.length - 1);
+    //   let maybeSpace = hasSpace ? ' ' : '';
+    //
+    //   if (token.match(/^http\:\//)) {
+    //     return (
+    //       <Link
+    //         key={i}
+    //         to={{uri: token}}
+    //         >
+    //         {token}{maybeSpace}
+    //       </Link>
+    //     );
+    //   } else {
+    //     return token + maybeSpace;
+    //   }
+    // });
 
 
     return(
@@ -62,7 +62,8 @@ export default class FaqPanel extends Component {
         </div>
         <Collapse isOpened={isOpened}>
           <div className="faq-panel__content">
-            <p dangerouslySetInnerHTML={{__html:content}} />
+            <p>{content}</p>
+            {/* <p dangerouslySetInnerHTML={{__html:content}} /> */}
             {/* {contentWithLink} */}
           </div>
         </Collapse>
