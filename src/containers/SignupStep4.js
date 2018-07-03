@@ -42,6 +42,8 @@ class SignupStep4 extends Component {
     ]
     // TODO: remove it if is unused
     this.useDayBefore = false;
+    this.curDate = new Date();
+    this.todayFormated = formatDate(this.curDate);
     this.clientTimeZoneOffset = new Date().getTimezoneOffset();
     //this.clientTimeZoneOffset = 240 // NY (UTC-4) test
     this.managerTimeZoneOffeset = -480 // UTC +8 (Singapure);
@@ -144,9 +146,7 @@ class SignupStep4 extends Component {
       // var utcDate = new Date(date._d).toISOString();
       // console.log(utcDate)
       var formatedDate = formatDate(date._d);
-      var newDate = new Date();
-      var todayFormated = formatDate(newDate);
-      var todayTime = formatTime(newDate);
+      var todayTime = formatTime(this.curDate);
 
       // pass yyyy-mm-dd as a param
       api
@@ -168,7 +168,7 @@ class SignupStep4 extends Component {
         );
 
         // if selected the today day - filter out past times
-        if ( formatedDate === todayFormated ){
+        if ( formatedDate === this.todayFormated ){
           // emulate as some event was created starting at 0:00 and ending at current time
           // x is in local time already, 0:00 is also local
           let todayData = [{start: "00:00", end: todayTime}];
@@ -296,8 +296,12 @@ class SignupStep4 extends Component {
                   onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
                   id="datepicker" // PropTypes.string.isRequired,
                   isOutsideRange={(date) => {
-                    let day = date._d.getDay()
-                    return (day === 6) || (day === 0) ? true : false
+                    if ( formatDate(date._d) < this.todayFormated ) {
+                      return true
+                    } else {
+                      let day = date._d.getDay()
+                      return (day === 6) || (day === 0) ? true : false
+                    }
                   }}
                 />
               </div>
