@@ -40,9 +40,10 @@ class SignupStep4 extends Component {
       "14:00", "14:30", "15:00", "15:30",
       "16:00", "16:30", "17:00"
     ]
-
+    // TODO: remove it if is unused
+    this.useDayBefore = false;
     this.clientTimeZoneOffset = new Date().getTimezoneOffset();
-    // this.clientTimeZoneOffset = 240 // NY (UTC-4) test
+    //this.clientTimeZoneOffset = 240 // NY (UTC-4) test
     this.managerTimeZoneOffeset = -480 // UTC +8 (Singapure);
     this.timeZoneDiff = this.managerTimeZoneOffeset
     if ( Math.sign(this.clientTimeZoneOffset) === 1 ){
@@ -53,17 +54,27 @@ class SignupStep4 extends Component {
     }
 
     // array of available times in client local timezone
-    this.selectableTimesLocal = this.selectableTimes.map( x =>
-      this.convertToTimeStr(this.convertTimeStr(x) + this.timeZoneDiff));
-
-    // filter out times less 0:00 and more 24:00
-    this.selectableTimesInRange = this.selectableTimesLocal.filter( x => {
-        return this.convertTimeStr("0:00") <= this.convertTimeStr(x) &&
-               this.convertTimeStr("24:00") >= this.convertTimeStr(x)
+    this.selectableTimesInRange = this.selectableTimes.reduce((acc, value) => {
+      const dayInMinutes = 1440;
+      const timeInMinutes = this.convertTimeStr(value);
+      let shiftedTime = timeInMinutes + this.timeZoneDiff;
+      if (shiftedTime >= dayInMinutes) {
+          shiftedTime -= dayInMinutes;
+          this.useDayBefore = true;
       }
-    );
 
-    // console.log(this.selectableTimesInRange)
+      return [...acc, this.convertToTimeStr(shiftedTime)];
+    }, []);
+    // console.log('>>> timeZoneDiff ', this.timeZoneDiff);
+    // console.log('>>> selectableTimesInRange ', this.selectableTimesInRange);
+
+    // TODO: remove. You don't need it
+    // filter out times less 0:00 and more 24:00
+    // this.selectableTimesInRange = this.selectableTimesLocal.filter( x => {
+    //     return this.convertTimeStr("0:00") <= this.convertTimeStr(x) &&
+    //            this.convertTimeStr("24:00") >= this.convertTimeStr(x)
+    //   }
+    // );
 
     this.clientTimeZoneOffsetVerbose = "GMT" + ((this.clientTimeZoneOffset < 0 ? '+' : '-' ) +
             parseInt(Math.abs(this.clientTimeZoneOffset/60),10))
@@ -103,6 +114,9 @@ class SignupStep4 extends Component {
     }
     return result
   }
+
+  sortTimes = times =>
+    times.map( x => +this.convertTimeStr(x)).sort((a,b) => a-b).map(x => this.convertToTimeStr(x));
 
   // convert number to hour:minute string
   convertToTimeStr = (v) => {
@@ -178,7 +192,7 @@ class SignupStep4 extends Component {
         console.log('removedDates', removedDates)
 
         this.setState({
-          meeting_time_options: availableDates
+          meeting_time_options: this.sortTimes(availableDates)
         });
       });
     }
