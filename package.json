@@ -26,6 +26,7 @@
     "gulp-util": "^3.0.8",
     "gulp.spritesmith": "^6.9.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "postcss-animation": "^0.0.12",
     "postcss-easings": "^1.0.1",
     "postcss-flexbugs-fixes": "^3.3.1",
