@@ -65,7 +65,7 @@ class PricingDormant extends Component {
     return(
       <div data-aos="fade">
         <Helmet>
-          <title>Pricing Dormant || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div className="pricing-scope" >

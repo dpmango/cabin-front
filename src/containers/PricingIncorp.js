@@ -54,7 +54,7 @@ class PricingIncorp extends Component {
     return(
       <div data-aos="fade">
         <Helmet>
-          <title>Pricing Incorporation || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div className="pricing-scope" >

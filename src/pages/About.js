@@ -21,7 +21,7 @@ class About extends Component {
     return (
       <div className="text-page">
         <Helmet>
-          <title>About || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div className="hero">

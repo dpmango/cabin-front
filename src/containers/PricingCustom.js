@@ -38,7 +38,7 @@ class PricingCustom extends Component {
     return (
       <React.Fragment>
         <Helmet>
-          <title>Pricing Custom || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div ref={this.heroRef} className="hero">

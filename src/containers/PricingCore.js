@@ -59,7 +59,7 @@ class PricingCore extends Component {
     return(
       <div data-aos="fade">
         <Helmet>
-          <title>Pricing Core || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div className="pricing-scope" >

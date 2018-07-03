@@ -69,7 +69,7 @@ class Profile extends React.Component {
     return (
       <div className="signup">
         <Helmet>
-          <title>Get Started || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         {this.renderStep()}

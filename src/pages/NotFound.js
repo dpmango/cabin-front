@@ -21,7 +21,7 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Helmet>
-          <title>404 - Page not found || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         <div className="not-found">

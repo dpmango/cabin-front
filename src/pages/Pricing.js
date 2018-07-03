@@ -93,7 +93,7 @@ class Pricing extends Component {
     return (
       <div className="pricing">
         <Helmet>
-          <title>Pricing || CABIN</title>
+          <title>Cabin</title>
         </Helmet>
 
         { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
