@@ -165,7 +165,7 @@ class TabContent1 extends React.Component {
           <Testimonial
             content="Setting up a business in Singapore was simple with Cabin! They <strong>answered all my additional questions,</strong> while keeping things <strong>simple, speedy, easy and fuss free</strong> while ensuring personalised service."
             authorName="Meera Jane"
-            authorTitle="Co-Founder, Asia Photo Collective"
+            authorTitle="Founder, Asia Photo Collective"
             authorImage="avatar-1"
           />
           <div className="home-benefits__content-cta">
@@ -321,7 +321,7 @@ class TabContent5 extends React.Component {
           <Testimonial
             content="Cabin has been a great finance partner for us. Their <strong>strong understanding of the fundamentals</strong> allowed them to <strong>easily adapt to tax and accounting complexities</strong> of a unique business like ours. They always encourage deep discussions about our business to find process improvement opportunities whenever possible. The <strong>collaboration with our internal Jakarta-based finance team has been seamless</strong> and we consider them as our smart and reliable finance partner for Singapore."
             authorName="Chris Halim"
-            authorTitle="Co-Founder, Style Theory"
+            authorTitle="Co-Founder and CEO, Style Theory"
             authorImage="avatar-5"
           />
           <div className="home-benefits__content-cta">
