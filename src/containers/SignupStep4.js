@@ -39,13 +39,13 @@ class SignupStep4 extends Component {
       "12:00", "12:30", "13:00", "13:30",
       "14:00", "14:30", "15:00", "15:30",
       "16:00", "16:30", "17:00"
-    ]
-    // TODO: remove it if is unused
+    ];
+
     this.useTomorrow = false;
     this.curDate = new Date();
     this.todayFormated = formatDate(this.curDate);
-    // this.clientTimeZoneOffset = new Date().getTimezoneOffset();
-    this.clientTimeZoneOffset = 240 // NY (UTC-4) test
+    this.clientTimeZoneOffset = new Date().getTimezoneOffset();
+    // this.clientTimeZoneOffset = 240 // NY (UTC-4) test
     this.managerTimeZoneOffeset = -480 // UTC +8 (Singapure);
     this.timeZoneDiff = this.managerTimeZoneOffeset
     if ( Math.sign(this.clientTimeZoneOffset) === 1 ){
@@ -61,15 +61,15 @@ class SignupStep4 extends Component {
       const timeInMinutes = this.convertTimeStr(value);
       let shiftedTime = timeInMinutes + this.timeZoneDiff;
       if (shiftedTime >= dayInMinutes) {
-          shiftedTime -= dayInMinutes;
-          this.useTomorrow = true;
+        shiftedTime -= dayInMinutes;
+        this.useTomorrow = true;
       }
 
       return [...acc, this.convertToTimeStr(shiftedTime)];
     }, []);
 
     this.clientTimeZoneOffsetVerbose = "GMT" + ((this.clientTimeZoneOffset < 0 ? '+' : '-' ) +
-            parseInt(Math.abs(this.clientTimeZoneOffset/60),10))
+      parseInt(Math.abs(this.clientTimeZoneOffset/60),10))
   }
 
   componentDidMount() {
@@ -107,27 +107,24 @@ class SignupStep4 extends Component {
     return result
   }
 
-  sortTimes = times =>
-    times.map( x => this.convertTimeStr(x)).sort((a,b) => a-b).map(x => this.convertToTimeStr(x));
-
   splitForTwoDays = times => {
-      let dayOne = [];
-      let dayNext = [];
-      let tick = false
-      times.forEach(time => {
-          if (!tick && time !== '0:00') {
-              dayOne.push(time)
-          } else {
-              dayNext.push(time);
-              tick = true;
-          }
-      });
-
-      return {
-          dayOne,
-          dayNext
+    let dayOne = [];
+    let dayNext = [];
+    let tick = false
+    times.forEach(time => {
+      if (!tick && time !== '0:00') {
+        dayOne.push(time)
+      } else {
+        dayNext.push(time);
+        tick = true;
       }
-  }
+    });
+
+    return {
+      dayOne,
+      dayNext
+    }
+  };
 
   // convert number to hour:minute string
   convertToTimeStr = (v) => {
@@ -135,7 +132,7 @@ class SignupStep4 extends Component {
     let minutes = '' + Math.abs(v % 60); // to str
     if (minutes.length === 1) minutes = '0' + minutes;
     return [hours, minutes].join(':');
-  }
+  };
 
   mapArrToSelect = (arr) => {
     return arr.map( x => {
@@ -143,15 +140,15 @@ class SignupStep4 extends Component {
       let val = x + ' - ' + endTime
       return { value: val, label: val }
     })
-  }
+  };
 
   selectAvailableDates = (selectableTimes, data) =>
-      selectableTimes.filter( x =>
-          !data.some(y => {
-              return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
-                  this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
-          })
-      );
+    selectableTimes.filter( x =>
+      !data.some(y => {
+        return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
+          this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
+      })
+    );
 
   handleDateChange = (date) => {
     this.setState({
@@ -169,72 +166,80 @@ class SignupStep4 extends Component {
       const mDate = moment(date._d);
       const mDateFormatted = mDate.format("YYYY-MM-DD");
       const mDateTomorrow = mDate.add(1, 'days');
+      const formatDateIfToday = (dates) => {
+        // emulate as some event was created starting at 0:00 and ending at current time
+        // x is in local time already, 0:00 is also local
+        let todayData = [{start: "00:00", end: todayTime}];
+        return dates.filter( x =>
+          !todayData.some(y => {
+            return this.convertTimeStr(y.start) <= this.convertTimeStr(x) &&
+              this.convertTimeStr(y.end) >= this.convertTimeStr(x)
+          })
+        );
+      };
 
       if (this.useTomorrow) {
-          const mDateTomorrowFormatted = mDateTomorrow.format("YYYY-MM-DD");
-          const twoDays = this.splitForTwoDays(this.selectableTimesInRange)
+        const mDateTomorrowFormatted = mDateTomorrow.format("YYYY-MM-DD");
+        const twoDays = this.splitForTwoDays(this.selectableTimesInRange)
 
-          api.get('calendar/' + mDateFormatted)
-              .then((res) => this.selectAvailableDates(twoDays.dayOne, res.data))
-              .then((deyOneTimes) => {
-                  api.get('calendar/' + mDateTomorrowFormatted)
-                      .then((res) => {
-                          console.log('deyOneTimes', deyOneTimes);
-                          let tomorrowTimes = this.selectAvailableDates(twoDays.dayNext, res.data);
-                          console.log('tomorrowTimes', tomorrowTimes);
-                          return [...deyOneTimes, ...tomorrowTimes]
-                      }).then(times => {
-                        console.log('>>>', times);
-                        // do something here
-                      });
-              })
-      } else {
-          // pass yyyy-mm-dd as a param
-          api.get('calendar/' + mDateFormatted)
+        api.get('calendar/' + mDateFormatted)
+          .then((res) => this.selectAvailableDates(twoDays.dayOne, res.data))
+          .then((deyOneTimes) => {
+            api.get('calendar/' + mDateTomorrowFormatted)
               .then((res) => {
+                console.log('deyOneTimes', deyOneTimes);
+                let tomorrowTimes = this.selectAvailableDates(twoDays.dayNext, res.data);
+                console.log('tomorrowTimes', tomorrowTimes);
+                return [...deyOneTimes, ...tomorrowTimes]
+              }).then(dates => {
+              console.log('>>>', dates);
+              let availableDates = dates;
+              // if selected the today day - filter out past times
+              if ( mDateFormatted === this.todayFormated ){
+                availableDates = formatDateIfToday(availableDates);
+              }
+              this.setAvailableDates(availableDates);
+            });
+          })
+      } else {
+        // pass yyyy-mm-dd as a param
+        api.get('calendar/' + mDateFormatted)
+          .then((res) => {
 
-                  // res.data.end and res.data.start comes in UTC
-                  // [{name: "event", start: "16:30", end: "17:30"}]
+            // res.data.end and res.data.start comes in UTC
+            // [{name: "event", start: "16:30", end: "17:30"}]
 
-                  // filter the values
-                  // The Array.some is used to see if the selectable time is
-                  // inside of a booked period
-                  // let TestData = [{start: "00:00", end: "01:00"}];
-                  let availableDates = this.selectAvailableDates(this.selectableTimesInRange, res.data);
+            // filter the values
+            // The Array.some is used to see if the selectable time is
+            // inside of a booked period
+            // let TestData = [{start: "00:00", end: "01:00"}];
+            let availableDates = this.selectAvailableDates(this.selectableTimesInRange, res.data);
 
-                  // if selected the today day - filter out past times
-                  if ( mDateFormatted === this.todayFormated ){
+            // if selected the today day - filter out past times
+            if ( mDateFormatted === this.todayFormated ){
+              availableDates = formatDateIfToday(availableDates);
+            }
 
-                      // emulate as some event was created starting at 0:00 and ending at current time
-                      // x is in local time already, 0:00 is also local
-                      let todayData = [{start: "00:00", end: todayTime}];
-                      availableDates = availableDates.filter( x =>
-                          !todayData.some(y => {
-                              return this.convertTimeStr(y.start) <= this.convertTimeStr(x) &&
-                                  this.convertTimeStr(y.end) >= this.convertTimeStr(x)
-                          })
-                      );
-                  }
+            // this is just for testing
+            let removedDates = this.selectableTimesInRange.filter( x =>
+              res.data.some(y => {
+                return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
+                  this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
+              })
+            );
 
-                  // this is just for testing
-                  let removedDates = this.selectableTimesInRange.filter( x =>
-                      res.data.some(y => {
-                          return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
-                              this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
-                      })
-                  );
-
-                  console.log('availableDates', availableDates);
-                  console.log('removedDates', removedDates);
-
-                  this.setState({
-                      meeting_time_options: this.sortTimes(availableDates)
-                  });
-              });
+            console.log('availableDates', availableDates);
+            console.log('removedDates', removedDates);
+            this.setAvailableDates(availableDates);
+          });
       }
-
     }
-  }
+  };
+
+  setAvailableDates = dates =>
+    this.setState({
+      meeting_time_options: dates
+    });
 
   checkboxClick = () => {
     this.setState({
