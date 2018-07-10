@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
+import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
@@ -265,6 +266,7 @@ class SignupStep4 extends Component {
           meeting_time: meeting_time ? meeting_time.label : null,
           email_instead: email_instead,
           ispending: false,
+          isproduction: isProduction(),
           isfollowup: false,
           pricing_plan: this.props.pricingPlan,
           pricing_options: pricingOptionsStr

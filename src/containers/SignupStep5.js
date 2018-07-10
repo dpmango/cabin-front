@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
 
 import SvgIcon from '../components/SvgIcon';
 import {initialState} from '../reducers/signup';
 
 class SignupStep5 extends Component {
   static propTypes = {
+    setSignupId: PropTypes.func,
+    setSignupEmail: PropTypes.func,
     setSignupStep: PropTypes.func,
     setSignupFields: PropTypes.func
   };
@@ -26,9 +28,13 @@ class SignupStep5 extends Component {
       signupComplete: true
     })
 
+    // null all signup props (including id and email)
+    this.props.setSignupId(initialState.signupId)
+    this.props.setSignupEmail(initialState.signupEmail)
     this.props.setSignupFields(initialState.fields)
 
-    // this.props.setSignupStep(1);
+    // allow multiple registrations
+    this.props.setSignupStep(1);
   }
 
   render(){
@@ -66,7 +72,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
-  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data }),
+  setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
+  setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep5);

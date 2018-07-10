@@ -127,13 +127,13 @@ class PricingCore extends Component {
                   />
 
                   <div className="pricing-scope__price">
-                    <div className="pricing-scope__price-main">S$980</div>
+                    <div className="pricing-scope__price-main">S$1,250</div>
                     <div className="pricing-scope__price-for">per year</div>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/get-started"
-                    onClick={this.onSelectPlanClick.bind(this, 'Annual Reporting (S$980)')}
+                    onClick={this.onSelectPlanClick.bind(this, 'Annual Reporting (S$1,250)')}
                     onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                     className="btn btn--mega btn--block">
                     Select <span>Annual Reporting</span> Plan

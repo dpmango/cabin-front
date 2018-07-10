@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import PropTypes from 'prop-types';
@@ -36,7 +37,7 @@ class Profile extends React.Component {
 
   renderStep = () => {
     const { signupStep } = this.props
-
+  
     switch (signupStep) {
       case 1:
         return <SignupStep1 />
@@ -59,7 +60,7 @@ class Profile extends React.Component {
           </SignupContainer>
         )
       case 5:
-        return <SignupStep5 />
+        return <Redirect to='/get-started/thank-you' />
       default:
         return <SignupStep1 />
     }
