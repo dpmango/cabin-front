@@ -266,7 +266,7 @@ class SignupStep4 extends Component {
           meeting_time: meeting_time ? meeting_time.label : null,
           email_instead: email_instead,
           ispending: false,
-          isproduction: isProduction(),
+          // isproduction: isProduction(), // REMOVE ? isfollowup is not putting
           isfollowup: false,
           pricing_plan: this.props.pricingPlan,
           pricing_options: pricingOptionsStr
