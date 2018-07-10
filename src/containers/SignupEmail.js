@@ -92,7 +92,7 @@ class SingupEmail extends Component {
       <div>
         <form className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
           <input type="text" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
-          <button type="submit" className="btn btn--huge">Get started</button>
+          <button type="submit" className="btn btn--huge">Get Started</button>
           { errors &&
             // render all errors or only first (most relevant?)
             // <div class="ui-input-validation">{errors.map((err) => (

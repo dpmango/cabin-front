@@ -14,6 +14,7 @@ export const initialState = {
     company_old: '',
     company_employees: '',
     // date: moment(),
+    selected_plan: '',
     meeting_date: '',
     meeting_time: '',
     email_instead: false

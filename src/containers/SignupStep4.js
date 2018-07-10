@@ -5,7 +5,7 @@ import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from '../store/ActionTypes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import 'react-dates/initialize';
@@ -20,12 +20,14 @@ class SignupStep4 extends Component {
     setSignupStep: PropTypes.func,
     setSignupFields: PropTypes.func,
     signupId: PropTypes.number,
-    signupFields: PropTypes.object
+    signupFields: PropTypes.object,
+    setPricingPlan: PropTypes.func
   };
 
   constructor(props) {
     super();
     this.state = {
+      selected_plan: this.converSelectedPlanToSelect(props.pricingPlan),
       // date: props.signupFields.date,
       meeting_date: props.signupFields.meeting_date,
       meeting_time: props.signupFields.meeting_time,
@@ -80,10 +82,41 @@ class SignupStep4 extends Component {
     this.props.onRef(undefined)
   }
 
-  handleSelectChange = (e) => {
-    this.setState({
-      meeting_time: e,
-    });
+  converSelectedPlanToSelect = (val) => {
+    if ( val === "General" ){
+      return "I don't know"
+    } else {
+      return val
+    }
+    // switch (val){
+    //   case "Corporate Secretary (S$350)":
+    //     return "Corporate Secretary"
+    //   case "Annual Reporting (S$1,250)":
+    //     return "Annual Reporting"
+    //   case "Customised Finance Team":
+    //     return "Customised Finance Team"
+    //   case "Customised Finance Team":
+    //     return "Incorporation"
+    //   case "Dormant (S$780)":
+    //     return "Dormant"
+    //   case "General":
+    //     return "I don't know"
+    //   default:
+    //     return "I don't know"
+    // }
+  }
+
+  handleSelectChange = (name, e) => {
+    this.setState({...this.state, [name]: e});
+
+    if ( name === "selected_plan" ){
+      if ( e.label === "I don't know" ){
+        this.props.setPricingPlan("General");
+      } else {
+        this.props.setPricingPlan(e.label);
+      }
+
+    }
   }
 
   // transform the hour:minute to comparable number
@@ -135,13 +168,19 @@ class SignupStep4 extends Component {
     return [hours, minutes].join(':');
   };
 
-  mapArrToSelect = (arr) => {
+  mapArrToSelectWithEnd = (arr) => {
     return arr.map( x => {
       let endTime = this.convertToTimeStr( this.convertTimeStr(x) + 15 ) // add 15 mins
       let val = x + ' - ' + endTime
       return { value: val, label: val }
     })
   };
+
+  mapArrToSelect = (arr) => {
+    return arr.map( x => {
+      return { value: x, label: x }
+    })
+  }
 
   selectAvailableDates = (selectableTimes, data) =>
     selectableTimes.filter( x =>
@@ -255,7 +294,7 @@ class SignupStep4 extends Component {
 
   nextStep = () => {
 
-    const { meeting_date, meeting_time, date, email_instead } = this.state;
+    const { meeting_date, meeting_time, date, selected_plan, email_instead } = this.state;
 
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
 
@@ -264,6 +303,7 @@ class SignupStep4 extends Component {
         signup_lead: {
           meeting_date: meeting_date,
           meeting_time: meeting_time ? meeting_time.label : null,
+          selected_plan: selected_plan ? selected_plan.label : null,
           email_instead: email_instead,
           ispending: false,
           // isproduction: isProduction(), // REMOVE ? isfollowup is not putting
@@ -284,6 +324,7 @@ class SignupStep4 extends Component {
             date: date,
             meeting_date: meeting_date,
             meeting_time: meeting_time,
+            selected_plan: selected_plan,
             email_instead: email_instead
           })
 
@@ -306,7 +347,15 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, email_instead, meeting_time_options, isTransitioningNext } = this.state;
+    const { date, meeting_time, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext } = this.state;
+
+    const plansSelect = [
+      "Incorporation",
+      "Corporate Secretary",
+      "Annual Reporting",
+      "Customised Finance Team",
+      "I don't know"
+    ]
 
     return(
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -319,6 +368,17 @@ class SignupStep4 extends Component {
         <div className="signup__right">
           <div className="ui-group">
             <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
+          </div>
+          <div className="ui-group">
+            <Select
+              name="selected_plan"
+              searchable={false}
+              autosize={false}
+              value={selected_plan}
+              onChange={this.handleSelectChange.bind(this, 'selected_plan')}
+              placeholder="Which plan are you interested to know more about?"
+              options={this.mapArrToSelect(plansSelect)}
+            />
           </div>
           <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") }>
             <div className="signup__datetime-col">
@@ -357,10 +417,10 @@ class SignupStep4 extends Component {
                 searchable={false}
                 autosize={false}
                 value={meeting_time}
-                onChange={this.handleSelectChange}
+                onChange={this.handleSelectChange.bind(this, 'meeting_time')}
                 placeholder="Select time"
                 noResultsText="Please select date"
-                options={this.mapArrToSelect(meeting_time_options)}
+                options={this.mapArrToSelectWithEnd(meeting_time_options)}
               />
             </div>
 
@@ -393,12 +453,13 @@ const mapStateToProps = (state) => ({
   signupFields: state.signup.fields,
   pricingPlan: state.pricing.selectedPlan,
   pricingOptions: state.pricing.pricingOptions,
-  pricingOptionsSub: state.pricing.pricingOptionsSub
+  pricingOptionsSub: state.pricing.pricingOptionsSub,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
-  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data })
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data }),
+  setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep4);

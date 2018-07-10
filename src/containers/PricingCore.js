@@ -91,7 +91,7 @@ class PricingCore extends Component {
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/get-started"
-                    onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary (S$350)')}
+                    onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary')}
                     onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                     className="btn btn--mega btn--block">
                     Select <span>Corporate Secretary</span> Plan
@@ -133,7 +133,7 @@ class PricingCore extends Component {
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/get-started"
-                    onClick={this.onSelectPlanClick.bind(this, 'Annual Reporting (S$1,250)')}
+                    onClick={this.onSelectPlanClick.bind(this, 'Annual Reporting')}
                     onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                     className="btn btn--mega btn--block">
                     Select <span>Annual Reporting</span> Plan
@@ -185,7 +185,7 @@ class PricingCore extends Component {
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/get-started"
-                    onClick={this.onSelectPlanClick.bind(this, 'Custom')}
+                    onClick={this.onSelectPlanClick.bind(this, 'Customised Finance Team')}
                     onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                     className="btn btn--mega btn--block">
                     Select <span>Customised Finance Team</span> Plan

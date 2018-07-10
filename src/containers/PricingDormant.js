@@ -106,7 +106,7 @@ class PricingDormant extends Component {
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
-                  onClick={this.onSelectPlanClick.bind(this, 'Dormant (S$780)')}
+                  onClick={this.onSelectPlanClick.bind(this, 'Dormant')}
                   onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                   className="btn btn--mega btn--block">
                   Select <span>Dormant</span> Plan

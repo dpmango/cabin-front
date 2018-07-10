@@ -95,7 +95,7 @@ class PricingIncorp extends Component {
 
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
-                  onClick={this.onSelectPlanClick.bind(this, 'Incorporation (S$450)')}
+                  onClick={this.onSelectPlanClick.bind(this, 'Incorporation')}
                   onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                   className="btn btn--mega btn--block">
                   Select <span>Incorporation</span> Plan
