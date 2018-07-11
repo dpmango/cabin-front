@@ -42,7 +42,7 @@ class SingupEmail extends Component {
     const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     // pre-validation
-    console.log(emailRegEx.test(email))
+    // console.log(emailRegEx.test(email))
     if ( email === "" ){
       this.setState({
         errors: "Please enter your email"

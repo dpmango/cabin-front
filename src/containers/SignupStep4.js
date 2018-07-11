@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-import isProduction from '../services/isProduction';
+// import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from '../store/ActionTypes';
@@ -227,9 +227,9 @@ class SignupStep4 extends Component {
           .then((deyOneTimes) => {
             api.get('calendar/' + mDateTomorrowFormatted)
               .then((res) => {
-                console.log('deyOneTimes', deyOneTimes);
+                // console.log('deyOneTimes', deyOneTimes);
                 let tomorrowTimes = this.selectAvailableDates(twoDays.dayNext, res.data);
-                console.log('tomorrowTimes', tomorrowTimes);
+                // console.log('tomorrowTimes', tomorrowTimes);
                 return [...deyOneTimes, ...tomorrowTimes]
               }).then(dates => {
               console.log('>>>', dates);
@@ -298,6 +298,14 @@ class SignupStep4 extends Component {
 
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
 
+    // convert selected date & time to UTC +8
+    // var fTime = meeting_time ? meeting_time.label.split(' -')[0] : null
+    // var fDate = moment(meeting_date).format("YYYY-MM-DD");
+    // console.log(fDate);
+    // const mDate = moment(fDate + " " + fTime + ":00");
+    // const mDateFormatted = mDate.format("YYYY-MM-DD HH:mm");
+    //
+    // console.log(mDate, mDateFormatted)
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
@@ -306,7 +314,6 @@ class SignupStep4 extends Component {
           selected_plan: selected_plan ? selected_plan.label : null,
           email_instead: email_instead,
           ispending: false,
-          // isproduction: isProduction(), // REMOVE ? isfollowup is not putting
           isfollowup: false,
           pricing_plan: this.props.pricingPlan,
           pricing_options: pricingOptionsStr
@@ -354,6 +361,7 @@ class SignupStep4 extends Component {
       "Corporate Secretary",
       "Annual Reporting",
       "Customised Finance Team",
+      "Dormant",
       "I don't know"
     ]
 

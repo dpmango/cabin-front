@@ -60,7 +60,7 @@ class About extends Component {
                     Hi, I’m <span>Rifeng</span>
                   </div>
                 </div>
-                <img src={require('../images/aboutPeople.jpg')} srcSet={require('../images/aboutPeople@2x.jpg')  + ' 2x'} alt=""/>
+                <img src={require('../images/aboutPeople.png')} srcSet={require('../images/aboutPeople@2x.png')  + ' 2x'} alt=""/>
               </div>
             </div>
             <div className="people__right">

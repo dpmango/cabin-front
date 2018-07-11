@@ -10,11 +10,11 @@ export default class PricingOption extends Component {
     price: PropTypes.string,
     pricePer: PropTypes.string,
     priceSuf: PropTypes.string,
-    withoutPlus: PropTypes.bool
+    // withoutPlus: PropTypes.bool
   };
 
   render(){
-    const { name, tooltipContent, price, pricePer, priceSuf, withoutPlus } = this.props
+    const { name, tooltipContent, price, pricePer, priceSuf } = this.props
 
     return(
       <div className="pricing-option">

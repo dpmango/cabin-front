@@ -10,7 +10,7 @@ import SignupContainer from '../containers/SignupContainer'
 import SignupStep2 from '../containers/SignupStep2'
 import SignupStep3 from '../containers/SignupStep3'
 import SignupStep4 from '../containers/SignupStep4'
-import SignupStep5 from '../containers/SignupStep5'
+// import SignupStep5 from '../containers/SignupStep5' // moved to separate page
 
 class Profile extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ class Profile extends React.Component {
 
   renderStep = () => {
     const { signupStep } = this.props
-  
+
     switch (signupStep) {
       case 1:
         return <SignupStep1 />
