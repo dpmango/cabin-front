@@ -24,9 +24,11 @@ class RenderSwitch extends React.Component {
       // disallow transition when switching between the tabs
       const curPathSplit = this.props.location.pathname.split('/');
       const prevPathSplit = prevProps.location.pathname.split('/');
-      // console.log( curPathSplit[2] !== "custom", prevPathSplit[2] );
+      // console.log( 'isCustomPricingPage', curPathSplit[2] === "custom", prevPathSplit[2] );
+
       if (
-        (curPathSplit[1] !== prevPathSplit[1] )
+        (curPathSplit[1] !== prevPathSplit[1] ) ||
+        (curPathSplit[2] === "custom" || prevPathSplit[2] === "custom" )
       ){
         ScrollTo(0, 300);
       }

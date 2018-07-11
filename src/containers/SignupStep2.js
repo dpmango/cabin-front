@@ -173,7 +173,7 @@ class SignupStep2 extends Component {
               name="first_name"
               placeholder="First Name"
               value={first_name}
-              validations="minLength:3"
+              validations="minLength:2"
               validationErrors={{
                 isDefaultRequiredValue: 'Please fill your first name',
                 minLength: 'Name is too short'
@@ -185,7 +185,7 @@ class SignupStep2 extends Component {
               name="last_name"
               placeholder="Last Name"
               value={last_name}
-              validations="minLength:3"
+              validations="minLength:2"
               validationErrors={{
                 isDefaultRequiredValue: 'Please fill your last name',
                 minLength: 'Last name is too short'

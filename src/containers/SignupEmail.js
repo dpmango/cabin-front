@@ -42,7 +42,7 @@ class SingupEmail extends Component {
     const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     // pre-validation
-    console.log(emailRegEx.test(email))
+    // console.log(emailRegEx.test(email))
     if ( email === "" ){
       this.setState({
         errors: "Please enter your email"
@@ -92,7 +92,7 @@ class SingupEmail extends Component {
       <div>
         <form className={"signup-email " + this.props.extraClass + (errors ? " has-error" : "") } onSubmit={this.handleSubmit}>
           <input type="text" name="email" placeholder="Email address" value={this.state.email} onChange={this.handleChange}/>
-          <button type="submit" className="btn btn--huge">Get started</button>
+          <button type="submit" className="btn btn--huge">Get Started</button>
           { errors &&
             // render all errors or only first (most relevant?)
             // <div class="ui-input-validation">{errors.map((err) => (

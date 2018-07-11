@@ -50,7 +50,7 @@ class PricingFloatNav extends Component {
   };
 
   onGetStartedClick = () => {
-    this.props.setPricingPlan('Custom');
+    this.props.setPricingPlan('Customised Finance Team');
   }
 
   getTotal = () => {

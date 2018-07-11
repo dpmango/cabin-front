@@ -10,7 +10,9 @@
     "cheerio": "^1.0.0-rc.2",
     "concurrently": "^3.5.1",
     "cssnano": "^3.10.0",
+    "dotenv": "^6.0.0",
     "formsy-react": "^1.1.4",
+    "ftp-deploy": "^2.1.2",
     "gulp": "^3.9.1",
     "gulp-cheerio": "^0.6.3",
     "gulp-consolidate": "^0.2.0",
@@ -72,6 +74,7 @@
     "eject": "react-scripts eject",
     "surge": "mv build/index.html build/200.html && surge --domain cabin.surge.sh --project ./build",
     "developer": "concurrently --kill-others \"gulp\" \"yarn start\"",
-    "builder": "gulp build --production && yarn build"
+    "builder": "gulp build --production && yarn build",
+    "deploy": "node deploy-ftp"
   }
 }

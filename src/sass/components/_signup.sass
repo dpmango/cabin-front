@@ -109,20 +109,24 @@
       min-width: 145px
     &-back
       display: flex
-      // align-items: center
+      align-items: center
       color: $colorBlue
-      transform: translateY(2px)
+      transform: translateY(1px)
+      font-size: 0
       .ico
         font-size: 11px
         margin-right: 12px
+        overflow: visible
+        transform: translate(0,0px)
         transition: transform .25s $ease
       span
         display: inline-block
         font-weight: 500
         font-size: 12px
+        transform: translateY(1px)
       &:hover
         .ico
-          transform: translateX(-5px)
+          transform: translate(-5px,0px)
 
   &__sucess
     margin: 80px auto 50px

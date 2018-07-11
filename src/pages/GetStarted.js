@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import PropTypes from 'prop-types';
@@ -9,7 +10,7 @@ import SignupContainer from '../containers/SignupContainer'
 import SignupStep2 from '../containers/SignupStep2'
 import SignupStep3 from '../containers/SignupStep3'
 import SignupStep4 from '../containers/SignupStep4'
-import SignupStep5 from '../containers/SignupStep5'
+// import SignupStep5 from '../containers/SignupStep5' // moved to separate page
 
 class Profile extends React.Component {
   static propTypes = {
@@ -59,7 +60,7 @@ class Profile extends React.Component {
           </SignupContainer>
         )
       case 5:
-        return <SignupStep5 />
+        return <Redirect to='/get-started/thank-you' />
       default:
         return <SignupStep1 />
     }

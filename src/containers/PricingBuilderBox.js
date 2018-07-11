@@ -192,7 +192,7 @@ class PricingBuilderBox extends Component {
 
   render(){
 
-    const { name, price, pricePer, priceStartingFrom, helpText, ctaText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
+    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
     const { activeOptionId, sliderVal, sliderValPrice } = this.state;
 
     return(
