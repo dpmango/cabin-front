@@ -42,6 +42,7 @@
     input, textarea
       border-color: $colorRed
 
+
 +r($mobile)
   .ui-group
     > input
@@ -51,6 +52,16 @@
   position: absolute
   bottom: -20px
   left: 0
+  color: tomato
+  // margin-top: 10px
+  font-size: 13px
+  text-align: left
+
+.ui-group-validation
+  position: absolute
+  top: -45px
+  left: 0
+  // margin-top: 20px
   color: tomato
   // margin-top: 10px
   font-size: 13px
@@ -213,3 +224,22 @@
     &:hover
       span
         color: $colorBlue
+
+.has-error
+  .ui-checkbox
+    &__label
+      &::before
+        border-color: tomato
+    &.is-active
+      .ui-checkbox__label
+        &::before
+          border-color: rgba($fontColorGray, .5)
+  .DateInput_input
+    border-color: tomato
+  .Select-control
+    border-color: tomato
+
+  // reset for focused
+  .is-focused
+    .DateInput_input
+      border-color: #2F417C

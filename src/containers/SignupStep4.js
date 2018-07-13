@@ -11,6 +11,7 @@ import Select from 'react-select';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
+import 'moment-timezone';
 import {formatDate, formatTime} from '../services/FormatDate';
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
@@ -33,7 +34,8 @@ class SignupStep4 extends Component {
       meeting_time: props.signupFields.meeting_time,
       email_instead: props.signupFields.email_instead,
       meeting_time_options: [],
-      isTransitioningNext: false
+      isTransitioningNext: false,
+      validationMessage: ""
     };
 
     // define selectable times in manager local time
@@ -88,22 +90,6 @@ class SignupStep4 extends Component {
     } else {
       return val
     }
-    // switch (val){
-    //   case "Corporate Secretary (S$350)":
-    //     return "Corporate Secretary"
-    //   case "Annual Reporting (S$1,250)":
-    //     return "Annual Reporting"
-    //   case "Customised Finance Team":
-    //     return "Customised Finance Team"
-    //   case "Customised Finance Team":
-    //     return "Incorporation"
-    //   case "Dormant (S$780)":
-    //     return "Dormant"
-    //   case "General":
-    //     return "I don't know"
-    //   default:
-    //     return "I don't know"
-    // }
   }
 
   handleSelectChange = (name, e) => {
@@ -124,16 +110,7 @@ class SignupStep4 extends Component {
     const times = v.split(':');
     let result = Number(times[0]) * 60 + Number(times[1]);
     if (utcToLocal === true){
-      // result = result + this.timeZoneDiff
-      if ( Math.sign(this.clientTimeZoneOffset) === 1 ){
-        // if offset is possitive (UTC - timzeone)
-        // console.log(result, result - this.clientTimeZoneOffset)
-        result = result - this.clientTimeZoneOffset
-      } else {
-        // console.log(result, result - this.clientTimeZoneOffset)
-        result = result - this.clientTimeZoneOffset // minus when UTC +
-      }
-
+      result = result - this.clientTimeZoneOffset
     }
     if (toUTC === true){
       result = result + this.clientTimeZoneOffset
@@ -182,14 +159,16 @@ class SignupStep4 extends Component {
     })
   }
 
+  // filter the calendar responce dates
   selectAvailableDates = (selectableTimes, data) =>
     selectableTimes.filter( x =>
       !data.some(y => {
-        return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
-          this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
+        return this.convertTimeStr(y.start, true) - 30 <= this.convertTimeStr(x) &&
+          this.convertTimeStr(y.end, true) + 30 >= this.convertTimeStr(x)
       })
     );
 
+  // when date is selected
   handleDateChange = (date) => {
     this.setState({
       date: date,
@@ -232,7 +211,7 @@ class SignupStep4 extends Component {
                 // console.log('tomorrowTimes', tomorrowTimes);
                 return [...deyOneTimes, ...tomorrowTimes]
               }).then(dates => {
-              console.log('>>>', dates);
+              // console.log('>>>', dates);
               let availableDates = dates;
               // if selected the today day - filter out past times
               if ( mDateFormatted === this.todayFormated ){
@@ -245,14 +224,10 @@ class SignupStep4 extends Component {
         // pass yyyy-mm-dd as a param
         api.get('calendar/' + mDateFormatted)
           .then((res) => {
-
             // res.data.end and res.data.start comes in UTC
             // [{name: "event", start: "16:30", end: "17:30"}]
 
             // filter the values
-            // The Array.some is used to see if the selectable time is
-            // inside of a booked period
-            // let TestData = [{start: "00:00", end: "01:00"}];
             let availableDates = this.selectAvailableDates(this.selectableTimesInRange, res.data);
 
             // if selected the today day - filter out past times
@@ -261,15 +236,15 @@ class SignupStep4 extends Component {
             }
 
             // this is just for testing
-            let removedDates = this.selectableTimesInRange.filter( x =>
-              res.data.some(y => {
-                return this.convertTimeStr(y.start, true) <= this.convertTimeStr(x) &&
-                  this.convertTimeStr(y.end, true) >= this.convertTimeStr(x)
-              })
-            );
+            // let removedDates = this.selectableTimesInRange.filter( x =>
+            //   res.data.some(y => {
+            //     return this.convertTimeStr(y.start, true) - 30 <= this.convertTimeStr(x) &&
+            //       this.convertTimeStr(y.end, true) + 30 >= this.convertTimeStr(x)
+            //   })
+            // );
 
-            console.log('availableDates', availableDates);
-            console.log('removedDates', removedDates);
+            // console.log('availableDates', availableDates);
+            // console.log('removedDates', removedDates);
             this.setAvailableDates(availableDates);
           });
       }
@@ -289,7 +264,19 @@ class SignupStep4 extends Component {
 
   submitForm = () => {
     // trigger from SignupContainer via refs
-    this.nextStep();
+    const { meeting_date, meeting_time, email_instead } = this.state;
+
+    // validation logic
+    if ( ( meeting_date && meeting_time) || (email_instead) ){
+      this.setState({
+        validationMessage: ""
+      }, () => this.nextStep())
+
+    } else {
+      this.setState({
+        validationMessage: "Let us know when is a good time to chat?"
+      })
+    }
   }
 
   nextStep = () => {
@@ -299,18 +286,25 @@ class SignupStep4 extends Component {
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
 
     // convert selected date & time to UTC +8
-    // var fTime = meeting_time ? meeting_time.label.split(' -')[0] : null
-    // var fDate = moment(meeting_date).format("YYYY-MM-DD");
-    // console.log(fDate);
-    // const mDate = moment(fDate + " " + fTime + ":00");
-    // const mDateFormatted = mDate.format("YYYY-MM-DD HH:mm");
-    //
-    // console.log(mDate, mDateFormatted)
+    let SingaporeDateDate = ""
+    let SingaporeDateTime = ""
+
+    if ( !email_instead ){
+      const fTime = meeting_time.label.split(' -')[0]
+      const [fTimeHour, fTimeMinute] = fTime.split(':');
+      const fDate = moment(meeting_date).hour(fTimeHour).minute(fTimeMinute).utc(); // for some reason utc is requred
+      const fDateTimeZone = moment.tz(fDate.format("YYYY-MM-DD HH:mm"), moment.tz.guess())
+      const SingaporeDate = fDateTimeZone.clone().tz("Asia/Singapore")
+
+      SingaporeDateDate = SingaporeDate.format("YYYY-MM-DD")
+      SingaporeDateTime = SingaporeDate.format("HH:mm")
+    }
+
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          meeting_date: meeting_date,
-          meeting_time: meeting_time ? meeting_time.label : null,
+          meeting_date: SingaporeDateDate,
+          meeting_time: SingaporeDateTime,
           selected_plan: selected_plan ? selected_plan.label : null,
           email_instead: email_instead,
           ispending: false,
@@ -354,7 +348,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext } = this.state;
+    const { date, meeting_time, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext, validationMessage } = this.state;
 
     const plansSelect = [
       "Incorporation",
@@ -388,7 +382,7 @@ class SignupStep4 extends Component {
               options={this.mapArrToSelect(plansSelect)}
             />
           </div>
-          <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") }>
+          <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") + (validationMessage ? " has-error" : "") }>
             <div className="signup__datetime-col">
               <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
                 <SingleDatePicker
@@ -439,7 +433,10 @@ class SignupStep4 extends Component {
 
 
           <div className="signup__email-instead">
-            <div className="ui-group">
+            { validationMessage &&
+              <div className="ui-group-validation">{validationMessage}</div>
+            }
+            <div className={"ui-group " + (validationMessage ? "has-error" : "")}>
               <CheckBox
                 name="email_instead"
                 isAcitve={email_instead}
@@ -448,6 +445,8 @@ class SignupStep4 extends Component {
               />
             </div>
           </div>
+
+
         </div>
       </div>
 
