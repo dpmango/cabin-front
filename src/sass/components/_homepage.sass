@@ -9,7 +9,9 @@
     padding-top: 160px
     padding-bottom: 120px
     // show logos on first screen
-    min-height: calc(100vh - 111px)
+    height: calc(100vh - 120px)
+    max-height: calc(800px - 120px)
+    min-height: 650px
     display: flex
     flex-direction: column
     justify-content: center
@@ -80,6 +82,8 @@
       margin-top: 45px
     &__wrapper
       min-height: auto
+      height: auto
+      max-height: 100%
       padding-bottom: 75px
       padding-top: 40px
 
