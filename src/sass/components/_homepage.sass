@@ -48,6 +48,24 @@
       // max-width: 100%
       // max-height: 100%
 
++rmin(1920)
+  .home-hero
+    &__bg
+      align-items: flex-start
+      padding-left: 270px
+      left: 50%
+      width: calc(691px + 270px)
+      // justify-content: flex-start
+      &::after
+        display: inline-block
+        content: ' '
+        position: absolute
+        bottom: 0px
+        top: 0
+        right: 0
+        width: 100px
+        background: linear-gradient(-90deg, #FFFFFF 0%, rgba(255,255,255,0.01) 100%)
+
 +r(1380)
   .home-hero
     &__bg
