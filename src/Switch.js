@@ -11,6 +11,13 @@ import ScrollTo from './services/ScrollTo';
 import AOS from 'aos';
 
 class RenderSwitch extends React.Component {
+  static propTypes = {
+    setSignupId: PropTypes.func,
+    setSignupEmail: PropTypes.func,
+    setSignupStep: PropTypes.func,
+    setSignupFields: PropTypes.func
+  };
+  
   constructor(){
     super()
     this.aos = AOS
