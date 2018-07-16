@@ -6,6 +6,7 @@ import { Tooltip } from 'react-tippy';
 import { Helmet } from 'react-helmet';
 import { GetStarted } from '../routes';
 
+import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
@@ -39,7 +40,7 @@ class PricingDormant extends Component {
         content:
           <React.Fragment>
             A dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our
-            <Link to="/pricing"> Annual Reporting </Link>
+            <Link to="/pricing" onClick={ScrollTo.bind(this, 0, 300)}> Annual Reporting </Link>
             plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year.
           </React.Fragment>
       }

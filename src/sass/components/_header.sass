@@ -88,11 +88,14 @@
 +r($desktop)
   .header
     &__menu
-      li
-        display: none
-        &:last-child
-          display: block
+      /* hide all
+      display: none
+      // li
+      //   display: none
+      //   &:last-child
+      //     display: block
     &__hamburger
+      margin-left: auto
       display: block
 
 +r($mobile)
@@ -109,10 +112,10 @@
       padding-left: 15px
       // transform: translateY(2px)
 
-    &__menu
-      display: none
-    &__hamburger
-      margin-left: auto
+    // &__menu
+    //   display: none
+    // &__hamburger
+    //   margin-left: auto
 
 
 /* MOBILE NAVI
@@ -165,9 +168,13 @@
 +r($desktop)
   .mobile-navi
     display: block
-+r($mobile)
-  .mobile-navi
     &__menu
       li
         a.btn
           display: block
++r($mobile)
+  .mobile-navi
+    // &__menu
+    //   li
+    //     a.btn
+    //       display: block
