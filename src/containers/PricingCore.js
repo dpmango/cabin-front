@@ -28,7 +28,9 @@ class PricingCore extends Component {
   }
 
   scrollToTable = () => {
-    ScrollTo(this.tableRef.current.offsetTop, 1000)
+    const docElement = document.scrollingElement || document.documentElement
+    const topFromDoc = this.tableRef.current.getBoundingClientRect().top + docElement.scrollTop
+    ScrollTo(topFromDoc, 1000)
   }
 
   preloaderOnHover = (component) => {

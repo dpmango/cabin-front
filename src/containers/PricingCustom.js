@@ -70,7 +70,7 @@ class PricingCustom extends Component {
               priceStartingFrom: true,
               helpText: {
                 name: "Pick a plan base on the scale of your business",
-                tooltip: "Our aim is to make pricing simple and transparent. In comparing different pricing models, we found that bank the number of bank transactions correlates closely with the complexity of wrok required. Every deposit or withdrawal on your bank statement counts as a single transaction. However we may exercise our own discretion to not count repeated transactions of the same nature. "
+                tooltip: "Our aim is to make pricing simple and transparent. In comparing different pricing models, we found that bank the number of bank transactions correlates closely with the complexity of work required. Every deposit or withdrawal on your bank statement counts as a single transaction. However, we may exercise our own discretion to not count repeated transactions of the same nature. "
               },
               // helpText: "*Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donations claims to fully utilise your tax allowance.",
               pricingOptions: [

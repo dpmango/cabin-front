@@ -1,12 +1,23 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { routes } from './routes';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from './store/ActionTypes';
+import {initialState} from './reducers/signup';
 
 import ScrollTo from './services/ScrollTo';
 // import LoadingBar from 'react-redux-loading-bar'
 import AOS from 'aos';
 
 class RenderSwitch extends React.Component {
+  static propTypes = {
+    setSignupId: PropTypes.func,
+    setSignupEmail: PropTypes.func,
+    setSignupStep: PropTypes.func,
+    setSignupFields: PropTypes.func
+  };
+  
   constructor(){
     super()
     this.aos = AOS
@@ -20,12 +31,11 @@ class RenderSwitch extends React.Component {
     })
   }
   componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      // disallow transition when switching between the tabs
-      const curPathSplit = this.props.location.pathname.split('/');
-      const prevPathSplit = prevProps.location.pathname.split('/');
-      // console.log( 'isCustomPricingPage', curPathSplit[2] === "custom", prevPathSplit[2] );
+    const curPathSplit = this.props.location.pathname.split('/');
+    const prevPathSplit = prevProps.location.pathname.split('/');
 
+    // disallow transition when switching between the tabs
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       if (
         (curPathSplit[1] !== prevPathSplit[1] ) ||
         (curPathSplit[2] === "custom" || prevPathSplit[2] === "custom" )
@@ -34,7 +44,23 @@ class RenderSwitch extends React.Component {
       }
     }
 
-    this.aos.refresh()
+    // refresh AOS
+    this.aos.refresh();
+
+    // reset signup if thank you page reached
+    if ( prevPathSplit[2] === "thank-you" ){
+      this.resetSingup();
+    }
+  }
+
+  resetSingup = () => {
+    // null all signup props (including id and email)
+    this.props.setSignupId(initialState.signupId)
+    this.props.setSignupEmail(initialState.signupEmail)
+    this.props.setSignupFields(initialState.fields)
+
+    // allow multiple registrations
+    this.props.setSignupStep(1);
   }
 
   render(){
@@ -58,5 +84,17 @@ class RenderSwitch extends React.Component {
     )
   }
 }
+const mapStateToProps = (state) => ({
 
-export default withRouter(RenderSwitch);
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data }),
+  setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
+  setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data })
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(RenderSwitch)
+);

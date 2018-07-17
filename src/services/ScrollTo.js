@@ -1,4 +1,5 @@
 const ScrollTo = (to, duration) =>  {
+  console.log(to, duration)
   const element = document.scrollingElement || document.documentElement
   const start = element.scrollTop
   const change = to - start

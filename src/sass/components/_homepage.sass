@@ -9,7 +9,9 @@
     padding-top: 160px
     padding-bottom: 120px
     // show logos on first screen
-    min-height: calc(100vh - 111px)
+    height: calc(100vh - 120px)
+    max-height: calc(800px - 120px)
+    min-height: 650px
     display: flex
     flex-direction: column
     justify-content: center
@@ -46,6 +48,27 @@
       // max-width: 100%
       // max-height: 100%
 
++rmin(1440)
+  .home-hero
+    &__bg
+      align-items: flex-start
+      // padding-left: 270px
+      padding-left: 30px
+      left: 50%
+      // width: calc(691px + 270px)
+      width: calc(691px + 30px)
+      // width: 691px
+      // justify-content: flex-start
+      &::after
+        display: inline-block
+        content: ' '
+        position: absolute
+        bottom: 0px
+        top: 0
+        right: 0
+        width: 100px
+        background: linear-gradient(-90deg, #FFFFFF 0%, rgba(255,255,255,0.01) 100%)
+
 +r(1380)
   .home-hero
     &__bg
@@ -80,6 +103,8 @@
       margin-top: 45px
     &__wrapper
       min-height: auto
+      height: auto
+      max-height: 100%
       padding-bottom: 75px
       padding-top: 40px
 

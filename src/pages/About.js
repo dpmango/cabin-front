@@ -41,7 +41,7 @@ class About extends Component {
           <div className="container">
             <div className="title-section__wrapper">
               <h2>Our mission</h2>
-              <p className="t-paragraph">We make back-office operations <strong>simple</strong> and <strong>fuss-free</strong> for businesses. We bring clarity to the numbers and help business owners make <strong>better decisions.</strong></p>
+              <p className="t-paragraph">We use <strong>technology and thoughtful processes</strong> to make back-office operations <strong>simple, efficient, and fuss-free</strong> for businesses. We give <strong>clarity and meaning to the numbers</strong> to help business owners make <strong>better decisions.</strong> </p>
             </div>
           </div>
         </div>
