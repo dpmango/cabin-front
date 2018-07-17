@@ -1,0 +1,203 @@
+
+.people
+  margin: 120px 0 140px 0
+  &__wrapper
+    display: flex
+    align-items: center
+    margin-left: -15px
+    margin-right: -15px
+
+  &__left
+    flex: 0 1 58%
+    max-width: 58%
+    min-width: 1px
+    min-height: 0
+    padding: 0 15px
+
+  &__right
+    flex: 0 1 42%
+    max-width: 460px
+    min-width: 1px
+    min-height: 0
+    padding: 0 15px
+
+  &__content
+    padding-right: 40px
+
+  &__image
+    position: relative
+    transform: translateX(-30px)
+    img
+      // max-width: 100%
+      width: 100%
+    &:hover
+      .people__hover-tooltip
+        opacity: 1
+        // transform: translate(0,0)
+
+  &__hover
+    &-tooltip
+      position: absolute
+      z-index: 2
+      top: 13%
+      background: white
+      min-width: 130px
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.08)
+      border-radius: 3px
+      font-size: 13px
+      color: $fontColorGray
+      pointer-events: none
+      // cursor: pointer
+      opacity: 0
+      transition: opacity .3s $ease
+      &--isaac
+        left: 27%
+        // transform: translate(-10px,-10px)
+      &--rifeng
+        left: 53%
+        // transform: translate(10px,-10px)
+    &-wrapper
+      padding: 22px 10px 19px 20px
+      position: relative
+      &::after
+        display: inline-block
+        content: ' '
+        position: absolute
+        bottom: -9px
+        left: 50%
+        transform: translateX(-50%)
+        +arr(20,10,#fff,b)
+      span
+        display: block
+        margin-top: 4px
+        font-size: 18px
+        font-weight: 500
+        color: $colorBlue
+
+  &__person
+    margin: 40px 0
+    &:last-child
+      margin-bottom: 0
+    &-title
+      font-size: 16px
+      color: $fontColorGray
+      span
+        color: $fontColor
+        font-weight: 500
+    &-description
+      font-size: 14px
+      color: $fontColorGray
+      line-height: 1.42
+      margin-top: 12px
+
++r(1280)
+  .people__hover-tooltip
+    top: 11%
+
++r(1160)
+  .people__hover-tooltip
+    top: 10%
+    &--isaac
+      left: 25%
+    &--rifeng
+      left: 51%
+
++r(1050)
+  .people__hover-tooltip
+    top: 9%
+    min-width: 115px
+    &--isaac
+      left: 23%
+    &--rifeng
+      left: 49%
+  .people__hover-wrapper
+    padding: 20px 10px 17px 17px
+
++r(910)
+  .people__hover-tooltip
+    top: 8%
+    min-width: 110px
+  .people__hover-wrapper
+    padding: 18px 10px 15px 15px
+
++r($desktop)
+  .people
+    &__left
+
+    &__image
+      transform: translateX(-45px)
+      margin-right: -45px
+
++r($tablet)
+  .people
+    margin: 0 0 100px
+    &__wrapper
+      flex-direction: column
+      // margin: 0
+    &__left
+      flex: 0 0 auto
+      max-width: 100%
+    &__right
+      flex: 0 0 auto
+      max-width: 100%
+      padding: 0 55px
+      margin-top: 30px
+    &__image
+      transform: translate(0,0)
+      margin-right: 0
+
+    &__list
+      display: flex
+      flex-wrap: wrap
+      margin-left: -15px
+      margin-right: -15px
+
+    &__person
+      padding: 0 15px
+
++r($mobile)
+  .people
+    &__right
+      padding: 0 35px
+    &__content
+      padding-right: 0
+    &__person
+      &:first-child
+        margin-top: 30px
+
+    &__hover
+      &-tooltip
+        top: 7%
+        min-width: 100px
+        font-size: 12px
+      &-wrapper
+        padding: 18px 10px 15px 15px
+        span
+          font-size: 16px
+
++r(460)
+  .people
+    &__hover
+      &-tooltip
+        top: 6%
+        min-width: 80px
+        font-size: 10px
+      &-wrapper
+        padding: 15px 10px 12px 13px
+        span
+          font-size: 14px
+        &::after
+          bottom: -6px
+          +arr(15,7,#fff,b)
+
++r(375)
+  .people
+    &__hover
+      &-tooltip
+        top: 4%
+        &--isaac
+          left: 20%
+        &--rifeng
+          left: 48%
+      &-wrapper
+        padding: 12px 10px 9px 11px
