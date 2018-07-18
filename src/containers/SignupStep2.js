@@ -5,6 +5,7 @@ import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
 // import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
+import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
 
@@ -80,6 +81,7 @@ class SignupStep2 extends Component {
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
 
     const leadObj = {
+      isProduction: isProduction(),
       first_name: first_name,
       last_name: last_name,
       company_name: company_name,

@@ -40,17 +40,9 @@ class PricingCore extends Component {
   render(){
     const faqContent = [
       {
-        name: 'Do I need a corporate secretary? ',
-        content: 'All companies are required to appoint a company secretary within 6 months of incorporation. It is important to appoint a professional secretary familiar with the Singapore Companies Act as the job covers a few specialised and mandatory duties. Being compliant will help avoid some of the fines and penalties commonly faced by companies.',
-        isDefaultOpened: true
-      },
-      {
-        name: 'Are government fees included?',
-        content: 'Our fees exclude all Out-of-Pocket expenses paid to third parties, including ACRA filing fees and fines. For most businesses, you will expect an additional S$60 payable to ACRA annually for your Annual Return filing.'
-      },
-      {
         name: 'Can I do my own bookkeeping?',
-        content: 'Definitely. We will require a trial balance to be generated before we can take over to compile your annual financial statements and compute your corporate tax. For companies with minimal transactions (less than 10 transactions per year), we typically waive the bookkeeping fees. '
+        content: 'Definitely. We will require a trial balance to be generated before we can take over to compile your annual financial statements and compute your corporate tax. For companies with minimal transactions (less than 10 transactions per year), we typically waive the bookkeeping fees.',
+        isDefaultOpened: true
       },
       {
         name: 'What accounting software do you use?',
@@ -71,65 +63,26 @@ class PricingCore extends Component {
               <div className="pricing-scope__col">
                 <div className="pricing-scope__box pricing-scope__box--collumned">
                   <div className="pricing-scope__icon">
-                    <i className="icon icon-pricing-secretary" />
-                  </div>
-                  <div className="pricing-scope__names">
-                    <div className="pricing-scope__name">Corporate Secretary</div>
-                    <div className="pricing-scope__description"><span>I need a corporate secretary only</span></div>
-                  </div>
-                  <PricingScopeList
-                    list={[
-                      [
-                        "Corporate secretary (12 months)",
-                        "Annual General Meeting (AGM)",
-                        "Annual Return"
-                      ]
-                    ]}
-                  />
-                  <div className="pricing-scope__price">
-                    <div className="pricing-scope__price-main">S$350</div>
-                    <div className="pricing-scope__price-for">per year</div>
-                  </div>
-                </div>
-                <div className="pricing-scope__cta">
-                  <Link to="/get-started"
-                    onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary')}
-                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
-                    className="btn btn--mega btn--block">
-                    Select <span>Corporate Secretary</span> Plan
-                  </Link>
-                </div>
-                <div className="pricing-scope__compare">
-                  <a onClick={this.scrollToTable} className="learn-more">Compare features <SvgIcon name="right-arrow" /></a>
-                </div>
-              </div>
-
-              <div className="pricing-scope__col">
-                <div className="pricing-scope__box pricing-scope__box--collumned">
-                  <div className="pricing-scope__icon">
-                    <i className="icon icon-pricing-allin" />
+                    <i className="icon icon-pricing-annual-reporting" />
                   </div>
                   <div className="pricing-scope__names">
                     <div className="pricing-scope__name">Annual Reporting</div>
-                    <div className="pricing-scope__description"><span>I need a comprehensive plan to cover all my accounting, tax, and corporate secretary needs</span></div>
+                    <div className="pricing-scope__description"><span>Basic plan to cover your annual reporting requirements to ACRA and IRAS</span></div>
                   </div>
                   <PricingScopeList
                     list={[
                       [
-                        "Corporate secretary (12 months)",
-                        "Annual General Meeting (AGM)",
-                        "Annual Return",
-                        {
-                          name: "Unaudited Annual Financial Statements",
-                          tooltip: "Prepared based on Singapore Financial Reporting Standards (SFRS)"
-                        },
-                        "Tax computation and filing"
+                        "Unaudited Annual Financial Statements",
+                        "Annual corporate tax computation",
+                        "Filing of ECI and Form C-S with IRAS",
+                        "Compliant with Singapore Companies Act and Income Tax Act",
+                        "Compliant with Singapore Financial Reporting Standards (SFRS)"
                       ]
                     ]}
                   />
-
                   <div className="pricing-scope__price">
-                    <div className="pricing-scope__price-main">S$1,250</div>
+                    <div className="pricing-scope__price-starting">From</div>
+                    <div className="pricing-scope__price-main">S$750</div>
                     <div className="pricing-scope__price-for">per year</div>
                   </div>
                 </div>
@@ -150,24 +103,64 @@ class PricingCore extends Component {
                 <div className="pricing-scope__box pricing-scope__box--collumned">
                   <div className="pricing-scope__tag">Most Popular</div>
                   <div className="pricing-scope__icon">
-                    <i className="icon icon-pricing-full-stack" />
+                    <i className="icon icon-pricing-monthly-reporting" />
                   </div>
                   <div className="pricing-scope__names">
-                    <div className="pricing-scope__name">Customised Finance Team</div>
-                    <div className="pricing-scope__description"><span>I need a team to handle all my day-to-day finance operations, customised to my budget and needs</span></div>
+                    <div className="pricing-scope__name">Monthly Reporting</div>
+                    <div className="pricing-scope__description"><span>Standard plan to provide monthly management reports for decision making</span></div>
                   </div>
                   <PricingScopeList
                     list={[
                       [
-                        "Corporate secretary (12 months)",
-                        "Annual General Meeting (AGM)",
-                        "Annual Return",
-                        {
-                          name: "Unaudited Annual Financial Statements",
-                          tooltip: "Prepared based on Singapore Financial Reporting Standards (SFRS)"
-                        },
-                        "Tax computation and filing",
+                        "Unaudited Annual Financial Statements",
+                        "Annual corporate tax computation",
+                        "Filing of ECI and Form C-S with IRAS",
+                        "Compliant with Singapore Companies Act and Income Tax Act",
+                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
                         "Monthly management reports",
+                        "Quarterly GST computation and F5 submission (if required)"
+                      ]
+                    ]}
+                  />
+
+                  <div className="pricing-scope__price">
+                    <div className="pricing-scope__price-starting">From</div>
+                    <div className="pricing-scope__price-main">S$200</div>
+                    <div className="pricing-scope__price-for">per month</div>
+                  </div>
+                </div>
+                <div className="pricing-scope__cta">
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Monthly Reporting')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Monthly Reporting</span> Plan
+                  </Link>
+                </div>
+                <div className="pricing-scope__compare">
+                  <a onClick={this.scrollToTable} className="learn-more">Compare features <SvgIcon name="right-arrow" /></a>
+                </div>
+              </div>
+
+              <div className="pricing-scope__col">
+                <div className="pricing-scope__box pricing-scope__box--collumned">
+                  <div className="pricing-scope__icon">
+                    <i className="icon icon-pricing-full-stack" />
+                  </div>
+                  <div className="pricing-scope__names">
+                    <div className="pricing-scope__name">Customised Finance Team</div>
+                    <div className="pricing-scope__description"><span>Comprehensive plan to handle day-to-day finance operations and complex requirements</span></div>
+                  </div>
+                  <PricingScopeList
+                    list={[
+                      [
+                        "Unaudited Annual Financial Statements",
+                        "Annual corporate tax computation",
+                        "Filing of ECI and Form C-S with IRAS",
+                        "Compliant with Singapore Companies Act and Income Tax Act",
+                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
+                        "Monthly management reports",
+                        "Quarterly GST computation and F5 submission (if required)",
                         "Accounts payable and receivable service",
                         "Payroll and staff expense claims",
                         "Complex accounting requirements"
@@ -175,15 +168,16 @@ class PricingCore extends Component {
                     ]}
                   />
 
-                  <div className="pricing-scope__more">
-                    <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
+                  <div className="pricing-scope__price">
+                    <div className="pricing-scope__price-starting"></div>
+                    <div className="pricing-scope__price-main">Varies</div>
+                    <div className="pricing-scope__price-for"></div>
                   </div>
 
-                  <div className="pricing-scope__price">
-                    <div className="pricing-scope__price-starting">From</div>
-                    <div className="pricing-scope__price-main">S$200</div>
-                    <div className="pricing-scope__price-for">per month</div>
+                  <div className="pricing-scope__more">
+                    <Link to="/pricing/custom" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
                   </div>
+
                 </div>
                 <div className="pricing-scope__cta">
                   <Link to="/get-started"
@@ -394,57 +388,8 @@ class PricingCore extends Component {
               <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
             </div>
 
-            <div className="pricing-options__grid">
+            <div className="pricing-options__grid pricing-options__grid--no-heading">
               <div className="pricing-options__col">
-                <div className="pricing-options__section-name">Corporate Secretary</div>
-                <div className="pricing-options__section">
-                  <PricingOption
-                    name="Non-shares matters"
-                    tooltipContent="For example: Board approval of contracts and agreement, Opening/termination of bank accounts, Change of bank signatories, Change of financial year end, Extension of Annual General Meeting (AGM) deadline, Approval of Director’s remuneration, etc."
-                    price="S$50"
-                    pricePer="per transaction"
-                  />
-                  <PricingOption
-                    name="Shares matters"
-                    tooltipContent="For example: Transfer of shares, Replacement of share certificates, Issuance of dividends and bonus, Share allotment for new shareholders, etc"
-                    price="S$75"
-                    pricePer="per transaction"
-                  />
-                  <PricingOption
-                    name="Complex matters"
-                    tooltipContent="For example: Instatement of Employee Stock Option Scheme (ESOS, Share buyback - equal access (Section 76C) or selective acquisition (Section 76D), Reduction of share capital (Section 78B), Striking off or unwinding of Company, etc."
-                    price="S$150"
-                    priceSuf="from"
-                    pricePer="per transaction"
-                  />
-                  <PricingOption
-                    name="Corporate shareholder involved"
-                    tooltipContent="Applicable if a corporate shareholder has more than 25% shareholding. Additional due diligence and compliance processes required by MAS’s anti-money laundering regulation"
-                    price="S$100"
-                    pricePer="per entity<br>per year"
-                  />
-                  <PricingOption
-                    name="5th director/shareholder onwards"
-                    tooltipContent="Additional administrative and recording keeping processes required"
-                    price="S$25"
-                    pricePer="per individual<br>per year"
-                  />
-                  <PricingOption
-                    name="Provision of registered address"
-                    tooltipContent="Inclusive of weekly mail scanning service. Mail forwarding service will be provided upon request (S$10 per package + courier fees)."
-                    price="S$300"
-                    pricePer="per year"
-                  />
-                  <PricingOption
-                    name="Provision of Nominee Director"
-                    tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
-                    price="S$2000"
-                    pricePer="per year"
-                  />
-                </div>
-              </div>
-              <div className="pricing-options__col">
-                <div className="pricing-options__section-name">Accounting and Tax</div>
                 <div className="pricing-options__section">
                   <PricingOption
                     name="GST Registration"
@@ -453,11 +398,23 @@ class PricingCore extends Component {
                     withoutPlus={true}
                   />
                   <PricingOption
+                    name="Complex matters"
+                    tooltipContent="Complex accounting and tax requirements"
+                    price="Get a Quote"
+                    priceSuf=""
+                    pricePer=""
+                  />
+                  <PricingOption
                     name="Form C filing required"
                     tooltipContent="For companies with annual turnover of S$5M or above, or have complex tax claims and deductions"
                     price="S$215"
                     withoutPlus={true}
                   />
+
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                <div className="pricing-options__section">
                   <PricingOption
                     name="XBRL filing required (financial statements highlights)"
                     tooltipContent="Required for insolvent exempt private companies or companies regulated by MAS"

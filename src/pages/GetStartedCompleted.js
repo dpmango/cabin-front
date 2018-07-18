@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import SignupStep5 from '../containers/SignupStep5'
+import SignupStep5 from '../components/SignupStep5'
 
 class GetStartedCompleated extends React.Component {
   static propTypes = {

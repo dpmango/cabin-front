@@ -66,6 +66,7 @@
 
   &__wrapper
     position: relative
+    overflow: hidden
     z-index: 2
     padding: 35px 65px 10px
   &__head
@@ -82,7 +83,7 @@
     background: rgba($fontColorGray, .1)
     border-radius: 8px
     size: 40px 15px
-    margin-right: 13px
+    margin-right: 20px
     cursor: pointer
     transition: background .25s $ease
     &::after
@@ -114,8 +115,25 @@
     border-radius: 3px
     transition: background .25s $ease
 
+  &__tag
+    position: absolute
+    top: 45px
+    right: -45px
+    transform: rotate(45deg)
+    font-size: 10px
+    color: white
+    font-weight: 500
+    text-transform: uppercase
+    letter-spacing: 0.071em
+    text-align: center
+    background: $colorBlue
+    padding: 10px 60px 8px
+    pointer-events: none
+
   &__name
     font-size: 14px
+    font-weight: 500
+    transform: translateY(2px)
     color: $fontColorGray
 
   &__price

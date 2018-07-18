@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-// import isProduction from '../services/isProduction';
+import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from '../store/ActionTypes';
@@ -78,6 +78,7 @@ class SignupStep4 extends Component {
   }
 
   componentDidMount() {
+    isProduction()
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -311,6 +312,7 @@ class SignupStep4 extends Component {
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
+          isProduction: isProduction(),
           meeting_date: SingaporeDateDate,
           meeting_time: SingaporeDateTime,
           selected_plan: selected_plan ? selected_plan.label : null,

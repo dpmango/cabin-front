@@ -23,6 +23,7 @@ class PricingBuilderBox extends Component {
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
+    isPopular: PropTypes.bool,
     isQuoteRequired: PropTypes.bool,
     isRequired: PropTypes.bool,
     rangeSlider: PropTypes.bool,
@@ -192,7 +193,7 @@ class PricingBuilderBox extends Component {
 
   render(){
 
-    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
+    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isPopular, isRequired, rangeSlider } = this.props;
     const { activeOptionId, sliderVal, sliderValPrice } = this.state;
 
     return(
@@ -203,6 +204,9 @@ class PricingBuilderBox extends Component {
           </div>
         }
         <div className="p-builder-box__wrapper">
+          { isPopular &&
+            <div className="p-builder-box__tag">Most Popular</div>
+          }
           <div className="p-builder-box__head">
             { isAddon &&
               <div className="p-builder-box__toggle" onClick={this.changeOtions}></div>

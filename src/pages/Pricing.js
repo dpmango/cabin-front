@@ -22,7 +22,8 @@ class Pricing extends Component {
     super(props);
 
     this.selectOptions = [
-      { value: '/pricing', label: 'Core plans' },
+      { value: '/pricing', label: 'Accounting & Tax' },
+      { value: '/pricing/secretary', label: 'Corporate Secretary' },
       { value: '/pricing/incorporation', label: 'Incorporation' },
       { value: '/pricing/dormant', label: 'Dormant company' }
     ]
@@ -64,7 +65,10 @@ class Pricing extends Component {
           <div className="container container--narrow">
             <div className="hero__nav-wrapper">
               <NavLink exact={true} to="/pricing" className="hero__nav-el" activeClassName='is-active'>
-                Core plans
+                Accounting & Tax
+              </NavLink>
+              <NavLink to="/pricing/secretary" className="hero__nav-el" activeClassName='is-active'>
+                Corporate Secretary
               </NavLink>
               <NavLink to="/pricing/incorporation" className="hero__nav-el" activeClassName='is-active'>
                 Incorporation
