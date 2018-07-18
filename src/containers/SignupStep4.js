@@ -95,6 +95,11 @@ class SignupStep4 extends Component {
   handleSelectChange = (name, e) => {
     this.setState({...this.state, [name]: e});
 
+    if ( name === "meeting_time" ){
+      this.setState({
+        validationMessage: ""
+      })
+    }
     if ( name === "selected_plan" ){
       if ( e.label === "I don't know" ){
         this.props.setPricingPlan("General");
@@ -172,7 +177,9 @@ class SignupStep4 extends Component {
   handleDateChange = (date) => {
     this.setState({
       date: date,
-      meeting_date: date ? date._d : null
+      meeting_date: date ? date._d : null,
+      meeting_time: null, // clear time when new date is selected,
+      validationMessage: "" // clear validation error
     });
 
     if ( date ){
@@ -258,7 +265,8 @@ class SignupStep4 extends Component {
 
   checkboxClick = () => {
     this.setState({
-      email_instead: !this.state.email_instead
+      email_instead: !this.state.email_instead,
+      validationMessage: ""
     })
   }
 
