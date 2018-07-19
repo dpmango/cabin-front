@@ -32,6 +32,7 @@ class SignupStep4 extends Component {
       // date: props.signupFields.date,
       meeting_date: props.signupFields.meeting_date,
       meeting_time: props.signupFields.meeting_time,
+      meeting_time_blank: "Please select date",
       email_instead: props.signupFields.email_instead,
       meeting_time_options: [],
       isTransitioningNext: false,
@@ -259,11 +260,19 @@ class SignupStep4 extends Component {
     }
   };
 
-  setAvailableDates = dates =>
-    this.setState({
-      meeting_time_options: dates
-    });
-
+  setAvailableDates = (dates) => {
+    if ( dates.length !== 0 ){
+      this.setState({
+        meeting_time_options: dates,
+        meeting_time_blank: "Please select date"
+      });
+    } else {
+      this.setState({
+        meeting_time_options: dates,
+        meeting_time_blank: "No time slots available"
+      });
+    }
+  }
   checkboxClick = () => {
     this.setState({
       email_instead: !this.state.email_instead,
@@ -358,7 +367,7 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext, validationMessage } = this.state;
+    const { date, meeting_time, meeting_time_blank, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext, validationMessage } = this.state;
 
     const plansSelect = [
       "Incorporation",
@@ -431,7 +440,7 @@ class SignupStep4 extends Component {
                 value={meeting_time}
                 onChange={this.handleSelectChange.bind(this, 'meeting_time')}
                 placeholder="Select time"
-                noResultsText="Please select date"
+                noResultsText={meeting_time_blank}
                 options={this.mapArrToSelectWithEnd(meeting_time_options)}
               />
             </div>

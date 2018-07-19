@@ -34,7 +34,7 @@ class GetStarted extends React.Component {
 
     let newPath
     if ( signupStep !== 5 ){
-      newPath = "/get-started/step-" + signupStep;
+      newPath = "/get-started/step-" + (signupStep - 1);
     } else {
       newPath = "/get-started/thank-you";
     }
@@ -77,25 +77,24 @@ class GetStartedSwitch extends React.Component {
   }
 
   renderStep = () => {
-    const { signupStep, match } = this.props;
+    const { match } = this.props;
 
     const stepParam = match.params.step;
-    const stepRedux = "step-" + signupStep;
 
     switch (stepParam) {
-      case 'step-2':
+      case 'step-1':
         return (
           <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
             <SignupStep2 onRef={ref => (this.child = ref)} />
           </SignupContainer>
         )
-      case 'step-3':
+      case 'step-2':
         return (
           <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
             <SignupStep3 onRef={ref => (this.child = ref)} />
           </SignupContainer>
         )
-      case 'step-4':
+      case 'step-3':
         return (
           <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
             <SignupStep4 onRef={ref => (this.child = ref)} />
