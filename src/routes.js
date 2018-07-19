@@ -73,17 +73,17 @@ export const routes = [
   },
   {
     forNavBar: true,
-    isExact: true,
+    // isExact: true,
     navBarClass: 'btn btn--small',
     path: '/get-started',
     name: 'Get Started',
     component: GetStarted,
     isPrivate: false
   },
-  {
-    path: '/get-started/thank-you',
-    component: GetStartedCompleted,
-  },
+  // {
+  //   path: '/get-started/thank-you',
+  //   component: GetStartedCompleted,
+  // },
   {
     forNavBar: false,
     path: '',
