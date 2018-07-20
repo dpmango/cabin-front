@@ -88,13 +88,13 @@ class PricingBuilderBox extends Component {
   // box toggler (main option)
   changePricingBox = () => {
 
-    const { name, price, id, pricingOptionsState } = this.props;
+    const { name, price, id, isRequired, pricingOptionsState } = this.props;
     const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
 
     if ( this.state.isAddonActive ){
       // emulate click to add first SubOption
       // * if any and if not active present
-      if ( this.optionChild && this.state.activeOptionId === null ){
+      if ( !isRequired && this.optionChild && this.state.activeOptionId === null ){
         this.optionChild.computeClickHandler();
       }
 

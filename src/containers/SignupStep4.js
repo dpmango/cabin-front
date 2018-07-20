@@ -373,6 +373,7 @@ class SignupStep4 extends Component {
       "Incorporation",
       "Corporate Secretary",
       "Annual Reporting",
+      "Monthly Reporting",
       "Customised Finance Team",
       "Dormant",
       "I don't know"
@@ -384,11 +385,11 @@ class SignupStep4 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
-          <h2>Let me know when is a good time to reach out</h2>
+          <h2>Let me know when is a good time to reach out?</h2>
         </div>
         <div className="signup__right">
           <div className="ui-group">
-            <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
+            <label htmlFor="">Let us know which plan you are interested in?</label>
           </div>
           <div className="ui-group">
             <Select
@@ -397,9 +398,12 @@ class SignupStep4 extends Component {
               autosize={false}
               value={selected_plan}
               onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-              placeholder="Which plan are you interested to know more about?"
+              placeholder="Select a plan"
               options={this.mapArrToSelect(plansSelect)}
             />
+          </div>
+          <div className="ui-group">
+            <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
           </div>
           <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") + (validationMessage ? " has-error" : "") }>
             <div className="signup__datetime-col">
