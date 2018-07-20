@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
-import { Helmet } from 'react-helmet';
+import { Tooltip } from 'react-tippy';
 import { GetStarted } from '../routes';
 
 import ScrollTo from '../services/ScrollTo';
@@ -52,10 +52,6 @@ class PricingCore extends Component {
 
     return(
       <div data-aos="fade">
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
-
         <div className="pricing-scope" >
           <div className="container">
             <div className="pricing-scope__grid">
@@ -82,8 +78,19 @@ class PricingCore extends Component {
                   />
                   <div className="pricing-scope__price">
                     <div className="pricing-scope__price-starting">From</div>
-                    <div className="pricing-scope__price-main">S$750</div>
+                    <div className="pricing-scope__price-main">S$750
+                      <Tooltip
+                        title="Indicative rate for a standard company, price might increase for additional complexities. Speak to us for a quote based on your company’s requirements."
+                        position="top"
+                        distance="10"
+                        arrow="true">
+                          <SvgIcon name="question-circle" />
+                      </Tooltip>
+                    </div>
                     <div className="pricing-scope__price-for">per year</div>
+                  </div>
+                  <div className="pricing-scope__more">
+
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -127,6 +134,10 @@ class PricingCore extends Component {
                     <div className="pricing-scope__price-starting">From</div>
                     <div className="pricing-scope__price-main">S$200</div>
                     <div className="pricing-scope__price-for">per month</div>
+                  </div>
+
+                  <div className="pricing-scope__more">
+                    <Link to="/pricing/custom" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -209,14 +220,14 @@ class PricingCore extends Component {
 
                     <div className="pricing-table__td">
                       <div className="pricing-table__head">
-                        <i className="icon icon-pricing-secretary" />
-                        <div className="pricing-table__head-name">Corporate Secretary</div>
+                        <i className="icon icon-pricing-annual-reporting" />
+                        <div className="pricing-table__head-name">Annual Reporting</div>
                       </div>
                     </div>
                     <div className="pricing-table__td">
                       <div className="pricing-table__head">
-                        <i className="icon icon-pricing-allin" />
-                        <div className="pricing-table__head-name">Annual Reporting</div>
+                        <i className="icon icon-pricing-monthly-reporting" />
+                        <div className="pricing-table__head-name">Monthly Reporting</div>
                       </div>
                     </div>
                     <div className="pricing-table__td">
@@ -233,82 +244,73 @@ class PricingCore extends Component {
                 <div className="pricing-table__tbody">
                   <PricingTableTr
                     tag="ACRA"
-                    name="Provision of a qualified person as your company secretary"
-                    checks={[
-                      true, true, true
-                    ]}
-                  />
-                  <PricingTableTr
-                    tag="ACRA"
-                    name="Safekeeping and updates to Company Registers"
-                    checks={[
-                      true, true, true
-                    ]}
-                  />
-                  <PricingTableTr
-                    tag="ACRA"
-                    name="Preparation of Annual General Meeting (AGM) documents"
-                    checks={[
-                      true, true, true
-                    ]}
-                  />
-                  <PricingTableTr
-                    tag="ACRA"
-                    name="Filing of Annual Return to ACRA"
-                    checks={[
-                      true, true, true
-                    ]}
-                  />
-                  <PricingTableTr
-                    tag="ACRA"
-                    name="Advisory on Corporate Secretarial compliance matters"
-                    checks={[
-                      true, true, true
-                    ]}
-                  />
-                  <PricingTableTr
-                    tag="ACRA"
                     name="Compilation of unaudited Annual Financial Statements"
-                    tooltipContent="Prepared based on Singapore Financial Reporting Standards (SFRS)"
                     checks={[
-                      false, true, true
+                      true, true, true
                     ]}
                   />
                   <PricingTableTr
                     tag="IRAS"
                     name="Corporate tax computation and filing of ECI and Form C-S"
                     checks={[
-                      false, true, true
+                      true, true, true
+                    ]}
+                  />
+                  <PricingTableTr
+                    tag="ACRA"
+                    name="Compliant with Singapore Companies Act"
+                    checks={[
+                      true, true, true
+                    ]}
+                  />
+                  <PricingTableTr
+                    tag="IRAS"
+                    name="Compliant with Income Tax Act"
+                    checks={[
+                      true, true, true
+                    ]}
+                  />
+                  <PricingTableTr
+                    tag="ACRA"
+                    name="Compliant with Singapore Financial Reporting Standards (SFRS)"
+                    checks={[
+                      true, true, true
                     ]}
                   />
                   <PricingTableTr
                     name="Tax optimisation and planning"
                     tooltipContent="Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donation claims to fully utilise your tax allowance."
                     checks={[
-                      false, true, true
+                      true, true, true
                     ]}
                   />
                   <PricingTableTr
                     name="Bookkeeping"
                     checks={[
-                      false,
                       {
                         name: "S$150 per 50 transactions",
-                        tooltipContent: "We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction"
+                        tooltipContent: "We determine this through the number of transactions on your bank statements. Every deposit or withdrawal counts as a single transaction."
                       },
+                      true,
                       true
                     ]}
                   />
                   <PricingTableTr
                     name="Monthly management reports: Profit and Loss, Balance Sheet, and Cash Flow Statement"
                     checks={[
-                      false, false, true
+                      false, true, true
+                    ]}
+                  />
+                  <PricingTableTr
+                    name="GST filing and quarterly F5 submission"
+                    checks={[
+                      false, true, true
                     ]}
                   />
                   <PricingTableTr
                     name="Monthly scorecard of key financial metrics"
                     checks={[
-                      false, false, true
+                      false, true, true
                     ]}
                   />
                   <PricingTableTr

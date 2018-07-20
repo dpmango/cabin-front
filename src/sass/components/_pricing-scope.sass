@@ -15,20 +15,27 @@
       flex: 1 0 auto
       display: flex
       flex-direction: column
-      padding: 60px 15px 40px
+      padding: 45px 15px 40px
       text-align: center
       .pricing-scope
         &__icon
-          flex-basis: 77px
+          flex-basis: 84px
           margin-bottom: 25px
+          display: flex
+          flex-direction: column
+          justify-content: flex-end
+          align-items: center
+
         &__description
           display: flex
           align-items: center
           justify-content: center
           min-height: 72px
           vertical-align: middle
+          padding-left: 15px
+          padding-right: 15px
         &__list
-          margin: 30px -15px
+          margin: 30px -15px 15px
           margin-left: auto
           margin-right: auto
           &-col
@@ -43,7 +50,10 @@
           margin-right: auto
           text-align: center
           padding-right: 0
+          min-height: 80px
           padding-top: 10px
+          &-starting
+            min-height: 11px
         &__description
           max-width: 100%
 
@@ -103,7 +113,14 @@
     text-align: right
     padding-right: 30px
     &-main
+      position: relative
       font-size: 30px
+      .ico-question-circle
+        font-size: 15px
+        position: absolute
+        right: -23px
+        top: 6px
+
     &-for
       font-size: 14px
       color: $fontColorGray
@@ -161,7 +178,10 @@
 
   &__more
     text-align: center
-    margin: 50px 0 25px
+    // margin: 50px 0 25px
+    margin: 60px 0 10px
+    /* keep the scape event when no link provided
+    min-height: 14px
     align-items: center
     justify-content: center
     display: flex

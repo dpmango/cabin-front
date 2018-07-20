@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
-import { Helmet } from 'react-helmet';
 import { GetStarted } from '../routes';
 
 import ScrollTo from '../services/ScrollTo';
@@ -65,10 +64,6 @@ class PricingDormant extends Component {
 
     return(
       <div data-aos="fade">
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
-
         <div className="pricing-scope" >
           <div className="container container--narrow">
             <div className="pricing-scope__holder">
