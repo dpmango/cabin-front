@@ -484,6 +484,7 @@ const mapStateToProps = (state) => ({
   pricingPlan: state.pricing.selectedPlan,
   pricingOptions: state.pricing.pricingOptions,
   pricingOptionsSub: state.pricing.pricingOptionsSub,
+  signupRandomId: state.signup.signupRandomId
 });
 
 const mapDispatchToProps = (dispatch) => ({

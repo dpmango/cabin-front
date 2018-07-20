@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP } from '../store/ActionTypes';
 
+import GoogleTagManager from '../components/GoogleTagManager';
 import SvgIcon from '../components/SvgIcon';
 
 class SignupStep1 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
+    signupRandomId: PropTypes.string
   };
 
   nextStep = () => {
@@ -15,8 +17,19 @@ class SignupStep1 extends Component {
   }
 
   render(){
+    const gtmEvent = {
+      leadId: this.props.signupRandomId,
+      lead: {
+
+      }
+    }
     return(
       <div className="container">
+        <GoogleTagManager
+          gtmId='GTM-N6T8GZP'
+          dataLayerName="leadCaptured"
+          additionalEvents={gtmEvent}
+        />
         { /* to do - set delay to fade out before page transition? */ }
         <div className="signup__box" data-aos="fade">
           <div className="signup__intro">
@@ -49,7 +62,7 @@ class SignupStep1 extends Component {
 
 
 const mapStateToProps = (state) => ({
-
+  signupRandomId: state.signup.signupRandomId
 });
 
 const mapDispatchToProps = (dispatch) => ({

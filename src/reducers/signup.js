@@ -2,6 +2,7 @@ import * as types from '../store/ActionTypes';
 // import moment from 'moment';
 
 export const initialState = {
+  signupRandomId: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
   signupStep: 1,
   signupEmail: '',
   signupId: '',

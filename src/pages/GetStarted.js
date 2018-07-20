@@ -10,7 +10,7 @@ import SignupContainer from '../containers/SignupContainer'
 import SignupStep2 from '../containers/SignupStep2'
 import SignupStep3 from '../containers/SignupStep3'
 import SignupStep4 from '../containers/SignupStep4'
-import SignupStep5 from '../components/SignupStep5'
+import SignupStep5 from '../containers/SignupStep5'
 
 class GetStarted extends React.Component {
   static propTypes = {
