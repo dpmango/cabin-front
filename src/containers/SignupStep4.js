@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../services/Api';
-// import isProduction from '../services/isProduction';
+import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
 // import Formsy from 'formsy-react';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from '../store/ActionTypes';
@@ -32,6 +32,7 @@ class SignupStep4 extends Component {
       // date: props.signupFields.date,
       meeting_date: props.signupFields.meeting_date,
       meeting_time: props.signupFields.meeting_time,
+      meeting_time_blank: "Please select date",
       email_instead: props.signupFields.email_instead,
       meeting_time_options: [],
       isTransitioningNext: false,
@@ -78,6 +79,7 @@ class SignupStep4 extends Component {
   }
 
   componentDidMount() {
+    isProduction()
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -95,6 +97,11 @@ class SignupStep4 extends Component {
   handleSelectChange = (name, e) => {
     this.setState({...this.state, [name]: e});
 
+    if ( name === "meeting_time" ){
+      this.setState({
+        validationMessage: ""
+      })
+    }
     if ( name === "selected_plan" ){
       if ( e.label === "I don't know" ){
         this.props.setPricingPlan("General");
@@ -172,7 +179,9 @@ class SignupStep4 extends Component {
   handleDateChange = (date) => {
     this.setState({
       date: date,
-      meeting_date: date ? date._d : null
+      meeting_date: date ? date._d : null,
+      meeting_time: null, // clear time when new date is selected,
+      validationMessage: "" // clear validation error
     });
 
     if ( date ){
@@ -251,14 +260,23 @@ class SignupStep4 extends Component {
     }
   };
 
-  setAvailableDates = dates =>
-    this.setState({
-      meeting_time_options: dates
-    });
-
+  setAvailableDates = (dates) => {
+    if ( dates.length !== 0 ){
+      this.setState({
+        meeting_time_options: dates,
+        meeting_time_blank: "Please select date"
+      });
+    } else {
+      this.setState({
+        meeting_time_options: dates,
+        meeting_time_blank: "No time slots available"
+      });
+    }
+  }
   checkboxClick = () => {
     this.setState({
-      email_instead: !this.state.email_instead
+      email_instead: !this.state.email_instead,
+      validationMessage: ""
     })
   }
 
@@ -303,6 +321,7 @@ class SignupStep4 extends Component {
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
+          isProduction: isProduction(),
           meeting_date: SingaporeDateDate,
           meeting_time: SingaporeDateTime,
           selected_plan: selected_plan ? selected_plan.label : null,
@@ -348,12 +367,13 @@ class SignupStep4 extends Component {
       <SvgIcon name="select-arrow" />
     )
 
-    const { date, meeting_time, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext, validationMessage } = this.state;
+    const { date, meeting_time, meeting_time_blank, focused, selected_plan, email_instead, meeting_time_options, isTransitioningNext, validationMessage } = this.state;
 
     const plansSelect = [
       "Incorporation",
       "Corporate Secretary",
       "Annual Reporting",
+      "Monthly Reporting",
       "Customised Finance Team",
       "Dormant",
       "I don't know"
@@ -365,11 +385,11 @@ class SignupStep4 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
-          <h2>Let me know when is a good time to reach out</h2>
+          <h2>Let me know when is a good time to reach out?</h2>
         </div>
         <div className="signup__right">
           <div className="ui-group">
-            <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
+            <label htmlFor="">Let us know which plan you are interested in?</label>
           </div>
           <div className="ui-group">
             <Select
@@ -378,9 +398,12 @@ class SignupStep4 extends Component {
               autosize={false}
               value={selected_plan}
               onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-              placeholder="Which plan are you interested to know more about?"
+              placeholder="Select a plan"
               options={this.mapArrToSelect(plansSelect)}
             />
+          </div>
+          <div className="ui-group">
+            <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
           </div>
           <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") + (validationMessage ? " has-error" : "") }>
             <div className="signup__datetime-col">
@@ -421,7 +444,7 @@ class SignupStep4 extends Component {
                 value={meeting_time}
                 onChange={this.handleSelectChange.bind(this, 'meeting_time')}
                 placeholder="Select time"
-                noResultsText="Please select date"
+                noResultsText={meeting_time_blank}
                 options={this.mapArrToSelectWithEnd(meeting_time_options)}
               />
             </div>
@@ -461,6 +484,7 @@ const mapStateToProps = (state) => ({
   pricingPlan: state.pricing.selectedPlan,
   pricingOptions: state.pricing.pricingOptions,
   pricingOptionsSub: state.pricing.pricingOptionsSub,
+  signupRandomId: state.signup.signupRandomId
 });
 
 const mapDispatchToProps = (dispatch) => ({

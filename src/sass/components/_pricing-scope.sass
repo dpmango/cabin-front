@@ -15,20 +15,27 @@
       flex: 1 0 auto
       display: flex
       flex-direction: column
-      padding: 60px 15px 40px
+      padding: 45px 15px 40px
       text-align: center
       .pricing-scope
         &__icon
-          flex-basis: 77px
+          flex-basis: 84px
           margin-bottom: 25px
+          display: flex
+          flex-direction: column
+          justify-content: flex-end
+          align-items: center
+
         &__description
           display: flex
           align-items: center
           justify-content: center
           min-height: 72px
           vertical-align: middle
+          padding-left: 15px
+          padding-right: 15px
         &__list
-          margin: 30px -15px
+          margin: 30px -15px 15px
           margin-left: auto
           margin-right: auto
           &-col
@@ -43,7 +50,10 @@
           margin-right: auto
           text-align: center
           padding-right: 0
+          min-height: 80px
           padding-top: 10px
+          &-starting
+            min-height: 11px
         &__description
           max-width: 100%
 
@@ -73,6 +83,7 @@
 
   &__name
     font-size: 18px
+    font-weight: 500
     line-height: 1.5
   &__description
     color: $fontColorGray
@@ -102,9 +113,18 @@
     text-align: right
     padding-right: 30px
     &-main
+      position: relative
       font-size: 30px
+      .ico-question-circle
+        font-size: 15px
+        position: absolute
+        right: -23px
+        top: 6px
+
     &-for
+      padding-top: 3px
       font-size: 14px
+      min-height: 19px
       color: $fontColorGray
     &-starting
       font-size: 10px
@@ -112,6 +132,10 @@
       margin-bottom: 8px
     &--mobile
       display: none
+    .Select
+      text-align: left
+      margin-top: 15px
+      min-width: 110px
   &__tooltip
     position: absolute
     right: 0
@@ -141,6 +165,13 @@
         margin-left: 10px
         font-size: 12px
         color: $fontColorGray
+      a
+        display: inline-block
+        color: $colorBlue
+        font-weight: 500
+        transition: .25s $ease
+        &:hover
+          color: $colorBlueHover
       .ico
         flex: 0 0 auto
         color: $colorGreen
@@ -157,10 +188,27 @@
       padding-left: 10px
       padding-right: 10px
       +text-overflow
+  &__promo
+    margin-top: 35px
+    font-size: 12px
+    line-height: 1.67
+    text-align: center
+    color: $fontColorGray
+    background: #f6f7fb
+    padding: 16px 15px 14px
+    border-radius: 3px
+    margin-left: -25px
+    margin-right: -25px
+    span
+      color: $colorBlue
+      font-weight: 500
 
   &__more
     text-align: center
-    margin: -10px 0 25px
+    // margin: 50px 0 25px
+    margin: 60px 0 10px
+    /* keep the scape event when no link provided
+    min-height: 14px
     align-items: center
     justify-content: center
     display: flex

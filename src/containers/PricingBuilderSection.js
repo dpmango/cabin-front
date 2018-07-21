@@ -69,6 +69,7 @@ class PricingBuilderSection extends Component {
               priceStartingFrom={box.priceStartingFrom}
               helpText={box.helpText}
               isAddon={box.isAddon}
+              isPopular={box.isPopular}
             />
           )) }
 

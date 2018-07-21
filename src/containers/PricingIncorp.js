@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
-import { Helmet } from 'react-helmet';
 import { GetStarted } from '../routes';
 
+import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
-
 import SvgIcon from '../components/SvgIcon';
 
 class PricingIncorp extends Component {
@@ -35,72 +34,169 @@ class PricingIncorp extends Component {
       },
     ]
 
-    const PricingScopePrice = (
-      <React.Fragment>
-        <div className="pricing-scope__price-main">S$450</div>
-        <div className="pricing-scope__price-for">per year</div>
-        <div className="pricing-scope__tooltip">
-          <Tooltip
-            title="Excludes statutory filing fees and name registration fees of S$315"
-            position="left"
-            distance="10"
-            arrow="true">
-              <SvgIcon name="question-circle" />
-          </Tooltip>
-        </div>
-      </React.Fragment>
-    )
-
     return(
       <div data-aos="fade">
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
-
         <div className="pricing-scope" >
-          <div className="container container--narrow">
-            <div className="pricing-scope__holder">
-              <div className="pricing-scope__box">
-                <div className="pricing-scope__head">
+          <div className="container">
+            <div className="pricing-scope__grid">
+
+              <div className="pricing-scope__col">
+                <div className="pricing-scope__box pricing-scope__box--collumned">
                   <div className="pricing-scope__icon">
-                    <i className="icon icon-pricing-corporate" />
+                    <i className="icon icon-pricing-incorp-lean" />
                   </div>
                   <div className="pricing-scope__names">
-                    <div className="pricing-scope__name">Incorporation</div>
-                    <div className="pricing-scope__description">I want to incorporate a company </div>
+                    <div className="pricing-scope__name">Lean Incorporation</div>
+                    <div className="pricing-scope__description"><span>The basics to get your company started</span></div>
                   </div>
+                  <PricingScopeList
+                    list={[
+                      [
+                        "Company name search and reservation",
+                        "Company structure and Constitution advisory",
+                        "Minutes and resolution of First Director’s Meeting",
+                        "Share certificates issuance",
+                        "Form 45 and Form 45B"
+                      ]
+                    ]}
+                  />
                   <div className="pricing-scope__price">
-                    { PricingScopePrice }
+                    <div className="pricing-scope__price-starting"></div>
+                    <div className="pricing-scope__price-main">S$150
+                      <Tooltip
+                        title="Excludes statutory filing fees and name registration fees of S$315"
+                        position="top"
+                        distance="10"
+                        arrow="true">
+                          <SvgIcon name="question-circle" />
+                      </Tooltip>
+                    </div>
+                    <div className="pricing-scope__price-for">per year</div>
                   </div>
                 </div>
-                <PricingScopeList
-                  list={[
-                    [
-                      "Company name search and reservation",
-                      "Company structure and Constitution advisory",
-                      "Minutes and resolution of First Director’s Meeting",
-                    ],
-                    [
-                      "Share certificates issuance",
-                      "Form 45 and Form 45B",
-                      "Provision of a qualified person as your company secretary (12 months)"
-                    ]
-                  ]}
-                />
-
-                <div className="pricing-scope__price pricing-scope__price--mobile">
-                  { PricingScopePrice }
+                <div className="pricing-scope__cta">
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Lean Incorporation')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Lean Incorporation</span> Plan
+                  </Link>
                 </div>
               </div>
 
-              <div className="pricing-scope__cta">
-                <Link to="/get-started"
-                  onClick={this.onSelectPlanClick.bind(this, 'Incorporation')}
-                  onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
-                  className="btn btn--mega btn--block">
-                  Select <span>Incorporation</span> Plan
-                </Link>
+              <div className="pricing-scope__col">
+                <div className="pricing-scope__box pricing-scope__box--collumned">
+                  <div className="pricing-scope__tag">Most Popular</div>
+                  <div className="pricing-scope__icon">
+                    <i className="icon icon-pricing-incorp-standart" />
+                  </div>
+                  <div className="pricing-scope__names">
+                    <div className="pricing-scope__name">Standard Incorporation</div>
+                    <div className="pricing-scope__description"><span>Includes one year of corporate secretary</span></div>
+                  </div>
+                  <PricingScopeList
+                    list={[
+                      [
+                        "Company name search and reservation",
+                        "Company structure and Constitution advisory",
+                        "Minutes and resolution of First Director’s Meeting",
+                        "Share certificates issuance",
+                        "Form 45 and Form 45B",
+                        {
+                          fragment:
+                            <React.Fragment>
+                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate secretary </Link> plan
+                            </React.Fragment>
+                        }
+                      ]
+                    ]}
+                  />
+
+                  <div className="pricing-scope__price">
+                    <div className="pricing-scope__price-starting"></div>
+                    <div className="pricing-scope__price-main">S$400
+                      <Tooltip
+                        title="Excludes statutory filing fees and name registration fees of S$315"
+                        position="top"
+                        distance="10"
+                        arrow="true">
+                          <SvgIcon name="question-circle" />
+                      </Tooltip>
+                    </div>
+                    <div className="pricing-scope__price-for">save S$100</div>
+                  </div>
+
+                </div>
+                <div className="pricing-scope__cta">
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Standard Incorporation')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Standard Incorporation</span> Plan
+                  </Link>
+                </div>
+
               </div>
+
+              <div className="pricing-scope__col">
+                <div className="pricing-scope__box pricing-scope__box--collumned">
+                  <div className="pricing-scope__icon">
+                    <i className="icon icon-pricing-incorp-value" />
+                  </div>
+                  <div className="pricing-scope__names">
+                    <div className="pricing-scope__name">Value Incorporation</div>
+                    <div className="pricing-scope__description"><span>Includes one year of corporate secretary, accounting, and tax</span></div>
+                  </div>
+                  <PricingScopeList
+                    list={[
+                      [
+                        "Company name search and reservation",
+                        "Company structure and Constitution advisory",
+                        "Minutes and resolution of First Director’s Meeting",
+                        "Share certificates issuance",
+                        "Form 45 and Form 45B",
+                        {
+                          fragment:
+                            <React.Fragment>
+                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate secretary </Link> plan
+                            </React.Fragment>
+                        },
+                        {
+                          fragment:
+                            <React.Fragment>
+                              1-year <Link to="/pricing" onClick={ScrollTo.bind(this, 0, 300)}> Annual reporting </Link> plan
+                            </React.Fragment>
+                        }
+                      ]
+                    ]}
+                  />
+
+                  <div className="pricing-scope__price">
+                    <div className="pricing-scope__price-starting"></div>
+                    <div className="pricing-scope__price-main">S$1,150
+                      <Tooltip
+                        title="Excludes statutory filing fees and name registration fees of S$315"
+                        position="top"
+                        distance="10"
+                        arrow="true">
+                          <SvgIcon name="question-circle" />
+                      </Tooltip>
+                    </div>
+                    <div className="pricing-scope__price-for">save S$300</div>
+                  </div>
+
+                </div>
+                <div className="pricing-scope__cta">
+                  <Link to="/get-started"
+                    onClick={this.onSelectPlanClick.bind(this, 'Value Incorporation')}
+                    onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
+                    className="btn btn--mega btn--block">
+                    Select <span>Value Incorporation</span> Plan
+                  </Link>
+                </div>
+
+              </div>
+
             </div>
           </div>
         </div>
@@ -111,8 +207,7 @@ class PricingIncorp extends Component {
               <h2>Additional requirements</h2>
               <p className="t-paragraph">Our packages include everything a typical company needs. However, there may be some additional requirements specific to your business. We’ve got them covered here.</p>
             </div>
-            <div className="pricing-options__section-name">Corporate Secretary</div>
-            <div className="pricing-options__grid">
+            <div className="pricing-options__grid pricing-options__grid--no-heading">
               <div className="pricing-options__col">
                 <div className="pricing-options__section">
                   <PricingOption

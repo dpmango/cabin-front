@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import moment from 'moment';
+import 'moment-timezone';
 import onClickOutside from "react-onclickoutside";
 import throttle from 'lodash/throttle';
 
 import { OPEN_MENU, CLOSE_MENU } from '../store/ActionTypes';
+import convertTimeStr from '../services/convertTimeStr';
 
 class Header extends React.Component {
   static propTypes = {
@@ -23,6 +26,24 @@ class Header extends React.Component {
 
     this.state = {
       isScrolled: false
+    }
+
+    // Call: Mon - Fri (9:30am  - 6:30pm, GMT +8)
+    // Email: All other hours
+    const singaporeTime = moment().tz("Asia/Singapore")
+    const weekDay = singaporeTime.weekday()
+    const timeHHmm = singaporeTime.format("HH:mm")
+
+    if (
+      (weekDay !== 6 && weekDay !== 7)
+      &&
+      ( convertTimeStr(timeHHmm) >= convertTimeStr("9:30") &&
+        convertTimeStr(timeHHmm) <= convertTimeStr("18:30")
+      )
+    ){
+      this.isWorkingTime = true
+    } else {
+      this.isWorkingTime = false
     }
   }
 
@@ -69,6 +90,22 @@ class Header extends React.Component {
     component.preload();
   };
 
+  renderContacts = () => {
+    if ( this.isWorkingTime ) {
+      return (
+        <a href="tel:+65 3158 5495" className="header__phone">
+          <span>Have an enquiry? <span className="header__phone-tel"><span>Call us at:</span> +65 3158 5495</span></span>
+        </a>
+      )
+    } else {
+      return (
+        <a href="maito:hello@cabin.com.sg" className="header__phone">
+          <span>Have an enquiry? <span className="header__phone-tel"><span>Email us at:</span> hello@cabin.com.sg</span></span>
+        </a>
+      )
+    }
+
+  }
   render(){
 
     const { routes, menuOpened } = this.props;
@@ -81,9 +118,7 @@ class Header extends React.Component {
               <NavLink onClick={this.closeHamburger} to='/' className="header__logo">
                 <i className="icon icon-cabin-logo" />
               </NavLink>
-              <a href="tel:+65 3158 5495" className="header__phone">
-                <span>Have an enquiry? <span className="header__phone-tel">+65 3158 5495</span></span>
-              </a>
+              { this.renderContacts() }
               <ul className="header__menu">
                 {routes.map(route =>
                   <li key={route.path}>

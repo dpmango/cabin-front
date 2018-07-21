@@ -9,6 +9,7 @@ import Select from 'react-select';
 import GetStartedBottom from '../components/GetStartedBottom';
 
 import PricingCore from '../containers/PricingCore';
+import PricingSecretary from '../containers/PricingSecretary';
 import PricingIncorp from '../containers/PricingIncorp';
 import PricingDormant from '../containers/PricingDormant';
 import PricingCustom from '../containers/PricingCustom';
@@ -22,7 +23,8 @@ class Pricing extends Component {
     super(props);
 
     this.selectOptions = [
-      { value: '/pricing', label: 'Core plans' },
+      { value: '/pricing', label: 'Accounting & Tax' },
+      { value: '/pricing/secretary', label: 'Corporate Secretary' },
       { value: '/pricing/incorporation', label: 'Incorporation' },
       { value: '/pricing/dormant', label: 'Dormant company' }
     ]
@@ -64,7 +66,10 @@ class Pricing extends Component {
           <div className="container container--narrow">
             <div className="hero__nav-wrapper">
               <NavLink exact={true} to="/pricing" className="hero__nav-el" activeClassName='is-active'>
-                Core plans
+                Accounting & Tax
+              </NavLink>
+              <NavLink to="/pricing/secretary" className="hero__nav-el" activeClassName='is-active'>
+                Corporate Secretary
               </NavLink>
               <NavLink to="/pricing/incorporation" className="hero__nav-el" activeClassName='is-active'>
                 Incorporation
@@ -99,6 +104,7 @@ class Pricing extends Component {
         { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
 
         <Route exact={true} path="/pricing" component={PricingCore} />
+        <Route path="/pricing/secretary" component={PricingSecretary} />
         <Route path="/pricing/incorporation" component={PricingIncorp} />
         <Route path="/pricing/dormant" component={PricingDormant} />
         <Route path="/pricing/custom" component={PricingCustom} />

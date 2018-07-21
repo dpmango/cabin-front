@@ -40,11 +40,6 @@ export const GetStarted = MyLoadable({
   modules: ['./pages/GetStarted'],
   webpack: () => [require.resolveWeak('./pages/GetStarted')]
 });
-export const GetStartedCompleted = MyLoadable({
-  loader: () => import("./pages/GetStartedCompleted"),
-  modules: ['./pages/GetStartedCompleted'],
-  webpack: () => [require.resolveWeak('./pages/GetStartedCompleted')]
-});
 export const NotFound = MyLoadable({
   loader: () => import("./pages/NotFound"),
   modules: ['./pages/NotFound'],
@@ -73,16 +68,12 @@ export const routes = [
   },
   {
     forNavBar: true,
-    isExact: true,
+    // isExact: true,
     navBarClass: 'btn btn--small',
     path: '/get-started',
     name: 'Get Started',
     component: GetStarted,
     isPrivate: false
-  },
-  {
-    path: '/get-started/thank-you',
-    component: GetStartedCompleted,
   },
   {
     forNavBar: false,

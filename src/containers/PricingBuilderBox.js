@@ -23,6 +23,7 @@ class PricingBuilderBox extends Component {
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
+    isPopular: PropTypes.bool,
     isQuoteRequired: PropTypes.bool,
     isRequired: PropTypes.bool,
     rangeSlider: PropTypes.bool,
@@ -87,13 +88,13 @@ class PricingBuilderBox extends Component {
   // box toggler (main option)
   changePricingBox = () => {
 
-    const { name, price, id, pricingOptionsState } = this.props;
+    const { name, price, id, isRequired, pricingOptionsState } = this.props;
     const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
 
     if ( this.state.isAddonActive ){
       // emulate click to add first SubOption
       // * if any and if not active present
-      if ( this.optionChild && this.state.activeOptionId === null ){
+      if ( !isRequired && this.optionChild && this.state.activeOptionId === null ){
         this.optionChild.computeClickHandler();
       }
 
@@ -192,7 +193,7 @@ class PricingBuilderBox extends Component {
 
   render(){
 
-    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isRequired, rangeSlider } = this.props;
+    const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isPopular, isRequired, rangeSlider } = this.props;
     const { activeOptionId, sliderVal, sliderValPrice } = this.state;
 
     return(
@@ -203,6 +204,9 @@ class PricingBuilderBox extends Component {
           </div>
         }
         <div className="p-builder-box__wrapper">
+          { isPopular &&
+            <div className="p-builder-box__tag">Most Popular</div>
+          }
           <div className="p-builder-box__head">
             { isAddon &&
               <div className="p-builder-box__toggle" onClick={this.changeOtions}></div>
