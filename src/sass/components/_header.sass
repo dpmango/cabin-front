@@ -33,6 +33,8 @@
       display: block
       color: $colorBlue
       transition: .25s $ease
+      span
+        color: $fontColor
     &:hover
       .header__phone-tel
         color: $colorGreen
@@ -117,6 +119,12 @@
     // &__hamburger
     //   margin-left: auto
 
++r(414)
+  .header
+    &__phone
+      &-tel
+        span
+          display: none
 
 /* MOBILE NAVI
 .mobile-navi
