@@ -63,17 +63,19 @@ class SignupStep5 extends Component {
           dataLayerName="leadCaptured"
           additionalEvents={gtmEvent}
         />
-        <div className="t-center" data-aos="fade">
-          <h2>Thank you!</h2>
-          <p className="t-paragraph">We will get in touch with you shortly.</p>
-          <div className="signup__sucess">
-            <SvgIcon name="signup-sucess" />
-          </div>
-          <div className="signup__nav signup__nav--complete">
-            <a className="signup__nav-back" onClick={this.completeSignup}>
-              <SvgIcon name="back-arrow" />
-              <span>Back to homepage</span>
-            </a>
+        <div className="signup__box" data-aos="fade">
+
+          <div className="signup__sucess-container">
+            <div className="signup__sucess">
+              <SvgIcon name="signup-sucess" />
+            </div>
+            <h2>Thank you!</h2>
+            <p className="t-paragraph">We will get in touch with you shortly.</p>
+            <div className="signup__nav signup__nav--complete">
+              <a className="btn btn--small" onClick={this.completeSignup}>
+                <span>Back to homepage</span>
+              </a>
+            </div>
           </div>
         </div>
 

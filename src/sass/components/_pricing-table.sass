@@ -86,6 +86,8 @@
     border-radius: 3px
     position: relative
     overflow: hidden
+    .pricing-table__td
+      max-height: 60px
   &__tr
     display: flex
     background: white
@@ -110,7 +112,7 @@
 
   &__td
     position: relative
-    padding: 13px
+    padding: 17px 13px
     &::after
       display: inline-block
       content: ' '
@@ -136,6 +138,7 @@
       color: $fontColorGray
       text-align: center
       line-height: 1.41
+      transform: translateY(-2px)
       .ico-question-circle
         margin-left: 4px
         transform: translateY(2px)

@@ -57,7 +57,7 @@ export default class HomeBenefits extends Component {
         loop: false,
         watchOverflow: false,
         slidesPerView: 1,
-        initialSlide: 2,
+        initialSlide: 3,
         normalizeSlideIndex: true,
         freeMode: false,
         slidesOffsetBefore: 0,
@@ -103,7 +103,7 @@ export default class HomeBenefits extends Component {
       )
     } else {
       return (
-        <Tabs className="tabs-pane" defaultIndex={2} onSelect={this.refreshAOS}>
+        <Tabs className="tabs-pane" defaultIndex={3} onSelect={this.refreshAOS}>
           <TabList className="tabs-pane__list">
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">Incorporation</Tab>
             <Tab className="tabs-pane__tab" selectedClassName="is-selected">First 6 months</Tab>
@@ -230,30 +230,14 @@ class TabContent3 extends React.Component {
           <h3 className="for-mobile">
             Stay on top of your accounting and tax filings
           </h3>
-          <p className="t-paragraph for-mobile">We will comb through all your transactions to optimise your tax savings and ensure that you comply with statutory standards
-            <Tooltip
-              title="Singapore Financial Reporting Standard"
-              position="top"
-              distance="10"
-              arrow="true">
-              <SvgIcon name="question-circle" />
-            </Tooltip>
-          </p>
+          <p className="t-paragraph for-mobile">Have all your accounting and tax compliance covered</p>
           <HomeBenefitsList activeIndex="4" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
             Stay on top of your accounting and tax filings
           </h3>
-          <p className="t-paragraph">We will comb through all your transactions to optimise your tax savings and ensure that you comply with statutory standards
-            <Tooltip
-              title="Singapore Financial Reporting Standard"
-              position="top"
-              distance="10"
-              arrow="true">
-              <SvgIcon name="question-circle" />
-            </Tooltip>
-          </p>
+          <p className="t-paragraph">Have all your accounting and tax compliance covered</p>
           <Testimonial
             content="Our entire business group relies on Cabin to do our financial reporting and taxes. We have multiple financial year ends and varied businesses. Now, we <strong>never have to worry about missing deadlines or errors in filings.</strong> Cabin has been right on track and even provided <strong>useful insights</strong> which never saw previously."
             authorName="Lucy Chng"
@@ -275,24 +259,24 @@ class TabContent4 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Have all your finance operations covered
+            Monthly pulse check on your business
           </h3>
-          <p className="t-paragraph for-mobile">Gain access to a full-fledged and professional finance team at a fraction of the costs of hiring in-house</p>
-          <HomeBenefitsList activeIndex="8" />
+          <p className="t-paragraph for-mobile">Turn messy documents into useful monthly reports</p>
+          <HomeBenefitsList activeIndex="5" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Have all your finance operations covered
+            Monthly pulse check on your business
           </h3>
-          <p className="t-paragraph">Gain access to a full-fledged and professional finance team at a fraction of the costs of hiring in-house</p>
+          <p className="t-paragraph">Turn messy documents into useful monthly reports</p>
           <Testimonial
-            content="Outsourcing our finance operations (including accounts payable and expense claims) to Cabin <strong>freed us up from administrative work.</strong> We love how Cabin is proactive in <strong>extrapolating insights on our financial performance</strong> and suggesting ways to improve our workflow so we can run our business more efficiently!"
-            authorName="Diana Teo"
-            authorTitle="Director, Waa Cow"
+            content="Cabin has been a great help to all our accounting needs. They <strong>respond fast</strong>, truly care for our needs, and put <strong>meaning behind the numbers.</strong> If you are looking for a team that can not only <strong>take the headache out of your accounts,</strong> but also give guidance on what the numbers mean, work with Cabin."
+            authorName="Shane Yuen"
+            authorTitle="Managing Director, Canny Digital"
             authorImage="avatar-4"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <span>Customised Finance Team</span> Plan</Link>
+            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Monthly Reporting</span> Plan</Link>
           </div>
         </div>
       </div>
@@ -309,9 +293,7 @@ class TabContent5 extends React.Component {
             Pair your finance executive with Cabin
           </h3>
           <p className="t-paragraph for-mobile">When it is time to bring your finance operations in-house, we will pair with your finance executive to build the right finance processes</p>
-          <HomeBenefitsList activeIndexes={[
-            1,2,3,5,9,10
-          ]} />
+          <HomeBenefitsList activeIndex={10} />
         </div>
         <div className="home-benefits__content-right">
           <h3>

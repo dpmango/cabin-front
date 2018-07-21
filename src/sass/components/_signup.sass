@@ -105,6 +105,7 @@
     a
       cursor: pointer
     &--complete
+      margin-top: 70px
       justify-content: center
     .btn--small
       min-width: 120px
@@ -136,6 +137,11 @@
     // size: 370px 270px
     // background: $lightBg
     font-size: 0
+    &-container
+      padding: 50px 100px 0
+      text-align: center
+      h2
+        margin-bottom: 0em
     .ico
       font-size: 147px
       color: $colorGreen
@@ -222,8 +228,11 @@
       margin-top: 80px
 
     &__sucess
-      margin: 50px auto 90px
-      size: 270px 200px
+      margin: 50px auto 50px
+      // size: 270px 200px
+      &-container
+        padding-left: 30px
+        padding-right: 30px
 
 +r($mobile)
   .signup

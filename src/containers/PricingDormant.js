@@ -162,17 +162,17 @@ class PricingDormant extends Component {
                     price="S$200"
                     pricePer="per year"
                   />
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
+                <div className="pricing-options__section">
                   <PricingOption
                     name="Provision of Nominee Director"
                     tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
                     price="S$2000"
                     pricePer="per year"
                   />
-                </div>
-              </div>
-              <div className="pricing-options__col">
-                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
-                <div className="pricing-options__section">
                   <PricingOption
                     name="Company closure"
                     tooltipContent="Striking off of company, assuming undisputed application. We will require the company to complete all outstanding AGM and AR filings, zero the balance sheet, and obtain tax clearance from IRAS before we can proceed with the striking off application."
