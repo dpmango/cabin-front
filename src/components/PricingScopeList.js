@@ -20,6 +20,14 @@ export default class PricingScopeList extends Component {
           </span>
         )
       } else {
+        // when provided as fragment (with link)
+        if ( el.fragment ){
+          return (
+            <span>
+              {el.fragment}
+            </span>
+          )
+        }
         return (
           <span>
             {el.name}
@@ -47,7 +55,6 @@ export default class PricingScopeList extends Component {
             )) }
           </div>
         )) }
-
       </div>
     )
   }

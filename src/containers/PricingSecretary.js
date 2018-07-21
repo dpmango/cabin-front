@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
-import { Tooltip } from 'react-tippy';
+// import { Tooltip } from 'react-tippy';
 import { GetStarted } from '../routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-import ScrollTo from '../services/ScrollTo';
+// import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
 
-import SvgIcon from '../components/SvgIcon';
+// import SvgIcon from '../components/SvgIcon';
 
 class PricingSecretary extends Component {
 
@@ -105,7 +105,7 @@ class PricingSecretary extends Component {
               <div className="pricing-scope__box">
                 <div className="pricing-scope__head">
                   <div className="pricing-scope__icon">
-                    <i className="icon icon-pricing-dormant" />
+                    <i className="icon icon-pricing-secretary" />
                   </div>
                   <div className="pricing-scope__names">
                     <div className="pricing-scope__name">Corporate Secretary</div>

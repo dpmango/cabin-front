@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Helmet } from "react-helmet";
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 

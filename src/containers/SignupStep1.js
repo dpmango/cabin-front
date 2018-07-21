@@ -39,7 +39,7 @@ class SignupStep1 extends Component {
                   <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
                 </div>
               </div>
-              <div className="signup__right">
+              <div className="signup__right signup__right--no-pad">
                 <h2>Hello!</h2>
                 <p className="t-paragraph">My name is Rifeng and I am here to help you get started. If you are stuck or have any questions along the way, feel free to give me a call at <a href="tel:+65 3158 5495">+65 3158 5495</a>.</p>
                 <i className="icon icon-rifeng-sign" />
