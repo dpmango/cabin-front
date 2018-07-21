@@ -225,16 +225,16 @@ class PricingCore extends Component {
                       </div>
                     </div>
                     <div className="pricing-table__td">
-                      <div className="pricing-table__head">
+                      <div className="pricing-table__head pricing-table__head--popular">
                         <i className="icon icon-pricing-monthly-reporting" />
                         <div className="pricing-table__head-name">Monthly Reporting</div>
+                        <div className="pricing-table__head-tag">Most Popular</div>
                       </div>
                     </div>
                     <div className="pricing-table__td">
-                      <div className="pricing-table__head pricing-table__head--popular">
+                      <div className="pricing-table__head">
                         <i className="icon icon-pricing-full-stack" />
                         <div className="pricing-table__head-name">Customised <br/>Finance Team</div>
-                        <div className="pricing-table__head-tag">Most Popular</div>
                       </div>
                     </div>
 
@@ -373,7 +373,9 @@ class PricingCore extends Component {
                   <span className="pricing-table__tag">IRAS</span>
                   <span className="pricing-table__name">Statutory requirement by IRAS</span>
                 </div>
-
+                <div className="pricing-table-legend__cta">
+                  <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
+                </div>
                 <div className="pricing-table-legend__cta">
                   <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
                 </div>

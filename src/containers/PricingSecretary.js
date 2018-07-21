@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { SET_PRICING_PLAN } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
 import { GetStarted } from '../routes';
-
+import 'airbnb-js-shims';
+import Select from 'react-select';
+import pluralize from 'pluralize';
 import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
@@ -12,9 +14,42 @@ import PricingScopeList from '../components/PricingScopeList';
 
 import SvgIcon from '../components/SvgIcon';
 
+class PricingSecretary extends Component {
 
-class PricingDormant extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      selected_year: { value: '600', label: '2 years' },
+      price_base: 350,
+      price: 600,
+      price_save: 100
+    }
+  }
 
+  handleSelectChange = (e) => {
+    console.log(e)
+    this.setState({
+      selected_year: e,
+      price: e.value,
+      price_save: this.calcSave(e)
+    });
+  }
+
+  calcSave = (select) => {
+    const year = parseInt(select.label.substring(0,1), 10);
+    const basePrice = this.state.price_base;
+    const calcSave = (year * basePrice) - parseInt(select.value, 10)
+
+    return calcSave > 0 ? calcSave : null
+  }
+
+  getYearPlural = () => {
+    const { selected_year } = this.state;
+    const year = parseInt(selected_year.label.substring(0,1), 10)
+
+    return year + " " + pluralize('year', year)
+
+  }
   onSelectPlanClick = (pricingName) => {
     this.props.setPricingPlan(pricingName);
   }
@@ -24,6 +59,15 @@ class PricingDormant extends Component {
   };
 
   render(){
+
+    const { selected_year, price, price_save } = this.state;
+
+    const yearsSelect = [
+      { value: '350', label: '1 year' },
+      { value: '600', label: '2 years' },
+      { value: '900', label: '3 years' }
+    ]
+
     const faqContent = [
       {
         name: 'Do I need a corporate secretary? ',
@@ -32,33 +76,24 @@ class PricingDormant extends Component {
       },
       {
         name: 'Are government fees included?',
-        content: 'Our fees exclude all Out-of-Pocket expenses paid to third parties, including ACRA filing fees and fines. For most businesses, you will expect an additional S$60 payable to ACRA annually for your Annual Return filing.'
-      },
-      {
-        name: 'If I have minimal transactions do I count as a dormant company?',
-        content:
-          <React.Fragment>
-            A dormant company is defined by ACRA as a company without any transaction in its bank account other than corporate secretarial fees, accounting and auditor fees, and ACRA fees. If you have minimal transactions, check out our
-            <Link to="/pricing" onClick={ScrollTo.bind(this, 0, 300)}> Annual Reporting </Link>
-            plan. We typically waive the bookkeeping fees if you have less than 10 transactions per year.
-          </React.Fragment>
+        content: 'Our fees exclude all Out-of-Pocket expenses paid to third parties, including ACRA filing fees and fines. For most businesses, you will expect an additional S$60 payable to ACRA annually for your Annual Return filing. '
       }
     ]
 
     const PricingScopePrice = (
       <React.Fragment>
-        <div className="pricing-scope__price-main">S$850</div>
-        <div className="pricing-scope__price-for">per year</div>
-        <div className="pricing-scope__tooltip">
-          <Tooltip
-            title="A dormant company under the Companies Act as a company without any bank transactions other than corporate secretarial fees, accounting and auditor fees, and ACRA fees."
-            position="left"
-            distance="10"
-            arrow="true">
-              <SvgIcon name="question-circle" />
-          </Tooltip>
-        </div>
-
+        <div className="pricing-scope__price-main">S${price}</div>
+        <div className="pricing-scope__price-for">{price_save ? "save S$" + price_save : ""}</div>
+        <Select
+          name="selected_year"
+          className="Select--small"
+          searchable={false}
+          autosize={false}
+          value={selected_year}
+          onChange={this.handleSelectChange}
+          placeholder="Select a plan"
+          options={yearsSelect}
+        />
       </React.Fragment>
     )
 
@@ -73,8 +108,8 @@ class PricingDormant extends Component {
                     <i className="icon icon-pricing-dormant" />
                   </div>
                   <div className="pricing-scope__names">
-                    <div className="pricing-scope__name">Dormant</div>
-                    <div className="pricing-scope__description">All in accounting, tax, and corporate secretary for a dormant company</div>
+                    <div className="pricing-scope__name">Corporate Secretary</div>
+                    <div className="pricing-scope__description">Stay on top of all your ACRA filings and deadlines</div>
                   </div>
                   <div className="pricing-scope__price">
                     { PricingScopePrice }
@@ -83,31 +118,27 @@ class PricingDormant extends Component {
                 <PricingScopeList
                   list={[
                     [
-                      "Provision of a qualified person as your company secretary (12 months)",
+                      "Provision of a qualified person as your company secretary ",
                       "Safekeeping and updates to Company Registers",
-                      "Preparation of Annual General Meeting (AGM) documents",
-                      "Filing of Annual Return to ACRA",
-                      "WhatsApp group chat for advisory on corporate secretarial matters",
+                      "Preparation of Annual General Meeting (AGM) documents"
                     ],
                     [
-                      "Unaudited Annual Financial Statements",
-                      "Annual corporate tax computation",
-                      "Filing of ECI and Form C-S with IRAS",
-                      "Compliant with Singapore Companies Act and Income Tax Act",
-                      "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                      "Filing of Annual Return to ACRA",
+                      "WhatsApp group chat for advisory on corporate secretarial matters"
                     ]
                   ]}
                 />
                 <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
+                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <span>Accounting and tax plan</span></div>
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
-                  onClick={this.onSelectPlanClick.bind(this, 'Dormant')}
+                  onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary')}
                   onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                   className="btn btn--mega btn--block">
-                  Select <span>Dormant</span> Plan
+                  Select <span>Corporate Secretary</span> Plan ({this.getYearPlural()} plan)
                 </Link>
               </div>
             </div>
@@ -150,6 +181,11 @@ class PricingDormant extends Component {
                     price="S$100"
                     pricePer="per entity<br>per year"
                   />
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
+                <div className="pricing-options__section">
                   <PricingOption
                     name="More than 5 directors/shareholders"
                     tooltipContent="Additional administrative and recording keeping processes required"
@@ -163,40 +199,18 @@ class PricingDormant extends Component {
                     pricePer="per year"
                   />
                   <PricingOption
-                    name="Provision of Nominee Director"
-                    tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
-                    price="S$2000"
-                    pricePer="per year"
-                  />
-                </div>
-              </div>
-              <div className="pricing-options__col">
-                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
-                <div className="pricing-options__section">
-                  <PricingOption
                     name="Company closure"
                     tooltipContent="Striking off of company, assuming undisputed application. We will require the company to complete all outstanding AGM and AR filings, zero the balance sheet, and obtain tax clearance from IRAS before we can proceed with the striking off application."
                     price="S$600"
                     withoutPlus={true}
                   />
                   <PricingOption
-                    name="XBRL filing required (financial statements highlights)"
-                    tooltipContent="Required for insolvent exempt private companies or companies regulated by MAS"
-                    price="S$250"
-                    withoutPlus={true}
+                    name="Provision of Nominee Director"
+                    tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
+                    price="S$2000"
+                    pricePer="per year"
                   />
-                  <PricingOption
-                    name="XBRL filing required (full-set, non-consolidated)"
-                    tooltipContent="Required for companies with corporate shareholder(s)"
-                    price="S$350"
-                    withoutPlus={true}
-                  />
-                  <PricingOption
-                    name="XBRL filing required (full-set, consolidated) "
-                    tooltipContent="Required for holding companies with corporate shareholder(s)"
-                    price="S$450"
-                    withoutPlus={true}
-                  />
+
                 </div>
               </div>
             </div>
@@ -226,4 +240,4 @@ const mapDispatchToProps = (dispatch) => ({
   setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PricingDormant);
+export default connect(mapStateToProps, mapDispatchToProps)(PricingSecretary);

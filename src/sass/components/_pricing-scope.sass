@@ -123,6 +123,7 @@
 
     &-for
       font-size: 14px
+      min-height: 16px
       color: $fontColorGray
     &-starting
       font-size: 10px
@@ -130,6 +131,10 @@
       margin-bottom: 8px
     &--mobile
       display: none
+    .Select
+      text-align: left
+      margin-top: 15px
+      min-width: 110px
   &__tooltip
     position: absolute
     right: 0
@@ -175,6 +180,20 @@
       padding-left: 10px
       padding-right: 10px
       +text-overflow
+  &__promo
+    margin-top: 35px
+    font-size: 12px
+    line-height: 1.67
+    text-align: center
+    color: $fontColorGray
+    background: #f6f7fb
+    padding: 16px 15px 14px
+    border-radius: 3px
+    margin-left: -25px
+    margin-right: -25px
+    span
+      color: $colorBlue
+      font-weight: 500
 
   &__more
     text-align: center

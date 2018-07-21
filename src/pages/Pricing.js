@@ -9,6 +9,7 @@ import Select from 'react-select';
 import GetStartedBottom from '../components/GetStartedBottom';
 
 import PricingCore from '../containers/PricingCore';
+import PricingSecretary from '../containers/PricingSecretary';
 import PricingIncorp from '../containers/PricingIncorp';
 import PricingDormant from '../containers/PricingDormant';
 import PricingCustom from '../containers/PricingCustom';
@@ -103,6 +104,7 @@ class Pricing extends Component {
         { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
 
         <Route exact={true} path="/pricing" component={PricingCore} />
+        <Route path="/pricing/secretary" component={PricingSecretary} />
         <Route path="/pricing/incorporation" component={PricingIncorp} />
         <Route path="/pricing/dormant" component={PricingDormant} />
         <Route path="/pricing/custom" component={PricingCustom} />

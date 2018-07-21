@@ -30,6 +30,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
+    "pluralize": "^7.0.0",
     "postcss-animation": "^0.0.12",
     "postcss-easings": "^1.0.1",
     "postcss-flexbugs-fixes": "^3.3.1",
