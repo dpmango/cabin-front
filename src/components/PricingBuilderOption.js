@@ -13,7 +13,7 @@ export default class PricingBuilderOption extends Component {
 
   componentDidMount() {
     // create refs for first option
-    // to be called ouside this componenet as method    
+    // to be called ouside this componenet as method
     if ( this.props.index === 0 ){
       this.props.onRef(this)
     }
@@ -24,16 +24,10 @@ export default class PricingBuilderOption extends Component {
     }
   }
 
-  computeClickHandler = () => {
-
+  computeClickHandler = (isSyntetic) => {
     const { index, name, price } = this.props;
 
-    // let curTarget = e.currentTarget
-    // let curIndex = Number(curTarget.getAttribute('data-index'));
-    // let curName = curTarget.getAttribute('data-name');
-    // let curPrice = curTarget.getAttribute('data-price');
-
-    this.props.clickHandler(index, name, price)
+    this.props.clickHandler(index, name, price, isSyntetic)
   }
 
 
@@ -49,7 +43,7 @@ export default class PricingBuilderOption extends Component {
     const { name, price, pricePer, index, isActiveOption } = this.props;
 
     return(
-      <div className="p-builder-option" data-index={index} data-name={name} data-price={price} onClick={this.computeClickHandler}>
+      <div className="p-builder-option" onClick={this.computeClickHandler.bind(this, false)}>
         <div className={"p-builder-option__wrapper " + (isActiveOption ? "is-selected" : " ")}>
           <div className="p-builder-option__head">
             <div className="p-builder-option__name">{this.renderName(name).split('<br />').map((item, key) => <span key={key}>{item}</span>)}

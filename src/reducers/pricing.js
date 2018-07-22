@@ -2,7 +2,7 @@ import * as types from '../store/ActionTypes';
 
 const initialState = {
   selectedPlan: '',
-  builderSection: 1,
+  firstSectionSelected: false,
   pricingOptions: [],
   pricingOptionsSub: [],
   slider: null
@@ -20,7 +20,7 @@ const pricing = (state = initialState, action) => {
     case types.SET_PRICING_SECTION:
       return {
         ...state,
-        builderSection: action.payload,
+        firstSectionSelected: action.payload,
       }
 
     case types.ADD_PRICING_OPTION:

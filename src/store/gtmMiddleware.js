@@ -7,7 +7,6 @@ const DATA_LAYER_CONTAINER = 'dataLayer';
 const _dataLayer = window[DATA_LAYER_CONTAINER] || [];
 
 const _gtm = window.google_tag_manager ? window.google_tag_manager['GTM-N6T8GZP'] : null //replace with your container Id
-console.log('gtm instance', _gtm)
 
 export default ({ getState }) => {
   return (next) => (action) => {

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER } from '../store/ActionTypes';
+import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER, SET_PRICING_SECTION } from '../store/ActionTypes';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import { Tooltip } from 'react-tippy';
+import ScrollTo from '../services/ScrollTo';
+import SvgIcon from '../components/SvgIcon';
 
 import PricingSliderDb from '../store/PricingSliderDb'
-
 import PricingBuilderOption from '../components/PricingBuilderOption';
 import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
-import SvgIcon from '../components/SvgIcon';
 
 class PricingBuilderBox extends Component {
 
@@ -19,7 +19,7 @@ class PricingBuilderBox extends Component {
     price: PropTypes.string,
     pricePer: PropTypes.string,
     priceStartingFrom: PropTypes.bool,
-    helpText: PropTypes.string,
+    helpText: PropTypes.obj,
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
@@ -32,7 +32,8 @@ class PricingBuilderBox extends Component {
     addPricingOptionSub: PropTypes.func,
     removePricingOptionSub: PropTypes.func,
     removeAllPricingOptionsSub: PropTypes.func,
-    setPricingSlider: PropTypes.func
+    setPricingSlider: PropTypes.func,
+    setPricingSection: PropTypes.func
   };
 
   constructor(props){
@@ -41,6 +42,7 @@ class PricingBuilderBox extends Component {
     this.activeBoxInState = props.pricingOptionsState.some( x => x.id === props.id)
     this.activeOptionIdInState = null;
 
+    this.boxRef = React.createRef();
 
     if ( props.rangeSlider === true ){
       this.sliderValInState = props.pricingSliderState
@@ -95,7 +97,7 @@ class PricingBuilderBox extends Component {
       // emulate click to add first SubOption
       // * if any and if not active present
       if ( !isRequired && this.optionChild && this.state.activeOptionId === null ){
-        this.optionChild.computeClickHandler();
+        this.optionChild.computeClickHandler(true);
       }
 
       // enable slider also
@@ -157,14 +159,31 @@ class PricingBuilderBox extends Component {
 
   }
 
-  pricingOptionClickHandler = (curIndex, curName, curPrice) => {
+  pricingOptionClickHandler = (curIndex, curName, curPrice, isSynteticClick) => {
     // options calculated inside PricingBuilderOption
     if ( this.state.activeOptionId !== curIndex ){ // do nothing clicking active el
       this.changeOtions(true,{
         curIndex, curName, curPrice
       })
+
+      if ( !isSynteticClick ){
+        this.scrollToBoxBottom();
+      }
+
+      if ( this.props.isRequired ){
+        // when isReguired (first section) is selected - always true
+        // as we can't deselect required option
+        this.props.setPricingSection(true)
+      }
     }
 
+  }
+
+  scrollToBoxBottom = () => {
+    const docElement = document.scrollingElement || document.documentElement
+    const boxRefPos = this.boxRef.current.getBoundingClientRect()
+    const bottomFromBox = boxRefPos.top + boxRefPos.height + docElement.scrollTop - 80
+    ScrollTo(bottomFromBox, 1000)
   }
 
   // Slider functions
@@ -197,7 +216,7 @@ class PricingBuilderBox extends Component {
     const { activeOptionId, sliderVal, sliderValPrice } = this.state;
 
     return(
-      <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")}>
+      <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")} ref={this.boxRef}>
         { isAddon &&
           <div className="p-builder-box__addon" onClick={this.changeOtions}>
             + ADD-ON
@@ -321,6 +340,7 @@ const mapDispatchToProps = (dispatch) => ({
   removePricingOptionSub: (data) => dispatch({ type: REMOVE_PRICING_OPTION_SUB, payload: data }),
   removeAllPricingOptionsSub: (data) => dispatch({ type: REMOVE_ALL_PRICING_OPTIONS_SUB }),
   setPricingSlider: (data) => dispatch({ type: SET_PRICING_SLIDER, payload: data }),
+  setPricingSection: (data) => dispatch({ type: SET_PRICING_SECTION, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderBox);
