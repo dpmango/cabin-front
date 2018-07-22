@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { ADD_TO_DATALAYER } from '../store/ActionTypes';
+import { ADD_TO_DATALAYER, RESET_DATALAYER } from '../store/ActionTypes';
 // import GoogleTagManager from '../components/GoogleTagManager';
 import SvgIcon from '../components/SvgIcon';
 
@@ -12,7 +12,9 @@ class SignupStep5 extends Component {
     signupEmail: PropTypes.string,
     signupFields: PropTypes.object,
     signupRandomId: PropTypes.string,
-    pricingPlan: PropTypes.string
+    pricingPlan: PropTypes.string,
+    resetDataLayer: PropTypes.func,
+    addToDataLayer: PropTypes.func
   }
 
   constructor() {
@@ -26,6 +28,7 @@ class SignupStep5 extends Component {
     const { signupId, signupEmail, signupRandomId, signupFields, pricingPlan } = this.props;
 
     const gtmEvent = {
+      event: 'gtm.getStartedCompleted',
       lead: {
         leadId: signupRandomId,
         leadFields: {
@@ -35,12 +38,12 @@ class SignupStep5 extends Component {
           company_name: signupFields.company_name,
           phone: signupFields.phone,
           email: signupEmail,
-          company_industry: signupFields.company_industry,
-          company_old: signupFields.company_old,
-          company_employees: signupFields.company_employees,
+          company_industry: signupFields.company_industry.value,
+          company_old: signupFields.company_old.value,
+          company_employees: signupFields.company_employees.value,
           selected_plan: pricingPlan,
-          meeting_date: signupFields.meeting_date,
-          meeting_time: signupFields.meeting_time,
+          meeting_date: signupFields.meeting_date_local,
+          meeting_time: signupFields.meeting_time_local,
           email_instead: signupFields.email_instead
         }
       }
@@ -103,6 +106,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  resetDataLayer: () => dispatch({ type: RESET_DATALAYER }),
   addToDataLayer: (data) => dispatch({ type: ADD_TO_DATALAYER, data })
 });
 

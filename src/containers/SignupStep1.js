@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP, ADD_TO_DATALAYER } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, ADD_TO_DATALAYER, RESET_DATALAYER } from '../store/ActionTypes';
 // import { pushToDataLayer } from '../reducers/gtm';
 // import GoogleTagManager from '../components/GoogleTagManager';
 import SvgIcon from '../components/SvgIcon';
@@ -9,15 +9,19 @@ import SvgIcon from '../components/SvgIcon';
 class SignupStep1 extends Component {
   static propTypes = {
     setSignupStep: PropTypes.func,
-    signupRandomId: PropTypes.string
+    signupRandomId: PropTypes.string,
+    resetDataLayer: PropTypes.func,
+    addToDataLayer: PropTypes.func
   };
 
   componentDidMount(){
     const gtmEvent = {
+      event: 'gtm.getStartedInitiated',
       lead: {
         leadId: this.props.signupRandomId
       }
     }
+    this.props.resetDataLayer();
     this.props.addToDataLayer(gtmEvent);
   }
 
@@ -69,6 +73,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  resetDataLayer: () => dispatch({ type: RESET_DATALAYER }),
   addToDataLayer: (data) => dispatch({ type: ADD_TO_DATALAYER, data })
 });
 

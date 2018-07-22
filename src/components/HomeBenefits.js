@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import debounce from 'lodash/debounce';
 import Swiper from 'react-id-swiper';
-import { Tooltip } from 'react-tippy';
-import SvgIcon from '../components/SvgIcon';
+// import { Tooltip } from 'react-tippy';
+// import SvgIcon from '../components/SvgIcon';
 
 import HomeBenefitsList from '../components/HomeBenefitsList';
 import Testimonial from '../components/Testimonial';
