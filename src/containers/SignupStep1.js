@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP } from '../store/ActionTypes';
-
-import GoogleTagManager from '../components/GoogleTagManager';
+import { SET_SIGNUP_STEP, ADD_TO_DATALAYER } from '../store/ActionTypes';
+// import { pushToDataLayer } from '../reducers/gtm';
+// import GoogleTagManager from '../components/GoogleTagManager';
 import SvgIcon from '../components/SvgIcon';
 
 class SignupStep1 extends Component {
@@ -12,24 +12,26 @@ class SignupStep1 extends Component {
     signupRandomId: PropTypes.string
   };
 
+  componentDidMount(){
+    const gtmEvent = {
+      lead: {
+        leadId: this.props.signupRandomId
+      }
+    }
+    this.props.addToDataLayer(gtmEvent);
+  }
+
   nextStep = () => {
     this.props.setSignupStep(2);
   }
 
   render(){
-    const gtmEvent = {
-      leadId: this.props.signupRandomId,
-      lead: {
-
-      }
-    }
     return(
       <div className="container">
-        <GoogleTagManager
+        {/* <GoogleTagManager
           gtmId='GTM-N6T8GZP'
-          dataLayerName="leadCaptured"
           additionalEvents={gtmEvent}
-        />
+        /> */}
         { /* to do - set delay to fade out before page transition? */ }
         <div className="signup__box" data-aos="fade">
           <div className="signup__intro">
@@ -66,7 +68,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data })
+  setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
+  addToDataLayer: (data) => dispatch({ type: ADD_TO_DATALAYER, data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupStep1);

@@ -12,7 +12,7 @@ import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
 import PricingTableTr from '../components/PricingTableTr';
 
-class PricingCore extends Component {
+class PricingAccounting extends Component {
   static propTypes = {
 
   };
@@ -467,4 +467,4 @@ const mapDispatchToProps = (dispatch) => ({
   setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PricingCore);
+export default connect(mapStateToProps, mapDispatchToProps)(PricingAccounting);
