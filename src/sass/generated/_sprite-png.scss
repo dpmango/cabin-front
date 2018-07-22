@@ -154,7 +154,7 @@ $sprite: (
 	),
 	optionBox: (
 		offset-x: -405px,
-		offset-y: -148px,
+		offset-y: -261px,
 		width: 28px,
 		height: 29px,
 		total-width: 513px,
@@ -166,6 +166,15 @@ $sprite: (
 		offset-y: 0px,
 		width: 89px,
 		height: 67px,
+		total-width: 513px,
+		total-height: 391px,
+		image: '../images/sprite.png'
+	),
+	pricing-annual-reporting-table: (
+		offset-x: -405px,
+		offset-y: -300px,
+		width: 23px,
+		height: 26px,
 		total-width: 513px,
 		total-height: 391px,
 		image: '../images/sprite.png'
@@ -215,6 +224,15 @@ $sprite: (
 		total-height: 391px,
 		image: '../images/sprite.png'
 	),
+	pricing-full-stack-table: (
+		offset-x: -405px,
+		offset-y: -148px,
+		width: 23px,
+		height: 53px,
+		total-width: 513px,
+		total-height: 391px,
+		image: '../images/sprite.png'
+	),
 	pricing-full-stack: (
 		offset-x: -405px,
 		offset-y: 0px,
@@ -226,7 +244,7 @@ $sprite: (
 	),
 	pricing-incorp-lean: (
 		offset-x: -331px,
-		offset-y: -138px,
+		offset-y: 0px,
 		width: 64px,
 		height: 59px,
 		total-width: 513px,
@@ -244,9 +262,18 @@ $sprite: (
 	),
 	pricing-incorp-value: (
 		offset-x: -331px,
-		offset-y: 0px,
+		offset-y: -138px,
 		width: 64px,
 		height: 59px,
+		total-width: 513px,
+		total-height: 391px,
+		image: '../images/sprite.png'
+	),
+	pricing-monthly-reporting-table: (
+		offset-x: -405px,
+		offset-y: -211px,
+		width: 23px,
+		height: 40px,
 		total-width: 513px,
 		total-height: 391px,
 		image: '../images/sprite.png'
@@ -391,6 +418,9 @@ $sprite: (
 	.icon-pricing-allin {
 		@include sprite(pricing-allin)
 	}
+	.icon-pricing-annual-reporting-table {
+		@include sprite(pricing-annual-reporting-table)
+	}
 	.icon-pricing-annual-reporting {
 		@include sprite(pricing-annual-reporting)
 	}
@@ -406,6 +436,9 @@ $sprite: (
 	.icon-pricing-dormant {
 		@include sprite(pricing-dormant)
 	}
+	.icon-pricing-full-stack-table {
+		@include sprite(pricing-full-stack-table)
+	}
 	.icon-pricing-full-stack {
 		@include sprite(pricing-full-stack)
 	}
@@ -417,6 +450,9 @@ $sprite: (
 	}
 	.icon-pricing-incorp-value {
 		@include sprite(pricing-incorp-value)
+	}
+	.icon-pricing-monthly-reporting-table {
+		@include sprite(pricing-monthly-reporting-table)
 	}
 	.icon-pricing-monthly-reporting {
 		@include sprite(pricing-monthly-reporting)

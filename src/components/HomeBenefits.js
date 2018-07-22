@@ -152,14 +152,14 @@ class TabContent1 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Incorporate your company within 24 hours
+            Incorporate your company in 24 hours
           </h3>
           <p className="t-paragraph for-mobile">Do so remotely and fully guided by one of our thoughtful staff</p>
           <HomeBenefitsList activeIndex="1" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Incorporate your company within 24 hours
+            Incorporate your company in 24 hours
           </h3>
           <p className="t-paragraph">Do so remotely and fully guided by one of our thoughtful staff</p>
           <Testimonial

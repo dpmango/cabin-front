@@ -228,20 +228,20 @@ class PricingAccounting extends Component {
 
                     <div className="pricing-table__td">
                       <div className="pricing-table__head">
-                        <i className="icon icon-pricing-annual-reporting" />
+                        <i className="icon icon-pricing-annual-reporting-table" />
                         <div className="pricing-table__head-name">Annual Reporting</div>
                       </div>
                     </div>
                     <div className="pricing-table__td">
                       <div className="pricing-table__head pricing-table__head--popular">
-                        <i className="icon icon-pricing-monthly-reporting" />
-                        <div className="pricing-table__head-name">Monthly Reporting</div>
+                        <i className="icon icon-pricing-monthly-reporting-table" />
+                        <div className="pricing-table__head-name">Monthly <br/>Reporting</div>
                         <div className="pricing-table__head-tag">Most Popular</div>
                       </div>
                     </div>
                     <div className="pricing-table__td">
                       <div className="pricing-table__head">
-                        <i className="icon icon-pricing-full-stack" />
+                        <i className="icon icon-pricing-full-stack-table" />
                         <div className="pricing-table__head-name">Customised <br/>Finance Team</div>
                       </div>
                     </div>

@@ -39,6 +39,7 @@
       // right: 4px
       right: 155px
       width: 155px
+      border-radius: 3px
       box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
 
   &__thead
@@ -47,6 +48,7 @@
     display: flex
     // justify-content: flex-end
     // align-items: flex-end
+
     &-wrapper
       position: relative
       display: flex
@@ -69,16 +71,30 @@
     .pricing-table__td
       width: 155px
       background: white
+      padding-top: 13px
+      padding-bottom: 13px
       &::after
         display: none
         // border-bottom: 0
 
       &:first-child
         border-top-left-radius: 3px
-      &:last-child
+        .pricing-table__head
+          height: calc(120px - 13px - 13px)
+          .icon
+            margin-top: 17px
+          &-name
+            margin-top: 18px
+      &:nth-child(2)
         border-top-left-radius: 3px
         border-top-right-radius: 3px
+      &:last-child
+        // border-top-left-radius: 3px
+        border-top-right-radius: 3px
         // transform: translateX(-4px)
+        padding-bottom: 0
+        .pricing-table__head
+          height: calc(120px - 13px)
 
 
   &__tbody
@@ -147,17 +163,17 @@
   &__head
     text-align: center
     .icon
-      transform: scale(.6)
+      // transform: scale(.6)
       // height: 60px
-      transform-origin: center top
+      // transform-origin: center top
       // filter: saturate(0)
     &-name
       font-size: 13px
       color: $fontColorGray
       line-height: 1.27
-      word-spacing: 100vw
-      min-height: 33px
-      margin-top: -15px
+      // word-spacing: 100vw
+      // min-height: 33px
+      margin-top: 15px
       margin-bottom: 10px
     &-tag
       font-size: 10px
@@ -172,21 +188,21 @@
       margin-left: -13px
       margin-right: -13px
     &--popular
-      padding-top: 17px
+      padding-top: 15px
       .icon
-        transform: scale(.7)
-        margin-top: -10px
-        margin-bottom: 10px
+        // transform: scale(.7)
+        // margin-top: -10px
+        // margin-bottom: 15px
         // filter: none
         // height: 62px
       .pricing-table__head
         &-name
           font-weight: 500
-          margin-top: -20px
+          // margin-top: -20px
           margin-left: -10px
           margin-right: -10px
           word-spacing: normal
-          margin-bottom: 0
+          // margin-bottom: 0
           color: $colorBlue
 
   &__tag
@@ -250,7 +266,8 @@
     border-bottom-right-radius: 3px
     // transform: translateX(-4px)
     // box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
-
+    &:last-child
+      background: transparent
 
 +r($desktop)
   .pricing-table
