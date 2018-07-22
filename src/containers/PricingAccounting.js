@@ -389,7 +389,7 @@ class PricingAccounting extends Component {
                   <span className="pricing-table__name">Statutory requirement by IRAS</span>
                 </div>
                 <div className="pricing-table-legend__cta">
-                  <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
+                  <Link to="/pricing/monthly" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
                 </div>
                 <div className="pricing-table-legend__cta">
                   <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>

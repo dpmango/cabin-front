@@ -71,7 +71,7 @@ class PricingIncorp extends Component {
                           <SvgIcon name="question-circle" />
                       </Tooltip>
                     </div>
-                    <div className="pricing-scope__price-for">Once off service</div>
+                    <div className="pricing-scope__price-for"></div>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">

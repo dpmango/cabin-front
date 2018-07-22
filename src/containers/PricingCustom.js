@@ -136,7 +136,7 @@ class PricingCustom extends Component {
           ]}
         />
 
-        <PricingBuilderSection
+        {/* <PricingBuilderSection
           sectionIndex={2}
           headerStep="Step 2"
           headerName="Corporate Secretary"
@@ -163,11 +163,11 @@ class PricingCustom extends Component {
               ]
             }
           ]}
-        />
+        /> */}
 
         <PricingBuilderSection
           sectionIndex={3}
-          headerStep="Step 3"
+          headerStep="Step 2"
           headerName="Day-to-day finance operations"
           headerDesc="Let Cabin do the hard work so you don’t have to"
 
@@ -332,7 +332,7 @@ class PricingCustom extends Component {
 
         <PricingBuilderSection
           sectionIndex={4}
-          headerStep="Step 4"
+          headerStep="Step 3"
           headerName="Complex accounting requirements"
           headerDesc="If your business has complex requirements, we will tailor a plan for you"
           boxes={[
