@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
 import FaqPanel from '../components/FaqPanel';
@@ -37,9 +36,6 @@ class PricingCustom extends Component {
 
     return (
       <React.Fragment>
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
 
         <div ref={this.heroRef} className="hero">
           <div className="hero__bg">
@@ -140,7 +136,7 @@ class PricingCustom extends Component {
           ]}
         />
 
-        <PricingBuilderSection
+        {/* <PricingBuilderSection
           sectionIndex={2}
           headerStep="Step 2"
           headerName="Corporate Secretary"
@@ -167,11 +163,11 @@ class PricingCustom extends Component {
               ]
             }
           ]}
-        />
+        /> */}
 
         <PricingBuilderSection
           sectionIndex={3}
-          headerStep="Step 3"
+          headerStep="Step 2"
           headerName="Day-to-day finance operations"
           headerDesc="Let Cabin do the hard work so you don’t have to"
 
@@ -336,7 +332,7 @@ class PricingCustom extends Component {
 
         <PricingBuilderSection
           sectionIndex={4}
-          headerStep="Step 4"
+          headerStep="Step 3"
           headerName="Complex accounting requirements"
           headerDesc="If your business has complex requirements, we will tailor a plan for you"
           boxes={[
@@ -402,7 +398,7 @@ class PricingCustom extends Component {
 
         />
 
-        <PricingFloatNav heroHeight={this.state.heroHeight} />
+        <PricingFloatNav planName="Customised Finance Team" heroHeight={this.state.heroHeight} />
 
         <div className="faq">
           <div className="t-center">

@@ -71,7 +71,7 @@ class PricingIncorp extends Component {
                           <SvgIcon name="question-circle" />
                       </Tooltip>
                     </div>
-                    <div className="pricing-scope__price-for">per year</div>
+                    <div className="pricing-scope__price-for"></div>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -105,7 +105,7 @@ class PricingIncorp extends Component {
                         {
                           fragment:
                             <React.Fragment>
-                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate secretary </Link> plan
+                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate Secretary </Link> plan
                             </React.Fragment>
                         }
                       ]
@@ -158,13 +158,13 @@ class PricingIncorp extends Component {
                         {
                           fragment:
                             <React.Fragment>
-                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate secretary </Link> plan
+                              1-year <Link to="/pricing/secretary" onClick={ScrollTo.bind(this, 0, 300)}> Corporate Secretary </Link> plan
                             </React.Fragment>
                         },
                         {
                           fragment:
                             <React.Fragment>
-                              1-year <Link to="/pricing" onClick={ScrollTo.bind(this, 0, 300)}> Annual reporting </Link> plan
+                              1-year <Link to="/pricing" onClick={ScrollTo.bind(this, 0, 300)}> Annual Reporting </Link> plan
                             </React.Fragment>
                         }
                       ]

@@ -33,9 +33,8 @@ class Header extends React.Component {
     const singaporeTime = moment().tz("Asia/Singapore")
     const weekDay = singaporeTime.weekday()
     const timeHHmm = singaporeTime.format("HH:mm")
-
     if (
-      (weekDay !== 6 && weekDay !== 7)
+      (weekDay !== 6 && weekDay !== 0)
       &&
       ( convertTimeStr(timeHHmm) >= convertTimeStr("9:30") &&
         convertTimeStr(timeHHmm) <= convertTimeStr("18:30")

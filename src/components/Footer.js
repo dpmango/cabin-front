@@ -15,6 +15,7 @@ export default class Footer extends Component {
               <div className="footer__col">
                 <span>Filing Agent Number: FA20170616</span>
                 <span>UEN: 201714875M</span>
+                <span>Email: <a href="mailto:hello@cabin.com.sg">hello@cabin.com.sg</a></span>
               </div>
               <div className="footer__col">
                 <span>115A Commonwealth Drive</span>

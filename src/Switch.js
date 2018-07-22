@@ -17,7 +17,7 @@ class RenderSwitch extends React.Component {
     setSignupStep: PropTypes.func,
     setSignupFields: PropTypes.func
   };
-  
+
   constructor(){
     super()
     this.aos = AOS
@@ -38,7 +38,8 @@ class RenderSwitch extends React.Component {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       if (
         (curPathSplit[1] !== prevPathSplit[1] ) ||
-        (curPathSplit[2] === "custom" || prevPathSplit[2] === "custom" )
+        (curPathSplit[2] === "custom" || prevPathSplit[2] === "custom" ) || 
+        (curPathSplit[2] === "monthly" || prevPathSplit[2] === "monthly" )
       ){
         ScrollTo(0, 300);
       }

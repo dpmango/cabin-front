@@ -12,7 +12,7 @@ import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
 import PricingTableTr from '../components/PricingTableTr';
 
-class PricingCore extends Component {
+class PricingAccounting extends Component {
   static propTypes = {
 
   };
@@ -63,16 +63,18 @@ class PricingCore extends Component {
                   </div>
                   <div className="pricing-scope__names">
                     <div className="pricing-scope__name">Annual Reporting</div>
-                    <div className="pricing-scope__description"><span>Basic plan to cover your annual reporting requirements to ACRA and IRAS</span></div>
+                    <div className="pricing-scope__description"><span>Basic plan to cover all your annual reporting requirements to ACRA and IRAS</span></div>
                   </div>
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        "Support for AGM documents preparation"
                       ]
                     ]}
                   />
@@ -80,7 +82,7 @@ class PricingCore extends Component {
                     <div className="pricing-scope__price-starting">From</div>
                     <div className="pricing-scope__price-main">S$750
                       <Tooltip
-                        title="Indicative rate for a standard company, price might increase for additional complexities. Speak to us for a quote based on your company’s requirements."
+                        title="Indicative rate for a standard company. Additional charges might apply for complex business or disclosure requirements. Speak to us for a quote based on your company’s requirements."
                         position="top"
                         distance="10"
                         arrow="true">
@@ -119,13 +121,16 @@ class PricingCore extends Component {
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
-                        "Monthly management reports",
-                        "Quarterly GST computation and F5 submission (if required)"
+                        "Support for AGM documents preparation",
+                        "<strong>Monthly management reports</strong>",
+                        "<strong>Monthly scorecard of key financial metrics</strong>",
+                        "<strong>Quarterly GST computation and submission</strong>"
                       ]
                     ]}
                   />
@@ -137,7 +142,7 @@ class PricingCore extends Component {
                   </div>
 
                   <div className="pricing-scope__more">
-                    <Link to="/pricing/custom" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
+                    <Link to="/pricing/monthly" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -165,16 +170,19 @@ class PricingCore extends Component {
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
+                        "Support for AGM documents preparation",
                         "Monthly management reports",
-                        "Quarterly GST computation and F5 submission (if required)",
-                        "Accounts payable and receivable service",
-                        "Payroll and staff expense claims",
-                        "Complex accounting requirements"
+                        "Monthly scorecard of key financial metrics",
+                        "Quarterly GST computation and submission",
+                        "<strong>Accounts payable and receivable service</strong>",
+                        "<strong>Payroll and staff expense claims</strong>",
+                        "<strong>Complex accounting requirements</strong>"
                       ]
                     ]}
                   />
@@ -278,6 +286,13 @@ class PricingCore extends Component {
                     ]}
                   />
                   <PricingTableTr
+                    tag="ACRA"
+                    name="Support for Annual General Meeting documents preparation"
+                    checks={[
+                      true, true, true
+                    ]}
+                  />
+                  <PricingTableTr
                     name="Tax optimisation and planning"
                     tooltipContent="Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donation claims to fully utilise your tax allowance."
                     checks={[
@@ -302,7 +317,7 @@ class PricingCore extends Component {
                     ]}
                   />
                   <PricingTableTr
-                    name="GST filing and quarterly F5 submission"
+                    name="Quarterly GST computation and F5 submission"
                     checks={[
                       false, true, true
                     ]}
@@ -374,7 +389,7 @@ class PricingCore extends Component {
                   <span className="pricing-table__name">Statutory requirement by IRAS</span>
                 </div>
                 <div className="pricing-table-legend__cta">
-                  <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
+                  <Link to="/pricing/monthly" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
                 </div>
                 <div className="pricing-table-legend__cta">
                   <Link to="/pricing/custom" className="learn-more">Learn more <SvgIcon name="right-arrow" /></Link>
@@ -397,14 +412,14 @@ class PricingCore extends Component {
                 <div className="pricing-options__section">
                   <PricingOption
                     name="GST Registration"
-                    tooltipContent="For companies with revenue more than S$1M in the last 12 month"
+                    tooltipContent="For companies with revenue more than S$1M revenue in the last 12 month"
                     price="S$300"
                     withoutPlus={true}
                   />
                   <PricingOption
-                    name="Complex matters"
-                    tooltipContent="Complex accounting and tax requirements"
-                    price="Get a Quote"
+                    name="Complex accounting and tax requirements"
+                    tooltipContent="For companies with group reporting, multiple business types, share options scheme, complex hire purchase scheme, or additional disclosures required"
+                    price="Varies"
                     priceSuf=""
                     pricePer=""
                   />
@@ -467,4 +482,4 @@ const mapDispatchToProps = (dispatch) => ({
   setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PricingCore);
+export default connect(mapStateToProps, mapDispatchToProps)(PricingAccounting);

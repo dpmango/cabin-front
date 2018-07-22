@@ -388,10 +388,8 @@ class SignupStep4 extends Component {
           <h2>Let me know when is a good time to reach out?</h2>
         </div>
         <div className="signup__right">
-          <div className="ui-group">
+          <div className="ui-group ui-group--labeled">
             <label htmlFor="">Let us know which plan you are interested in?</label>
-          </div>
-          <div className="ui-group">
             <Select
               name="selected_plan"
               searchable={false}
@@ -402,56 +400,57 @@ class SignupStep4 extends Component {
               options={this.mapArrToSelect(plansSelect)}
             />
           </div>
-          <div className="ui-group">
+          <div className="ui-group ui-group--labeled">
             <label htmlFor="">When is a good time for us give you a 15 minutes call to answer any questions you have?</label>
-          </div>
-          <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") + (validationMessage ? " has-error" : "") }>
-            <div className="signup__datetime-col">
-              <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
-                <SingleDatePicker
-                  date={date} // momentPropTypes.momentObj or null
-                  onDateChange={this.handleDateChange} // PropTypes.func.isRequired
-                  focused={focused} // PropTypes.bool
-                  placeholder="Select date"
-                  noBorder={true}
-                  block={true}
-                  hideKeyboardShortcutsPanel={true}
-                  // showDefaultInputIcon={true}
-                  customInputIcon={datePickerIcon}
-                  inputIconPosition="after"
-                  displayFormat="DD-MM-YYYY"
-                  anchorDirection="left"
-                  numberOfMonths={1}
-                  horizontalMargin={0}
-                  onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-                  id="datepicker" // PropTypes.string.isRequired,
-                  isOutsideRange={(date) => {
-                    if ( formatDate(date._d) < this.todayFormated ) {
-                      return true
-                    } else {
-                      let day = date._d.getDay()
-                      return (day === 6) || (day === 0) ? true : false
-                    }
-                  }}
+
+            <div className={ "signup__datetime " + (email_instead ? "is-disabled" : "") + (validationMessage ? " has-error" : "") }>
+              <div className="signup__datetime-col">
+                <div className={ focused ? 'signup__datepicker is-focused' : 'signup__datepicker' }>
+                  <SingleDatePicker
+                    date={date} // momentPropTypes.momentObj or null
+                    onDateChange={this.handleDateChange} // PropTypes.func.isRequired
+                    focused={focused} // PropTypes.bool
+                    placeholder="Select date"
+                    noBorder={true}
+                    block={true}
+                    hideKeyboardShortcutsPanel={true}
+                    // showDefaultInputIcon={true}
+                    customInputIcon={datePickerIcon}
+                    inputIconPosition="after"
+                    displayFormat="DD-MM-YYYY"
+                    anchorDirection="left"
+                    numberOfMonths={1}
+                    horizontalMargin={0}
+                    onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                    id="datepicker" // PropTypes.string.isRequired,
+                    isOutsideRange={(date) => {
+                      if ( formatDate(date._d) < this.todayFormated ) {
+                        return true
+                      } else {
+                        let day = date._d.getDay()
+                        return (day === 6) || (day === 0) ? true : false
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="signup__datetime-col">
+                <Select
+                  name="meeting_time"
+                  searchable={false}
+                  autosize={false}
+                  value={meeting_time}
+                  onChange={this.handleSelectChange.bind(this, 'meeting_time')}
+                  placeholder="Select time"
+                  noResultsText={meeting_time_blank}
+                  options={this.mapArrToSelectWithEnd(meeting_time_options)}
                 />
               </div>
-            </div>
-            <div className="signup__datetime-col">
-              <Select
-                name="meeting_time"
-                searchable={false}
-                autosize={false}
-                value={meeting_time}
-                onChange={this.handleSelectChange.bind(this, 'meeting_time')}
-                placeholder="Select time"
-                noResultsText={meeting_time_blank}
-                options={this.mapArrToSelectWithEnd(meeting_time_options)}
-              />
-            </div>
 
-          </div>
-          <div className="signup__datetime-hint">
-            Select time in your local timezone {this.clientTimeZoneOffsetVerbose}
+            </div>
+            <div className="signup__datetime-hint">
+              Select time in your local timezone {this.clientTimeZoneOffsetVerbose}
+            </div>
           </div>
 
 

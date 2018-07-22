@@ -83,18 +83,20 @@ class PricingDormant extends Component {
                 <PricingScopeList
                   list={[
                     [
-                      "Provision of a qualified person as your company secretary (12 months)",
+                      "Provision of a qualified person as your company secretary ",
                       "Safekeeping and updates to Company Registers",
                       "Preparation of Annual General Meeting (AGM) documents",
                       "Filing of Annual Return to ACRA",
-                      "WhatsApp group chat for advisory on corporate secretarial matters",
+                      "Fully paperless process powered by encrypted electronic signatures"
                     ],
                     [
-                      "Unaudited Annual Financial Statements",
+                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat",
+                      {
+                        name: "Unaudited Annual Financial Statements",
+                        tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                      },
                       "Annual corporate tax computation",
-                      "Filing of ECI and Form C-S with IRAS",
-                      "Compliant with Singapore Companies Act and Income Tax Act",
-                      "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                      "Filing of ECI and Form C-S with IRAS"
                     ]
                   ]}
                 />
@@ -162,17 +164,17 @@ class PricingDormant extends Component {
                     price="S$200"
                     pricePer="per year"
                   />
+                </div>
+              </div>
+              <div className="pricing-options__col">
+                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
+                <div className="pricing-options__section">
                   <PricingOption
                     name="Provision of Nominee Director"
                     tooltipContent="All companies are required to have one ordinarily resident director in Singapore (i.e. Singapore Citizen, PR, EntrePass holder, and selected approved EP holder). If you are a foreigner, we will provide a Nominee Director to help fulfil this requirement."
                     price="S$2000"
                     pricePer="per year"
                   />
-                </div>
-              </div>
-              <div className="pricing-options__col">
-                {/* <div className="pricing-options__section-name">Accounting and Tax</div> */}
-                <div className="pricing-options__section">
                   <PricingOption
                     name="Company closure"
                     tooltipContent="Striking off of company, assuming undisputed application. We will require the company to complete all outstanding AGM and AR filings, zero the balance sheet, and obtain tax clearance from IRAS before we can proceed with the striking off application."

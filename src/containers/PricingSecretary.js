@@ -7,7 +7,7 @@ import { GetStarted } from '../routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-// import ScrollTo from '../services/ScrollTo';
+import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
@@ -65,7 +65,7 @@ class PricingSecretary extends Component {
     const yearsSelect = [
       { value: '350', label: '1 year' },
       { value: '600', label: '2 years' },
-      { value: '900', label: '3 years' }
+      { value: '850', label: '3 years' }
     ]
 
     const faqContent = [
@@ -124,14 +124,15 @@ class PricingSecretary extends Component {
                     ],
                     [
                       "Filing of Annual Return to ACRA",
-                      "WhatsApp group chat for advisory on corporate secretarial matters"
+                      "Fully paperless process powered by encrypted electronic signatures",
+                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat"
                     ]
                   ]}
                 />
                 <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
-                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <span>Accounting and tax plan</span></div>
+                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div>
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
@@ -195,7 +196,7 @@ class PricingSecretary extends Component {
                   <PricingOption
                     name="Provision of registered address"
                     tooltipContent="Mail forwarding service will be provided upon request (S$10 per package + courier fees)"
-                    price="S$200"
+                    price="S$300"
                     pricePer="per year"
                   />
                   <PricingOption
