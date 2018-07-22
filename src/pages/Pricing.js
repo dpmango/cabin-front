@@ -13,6 +13,7 @@ import PricingSecretary from '../containers/PricingSecretary';
 import PricingIncorp from '../containers/PricingIncorp';
 import PricingDormant from '../containers/PricingDormant';
 import PricingCustom from '../containers/PricingCustom';
+import PricingMonthly from '../containers/PricingMonthly';
 
 class Pricing extends Component {
   static propTypes = {
@@ -49,6 +50,7 @@ class Pricing extends Component {
 
   render() {
     const { selectValue } = this.state;
+    const { location } = this.props;
 
     const heroRender = (
       <div className="hero">
@@ -97,17 +99,17 @@ class Pricing extends Component {
 
     return (
       <div className="pricing">
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
 
-        { this.props.location.pathname !== "/pricing/custom" ? heroRender : null }
+        { location.pathname !== "/pricing/custom" &&
+          location.pathname !== "/pricing/monthly"
+          ? heroRender : null }
 
         <Route exact={true} path="/pricing" component={PricingCore} />
         <Route path="/pricing/secretary" component={PricingSecretary} />
         <Route path="/pricing/incorporation" component={PricingIncorp} />
         <Route path="/pricing/dormant" component={PricingDormant} />
         <Route path="/pricing/custom" component={PricingCustom} />
+        <Route path="/pricing/monthly" component={PricingMonthly} />
 
         <GetStartedBottom />
 

@@ -80,7 +80,7 @@ class PricingCore extends Component {
                     <div className="pricing-scope__price-starting">From</div>
                     <div className="pricing-scope__price-main">S$750
                       <Tooltip
-                        title="Indicative rate for a standard company, price might increase for additional complexities. Speak to us for a quote based on your company’s requirements."
+                        title="Indicative rate for a standard company. Additional charges might apply for complex business or disclosure requirements. Speak to us for a quote based on your company’s requirements."
                         position="top"
                         distance="10"
                         arrow="true">
@@ -137,7 +137,7 @@ class PricingCore extends Component {
                   </div>
 
                   <div className="pricing-scope__more">
-                    <Link to="/pricing/custom" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
+                    <Link to="/pricing/monthly" className="learn-more">Detailed Pricing <SvgIcon name="right-arrow" /></Link>
                   </div>
                 </div>
                 <div className="pricing-scope__cta">
@@ -397,14 +397,14 @@ class PricingCore extends Component {
                 <div className="pricing-options__section">
                   <PricingOption
                     name="GST Registration"
-                    tooltipContent="For companies with revenue more than S$1M in the last 12 month"
+                    tooltipContent="For companies with revenue more than S$1M revenue in the last 12 month"
                     price="S$300"
                     withoutPlus={true}
                   />
                   <PricingOption
-                    name="Complex matters"
-                    tooltipContent="Complex accounting and tax requirements"
-                    price="Get a Quote"
+                    name="Complex accounting and tax requirements"
+                    tooltipContent="For companies with group reporting, multiple business types, share options scheme, complex hire purchase scheme, or additional disclosures required"
+                    price="Varies"
                     priceSuf=""
                     pricePer=""
                   />

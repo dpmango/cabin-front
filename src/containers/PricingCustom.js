@@ -402,7 +402,7 @@ class PricingCustom extends Component {
 
         />
 
-        <PricingFloatNav heroHeight={this.state.heroHeight} />
+        <PricingFloatNav planName="Customised Finance Team" heroHeight={this.state.heroHeight} />
 
         <div className="faq">
           <div className="t-center">

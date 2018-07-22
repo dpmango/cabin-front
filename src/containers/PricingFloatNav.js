@@ -13,7 +13,8 @@ class PricingFloatNav extends Component {
     heroHeight: PropTypes.number,
     pricingOptions: PropTypes.array,
     pricingOptionsSub: PropTypes.array,
-    setPricingPlan: PropTypes.func
+    setPricingPlan: PropTypes.func,
+    planName: PropTypes.string.isRequired
   };
 
   constructor(props){
@@ -50,7 +51,7 @@ class PricingFloatNav extends Component {
   };
 
   onGetStartedClick = () => {
-    this.props.setPricingPlan('Customised Finance Team');
+    this.props.setPricingPlan(this.props.planName);
   }
 
   getTotal = () => {
@@ -95,6 +96,7 @@ class PricingFloatNav extends Component {
   render(){
     // calculate Price summ
     const { isScrolledAfterHero } = this.state;
+    const { planName } = this.props;
     let summary = this.getTotal();
 
     return(
@@ -102,7 +104,7 @@ class PricingFloatNav extends Component {
         <div className="container container--narrow">
           <div className="pricing-float__wrapper">
             <div className="pricing-float__summary">
-              <span className="pricing-float__summary-holder">Your <strong>Customised Finance Team</strong> plan:</span>
+              <span className="pricing-float__summary-holder">Your <strong>{planName ? planName : "Custom plan"}</strong> plan:</span>
               <div className="pricing-float__summary-price">
                 <span>S${summary.price}</span>
                 <span>per month</span>

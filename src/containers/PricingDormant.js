@@ -87,7 +87,7 @@ class PricingDormant extends Component {
                       "Safekeeping and updates to Company Registers",
                       "Preparation of Annual General Meeting (AGM) documents",
                       "Filing of Annual Return to ACRA",
-                      "WhatsApp group chat for advisory on corporate secretarial matters",
+                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat",
                     ],
                     [
                       "Unaudited Annual Financial Statements",

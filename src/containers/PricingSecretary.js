@@ -65,7 +65,7 @@ class PricingSecretary extends Component {
     const yearsSelect = [
       { value: '350', label: '1 year' },
       { value: '600', label: '2 years' },
-      { value: '900', label: '3 years' }
+      { value: '850', label: '3 years' }
     ]
 
     const faqContent = [
@@ -124,7 +124,7 @@ class PricingSecretary extends Component {
                     ],
                     [
                       "Filing of Annual Return to ACRA",
-                      "WhatsApp group chat for advisory on corporate secretarial matters"
+                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat"
                     ]
                   ]}
                 />
@@ -195,7 +195,7 @@ class PricingSecretary extends Component {
                   <PricingOption
                     name="Provision of registered address"
                     tooltipContent="Mail forwarding service will be provided upon request (S$10 per package + courier fees)"
-                    price="S$200"
+                    price="S$300"
                     pricePer="per year"
                   />
                   <PricingOption
