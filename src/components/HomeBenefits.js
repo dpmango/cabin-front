@@ -152,14 +152,14 @@ class TabContent1 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Incorporate your company in less than 24 hours
+            Incorporate your company within 24 hours
           </h3>
           <p className="t-paragraph for-mobile">Do so remotely and fully guided by one of our thoughtful staff</p>
           <HomeBenefitsList activeIndex="1" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Incorporate your company in less than 24 hours
+            Incorporate your company within 24 hours
           </h3>
           <p className="t-paragraph">Do so remotely and fully guided by one of our thoughtful staff</p>
           <Testimonial
@@ -183,30 +183,16 @@ class TabContent2 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Appoint a corporate secretary to meet your ACRA requirement
-            <Tooltip
-              title="All companies are required to appoint a company secretary within 6 months of incorporation"
-              position="top"
-              distance="10"
-              arrow="true">
-              <SvgIcon name="question-circle" />
-            </Tooltip>
+            Appoint a corporate secretary
           </h3>
-          <p className="t-paragraph for-mobile">We will do a thorough sweep to make sure all the required statutory documents are in place</p>
+          <p className="t-paragraph for-mobile">All companies are required to appoint a company secretary within 6 months of incorporation</p>
           <HomeBenefitsList activeIndex="1" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Appoint a corporate secretary to meet your ACRA requirement
-            <Tooltip
-              title="All companies are required to appoint a company secretary within 6 months of incorporation"
-              position="top"
-              distance="10"
-              arrow="true">
-              <SvgIcon name="question-circle" />
-            </Tooltip>
+            Appoint a corporate secretary
           </h3>
-          <p className="t-paragraph">We will do a thorough sweep to make sure all the required statutory documents are in place</p>
+          <p className="t-paragraph">All companies are required to appoint a company secretary within 6 months of incorporation</p>
           <Testimonial
             content="Cabin makes everything <strong>super streamlined</strong>, is <strong>priced fairly</strong> and is probably the <strong>most modern corporate services provider</strong> ever. A breath of fresh air in an industry as old as the Company Act and where most other providers don't feel like they belong in the 21st century. Cabin's service has got us totally covered so we can focus our efforts on growth instead."
             authorName="CJ Leow"
@@ -228,14 +214,14 @@ class TabContent3 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Stay on top of your accounting and tax filings
+            Stay on top of your annual filings
           </h3>
           <p className="t-paragraph for-mobile">Have all your accounting and tax compliance covered</p>
           <HomeBenefitsList activeIndex="4" />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Stay on top of your accounting and tax filings
+            Stay on top of your annual filings
           </h3>
           <p className="t-paragraph">Have all your accounting and tax compliance covered</p>
           <Testimonial
@@ -290,16 +276,16 @@ class TabContent5 extends React.Component {
       <div className="home-benefits__content" data-aos="fade" data-aos-delay="250" data-aos-offset="-2000">
         <div className="home-benefits__content-left">
           <h3 className="for-mobile">
-            Pair your finance executive with Cabin
+            Have all your finance operations covered
           </h3>
-          <p className="t-paragraph for-mobile">When it is time to bring your finance operations in-house, we will pair with your finance executive to build the right finance processes</p>
+          <p className="t-paragraph for-mobile">Full-fledged and professional finance team, customised to your needs</p>
           <HomeBenefitsList activeIndex={10} />
         </div>
         <div className="home-benefits__content-right">
           <h3>
-            Pair your finance executive with Cabin
+            Have all your finance operations covered
           </h3>
-          <p className="t-paragraph">When it is time to bring your finance operations in-house, we will pair with your finance executive to build the right finance processes</p>
+          <p className="t-paragraph">Full-fledged and professional finance team, customised to your needs</p>
           <Testimonial
             content="Cabin has been a great finance partner for us. Their <strong>strong understanding of the fundamentals</strong> allowed them to <strong>easily adapt to tax and accounting complexities</strong> of a unique business like ours. They always encourage deep discussions about our business to find process improvement opportunities whenever possible. The <strong>collaboration with our internal Jakarta-based finance team has been seamless</strong> and we consider them as our smart and reliable finance partner for Singapore."
             authorName="Chris Halim"

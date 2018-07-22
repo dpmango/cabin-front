@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink, Route, Redirect } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
@@ -24,8 +23,8 @@ class Pricing extends Component {
     super(props);
 
     this.selectOptions = [
-      { value: '/pricing/accounting', label: 'Accounting & Tax' },
-      { value: '/pricing/secretary', label: 'Corporate Secretary' },
+      { value: '/pricing/accounting', label: 'Accounting and tax' },
+      { value: '/pricing/secretary', label: 'Corporate secretary' },
       { value: '/pricing/incorporation', label: 'Incorporation' },
       { value: '/pricing/dormant', label: 'Dormant company' }
     ]
@@ -68,10 +67,10 @@ class Pricing extends Component {
           <div className="container container--narrow">
             <div className="hero__nav-wrapper">
               <NavLink to="/pricing/accounting" className="hero__nav-el" activeClassName='is-active'>
-                Accounting & Tax
+                Accounting and tax
               </NavLink>
               <NavLink to="/pricing/secretary" className="hero__nav-el" activeClassName='is-active'>
-                Corporate Secretary
+                Corporate secretary
               </NavLink>
               <NavLink to="/pricing/incorporation" className="hero__nav-el" activeClassName='is-active'>
                 Incorporation

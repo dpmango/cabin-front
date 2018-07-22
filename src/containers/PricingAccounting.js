@@ -63,16 +63,18 @@ class PricingAccounting extends Component {
                   </div>
                   <div className="pricing-scope__names">
                     <div className="pricing-scope__name">Annual Reporting</div>
-                    <div className="pricing-scope__description"><span>Basic plan to cover your annual reporting requirements to ACRA and IRAS</span></div>
+                    <div className="pricing-scope__description"><span>Basic plan to cover all your annual reporting requirements to ACRA and IRAS</span></div>
                   </div>
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        "Support for AGM documents preparation"
                       ]
                     ]}
                   />
@@ -119,13 +121,16 @@ class PricingAccounting extends Component {
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
-                        "Monthly management reports",
-                        "Quarterly GST computation and F5 submission (if required)"
+                        "Support for AGM documents preparation",
+                        "<strong>Monthly management reports</strong>",
+                        "<strong>Monthly scorecard of key financial metrics</strong>",
+                        "<strong>Quarterly GST computation and submission</strong>"
                       ]
                     ]}
                   />
@@ -165,16 +170,19 @@ class PricingAccounting extends Component {
                   <PricingScopeList
                     list={[
                       [
-                        "Unaudited Annual Financial Statements",
+                        {
+                          name: "Unaudited Annual Financial Statements",
+                          tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
+                        },
                         "Annual corporate tax computation",
                         "Filing of ECI and Form C-S with IRAS",
-                        "Compliant with Singapore Companies Act and Income Tax Act",
-                        "Compliant with Singapore Financial Reporting Standards (SFRS)",
+                        "Support for AGM documents preparation",
                         "Monthly management reports",
-                        "Quarterly GST computation and F5 submission (if required)",
-                        "Accounts payable and receivable service",
-                        "Payroll and staff expense claims",
-                        "Complex accounting requirements"
+                        "Monthly scorecard of key financial metrics",
+                        "Quarterly GST computation and submission",
+                        "<strong>Accounts payable and receivable service</strong>",
+                        "<strong>Payroll and staff expense claims</strong>",
+                        "<strong>Complex accounting requirements</strong>"
                       ]
                     ]}
                   />
@@ -278,6 +286,13 @@ class PricingAccounting extends Component {
                     ]}
                   />
                   <PricingTableTr
+                    tag="ACRA"
+                    name="Support for Annual General Meeting documents preparation"
+                    checks={[
+                      true, true, true
+                    ]}
+                  />
+                  <PricingTableTr
                     name="Tax optimisation and planning"
                     tooltipContent="Cabin’s tax optimisation and planning service thoroughly combs through your financials to help maximise deductions. This includes planning your capital allowances, S14Q claims, and donation claims to fully utilise your tax allowance."
                     checks={[
@@ -302,7 +317,7 @@ class PricingAccounting extends Component {
                     ]}
                   />
                   <PricingTableTr
-                    name="GST filing and quarterly F5 submission"
+                    name="Quarterly GST computation and F5 submission"
                     checks={[
                       false, true, true
                     ]}

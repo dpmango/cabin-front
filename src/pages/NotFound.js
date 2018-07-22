@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
@@ -20,10 +19,6 @@ class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
-
         <div className="not-found">
           <div className="container container--narrow">
             <div className="not-found__wrapper">

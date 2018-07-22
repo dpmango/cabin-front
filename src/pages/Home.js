@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
@@ -24,18 +23,13 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
-
         <HomeHero />
         <HomeLogos />
         {/* <HomePromo /> */}
         <HomeBenefits aosInst={this.props.aosInst}/>
         <HomeFeatures />
-
+        
         <GetStartedBottom />
-
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
 import { connect } from 'react-redux';
 
 import FaqPanel from '../components/FaqPanel';
@@ -37,9 +36,6 @@ class PricingCustom extends Component {
 
     return (
       <React.Fragment>
-        <Helmet>
-          <title>Cabin</title>
-        </Helmet>
 
         <div ref={this.heroRef} className="hero">
           <div className="hero__bg">

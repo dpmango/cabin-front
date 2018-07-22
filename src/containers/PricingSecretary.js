@@ -7,7 +7,7 @@ import { GetStarted } from '../routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-// import ScrollTo from '../services/ScrollTo';
+import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
@@ -124,6 +124,7 @@ class PricingSecretary extends Component {
                     ],
                     [
                       "Filing of Annual Return to ACRA",
+                      "Fully paperless process powered by encrypted electronic signatures",
                       "Dedicated account manager accessible via email, phone, or WhatsApp group chat"
                     ]
                   ]}
@@ -131,7 +132,7 @@ class PricingSecretary extends Component {
                 <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
-                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <span>Accounting and tax plan</span></div>
+                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div>
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"

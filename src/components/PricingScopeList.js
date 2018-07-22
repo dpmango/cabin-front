@@ -14,10 +14,11 @@ export default class PricingScopeList extends Component {
 
     const renderElementName = (el) => {
       if ( typeof el !== "object" ){
+        const renderHtml = () => {
+          return {__html: el};
+        }
         return (
-          <span>
-            {el}
-          </span>
+          <span dangerouslySetInnerHTML={renderHtml()} />
         )
       } else {
         // when provided as fragment (with link)
