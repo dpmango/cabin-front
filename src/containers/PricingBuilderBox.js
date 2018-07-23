@@ -43,6 +43,7 @@ class PricingBuilderBox extends Component {
     this.activeOptionIdInState = null;
 
     this.boxRef = React.createRef();
+    this.optionsRef = React.createRef();
 
     if ( props.rangeSlider === true ){
       this.sliderValInState = props.pricingSliderState
@@ -68,6 +69,8 @@ class PricingBuilderBox extends Component {
 
   // master function with routing
   changeOtions = (fromOption, optionObj) => {
+    const { pricingOptions, rangeSlider } = this.props;
+
     if ( fromOption === true ){
       this.setState({isAddonActive: true}, () => {
         this.changePricingBox()
@@ -81,7 +84,11 @@ class PricingBuilderBox extends Component {
       })
     } else {
       this.setState({isAddonActive: !this.state.isAddonActive}, () => {
-        this.changePricingBox()
+        this.changePricingBox();
+        // scroll to options if any on activated
+        if ( this.state.isAddonActive && (rangeSlider || pricingOptions) ){
+          setTimeout(() => this.scrollToOptions(), 300) // timeout is for dom bindings (hidden block)
+        }
       })
     }
 
@@ -105,8 +112,6 @@ class PricingBuilderBox extends Component {
         this.rangeSliderChange(10);
         this.rangeSliderAfterChange(10)
       }
-
-
 
       const isAddedAlready = positionInStateArray !== -1
 
@@ -184,6 +189,14 @@ class PricingBuilderBox extends Component {
     const boxRefPos = this.boxRef.current.getBoundingClientRect()
     const bottomFromBox = boxRefPos.top + boxRefPos.height + docElement.scrollTop - 80
     ScrollTo(bottomFromBox, 1000)
+  }
+
+  scrollToOptions = () => {
+    const docElement = document.scrollingElement || document.documentElement
+    const optionsRefPos = this.optionsRef.current.getBoundingClientRect()
+    console.log(optionsRefPos, docElement.scrollTop)
+    const optionsTop = optionsRefPos.top + docElement.scrollTop - 80
+    ScrollTo(optionsTop, 1000)
   }
 
   // Slider functions
@@ -270,7 +283,7 @@ class PricingBuilderBox extends Component {
             + (isRequired ? "always-visible " : "" )
             + (isRequired && activeOptionId === null ? "is-required " : "")
             + (activeOptionId !== null ? "have-selected " : "")
-            }>
+          } ref={this.optionsRef} >
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
@@ -298,7 +311,7 @@ class PricingBuilderBox extends Component {
         { rangeSlider &&
           <div className={"p-builder-box__options "
             + (activeOptionId !== null ? "have-selected " : "")
-            }>
+            } ref={this.optionsRef}>
             <div className="p-builder-box-slider">
               <Slider
                 defaultValue={0}
