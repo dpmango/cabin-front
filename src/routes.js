@@ -12,6 +12,11 @@
 import Loadable from 'react-loadable';
 import Loader from './components/Loader';
 
+import PricingAccounting from './containers/PricingAccounting';
+import PricingSecretary from './containers/PricingSecretary';
+import PricingIncorp from './containers/PricingIncorp';
+import PricingDormant from './containers/PricingDormant';
+
 function MyLoadable(opts) {
   return Loadable(Object.assign({
     loading: Loader,
@@ -46,6 +51,7 @@ export const NotFound = MyLoadable({
   webpack: () => [require.resolveWeak('./pages/NotFound')]
 });
 
+
 export const routes = [
   {
     forNavBar: false,
@@ -56,6 +62,28 @@ export const routes = [
   },
   {
     forNavBar: true,
+    secondLevel: [
+      {
+        path: '/pricing/accounting',
+        name: 'Accounting and tax',
+        // component: PricingAccounting
+      },
+      {
+        path: '/pricing/secretary',
+        name: 'Corporate secretary',
+        // component: PricingSecretary
+      },
+      {
+        path: '/pricing/incorporation',
+        name: 'Incorporation',
+        // component: PricingIncorp
+      },
+      {
+        path: '/pricing/dormant',
+        name: 'Dormant company',
+        // component: PricingDormant
+      }
+    ],
     path: '/pricing',
     name: 'Pricing',
     component: Pricing
