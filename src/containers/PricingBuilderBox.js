@@ -86,8 +86,12 @@ class PricingBuilderBox extends Component {
       this.setState({isAddonActive: !this.state.isAddonActive}, () => {
         this.changePricingBox();
         // scroll to options if any on activated
-        if ( this.state.isAddonActive && (rangeSlider || pricingOptions) ){
-          setTimeout(() => this.scrollToOptions(), 300) // timeout is for dom bindings (hidden block)
+        if ( this.state.isAddonActive ) {
+          if (rangeSlider || pricingOptions ){
+            setTimeout(() => this.scrollToOptions(), 300) // timeout is for dom bindings (hidden block)
+          } else {
+            setTimeout(() => this.scrollToBoxBottom(), 300)
+          }
         }
       })
     }
@@ -172,7 +176,7 @@ class PricingBuilderBox extends Component {
       })
 
       if ( !isSynteticClick ){
-        this.scrollToBoxBottom();
+        setTimeout(() => this.scrollToBoxBottom(), 300)
       }
 
       if ( this.props.isRequired ){
