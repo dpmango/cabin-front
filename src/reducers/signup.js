@@ -18,6 +18,8 @@ export const initialState = {
     selected_plan: '',
     meeting_date: '',
     meeting_time: '',
+    meeting_date_local: '',
+    meeting_time_local: '',
     email_instead: false
   }
 }

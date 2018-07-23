@@ -19,10 +19,10 @@ class PricingSecretary extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selected_year: { value: '600', label: '2 years' },
+      selected_year: { value: '350', label: '1 year' },
       price_base: 350,
-      price: 600,
-      price_save: 100
+      price: 350,
+      price_save: 0
     }
   }
 

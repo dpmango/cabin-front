@@ -47,7 +47,7 @@ class PricingIncorp extends Component {
                   </div>
                   <div className="pricing-scope__names">
                     <div className="pricing-scope__name">Lean Incorporation</div>
-                    <div className="pricing-scope__description"><span>The basics to get your company started</span></div>
+                    <div className="pricing-scope__description"><span>The basics to get your <br/>company started</span></div>
                   </div>
                   <PricingScopeList
                     list={[

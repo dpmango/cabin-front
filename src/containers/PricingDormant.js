@@ -83,20 +83,20 @@ class PricingDormant extends Component {
                 <PricingScopeList
                   list={[
                     [
-                      "Provision of a qualified person as your company secretary ",
-                      "Safekeeping and updates to Company Registers",
-                      "Preparation of Annual General Meeting (AGM) documents",
-                      "Filing of Annual Return to ACRA",
-                      "Fully paperless process powered by encrypted electronic signatures"
-                    ],
-                    [
-                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat",
                       {
                         name: "Unaudited Annual Financial Statements",
                         tooltip: "Compliant with Singapore Financial Reporting Standards (SFRS)"
                       },
                       "Annual corporate tax computation",
-                      "Filing of ECI and Form C-S with IRAS"
+                      "Filing of ECI and Form C-S with IRAS",
+                      "Filing of Annual Return to ACRA",
+                      "Preparation of Annual General Meeting (AGM) documents"
+                    ],
+                    [
+                      "Provision of a qualified person as your company secretary ",
+                      "Safekeeping and updates to Company Registers",
+                      "Fully paperless process powered by encrypted electronic signatures",
+                      "Dedicated account manager accessible via email, phone, or WhatsApp group chat"
                     ]
                   ]}
                 />

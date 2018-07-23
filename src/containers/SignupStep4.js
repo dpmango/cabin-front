@@ -310,12 +310,19 @@ class SignupStep4 extends Component {
     if ( !email_instead ){
       const fTime = meeting_time.label.split(' -')[0]
       const [fTimeHour, fTimeMinute] = fTime.split(':');
-      const fDate = moment(meeting_date).hour(fTimeHour).minute(fTimeMinute).utc(); // for some reason utc is requred
+      const fDate = moment(meeting_date).hour(fTimeHour).minute(fTimeMinute); // for some reason utc is requred
       const fDateTimeZone = moment.tz(fDate.format("YYYY-MM-DD HH:mm"), moment.tz.guess())
       const SingaporeDate = fDateTimeZone.clone().tz("Asia/Singapore")
 
-      SingaporeDateDate = SingaporeDate.format("YYYY-MM-DD")
-      SingaporeDateTime = SingaporeDate.format("HH:mm")
+      SingaporeDateDate = SingaporeDate.format("YYYY-MM-DD");
+      SingaporeDateTime = SingaporeDate.format("HH:mm");
+
+      // update redux
+      this.props.setSignupFields({
+        ...this.props.signupFields,
+        meeting_date_local: SingaporeDateDate,
+        meeting_time_local: SingaporeDateTime
+      })
     }
 
     api

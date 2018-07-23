@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SET_PRICING_SECTION } from '../store/ActionTypes';
+// import { SET_PRICING_SECTION } from '../store/ActionTypes';
 import { Tooltip } from 'react-tippy';
 
 import ScrollTo from '../services/ScrollTo';
@@ -16,8 +16,8 @@ class PricingBuilderSection extends Component {
     headerTooltipContent: PropTypes.string,
     boxes: PropTypes.array,
     sectionIndex: PropTypes.number,
-    pricingBuilderSection: PropTypes.number,
-    setPricingSection: PropTypes.func
+    pricingBuilderSection: PropTypes.bool,
+    // setPricingSection: PropTypes.func
   };
 
   constructor(){
@@ -35,7 +35,7 @@ class PricingBuilderSection extends Component {
     const { headerStep, headerName, headerDesc, headerTooltipContent, boxes, pricingBuilderSection, sectionIndex } = this.props;
 
     return(
-      <div className={"p-builder" + (pricingBuilderSection >= sectionIndex ? " is-active" : "") } ref={this.sectionRef} data-index={sectionIndex}>
+      <div className={"p-builder" + ((sectionIndex === 1) || (pricingBuilderSection) ? " is-visible" : "") } ref={this.sectionRef} data-index={sectionIndex}>
         <div className="container container--narrow">
           <div className="p-builder__header">
             <div className="t-small">{headerStep}</div>
@@ -81,11 +81,11 @@ class PricingBuilderSection extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  pricingBuilderSection: state.pricing.builderSection,
+  pricingBuilderSection: state.pricing.firstSectionSelected,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setPricingSection: (data) => dispatch({ type: SET_PRICING_SECTION, payload: data }),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PricingBuilderSection);
