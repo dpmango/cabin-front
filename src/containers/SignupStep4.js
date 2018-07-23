@@ -328,7 +328,7 @@ class SignupStep4 extends Component {
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          isProduction: isProduction(),
+          isproduction: isProduction(),
           meeting_date: SingaporeDateDate,
           meeting_time: SingaporeDateTime,
           selected_plan: selected_plan ? selected_plan.label : null,
