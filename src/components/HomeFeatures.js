@@ -6,7 +6,7 @@ export default class HomeFeatures extends Component {
       <div className="home-features">
         <div className="container">
           <div className="t-center">
-            <span className="t-small">How are we different</span>
+            <span className="t-small">How we are different</span>
             <h2>Built for the modern business</h2>
           </div>
         </div>
