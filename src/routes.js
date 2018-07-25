@@ -12,10 +12,10 @@
 import Loadable from 'react-loadable';
 import Loader from './components/Loader';
 
-import PricingAccounting from './containers/PricingAccounting';
-import PricingSecretary from './containers/PricingSecretary';
-import PricingIncorp from './containers/PricingIncorp';
-import PricingDormant from './containers/PricingDormant';
+// import PricingAccounting from './containers/PricingAccounting';
+// import PricingSecretary from './containers/PricingSecretary';
+// import PricingIncorp from './containers/PricingIncorp';
+// import PricingDormant from './containers/PricingDormant';
 
 function MyLoadable(opts) {
   return Loadable(Object.assign({

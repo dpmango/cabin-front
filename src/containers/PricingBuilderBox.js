@@ -19,7 +19,7 @@ class PricingBuilderBox extends Component {
     price: PropTypes.string,
     pricePer: PropTypes.string,
     priceStartingFrom: PropTypes.bool,
-    helpText: PropTypes.obj,
+    // helpText: PropTypes.obj,
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
@@ -39,7 +39,9 @@ class PricingBuilderBox extends Component {
   constructor(props){
     super(props);
 
-    this.activeBoxInState = props.pricingOptionsState.some( x => x.id === props.id)
+    this.pagename = window.location.pathname.split('/')[2];
+
+    this.activeBoxInState = props.pricingOptionsState.some( x => (x.id === props.id) && (this.pagename === x.pagename))
     this.activeOptionIdInState = null;
 
     this.boxRef = React.createRef();
@@ -49,9 +51,10 @@ class PricingBuilderBox extends Component {
       this.sliderValInState = props.pricingSliderState
     } else if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
       props.pricingOptionsSubState.forEach((option) => {
-        if ( option.boxId === props.id ){
+        if ( (option.boxId === props.id) && (this.pagename === option.pagename) ){
+          // when matching the subOpt in state - check through options props
           props.pricingOptions.forEach( (x, index) => {
-            if( x.name === option.name ){
+            if( (x.name === option.name) ){
               this.activeOptionIdInState = index
             }
           })
@@ -60,6 +63,7 @@ class PricingBuilderBox extends Component {
     }
 
     this.state = {
+      pagename: this.pagename,
       isAddonActive: this.activeBoxInState,
       activeOptionId: this.activeOptionIdInState,
       sliderVal: this.sliderValInState,
@@ -102,8 +106,8 @@ class PricingBuilderBox extends Component {
   changePricingBox = () => {
 
     const { name, price, id, isRequired, pricingOptionsState } = this.props;
-    const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
-
+    const pagename = this.state.pagename;
+    const positionInStateArray = pricingOptionsState.map( x => x.id ).filter( x => x.pagename !== pagename).indexOf(id);
     if ( this.state.isAddonActive ){
       // emulate click to add first SubOption
       // * if any and if not active present
@@ -121,7 +125,7 @@ class PricingBuilderBox extends Component {
 
       if ( !isAddedAlready ){
         this.props.addPricingOption({
-          id, name, price
+          pagename, id, name, price
         })
       }
 
@@ -148,9 +152,10 @@ class PricingBuilderBox extends Component {
     this.clearAllOptions();
 
     const boxId = this.props.id;
+    const pagename = this.state.pagename
 
     this.props.addPricingOptionSub({
-      boxId, name, price
+      pagename, boxId, name, price
     })
 
   }
@@ -159,9 +164,10 @@ class PricingBuilderBox extends Component {
     // this.props.removeAllPricingOptionsSub();
 
     const { id, pricingOptionsSubState } = this.props;
+    const pagename = this.state.pagename;
 
     pricingOptionsSubState.forEach( (x, i) => {
-      if ( x.boxId === id ){
+      if ( (x.boxId === id) && (pagename === x.pagename) ){
         this.props.removePricingOptionSub(i)
       }
     })

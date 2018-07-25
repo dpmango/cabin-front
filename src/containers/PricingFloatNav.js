@@ -20,10 +20,13 @@ class PricingFloatNav extends Component {
   constructor(props){
     super(props);
 
+    this.pagename = window.location.pathname.split('/')[2];
+
     this.scrollWithThrottle = throttle(this.handleScroll, 200);
 
     this.state = {
-      isScrolledAfterHero: false
+      isScrolledAfterHero: false,
+      pagename: this.pagename
     }
 
   }
@@ -57,6 +60,7 @@ class PricingFloatNav extends Component {
   getTotal = () => {
 
     const { pricingOptions, pricingOptionsSub } = this.props;
+    const { pagename } = this.state;
     let calc = {
       price: 0,
       haveQuoteReguired: false
@@ -65,14 +69,16 @@ class PricingFloatNav extends Component {
     // add all suboptions first
     if ( pricingOptionsSub && pricingOptionsSub.length > 0 ){
       pricingOptionsSub.forEach( (sub) => {
-        calc.price += this.parsePrice(sub.price)
+        if ( sub.pagename === pagename ){
+          calc.price += this.parsePrice(sub.price)
+        }
       })
     }
 
     // watch if box without options present
     if ( pricingOptions && pricingOptions.length > 0 ){
       pricingOptions.forEach( (option) => {
-        if ( !pricingOptionsSub.some( x => x.boxId === option.id ) ){
+        if ( (option.pagename === pagename) && !pricingOptionsSub.some( x => x.boxId === option.id ) ){
           if ( this.parsePrice(option.price) === 0 ){
             // if price is 0 - than selected "quote required"
             calc.haveQuoteReguired = true;
