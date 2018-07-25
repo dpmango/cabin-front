@@ -9,6 +9,7 @@ import throttle from 'lodash/throttle';
 
 import { OPEN_MENU, CLOSE_MENU } from '../store/ActionTypes';
 import convertTimeStr from '../services/convertTimeStr';
+import SvgIcon from '../components/SvgIcon'
 
 class Header extends React.Component {
   static propTypes = {
@@ -119,9 +120,23 @@ class Header extends React.Component {
               </NavLink>
               { this.renderContacts() }
               <ul className="header__menu">
-                {routes.map(route =>
-                  <li key={route.path}>
+                {routes.map((route, i) =>
+                  <li key={i}>
                     <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    { route.secondLevel &&
+                      <React.Fragment>
+                        <SvgIcon name="select-arrow" />
+                        <div className="header__menu-second">
+                          <ul>
+                          {route.secondLevel.map((subroute, index) =>
+                            <li key={index}>
+                              <NavLink onClick={this.closeHamburger} activeClassName='is-active' to={subroute.path}>{subroute.name}</NavLink>
+                            </li>
+                          )}
+                          </ul>
+                        </div>
+                      </React.Fragment>
+                    }
                   </li>
                 )}
               </ul>
@@ -147,6 +162,15 @@ class Header extends React.Component {
                 {routes.map(route =>
                   <li key={route.path}>
                     <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    { route.secondLevel &&
+                      <ul>
+                      {route.secondLevel.map((subroute, index) =>
+                        <li key={index}>
+                          <NavLink onClick={this.closeHamburger} activeClassName='is-active' to={subroute.path}>{subroute.name}</NavLink>
+                        </li>
+                      )}
+                      </ul>
+                    }
                   </li>
                 )}
               </ul>

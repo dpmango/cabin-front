@@ -82,7 +82,7 @@ class SignupStep3 extends Component {
     api
       .patch('signup_leads/' + this.props.signupId, {
         signup_lead: {
-          isProduction: isProduction(),
+          isproduction: isProduction(),
           company_industry: company_industry.value,
           company_old: company_old.value,
           company_employees: company_employees.value,

@@ -98,9 +98,8 @@ class Pricing extends Component {
 
     return (
       <div className="pricing">
-
-        { location.pathname !== "/pricing/custom" &&
-          location.pathname !== "/pricing/monthly"
+        { location.pathname.indexOf("/pricing/custom") === -1 &&
+          location.pathname.indexOf("/pricing/monthly") === -1
           ? heroRender : null }
 
         <Route exact={true} path="/pricing" component={PricingRouter} />

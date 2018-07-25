@@ -19,7 +19,7 @@ class PricingBuilderBox extends Component {
     price: PropTypes.string,
     pricePer: PropTypes.string,
     priceStartingFrom: PropTypes.bool,
-    helpText: PropTypes.obj,
+    // helpText: PropTypes.obj,
     pricingOptions: PropTypes.array,
     boxList: PropTypes.array,
     isAddon: PropTypes.bool,
@@ -39,18 +39,22 @@ class PricingBuilderBox extends Component {
   constructor(props){
     super(props);
 
-    this.activeBoxInState = props.pricingOptionsState.some( x => x.id === props.id)
+    this.pagename = window.location.pathname.split('/')[2];
+
+    this.activeBoxInState = props.pricingOptionsState.some( x => (x.id === props.id) && (this.pagename === x.pagename))
     this.activeOptionIdInState = null;
 
     this.boxRef = React.createRef();
+    this.optionsRef = React.createRef();
 
     if ( props.rangeSlider === true ){
       this.sliderValInState = props.pricingSliderState
     } else if ( props.pricingOptionsSubState && props.pricingOptionsSubState.length > 0 ){
       props.pricingOptionsSubState.forEach((option) => {
-        if ( option.boxId === props.id ){
+        if ( (option.boxId === props.id) && (this.pagename === option.pagename) ){
+          // when matching the subOpt in state - check through options props
           props.pricingOptions.forEach( (x, index) => {
-            if( x.name === option.name ){
+            if( (x.name === option.name) ){
               this.activeOptionIdInState = index
             }
           })
@@ -59,6 +63,7 @@ class PricingBuilderBox extends Component {
     }
 
     this.state = {
+      pagename: this.pagename,
       isAddonActive: this.activeBoxInState,
       activeOptionId: this.activeOptionIdInState,
       sliderVal: this.sliderValInState,
@@ -68,6 +73,8 @@ class PricingBuilderBox extends Component {
 
   // master function with routing
   changeOtions = (fromOption, optionObj) => {
+    const { pricingOptions, rangeSlider } = this.props;
+
     if ( fromOption === true ){
       this.setState({isAddonActive: true}, () => {
         this.changePricingBox()
@@ -81,7 +88,15 @@ class PricingBuilderBox extends Component {
       })
     } else {
       this.setState({isAddonActive: !this.state.isAddonActive}, () => {
-        this.changePricingBox()
+        this.changePricingBox();
+        // scroll to options if any on activated
+        if ( this.state.isAddonActive ) {
+          if (rangeSlider || pricingOptions ){
+            setTimeout(() => this.scrollToOptions(), 300) // timeout is for dom bindings (hidden block)
+          } else {
+            setTimeout(() => this.scrollToBoxBottom(), 300)
+          }
+        }
       })
     }
 
@@ -90,9 +105,9 @@ class PricingBuilderBox extends Component {
   // box toggler (main option)
   changePricingBox = () => {
 
-    const { name, price, id, isRequired, pricingOptionsState } = this.props;
-    const positionInStateArray = pricingOptionsState.map( x => x.id ).indexOf(id);
-
+    const { name, price, id, isRequired, pricingOptionsState, rangeSlider } = this.props;
+    const pagename = this.state.pagename;
+    const positionInStateArray = pricingOptionsState.map( x => x.id ).filter( x => x.pagename !== pagename).indexOf(id);
     if ( this.state.isAddonActive ){
       // emulate click to add first SubOption
       // * if any and if not active present
@@ -101,18 +116,16 @@ class PricingBuilderBox extends Component {
       }
 
       // enable slider also
-      if ( this.state.sliderVal === null ){
+      if ( rangeSlider && this.state.sliderVal === null ){
         this.rangeSliderChange(10);
         this.rangeSliderAfterChange(10)
       }
-
-
 
       const isAddedAlready = positionInStateArray !== -1
 
       if ( !isAddedAlready ){
         this.props.addPricingOption({
-          id, name, price
+          pagename, id, name, price
         })
       }
 
@@ -139,9 +152,10 @@ class PricingBuilderBox extends Component {
     this.clearAllOptions();
 
     const boxId = this.props.id;
+    const pagename = this.state.pagename
 
     this.props.addPricingOptionSub({
-      boxId, name, price
+      pagename, boxId, name, price
     })
 
   }
@@ -150,9 +164,10 @@ class PricingBuilderBox extends Component {
     // this.props.removeAllPricingOptionsSub();
 
     const { id, pricingOptionsSubState } = this.props;
+    const pagename = this.state.pagename;
 
     pricingOptionsSubState.forEach( (x, i) => {
-      if ( x.boxId === id ){
+      if ( (x.boxId === id) && (pagename === x.pagename) ){
         this.props.removePricingOptionSub(i)
       }
     })
@@ -167,7 +182,7 @@ class PricingBuilderBox extends Component {
       })
 
       if ( !isSynteticClick ){
-        this.scrollToBoxBottom();
+        setTimeout(() => this.scrollToBoxBottom(), 300)
       }
 
       if ( this.props.isRequired ){
@@ -184,6 +199,14 @@ class PricingBuilderBox extends Component {
     const boxRefPos = this.boxRef.current.getBoundingClientRect()
     const bottomFromBox = boxRefPos.top + boxRefPos.height + docElement.scrollTop - 80
     ScrollTo(bottomFromBox, 1000)
+  }
+
+  scrollToOptions = () => {
+    const docElement = document.scrollingElement || document.documentElement
+    const optionsRefPos = this.optionsRef.current.getBoundingClientRect()
+    console.log(optionsRefPos, docElement.scrollTop)
+    const optionsTop = optionsRefPos.top + docElement.scrollTop - 80
+    ScrollTo(optionsTop, 1000)
   }
 
   // Slider functions
@@ -270,7 +293,7 @@ class PricingBuilderBox extends Component {
             + (isRequired ? "always-visible " : "" )
             + (isRequired && activeOptionId === null ? "is-required " : "")
             + (activeOptionId !== null ? "have-selected " : "")
-            }>
+          } ref={this.optionsRef} >
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 
@@ -298,7 +321,7 @@ class PricingBuilderBox extends Component {
         { rangeSlider &&
           <div className={"p-builder-box__options "
             + (activeOptionId !== null ? "have-selected " : "")
-            }>
+            } ref={this.optionsRef}>
             <div className="p-builder-box-slider">
               <Slider
                 defaultValue={0}

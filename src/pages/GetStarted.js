@@ -32,10 +32,12 @@ class GetStarted extends React.Component {
     const { signupStep, location, history } = this.props
 
     let newPath
-    if ( signupStep !== 5 ){
-      newPath = "/get-started/step-" + (signupStep - 1);
-    } else {
+    if ( signupStep === 5 ){
       newPath = "/get-started/thank-you";
+    } else if ( signupStep === 1 ) {
+      newPath = "/get-started/hello";
+    } else {
+      newPath = "/get-started/step-" + (signupStep - 1);
     }
 
     if ( location.pathname === newPath ){

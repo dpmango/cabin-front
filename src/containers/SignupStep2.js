@@ -79,9 +79,9 @@ class SignupStep2 extends Component {
     const { first_name, last_name, company_name, email, phone } = this.state;
 
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
-
+    console.log('isProduction()', isProduction())
     const leadObj = {
-      isProduction: isProduction(),
+      isproduction: isProduction(),
       first_name: first_name,
       last_name: last_name,
       company_name: company_name,
