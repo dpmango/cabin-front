@@ -225,7 +225,7 @@ class PricingCustom extends Component {
               id: 5,
               name: "Accounts receivable",
               isAddon: true,
-              price: "S$250",
+              price: "S$200",
               pricePer: "per month",
               priceStartingFrom: true,
               pricingOptions: [

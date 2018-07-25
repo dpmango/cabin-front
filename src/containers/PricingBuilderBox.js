@@ -105,7 +105,7 @@ class PricingBuilderBox extends Component {
   // box toggler (main option)
   changePricingBox = () => {
 
-    const { name, price, id, isRequired, pricingOptionsState } = this.props;
+    const { name, price, id, isRequired, pricingOptionsState, rangeSlider } = this.props;
     const pagename = this.state.pagename;
     const positionInStateArray = pricingOptionsState.map( x => x.id ).filter( x => x.pagename !== pagename).indexOf(id);
     if ( this.state.isAddonActive ){
@@ -116,7 +116,7 @@ class PricingBuilderBox extends Component {
       }
 
       // enable slider also
-      if ( this.state.sliderVal === null ){
+      if ( rangeSlider && this.state.sliderVal === null ){
         this.rangeSliderChange(10);
         this.rangeSliderAfterChange(10)
       }
