@@ -200,7 +200,7 @@ class TabContent2 extends React.Component {
             authorImage="avatar-2"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Corporate secretary</span> Plan</Link>
+            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Corporate Secretary</span> Plan</Link>
           </div>
         </div>
       </div>
