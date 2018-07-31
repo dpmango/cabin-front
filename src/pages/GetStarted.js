@@ -58,11 +58,11 @@ class GetStarted extends React.Component {
     return (
       <div className="signup">
         <PropsRoute path={`${match.url}/:step`} component={GetStartedSwitch} />
-        <Route
+        {/* <Route
           exact
           path={match.url}
           component={SignupStep1} // should it watch for redux state there?
-        />
+        /> */}
       </div>
     );
   }
@@ -103,7 +103,7 @@ class GetStartedSwitch extends React.Component {
         )
       case 'thank-you':
         return <SignupStep5 />
-      default:
+      case 'hello':
         return <SignupStep1 />
     }
   }

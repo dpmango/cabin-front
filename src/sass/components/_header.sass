@@ -22,7 +22,7 @@
     padding-left: 27px
     font-size: 11px
     color: $fontColor
-    font-weight: 500
+
     line-height: 1.45
     // transform: translateY(4px)
     transition: opacity .25s $ease
@@ -32,8 +32,10 @@
     &-tel
       display: block
       color: $colorBlue
+      font-weight: 500
       transition: .25s $ease
       span
+        font-weight: 400
         color: $fontColor
     &:hover
       .header__phone-tel
@@ -115,6 +117,7 @@
   &--logo-only
     .header
       position: absolute
+      background: transparent
       &__phone, &__menu, &__hamburger
         opacity: 0
         pointer-events: none

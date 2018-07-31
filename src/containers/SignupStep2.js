@@ -72,14 +72,19 @@ class SignupStep2 extends Component {
   handleChange = (e) => {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal})
+    this.setState({...this.state, [fieldName]: fleldVal});
+  }
+
+  keyPressHandler = (e) => {
+    if ( e.key === "Enter" ){
+      this.submitForm();
+    }
   }
 
   nextStep = () => {
     const { first_name, last_name, company_name, email, phone } = this.state;
 
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
-    console.log('isProduction()', isProduction())
     const leadObj = {
       isproduction: isProduction(),
       first_name: first_name,
@@ -181,6 +186,7 @@ class SignupStep2 extends Component {
                 minLength: 'Name is too short'
               }}
               onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
               required
             />
             <FormInput
@@ -193,6 +199,7 @@ class SignupStep2 extends Component {
                 minLength: 'Last name is too short'
               }}
               onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
               required
             />
             <FormInput
@@ -200,6 +207,7 @@ class SignupStep2 extends Component {
               placeholder="Company Name"
               value={company_name}
               onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
               validationErrors={{
                 isDefaultRequiredValue: 'Please fill company name'
               }}
@@ -215,6 +223,7 @@ class SignupStep2 extends Component {
                 isDefaultRequiredValue: 'Please fill email'
               }}
               onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
               required
             />
             <div className="ui-group">
@@ -225,6 +234,7 @@ class SignupStep2 extends Component {
                   country={'SG'}
                   displayInitialValueAsLocalNumber={true}
               		onChange={ phone => this.setState({ phone }) }
+                  onKeyPress={this.keyPressHandler}
                   // indicateInvalid
                   // error={ phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' }
                 />

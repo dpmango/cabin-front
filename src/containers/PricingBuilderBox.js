@@ -198,7 +198,7 @@ class PricingBuilderBox extends Component {
     const docElement = document.scrollingElement || document.documentElement
     const boxRefPos = this.boxRef.current.getBoundingClientRect()
     const bottomFromBox = boxRefPos.top + boxRefPos.height + docElement.scrollTop - 80
-    ScrollTo(bottomFromBox, 1000)
+    ScrollTo(bottomFromBox, 500)
   }
 
   scrollToOptions = () => {
@@ -206,7 +206,7 @@ class PricingBuilderBox extends Component {
     const optionsRefPos = this.optionsRef.current.getBoundingClientRect()
     console.log(optionsRefPos, docElement.scrollTop)
     const optionsTop = optionsRefPos.top + docElement.scrollTop - 80
-    ScrollTo(optionsTop, 1000)
+    ScrollTo(optionsTop, 500)
   }
 
   // Slider functions
@@ -236,10 +236,10 @@ class PricingBuilderBox extends Component {
   render(){
 
     const { name, price, pricePer, priceStartingFrom, helpText, pricingOptions, boxList, isAddon, isPopular, isRequired, rangeSlider } = this.props;
-    const { activeOptionId, sliderVal, sliderValPrice } = this.state;
+    const { activeOptionId, sliderVal, sliderValPrice, pagename } = this.state;
 
     return(
-      <div className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")} ref={this.boxRef}>
+      <div data-pagename={pagename} className={"p-builder-box " + (this.state.isAddonActive ? "is-choosen" : "")} ref={this.boxRef}>
         { isAddon &&
           <div className="p-builder-box__addon" onClick={this.changeOtions}>
             + ADD-ON
@@ -274,7 +274,7 @@ class PricingBuilderBox extends Component {
             />
           }
 
-          { helpText &&
+          {/* { helpText &&
             <div className="p-builder-box__help-text">
               {helpText.name}
               <Tooltip
@@ -285,7 +285,7 @@ class PricingBuilderBox extends Component {
                   <SvgIcon name="question-circle" />
               </Tooltip>
             </div>
-          }
+          } */}
         </div>
 
         { pricingOptions &&
@@ -294,6 +294,18 @@ class PricingBuilderBox extends Component {
             + (isRequired && activeOptionId === null ? "is-required " : "")
             + (activeOptionId !== null ? "have-selected " : "")
           } ref={this.optionsRef} >
+            { helpText &&
+              <div className="p-builder-box__help-text">
+                {helpText.name}
+                <Tooltip
+                  title={helpText.tooltip}
+                  position="top"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              </div>
+            }
             <div className="p-builder-box__options-list" data-number-of-elements={pricingOptions.length}>
               { pricingOptions.map((option, i) => {
 

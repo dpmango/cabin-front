@@ -21,7 +21,7 @@ class FormInput extends Component {
     const { name, placeholder, mask } = this.props
 
     const type = this.props.type ? this.props.type : "text"
-    
+
     // An error message is returned only if the component is invalid
     const errorMessage = this.props.isFormSubmitted() ? this.props.getErrorMessage() : null;
     const parentClass = this.props.isFormSubmitted() ? this.props.isValid() ? 'ui-group' : 'ui-group has-error' : 'ui-group'
@@ -36,6 +36,7 @@ class FormInput extends Component {
             name={name}
             placeholder={placeholder}
             onChange={this.changeValue}
+            onKeyPress={this.props.onKeyHandler}
             value={this.props.getValue() || ''}
           />
           <span className="ui-input-validation">{errorMessage}</span>
@@ -49,6 +50,7 @@ class FormInput extends Component {
             name={name}
             placeholder={placeholder}
             onChange={this.changeValue}
+            onKeyPress={this.props.onKeyHandler}
             value={this.props.getValue() || ''}
             // required={isRequired ? true : false}
           />

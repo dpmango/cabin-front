@@ -99,7 +99,7 @@ class Header extends React.Component {
       )
     } else {
       return (
-        <a href="maito:hello@cabin.com.sg" className="header__phone">
+        <a href="mailto:hello@cabin.com.sg" className="header__phone">
           <span>Have an enquiry? <span className="header__phone-tel"><span>Email us at:</span> hello@cabin.com.sg</span></span>
         </a>
       )

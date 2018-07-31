@@ -30,7 +30,7 @@ class PricingAccounting extends Component {
   scrollToTable = () => {
     const docElement = document.scrollingElement || document.documentElement
     const topFromDoc = this.tableRef.current.getBoundingClientRect().top + docElement.scrollTop
-    ScrollTo(topFromDoc, 1000)
+    ScrollTo(topFromDoc, 500)
   }
 
   preloaderOnHover = (component) => {
@@ -382,7 +382,7 @@ class PricingAccounting extends Component {
 
               <div className="pricing-table-legend">
                 <div className="pricing-table-legend__texts">
-                  <span className="pricing-table__tag">ARCA</span>
+                  <span className="pricing-table__tag">ACRA</span>
                   <span className="pricing-table__name">Statutory requirement by ACRA</span>
 
                   <span className="pricing-table__tag">IRAS</span>
