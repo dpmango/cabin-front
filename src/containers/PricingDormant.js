@@ -100,7 +100,7 @@ class PricingDormant extends Component {
                     ]
                   ]}
                 />
-                <div className="pricing-scope__price pricing-scope__price--mobile">
+                <div className="pricing-scope__price pricing-scope__price--with-tooltip pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
               </div>

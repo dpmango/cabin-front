@@ -19,18 +19,21 @@ export default class PricingOption extends Component {
     return(
       <div className="pricing-option">
         <div className="pricing-option__name">
-          <span>{name}</span>
-          <div className="pricing-option__tooltip">
-            { tooltipContent &&
-              <Tooltip
-                title={tooltipContent}
-                position="top"
-                distance="10"
-                arrow="true">
-                  <SvgIcon name="question-circle" />
-              </Tooltip>
-            }
-          </div>
+          <span>
+            {name}
+            {/* align tooltip to the last letter */}
+            <div className="pricing-option__tooltip">
+              { tooltipContent &&
+                <Tooltip
+                  title={tooltipContent}
+                  position="top"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              }
+            </div>
+          </span>
         </div>
         <div className="pricing-option__price">
           <div className="pricing-option__price-main">
