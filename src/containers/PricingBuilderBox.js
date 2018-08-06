@@ -203,10 +203,14 @@ class PricingBuilderBox extends Component {
 
   scrollToOptions = () => {
     const docElement = document.scrollingElement || document.documentElement
-    const optionsRefPos = this.optionsRef.current.getBoundingClientRect()
-    console.log(optionsRefPos, docElement.scrollTop)
-    const optionsTop = optionsRefPos.top + docElement.scrollTop - 80
-    ScrollTo(optionsTop, 500)
+    // const optionsRefPos = this.optionsRef.current.getBoundingClientRect()
+    // const optionsTop = optionsRefPos.top + docElement.scrollTop - 80
+
+    // scroll to the start of box instead of option
+    const boxRefPos = this.boxRef.current.getBoundingClientRect()
+    const bottomFromBox = boxRefPos.top + docElement.scrollTop - 95
+
+    ScrollTo(bottomFromBox, 500)
   }
 
   // Slider functions

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
-// import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
+import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';
@@ -36,7 +36,8 @@ class SignupStep2 extends Component {
       email: props.signupEmail,
       phone: props.signupFields.phone,
       formIsValid: false,
-      isTransitioningNext: false
+      isTransitioningNext: false,
+      isFormSubmitted: false
     };
 
     this.formRef = React.createRef();
@@ -59,8 +60,10 @@ class SignupStep2 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    if ( this.state.formIsValid ){
+    this.setState({isFormSubmitted: true})
+    if ( this.state.formIsValid && isValidNumber(this.state.phone) ){
       this.nextStep();
+      this.setState({isFormSubmitted: false}) // reset state here
     }
   }
 
@@ -157,8 +160,7 @@ class SignupStep2 extends Component {
   }
 
   render(){
-    const { first_name, last_name, company_name, email, phone, isTransitioningNext } = this.state;
-
+    const { first_name, last_name, company_name, email, phone, isTransitioningNext, isFormSubmitted } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -171,7 +173,7 @@ class SignupStep2 extends Component {
         <div className="signup__right">
           <Formsy
             className="signup__form"
-            onValidSubmit={this.handleSubmit}
+            onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
             ref={this.formRef}
@@ -227,16 +229,16 @@ class SignupStep2 extends Component {
               required
             />
             <div className="ui-group">
-              <div className="ui-phone">
+              <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
                 <PhoneInput
               		placeholder="Phone Number"
               		value={ phone }
-                  country={'SG'}
+                  country="SG"
                   displayInitialValueAsLocalNumber={true}
               		onChange={ phone => this.setState({ phone }) }
                   onKeyPress={this.keyPressHandler}
-                  // indicateInvalid
-                  // error={ phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' }
+                  indicateInvalid
+                  error={ isFormSubmitted ? phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' : undefined }
                 />
               </div>
             </div>

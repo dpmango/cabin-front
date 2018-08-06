@@ -55,7 +55,8 @@
         font-size: 5px
         color: $fontColorGray
         transform: translateY(-1px)
-        transition: transform .25s $ease
+        // transition: transform .25s $ease
+        transition: .25s $ease
       &:last-child
         margin-right: 0
       > a:not(.btn)
@@ -69,7 +70,8 @@
           font-weight: 500
       &:hover
         .ico-select-arrow
-          transform: translateY(-1px) rotate(180deg)
+          color: $colorBlue
+          // transform: translateY(-1px) rotate(180deg)
         .header__menu-second
           opacity: 1
           pointer-events: all
@@ -245,3 +247,12 @@
     //   li
     //     a.btn
     //       display: block
+
++r($mobile-s)
+  .mobile-navi
+    &__menu
+      > li a.btn
+        // grow button
+        display: block
+        width: 100%
+        max-width: 100%

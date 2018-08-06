@@ -53,14 +53,18 @@
     align-items: center
     padding-right: 10px
     span
-      display: inline-block
-      margin-right: 10px
+      display: inline
+      // margin-right: 10px
       font-size: 14px
       color: $fontColorGray
       padding-top: 3px
 
   &__tooltip
+    display: inline-block
     font-size: 0
+    margin-left: 10px
+    vertical-align: middle
+    transform: translateY(-1px)
     .ico
       font-size: 17px
       color: $colorBlue
@@ -133,3 +137,6 @@
   .pricing-options
     &__heading
       text-align: left
+
+  .pricing-option__tooltip
+    margin-left: 6px

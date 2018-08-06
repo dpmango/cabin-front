@@ -93,7 +93,7 @@ class Header extends React.Component {
   renderContacts = () => {
     if ( this.isWorkingTime ) {
       return (
-        <a href="tel:+65 3158 5495" className="header__phone">
+        <a href="tel:+6531585495" className="header__phone">
           <span>Have an enquiry? <span className="header__phone-tel"><span>Call us at:</span> +65 3158 5495</span></span>
         </a>
       )
