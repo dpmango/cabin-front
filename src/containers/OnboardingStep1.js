@@ -13,6 +13,14 @@ class OnboardingStep1 extends Component {
     // addToDataLayer: PropTypes.func
   };
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      isTransitioningNext: false,
+    }
+  }
+
   componentDidMount(){
     // const gtmEvent = {
     //   event: 'gtm.getStartedInitiated',
@@ -24,26 +32,36 @@ class OnboardingStep1 extends Component {
     //   this.props.resetDataLayer();
     //   this.props.addToDataLayer(gtmEvent);
     // }
-
   }
 
   nextStep = () => {
-    this.props.setOnboardingStep(2);
+    this.setState({ isTransitioningNext: true })
+
+    setTimeout(() => {
+
+      this.props.setOnboardingStep(2);
+      this.setState({ isTransitioningNext: false })
+
+    }, 400)
+
   }
 
   render(){
+
+    const { isTransitioningNext } = this.state;
+
     return(
       <div className="container">
         { /* to do - set delay to fade out before page transition? */ }
-        <div className="signup__box" data-aos="fade">
-          <div className="signup__intro">
-            <div className="signup__wrapper">
+        <div className={"signup__box"} data-aos="fade">
+          <div className={"signup__intro"}>
+            <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "") }>
               <div className="signup__left">
                 <div className="signup__avatar signup__avatar--onboarding">
                   <Image file="onboarding.png" />
                 </div>
               </div>
-              <div className="signup__right">
+              <div className="signup__right signup__right--400">
                 <h2>Hello!</h2>
                 <p className="t-paragraph">Thank you for choose Cabin as your corporate secretary. We are excited as you are to be part of your company’s growth.</p>
                 <p className="t-paragraph">We will be asking for some key information about your company in the next few pages.</p>

@@ -5,11 +5,16 @@ import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
 import OnboardingStep1 from '../containers/OnboardingStep1'
-import SignupContainer from '../containers/SignupContainer'
-import SignupStep2 from '../containers/SignupStep2'
-// import SignupStep3 from '../containers/SignupStep3'
-// import SignupStep4 from '../containers/SignupStep4'
-import SignupStep5 from '../containers/SignupStep5'
+import OnboardingContainer from '../containers/OnboardingContainer'
+import OnboardingStep2 from '../containers/OnboardingStep2'
+import OnboardingStep3 from '../containers/OnboardingStep3'
+import OnboardingStep4 from '../containers/OnboardingStep4'
+import OnboardingStep5 from '../containers/OnboardingStep5'
+import OnboardingStep6 from '../containers/OnboardingStep6'
+import OnboardingStep7 from '../containers/OnboardingStep7'
+import OnboardingStep8 from '../containers/OnboardingStep8'
+import OnboardingStep9 from '../containers/OnboardingStep9'
+import OnboardingThanks from '../containers/OnboardingThanks'
 
 class OnBoarding extends React.Component {
   static propTypes = {
@@ -32,7 +37,7 @@ class OnBoarding extends React.Component {
     const { onboardingStep, location, history } = this.props
 
     let newPath
-    if ( onboardingStep === 5 ){
+    if ( onboardingStep === 10 ){
       newPath = "/onboarding/thank-you";
     } else if ( onboardingStep === 1 ) {
       newPath = "/onboarding/hello";
@@ -80,24 +85,54 @@ class OnBoardingSwitch extends React.Component {
     switch (stepParam) {
       case 'step-1':
         return (
-          <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <SignupStep2 onRef={ref => (this.child = ref)} />
-          </SignupContainer>
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep} noProgress={true}>
+            <OnboardingStep2 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
         )
-      // case 'step-2':
-      //   return (
-      //     <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-      //       <SignupStep3 onRef={ref => (this.child = ref)} />
-      //     </SignupContainer>
-      //   )
-      // case 'step-3':
-      //   return (
-      //     <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-      //       <SignupStep4 onRef={ref => (this.child = ref)} />
-      //     </SignupContainer>
-      //   )
+      case 'step-2':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep3 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-3':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep4 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-4':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep5 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-5':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep6 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-6':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep7 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-7':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep8 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-8':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep9 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
       case 'thank-you':
-        return <SignupStep5 />
+        return <OnboardingThanks />
       case 'hello':
         return <OnboardingStep1 />
     }

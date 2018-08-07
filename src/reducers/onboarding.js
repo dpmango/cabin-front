@@ -7,6 +7,11 @@ export const initialState = {
   onboardingStep: 1,
   onboardingId: '',
   fields: {
+    company_uen: '',
+    company_name: '',
+    company_activity: '',
+    company_addres: '',
+    company_revenue: ''
 
   }
 }

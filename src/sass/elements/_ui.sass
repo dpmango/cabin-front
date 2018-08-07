@@ -14,7 +14,7 @@
   &:nth-child(5)
     z-index: 1
 
-  > label
+  > label:not(.ui-group__label)
     display: block
     font-size: 16px
     color: $fontColorGray
@@ -22,7 +22,15 @@
   &--labeled
     > label
       margin-bottom: 7px
-  > input
+  // different kind of input label for onboarding
+  &__label
+    display: block
+    font-size: 13px
+    margin-left: 15px
+    color: $fontColorGray
+    margin-bottom: 7px
+
+  > input, > textarea
     -webkit-appearance: none
     display: block
     font-family: $systemFamily
@@ -41,14 +49,27 @@
       color: rgba($fontColorGray, .5)
     &:focus
       border-color: $colorBlue
+  > textarea
+    resize: vertical
+
   &.has-error
     input, textarea
       border-color: $colorRed
 
+  // for the inputs with tooltip
+  &__tooltip
+    position: absolute
+    top: 22px
+    right: -30px
+    font-size: 0
+    .ico
+      font-size: 18px
+
+
 
 +r($mobile)
   .ui-group
-    > input
+    > input, > textarea
       padding-left: 10px
 
 .ui-input-validation
