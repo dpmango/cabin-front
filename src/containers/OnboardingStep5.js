@@ -7,6 +7,15 @@ import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
 import FormInput from '../components/FormInput';
+import { WithContext as ReactTags } from 'react-tag-input';
+import countriesListAutocompleate from '../store/CountriesListAutocompleate';
+
+const KeyCodes = {
+  comma: 188,
+  enter: 13,
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class OnboardingStep5 extends Component {
   static propTypes = {
@@ -20,12 +29,14 @@ class OnboardingStep5 extends Component {
     super(props);
 
     this.state = {
-      company_activity: props.onboardingFields.company_activity,
-      company_addres:  props.onboardingFields.company_addres,
-      company_revenue:  props.onboardingFields.company_revenue,
+      consumers_list: props.onboardingFields.consumers_list,
+      suppliers_list:  props.onboardingFields.suppliers_list,
+      payments_to_list:  props.onboardingFields.payments_to_list,
+      payments_from_list: props.onboardingFields.payments_from_list,
       formIsValid: false,
       isTransitioningNext: false,
-      isFormSubmitted: false
+      isFormSubmitted: false,
+      countries_list: countriesListAutocompleate
     };
 
     this.formRef = React.createRef();
@@ -55,31 +66,46 @@ class OnboardingStep5 extends Component {
     }
   }
 
+  // tags management
+  handleTagsDelete = (i) => {
+    const { consumers_list } = this.state;
+    this.setState({
+      consumers_list: consumers_list.filter((tag, index) => index !== i),
+    });
+  }
+
+  handleTagsAddition = (tag) => {
+    console.log(tag)
+    this.setState(state => ({
+      consumers_list: [...state.consumers_list, tag]
+    }));
+  }
+
+  handleTagsDrag = (tag, currPos, newPos) => {
+    const tags = [...this.state.consumers_list];
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({ consumers_list: newTags });
+  }
+
   // click handler for the button
   submitForm = () => {
     this.formRef.current.submit();
   }
 
-  handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
-  }
-
-  keyPressHandler = (e) => {
-    if ( e.key === "Enter" ){
-      this.submitForm();
-    }
-  }
-
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { consumers_list, suppliers_list, payments_to_list, payments_from_list } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      consumers_list: consumers_list,
+      suppliers_list: suppliers_list,
+      payments_to_list: payments_to_list,
+      payments_from_list: payments_from_list
     }
 
     // if signup ID is present - then update by PATCH
@@ -118,7 +144,7 @@ class OnboardingStep5 extends Component {
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { consumers_list, suppliers_list, payments_to_list, payments_from_list } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -129,9 +155,10 @@ class OnboardingStep5 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        consumers_list: consumers_list,
+        suppliers_list: suppliers_list,
+        payments_to_list: payments_to_list,
+        payments_from_list: payments_from_list
       })
 
       this.setState({ isTransitioningNext: false })
@@ -147,7 +174,7 @@ class OnboardingStep5 extends Component {
   }
 
   render(){
-    const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
+    const { consumers_list, suppliers_list, payments_to_list, payments_from_list, countries_list, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -155,7 +182,7 @@ class OnboardingStep5 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <Image file="rifeng-avatar.png" />
           </div>
-          <h2>We will need to know a little more about the company</h2>
+          <h2>We will need to know a little more about the company's customers and suppliers</h2>
           <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
@@ -166,49 +193,17 @@ class OnboardingStep5 extends Component {
             onInvalid={this.formInvalid}
             ref={this.formRef}
           >
-            <FormInput
-              name="company_activity"
-              placeholder="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              type="textarea"
-              rows="3"
-              tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
-              name="company_addres"
-              placeholder="Address of operating premise"
-              value={company_addres}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Address of operating premise',
-                minLength: 'Address of operating premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
-              value={company_revenue}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Estimated annual revenue',
-                minLength: 'Estimated annual revenue premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
+            { /* https://github.com/prakhar1989/react-tags */ }
+            <ReactTags
+              tags={consumers_list}
+              name="consumers_list"
+              suggestions={countries_list}
+              placeholder="List of countries where your customers are located"
+              handleDelete={this.handleTagsDelete}
+              handleAddition={this.handleTagsAddition}
+              handleDrag={this.handleTagsDrag}
+              delimiters={delimiters} />
+
           </Formsy>
         </div>
       </div>

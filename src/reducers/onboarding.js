@@ -11,8 +11,13 @@ export const initialState = {
     company_name: '',
     company_activity: '',
     company_addres: '',
-    company_revenue: ''
-
+    company_revenue: '',
+    consumers_list: [
+      {"id": "SG", "text": "Singapore"}
+    ],
+    suppliers_list: [],
+    payments_to_list: [],
+    payments_from_list: []
   }
 }
 
