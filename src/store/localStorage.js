@@ -1,4 +1,4 @@
-const version = "2.0.0"
+const version = "2.0.1"
 
 export const loadState = () => {
   try {

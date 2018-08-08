@@ -67,10 +67,11 @@ class OnboardingStep5 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    // TODO - some kind of validation here?
+    // if ( this.state.formIsValid ){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
-    }
+    // }
   }
 
   // tags management

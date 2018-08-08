@@ -4,7 +4,7 @@ import * as types from '../store/ActionTypes';
 export const initialState = {
   onboardingRandomId: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
   // instead of gtm this might e used for server communication to store session
-  onboardingStep: 1,
+  onboardingStep: 6,
   onboardingId: '',
   fields: {
     company_uen: '',
@@ -17,7 +17,9 @@ export const initialState = {
     ],
     suppliers_list: [],
     payments_to_list: [],
-    payments_from_list: []
+    payments_from_list: [],
+    paidup_capital: [],
+    company_relations: ["None"]
   }
 }
 
