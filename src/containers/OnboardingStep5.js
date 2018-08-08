@@ -75,7 +75,6 @@ class OnboardingStep5 extends Component {
   }
 
   handleTagsAddition = (tag) => {
-    console.log(tag)
     this.setState(state => ({
       consumers_list: [...state.consumers_list, tag]
     }));
@@ -194,15 +193,50 @@ class OnboardingStep5 extends Component {
             ref={this.formRef}
           >
             { /* https://github.com/prakhar1989/react-tags */ }
-            <ReactTags
-              tags={consumers_list}
-              name="consumers_list"
-              suggestions={countries_list}
-              placeholder="List of countries where your customers are located"
-              handleDelete={this.handleTagsDelete}
-              handleAddition={this.handleTagsAddition}
-              handleDrag={this.handleTagsDrag}
-              delimiters={delimiters} />
+            <div className="ui-group">
+              <ReactTags
+                tags={consumers_list}
+                name="consumers_list"
+                suggestions={countries_list}
+                placeholder="List of countries where your customers are located"
+                handleDelete={this.handleTagsDelete}
+                handleAddition={this.handleTagsAddition}
+                handleDrag={this.handleTagsDrag}
+                delimiters={delimiters} />
+            </div>
+            <div className="ui-group">
+              <ReactTags
+                tags={suppliers_list}
+                name="suppliers_list"
+                suggestions={countries_list}
+                placeholder="List of countries where your suppliers are located"
+                handleDelete={this.handleTagsDelete}
+                handleAddition={this.handleTagsAddition}
+                handleDrag={this.handleTagsDrag}
+                delimiters={delimiters} />
+            </div>
+            <div className="ui-group">
+              <ReactTags
+                tags={payments_to_list}
+                name="payments_to_list"
+                suggestions={countries_list}
+                placeholder="List of countries that you are making payment to"
+                handleDelete={this.handleTagsDelete}
+                handleAddition={this.handleTagsAddition}
+                handleDrag={this.handleTagsDrag}
+                delimiters={delimiters} />
+            </div>
+            <div className="ui-group">
+              <ReactTags
+                tags={payments_from_list}
+                name="payments_from_list"
+                suggestions={countries_list}
+                placeholder="List of countries that you are receiving payment from"
+                handleDelete={this.handleTagsDelete}
+                handleAddition={this.handleTagsAddition}
+                handleDrag={this.handleTagsDrag}
+                delimiters={delimiters} />
+            </div>
 
           </Formsy>
         </div>
