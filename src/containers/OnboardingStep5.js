@@ -7,8 +7,11 @@ import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
 import FormInput from '../components/FormInput';
-import { WithContext as ReactTags } from 'react-tag-input';
+import ReactTags from '../components/ReactTags/ReactTags';
+// import { WithContext as ReactTags } from 'react-tag-input';
+
 import countriesListAutocompleate from '../store/CountriesListAutocompleate';
+// import TagsInput from 'react-tagsinput'
 
 const KeyCodes = {
   comma: 188,
