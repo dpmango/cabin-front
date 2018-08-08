@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
+import { flag } from 'country-code-emoji';
 
 import {
   tagSource,
@@ -16,8 +17,10 @@ const ItemTypes = { TAG: 'tag' };
 
 class Tag extends Component {
   render() {
+
     const { props } = this;
     const label = props.tag[props.labelField];
+    const countryCode = props.tag["id"]; // aka ID
     const {
       connectDragSource,
       isDragging,
@@ -25,12 +28,16 @@ class Tag extends Component {
       readOnly,
     } = props;
 
+
     const tagComponent = (
       <span
         style={{ opacity: isDragging ? 0 : 1 }}
         className={props.classNames.tag}
         onClick={props.onTagClicked}
         onKeyDown={props.onTagClicked}>
+        <span className="ReactTags__flag">
+          {flag(countryCode)}
+        </span>
         {label}
         <RemoveComponent
           tag={props.tag}

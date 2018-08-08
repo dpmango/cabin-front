@@ -141,7 +141,7 @@ class ReactTags extends Component {
   }
 
   handleDelete(i, e) {
-    this.props.handleDelete(i, e);
+    this.props.handleDelete(i, e, this.props.name);
     if (!this.props.resetInputOnDelete) {
       this.textInput && this.textInput.focus();
     } else {
@@ -309,7 +309,7 @@ class ReactTags extends Component {
     }
 
     // call method to add
-    this.props.handleAddition(tag);
+    this.props.handleAddition(tag, this.props.name);
 
     // reset the state
     this.setState({
@@ -340,7 +340,7 @@ class ReactTags extends Component {
 
     // call handler with the index of the dragged tag
     // and the tag that is hovered
-    this.props.handleDrag(dragTag, dragIndex, hoverIndex);
+    this.props.handleDrag(dragTag, dragIndex, hoverIndex, this.props.name);
   }
 
   getTagItems = () => {

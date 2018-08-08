@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "concurrently": "^3.5.1",
+    "country-code-emoji": "^0.0.1",
     "cssnano": "^3.10.0",
     "dotenv": "^6.0.0",
     "formsy-react": "^1.1.4",

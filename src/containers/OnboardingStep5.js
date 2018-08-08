@@ -45,6 +45,10 @@ class OnboardingStep5 extends Component {
     this.formRef = React.createRef();
   }
 
+  componentDidUpdate(){
+    console.log(this.state)
+  }
+
   componentDidMount() {
     this.props.onRef(this)
   }
@@ -70,28 +74,34 @@ class OnboardingStep5 extends Component {
   }
 
   // tags management
-  handleTagsDelete = (i) => {
-    const { consumers_list } = this.state;
+  handleTagsDelete = (i, e, name) => {
     this.setState({
-      consumers_list: consumers_list.filter((tag, index) => index !== i),
+      ...this.state,
+      [name]: this.state[name].filter((tag, index) => index !== i),
     });
   }
 
-  handleTagsAddition = (tag) => {
+  handleTagsAddition = (tag, name) => {
     this.setState(state => ({
-      consumers_list: [...state.consumers_list, tag]
+      ...this.state,
+      [name]: [
+        ...state[name], tag
+      ]
     }));
   }
 
-  handleTagsDrag = (tag, currPos, newPos) => {
-    const tags = [...this.state.consumers_list];
+  handleTagsDrag = (tag, currPos, newPos, name) => {
+    const tags = [...this.state[name]];
     const newTags = tags.slice();
 
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
 
     // re-render
-    this.setState({ consumers_list: newTags });
+    this.setState({
+      ...this.state,
+      [name]: newTags
+    });
   }
 
   // click handler for the button
@@ -205,7 +215,8 @@ class OnboardingStep5 extends Component {
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
-                delimiters={delimiters} />
+                delimiters={delimiters}
+                autofocus={false} />
             </div>
             <div className="ui-group">
               <ReactTags
@@ -216,7 +227,8 @@ class OnboardingStep5 extends Component {
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
-                delimiters={delimiters} />
+                delimiters={delimiters}
+                autofocus={false} />
             </div>
             <div className="ui-group">
               <ReactTags
@@ -227,7 +239,8 @@ class OnboardingStep5 extends Component {
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
-                delimiters={delimiters} />
+                delimiters={delimiters}
+                autofocus={false} />
             </div>
             <div className="ui-group">
               <ReactTags
@@ -238,7 +251,8 @@ class OnboardingStep5 extends Component {
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
-                delimiters={delimiters} />
+                delimiters={delimiters}
+                autofocus={false} />
             </div>
 
           </Formsy>
