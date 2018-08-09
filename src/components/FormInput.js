@@ -26,7 +26,7 @@ class FormInput extends Component {
   }
 
   render(){
-    const { name, placeholder, mask, label, rows, tooltipContent } = this.props
+    const { name, id, placeholder, mask, label, rows, tooltipContent } = this.props
 
     const type = this.props.type ? this.props.type : "text"
 
@@ -60,6 +60,7 @@ class FormInput extends Component {
             <input
               type={type}
               name={name}
+              id={id}
               placeholder={placeholder}
               onChange={this.changeValue}
               onKeyPress={this.props.onKeyHandler}

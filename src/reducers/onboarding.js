@@ -19,7 +19,22 @@ export const initialState = {
     payments_to_list: [],
     payments_from_list: [],
     paidup_capital: [],
-    company_relations: ["None"]
+    company_relations: ["None"],
+    company_relations_inputs: [
+      {
+        name: "Subsidiary company of",
+        value: ''
+      },
+      {
+        name: "Parent company of",
+        value: ''
+      },
+      {
+        name: "Beneficiary company of",
+        value: ''
+      }
+    ], // text fields for active checboxes
+    paidup_capital_origins: []
   }
 }
 

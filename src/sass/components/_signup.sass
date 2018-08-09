@@ -301,8 +301,23 @@
     > label
       display: inline-block
       font-size: 13px
-      color: $fontColorGray
+      color: rgba($fontColorGray, .5)
       margin: 10px 0
+    .ui-checkbox
+      margin-bottom: 10px
+      &__label
+        opacity: .5
+        transition: opacity .25s $ease
+      &.is-active, &:hover
+        .ui-checkbox__label
+          opacity: 1
+      &.is-active
+        + .ui-group
+          display: block
+      + .ui-group
+        display: none
+        margin-bottom: 10px
+
 
 
 +r($desktop)

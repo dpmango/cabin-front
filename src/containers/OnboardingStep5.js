@@ -8,17 +8,9 @@ import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '.
 import Image from '../components/Image';
 import FormInput from '../components/FormInput';
 import ReactTags from '../components/ReactTags/ReactTags';
-// import { WithContext as ReactTags } from 'react-tag-input';
+// import { WithContext as ReactTags } from 'react-tag-input'; // changed to /compoinenets call
 
-import countriesListAutocompleate from '../store/CountriesListAutocompleate';
-// import TagsInput from 'react-tagsinput'
-
-const KeyCodes = {
-  comma: 188,
-  enter: 13,
-};
-
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+import { countriesListAutocompleate, delimiters} from '../store/CountriesListAutocompleate';
 
 class OnboardingStep5 extends Component {
   static propTypes = {

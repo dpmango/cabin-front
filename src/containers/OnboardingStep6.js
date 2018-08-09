@@ -7,6 +7,8 @@ import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
 import FormInput from '../components/FormInput';
+import ReactTags from '../components/ReactTags/ReactTags';
+import { countriesListAutocompleate, delimiters} from '../store/CountriesListAutocompleate';
 import CheckBox from '../components/CheckBox';
 
 class OnboardingStep6 extends Component {
@@ -23,6 +25,9 @@ class OnboardingStep6 extends Component {
     this.state = {
       paidup_capital: props.onboardingFields.paidup_capital,
       company_relations:  props.onboardingFields.company_relations,
+      company_relations_inputs: props.onboardingFields.company_relations_inputs,
+      paidup_capital_origins: props.onboardingFields.paidup_capital_origins,
+      countries_list: countriesListAutocompleate,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -60,23 +65,69 @@ class OnboardingStep6 extends Component {
     this.formRef.current.submit();
   }
 
-  handleChange = (e) => {
+  handleChangeNested = (e) => {
     let fieldName = e.target.name;
+    let fieldId = e.target.id;
     let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
+    let index = -1
+    this.state[fieldName].forEach( (x,i) => {
+      if ( x.name === fieldId ){
+        index = i
+      }
+    })
+
+    const newObj = {  name: fieldId, value: fleldVal  }
+
+    const stateClone = this.state[fieldName]
+    stateClone[index] = newObj
+
+    this.setState({...this.state,
+      [fieldName]: stateClone
+    });
+
   }
 
-  keyPressHandler = (e) => {
-    if ( e.key === "Enter" ){
-      this.submitForm();
-    }
+
+  // keyPressHandler = (e) => {
+  //   if ( e.key === "Enter" ){
+  //     this.submitForm();
+  //   }
+  // }
+
+  // tags management
+  handleTagsDelete = (i, e, name) => {
+    this.setState({
+      ...this.state,
+      [name]: this.state[name].filter((tag, index) => index !== i),
+    });
+  }
+
+  handleTagsAddition = (tag, name) => {
+    this.setState(state => ({
+      ...this.state,
+      [name]: [
+        ...state[name], tag
+      ]
+    }));
+  }
+
+  handleTagsDrag = (tag, currPos, newPos, name) => {
+    const tags = [...this.state[name]];
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({
+      ...this.state,
+      [name]: newTags
+    });
   }
 
   chooseOption = (id, name) => {
     const options = this.state[name]
     let index
-
-    console.log(name, options)
 
     if (options.indexOf(id) === -1) {
      options.push(id)
@@ -92,13 +143,12 @@ class OnboardingStep6 extends Component {
   }
 
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { paidup_capital, company_relations } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      paidup_capital: paidup_capital.join(' ,'),
+      company_relations: company_relations.join(' ,')
     }
 
     this.updateSignup();
@@ -107,7 +157,7 @@ class OnboardingStep6 extends Component {
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { paidup_capital, company_relations, paidup_capital_origins } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -118,9 +168,9 @@ class OnboardingStep6 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        paidup_capital: paidup_capital,
+        company_relations: company_relations,
+        paidup_capital_origins: paidup_capital_origins
       })
 
       this.setState({ isTransitioningNext: false })
@@ -136,7 +186,7 @@ class OnboardingStep6 extends Component {
   }
 
   render(){
-    const { paidup_capital, company_relations, isTransitioningNext } = this.state;
+    const { paidup_capital, company_relations, paidup_capital_origins, countries_list, company_relations_inputs, isTransitioningNext } = this.state;
 
     const paidupCapitalOptions = {
       name: 'paidup_capital',
@@ -152,12 +202,20 @@ class OnboardingStep6 extends Component {
 
     const CompanyRelationsOptions = {
       name: 'company_relations',
-      haveInputs: true,
       options: [
         'None',
-        'Subsidiary company of',
-        'Parent company of',
-        'Beneficiary company of',
+        {
+          name: 'Subsidiary company of',
+          input: 'Insert Subsidiary company'
+        },
+        {
+          name: 'Parent company of',
+          input: 'Insert Parent company'
+        },
+        {
+          name: 'Beneficiary company of',
+          input: 'Insert Beneficiary company'
+        },
         'Others'
       ]
     }
@@ -185,7 +243,6 @@ class OnboardingStep6 extends Component {
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
                 { paidupCapitalOptions.options.map((cb, i) => {
-                  console.log(paidup_capital, paidup_capital.indexOf(cb))
                     return(
                       <CheckBox
                         key={i}
@@ -199,33 +256,50 @@ class OnboardingStep6 extends Component {
                 }
               </div>
             </div>
-            { /* <FormInput
-              name="company_activity"
-              placeholder="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            /> */ }
+
+            <div className="ui-group">
+              <ReactTags
+                tags={paidup_capital_origins}
+                name="paidup_capital_origins"
+                suggestions={countries_list}
+                placeholder="Country or countries of origin for paid-up capital"
+                handleDelete={this.handleTagsDelete}
+                handleAddition={this.handleTagsAddition}
+                handleDrag={this.handleTagsDrag}
+                delimiters={delimiters}
+                autofocus={false} />
+            </div>
 
             <div className="signup__section">
               <div className="signup__section-heading">Identity in relation to other companies</div>
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
                 { CompanyRelationsOptions.options.map((cb, i) => {
+                    const cbValue = typeof(cb) === "string" ? cb : cb.name
                     return(
-                      <CheckBox
-                        key={i}
-                        name={CompanyRelationsOptions.name}
-                        text={cb}
-                        clickHandler={this.chooseOption.bind(this, cb, CompanyRelationsOptions.name)}
-                        isActive={company_relations.indexOf(cb) !== -1 }
-                      />
+                      <React.Fragment>
+                        <CheckBox
+                          key={i}
+                          name={CompanyRelationsOptions.name}
+                          text={cbValue}
+                          clickHandler={this.chooseOption.bind(this, cbValue, CompanyRelationsOptions.name)}
+                          isActive={company_relations.indexOf(cbValue) !== -1 }
+                        />
+                        { typeof(cb) !== "string" &&
+                          <FormInput
+                            name="company_relations_inputs"
+                            id={cb.name}
+                            placeholder={cb.input}
+                            value={company_relations_inputs[cb.name]}
+                            validations="minLength:3"
+                            validationErrors={{
+                              isDefaultRequiredValue: 'This field is required',
+                            }}
+                            onChangeHandler={this.handleChangeNested}
+                            required
+                          />
+                        }
+                      </React.Fragment>
                     )
                   })
                 }
