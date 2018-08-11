@@ -59,15 +59,15 @@ class OnboardingThanks extends Component {
                 </div>
                 <p className="t-paragraph">Once all the above have been completed, Cabin will be able to appoint ourselves as your corporate secretary officially with ACRA.</p>
                 <p className="t-paragraph">Have a nice day!</p>
-
-                <div className="signup__nav signup__nav--complete">
-                  <a className="btn btn--small" onClick={this.completeSignup}>
-                    <span>Back to homepage</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="signup__nav signup__nav--centered">
+          <a className="btn btn--small" onClick={this.completeSignup}>
+            <span>Back to homepage</span>
+          </a>
         </div>
 
       </div>
