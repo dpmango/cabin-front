@@ -42,15 +42,30 @@ class OnboardingThanks extends Component {
       <div className="container">
         <div className="signup__box" data-aos="fade">
           <div className="signup__sucess-container">
-            <div className="signup__sucess">
-              <SvgIcon name="signup-sucess" />
-            </div>
-            <h2>Thank you!</h2>
-            <p className="t-paragraph">We will get in touch with you shortly.</p>
-            <div className="signup__nav signup__nav--complete">
-              <a className="btn btn--small" onClick={this.completeSignup}>
-                <span>Back to homepage</span>
-              </a>
+            <div className="signup-sucess__grid">
+              <div className="signup-sucess__left">
+                <div className="signup__sucess">
+                  <SvgIcon name="signup-sucess" />
+                </div>
+              </div>
+              <div className="signup-sucess__right">
+                <h2>Thank you!</h2>
+                <p className="t-paragraph">We will be preparing the following items which will be sent electronically in the next 1-2 business days:</p>
+                <div className="signup-sucess__links">
+                  <a href="#"><span>Customer Due Diligence (CDD)</span> form for each shareholder and director </a>
+                  <a href="#"><span>Director’s Consent Form (Form 45)</span> for each director</a>
+                  <a href="#"><span>Engagement letter</span> </a>
+                  <a href="#"><span>Invoice</span> for payment via credit card, bank transfer, or cheque</a>
+                </div>
+                <p className="t-paragraph">Once all the above have been completed, Cabin will be able to appoint ourselves as your corporate secretary officially with ACRA.</p>
+                <p className="t-paragraph">Have a nice day!</p>
+
+                <div className="signup__nav signup__nav--complete">
+                  <a className="btn btn--small" onClick={this.completeSignup}>
+                    <span>Back to homepage</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

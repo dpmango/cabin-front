@@ -344,6 +344,51 @@
         margin-bottom: 10px
 
 
+.signup-sucess
+  &__grid
+    display: flex
+    margin-left: -15px
+    margin-right: -15px
+
+  &__left
+    flex: 0 0 210px
+    max-width: 210px
+    padding: 0 15px
+    .signup__sucess
+      margin: 30px auto
+
+  &__right
+    flex: 1 1 auto
+    max-width: 570px
+    padding: 0 15px
+    margin-left: auto
+    text-align: left
+
+  &__links
+    background: #f6f7fb
+    margin: 22px 0
+    padding: 20px 20px 20px 35px
+    display: flex
+    flex-direction: column
+    a
+      display: inline-block
+      margin-bottom: 10px
+      font-size: 14px
+      line-height: 1.5
+      font-weight: 500
+      color: $fontColorGray
+      transition: .25s $ease
+      &:last-child
+        margin-bottom: 0
+      span
+        color: $colorBlue
+        transition: .25s $ease
+      &:hover
+        color: $colorBlueHover
+        span
+          color: $colorBlueHover
+
+
 
 +r($desktop)
   .signup
