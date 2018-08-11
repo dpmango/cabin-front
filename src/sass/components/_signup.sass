@@ -50,6 +50,13 @@
       &:hover
         color: $colorBlue
 
+  &__single-col
+    padding: 0 15px
+    flex: 0 1 100%
+    max-width: 100%
+    min-width: 1px
+    min-height: 0
+
   &__intro
     padding-top: 50px
     .icon-rifeng-sign
@@ -75,6 +82,8 @@
       max-width: 100%
     &--big
       max-size: 270px
+    &--extra-small
+      max-size: 90px
     &--small
       max-size: 105px
     &--onboarding
@@ -83,6 +92,16 @@
     &--row
       max-size: 245px
       border: 20px solid white
+
+  &__heading-row
+    display: flex
+    align-items: center
+    .signup__avatar
+      flex: 0 0 90px
+
+    h2
+      margin-left: 25px
+
 
   &__managers
     display: flex

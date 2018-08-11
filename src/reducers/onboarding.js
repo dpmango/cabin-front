@@ -4,7 +4,7 @@ import * as types from '../store/ActionTypes';
 export const initialState = {
   onboardingRandomId: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
   // instead of gtm this might e used for server communication to store session
-  onboardingStep: 6,
+  onboardingStep: 7,
   onboardingId: '',
   fields: {
     company_uen: '',
@@ -34,7 +34,9 @@ export const initialState = {
         value: ''
       }
     ], // text fields for active checboxes
-    paidup_capital_origins: []
+    paidup_capital_origins: [],
+    shareholders_individulas: [],
+    shareholders_corporate: []
   }
 }
 

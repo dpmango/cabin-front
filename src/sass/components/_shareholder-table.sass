@@ -1,0 +1,91 @@
+.sh-table
+  margin-top: 60px
+  &__title
+    font-size: 16px
+    font-weight: 500
+    color: $fontColorGray
+    line-height: 1.88
+    margin: 15px 0
+  &__wrapper
+    overflow-x: scroll
+    padding-bottom: 20px
+
+  &__info
+    margin-top: 25px
+    font-size: 11px
+    color: $fontColorGray
+    line-height: 1.45
+
+  table
+    border-collapse: collapse
+    font-size: 13px
+    width: 100%
+    min-width: 960px
+
+  thead
+    color: $fontColorGray
+    td
+      border-top: 1px solid rgba($fontColorGray, .5)
+      border-bottom: 1px solid rgba($fontColorGray, .5)
+      padding: 13px 15px 11px
+      .ico
+        margin-right: 5px
+        vertical-align: middle
+        font-size: 10px
+      span
+        display: inline-block
+        vertical-align: middle
+
+  tbody
+    td
+      // top and bottom paddings should be set with input componenet
+      padding: 0
+
+
+  tr
+    &:first-child
+
+    &:last-child
+
+    td
+      //last td in the row
+      &:last-child
+        border-right: 0
+
+  td
+    border-bottom: 1px solid rgba($fontColorGray, .5)
+    border-right: 1px solid rgba($fontColorGray, .5)
+    input
+      -webkit-appearance: none
+      display: block
+      font-family: $systemFamily
+      width: 100%
+      height: auto
+      background: transparent
+      border-radius: 0px
+      border: 0
+      font-size: 13px
+      line-height: auto
+      color: $fontColor
+      box-shadow: none
+      padding: 12px 15px
+      transition: .25s $ease
+      // &::after
+      //   display: inline-block
+      //   content: ' '
+      //   position: absolute
+      //   bottom: 0
+      //   left: 0
+      //   right: 100%
+      //   transition: .25s $ease
+      //   height: 1px
+      //   background: $colorBlue
+
+      &::placeholder
+        color: rgba($fontColorGray, .5)
+      &:focus
+        // border-color: $colorBlue
+        // outline: 1px solid $colorBlue
+        // &::after
+        //   opacity: 1
+        //   right: 0

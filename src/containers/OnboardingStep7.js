@@ -7,6 +7,8 @@ import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
 import FormInput from '../components/FormInput';
+import SvgIcon from '../components/SvgIcon';
+import ShareholderTable from '../components/ShareholderTable';
 
 class OnboardingStep7 extends Component {
   static propTypes = {
@@ -20,9 +22,8 @@ class OnboardingStep7 extends Component {
     super(props);
 
     this.state = {
-      company_activity: props.onboardingFields.company_activity,
-      company_addres:  props.onboardingFields.company_addres,
-      company_revenue:  props.onboardingFields.company_revenue,
+      shareholders_individulas: props.onboardingFields.shareholders_individulas,
+      shareholders_corporate:  props.onboardingFields.shareholders_corporate,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -49,68 +50,26 @@ class OnboardingStep7 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    // if ( this.state.formIsValid ){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
-    }
+    // }
   }
 
   // click handler for the button
   submitForm = () => {
-    this.formRef.current.submit();
-  }
-
-  handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
-  }
-
-  keyPressHandler = (e) => {
-    if ( e.key === "Enter" ){
-      this.submitForm();
-    }
+    // this.formRef.current.submit();
+    this.handleSubmit();
   }
 
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { shareholders_individulas, shareholders_corporate } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      shareholders_individulas: shareholders_individulas,
+      shareholders_corporate: shareholders_corporate
     }
-
-    // if signup ID is present - then update by PATCH
-    // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
 
     this.updateSignup();
 
@@ -118,7 +77,7 @@ class OnboardingStep7 extends Component {
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { shareholders_individulas, shareholders_corporate } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -129,9 +88,9 @@ class OnboardingStep7 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        isproduction: isProduction(),
+        shareholders_individulas: shareholders_individulas,
+        shareholders_corporate: shareholders_corporate
       })
 
       this.setState({ isTransitioningNext: false })
@@ -147,76 +106,95 @@ class OnboardingStep7 extends Component {
   }
 
   render(){
-    const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
+    const { shareholders_individulas, shareholders_corporate, isTransitioningNext } = this.state;
+
+    const individualsTable = {
+      thead: [
+        {
+          icon: "check",
+          name: "Full name"
+        },
+        {
+          icon: "check",
+          name: "ID"
+        },
+        {
+          icon: "check",
+          name: "Phone number"
+        },
+        {
+          icon: "check",
+          name: "Email"
+        },
+        {
+          name: "Shareholder?"
+        },
+        {
+          name: "Director?"
+        }
+
+      ],
+      tbody: [
+        {
+          type: "input",
+          placeholder: "Full name",
+          name: "full_name"
+        },
+        {
+          type: "input",
+          placeholder: "Insert ID",
+          name: "id_number"
+        },
+        {
+          type: "input",
+          placeholder: "Insert number",
+          name: "phone_number"
+        },
+        {
+          type: "input",
+          placeholder: "Insert email",
+          name: "email"
+        },
+        {
+          type: "checkbox",
+          name: "is_shareholder"
+        },
+        {
+          type: "checkbox",
+          name: "is_director"
+        }
+      ]
+    }
+
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
-        <div className="signup__left">
-          <div className="signup__avatar signup__avatar--small">
-            <Image file="rifeng-avatar.png" />
+        <div className="signup__single-col">
+          <div className="signup__heading-row">
+            <div className="signup__avatar signup__avatar--extra-small">
+              <Image file="rifeng-avatar.png" />
+            </div>
+            <h2>We will need to know more about the shareholding structure of the company</h2>
           </div>
-          <h2>We will need to know a little more about the company</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
-        </div>
-        <div className="signup__right">
-          <Formsy
-            className="signup__form"
-            onSubmit={this.handleSubmit}
-            onValid={this.formValid}
-            onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
-            <FormInput
-              name="company_activity"
-              placeholder="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              type="textarea"
-              rows="3"
-              tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
-              name="company_addres"
-              placeholder="Address of operating premise"
-              value={company_addres}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Address of operating premise',
-                minLength: 'Address of operating premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
-              value={company_revenue}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Estimated annual revenue',
-                minLength: 'Estimated annual revenue premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-          </Formsy>
+          <ShareholderTable
+            title="List of key individuals (shareholders and directors)"
+            schema={individualsTable}
+            helperText="There will be an additional fee of S$25 per individual per year after that fifth key individual. This is to account for the additional administrative and recording keeping processes required."
+          />
+
+          <ShareholderTable
+            title="List of key individuals (shareholders and directors)"
+            titleTooltip="Some tooltip content"
+            schema={individualsTable}
+            helperText="There will be an additional fee of S$25 per individual per year after that fifth key individual. This is to account for the additional administrative and recording keeping processes required."
+          />
+
         </div>
       </div>
 
     )
   }
 }
-
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
