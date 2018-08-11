@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Tooltip } from 'react-tippy';
+import { Scrollbars } from 'react-custom-scrollbars';
+
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
 
@@ -107,7 +109,11 @@ class ShareholderTable extends Component {
             </Tooltip>
           }
         </div>
-        <div className="sh-table__wrapper">
+        {/* <div className="sh-table__wrapper"> */}
+        <Scrollbars
+          onScroll={(e) => console.log(e)}
+          autoHeight
+           >
           <table>
             <thead>
               <tr>
@@ -138,7 +144,8 @@ class ShareholderTable extends Component {
           { helperText &&
             <div className="sh-table__info">{helperText}</div>
           }
-        </div>
+        </Scrollbars>
+        {/* </div> */}
       </div>
     )
   }
