@@ -15,7 +15,7 @@ const RemoveComponent = (props) => {
 
   return (
     <a onClick={onClick} className={className} onKeyDown={onClick}>
-      {crossStr}
+      <span>{crossStr}</span>
     </a>
   );
 };

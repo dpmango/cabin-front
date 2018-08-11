@@ -9,7 +9,8 @@ class SignupContainer extends React.Component {
     const fillPercent = Math.round( (signupStep - 1) * 100 / 3 , 10)
     return(
       <div className="container">
-        <div className="signup__box" data-aos="fade">
+        { /* data-aos="fade" for the signup__box potentially cased flicker issue */}
+        <div className="signup__box">
           <div className="signup__progress">
             <div className="signup__progress-line">
               <div className="signup__progress-fill" style={{"width" : fillPercent + "%"}}>

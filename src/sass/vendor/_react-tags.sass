@@ -66,19 +66,29 @@
   color: #646c77
   margin-left: 5px
   cursor: pointer
-  font-size: 0
+  // font-size: 0
+  font-size: 9px
+  // temporarly
   background: white
   border-radius: 3px
   cursor: pointer
   size: 25px
   transform: translateY(-50%)
-  &::after
+  display: flex !important
+  align-items: center
+  justify-content: center
+  span
     display: inline-block
-    top: 50%
-    left: 50%
-    transform: translate(-50%,-50%)
-    content: ' '
-    background: svg-load('../images/icons/ico-close.svg') no-repeat center center
+    font-size: 14px
+    line-height: 1
+    padding-top: 2px
+  // &::after
+  //   display: inline-block
+  //   top: 50%
+  //   left: 50%
+  //   transform: translate(-50%,-50%)
+  //   content: ' '
+  //   background: svg-load('../images/icons/ico-close.svg') no-repeat center center
 
 
 .ReactTags__suggestions
