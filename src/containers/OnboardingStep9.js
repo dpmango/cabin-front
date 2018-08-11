@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
+import PhoneInput from 'react-phone-number-input'
+import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
@@ -20,9 +22,10 @@ class OnboardingStep9 extends Component {
     super(props);
 
     this.state = {
-      company_activity: props.onboardingFields.company_activity,
-      company_addres:  props.onboardingFields.company_addres,
-      company_revenue:  props.onboardingFields.company_revenue,
+      name: props.onboardingFields.name,
+      designation:  props.onboardingFields.designation,
+      phone:  props.onboardingFields.phone,
+      email: props.onboardingFields.email,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -73,52 +76,33 @@ class OnboardingStep9 extends Component {
   }
 
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { name, designation, phone, email } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      name: name,
+      designation: designation,
+      phone: phone,
+      email: email
     }
 
-    // if signup ID is present - then update by PATCH
-    // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
-
-    this.updateSignup();
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { name, designation, phone, email } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -129,9 +113,10 @@ class OnboardingStep9 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        name: name,
+        designation: designation,
+        phone: phone,
+        email: email
       })
 
       this.setState({ isTransitioningNext: false })
@@ -147,7 +132,7 @@ class OnboardingStep9 extends Component {
   }
 
   render(){
-    const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
+    const { name, designation, phone, email, isTransitioningNext, isFormSubmitted } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -155,10 +140,10 @@ class OnboardingStep9 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <Image file="rifeng-avatar.png" />
           </div>
-          <h2>We will need to know a little more about the company</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
+          <h2>Confirm your information</h2>
         </div>
         <div className="signup__right">
+          <div className="signup__note">I hereby confirm that all information provided is true, complete, and correct to my best knowledge, and further undertake to notify Cabin Pte. Ltd. promptly in writing upon any changes to the information provided. I am aware that I may be subjected to prosecution and criminal sanctions if I am are found to have made any reckless statements, false statements, statements which I do not believe to be true, or if I have intentionally suppressed any material facts.</div>
           <Formsy
             className="signup__form"
             onSubmit={this.handleSubmit}
@@ -167,48 +152,58 @@ class OnboardingStep9 extends Component {
             ref={this.formRef}
           >
             <FormInput
-              name="company_activity"
-              placeholder="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
+              name="name"
+              placeholder="Name"
+              value={name}
+              validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
+                isDefaultRequiredValue: 'Please fill your name',
+                minLength: 'Name is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
             <FormInput
-              type="textarea"
-              rows="3"
-              tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
-              name="company_addres"
-              placeholder="Address of operating premise"
-              value={company_addres}
-              validations="minLength:3"
+              name="designation"
+              placeholder="Designation"
+              value={designation}
+              validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Address of operating premise',
-                minLength: 'Address of operating premise is too short'
+                isDefaultRequiredValue: 'Please fill your designation',
+                minLength: 'Designation name is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
             <FormInput
-              name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
-              value={company_revenue}
-              validations="minLength:3"
+              name="email"
+              placeholder="Email"
+              value={email}
+              validations="isEmail"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Estimated annual revenue',
-                minLength: 'Estimated annual revenue premise is too short'
+                isEmail: "This is not a valid email",
+                isDefaultRequiredValue: 'Please fill email'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
+            <div className="ui-group">
+              <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
+                <PhoneInput
+              		placeholder="Phone Number"
+              		value={ phone }
+                  country="SG"
+                  displayInitialValueAsLocalNumber={true}
+              		onChange={ phone => this.setState({ phone }) }
+                  onKeyPress={this.keyPressHandler}
+                  indicateInvalid
+                  error={ isFormSubmitted ? phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' : undefined }
+                />
+              </div>
+            </div>
           </Formsy>
         </div>
       </div>

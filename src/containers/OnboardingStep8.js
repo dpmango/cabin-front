@@ -6,7 +6,9 @@ import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
-import FormInput from '../components/FormInput';
+import { Tooltip } from 'react-tippy';
+import CheckBox from '../components/CheckBox';
+import SvgIcon from '../components/SvgIcon';
 
 class OnboardingStep8 extends Component {
   static propTypes = {
@@ -20,9 +22,8 @@ class OnboardingStep8 extends Component {
     super(props);
 
     this.state = {
-      company_activity: props.onboardingFields.company_activity,
-      company_addres:  props.onboardingFields.company_addres,
-      company_revenue:  props.onboardingFields.company_revenue,
+      other_beneficiaries: props.onboardingFields.other_beneficiaries,
+      other_controllers:  props.onboardingFields.other_controllers,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -49,10 +50,10 @@ class OnboardingStep8 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    // if ( this.state.formIsValid ){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
-    }
+    // }
   }
 
   // click handler for the button
@@ -60,65 +61,39 @@ class OnboardingStep8 extends Component {
     this.formRef.current.submit();
   }
 
-  handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
-  }
-
-  keyPressHandler = (e) => {
-    if ( e.key === "Enter" ){
-      this.submitForm();
-    }
+  chooseOption = (name, value) => {
+    // just as a toggler true/false
+    this.setState({...this.state,
+      [name]: value
+    })
   }
 
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { other_beneficiaries, other_controllers } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      other_beneficiaries: other_beneficiaries,
+      other_controllers: other_controllers
     }
 
-    // if signup ID is present - then update by PATCH
-    // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
-
-    this.updateSignup();
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { other_beneficiaries, other_controllers } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -129,9 +104,8 @@ class OnboardingStep8 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        other_beneficiaries: other_beneficiaries,
+        other_controllers: other_controllers
       })
 
       this.setState({ isTransitioningNext: false })
@@ -147,7 +121,7 @@ class OnboardingStep8 extends Component {
   }
 
   render(){
-    const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
+    const { other_beneficiaries, other_controllers, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -155,8 +129,8 @@ class OnboardingStep8 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <Image file="rifeng-avatar.png" />
           </div>
-          <h2>We will need to know a little more about the company</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
+          <h2>Other declarations</h2>
+
         </div>
         <div className="signup__right">
           <Formsy
@@ -166,49 +140,59 @@ class OnboardingStep8 extends Component {
             onInvalid={this.formInvalid}
             ref={this.formRef}
           >
-            <FormInput
-              name="company_activity"
-              placeholder="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              type="textarea"
-              rows="3"
-              tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
-              name="company_addres"
-              placeholder="Address of operating premise"
-              value={company_addres}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Address of operating premise',
-                minLength: 'Address of operating premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
-              value={company_revenue}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Estimated annual revenue',
-                minLength: 'Estimated annual revenue premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
+            <div className="signup__section">
+              <div className="signup__section-heading">
+                <span>Are there any other beneficiaries (individual or corporate), parent companies or subsidiaries other than those declared above?</span>
+                <Tooltip
+                  title="some tooltip content"
+                  position="top"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              </div>
+              <div className="signup__checkboxes">
+                <CheckBox
+                  name="other_beneficiaries"
+                  text="Yes"
+                  clickHandler={this.chooseOption.bind(this, "other_beneficiaries", true)}
+                  isActive={other_beneficiaries }
+                />
+                <CheckBox
+                  name="other_beneficiaries"
+                  text="No"
+                  clickHandler={this.chooseOption.bind(this, "other_beneficiaries", false)}
+                  isActive={!other_beneficiaries }
+                />
+              </div>
+            </div>
+
+            <div className="signup__section">
+              <div className="signup__section-heading">
+                <span>Are there any other beneficiaries (individual or corporate), parent companies or subsidiaries other than those declared above?</span>
+                <Tooltip
+                  title="some tooltip content"
+                  position="top"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              </div>
+              <div className="signup__checkboxes">
+                <CheckBox
+                  name="other_controllers"
+                  text="Yes"
+                  clickHandler={this.chooseOption.bind(this, "other_controllers", true)}
+                  isActive={other_controllers }
+                />
+                <CheckBox
+                  name="other_controllers"
+                  text="No"
+                  clickHandler={this.chooseOption.bind(this, "other_controllers", false)}
+                  isActive={!other_controllers }
+                />
+              </div>
+            </div>
           </Formsy>
         </div>
       </div>

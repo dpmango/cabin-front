@@ -327,12 +327,7 @@ class OnboardingStep6 extends Component {
                             id={cb.name}
                             placeholder={cb.input}
                             value={company_relations_inputs[cb.name]}
-                            validations="minLength:3"
-                            validationErrors={{
-                              isDefaultRequiredValue: 'This field is required',
-                            }}
                             onChangeHandler={this.handleChangeNested}
-                            required
                           />
                         }
                       </React.Fragment>

@@ -6,7 +6,7 @@ class OnboardingContainer extends React.Component {
   render(){
     // 2 steps offset (2 WELCOME SCREENS)
     const {onPrev, onNext, onboardingStep, noProgress} = this.props;
-    const fillPercent = Math.round( (onboardingStep - 2) * 100 / 8 , 10)
+    const fillPercent = Math.round( (onboardingStep - 2) * 100 / 7 , 10)
     return(
       <div className="container">
         {/*  data-aos="fade" removed as potential flicker issue */}
@@ -15,7 +15,7 @@ class OnboardingContainer extends React.Component {
             <div className="signup__progress">
               <div className="signup__progress-line">
                 <div className="signup__progress-fill" style={{"width" : fillPercent + "%"}}>
-                  <div className={"signup__progress-name " + (onboardingStep === 9 ? "signup__progress-name--last" : "")}>Step {onboardingStep - 2} of 8</div>
+                  <div className={"signup__progress-name " + (onboardingStep === 9 ? "signup__progress-name--last" : "")}>Step {onboardingStep - 2} of 7</div>
                 </div>
               </div>
             </div>
