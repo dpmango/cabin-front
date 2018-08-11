@@ -38,7 +38,7 @@ class OnboardingStep5 extends Component {
   }
 
   componentDidUpdate(){
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   componentDidMount() {
@@ -107,43 +107,24 @@ class OnboardingStep5 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
-      consumers_list: consumers_list,
-      suppliers_list: suppliers_list,
-      payments_to_list: payments_to_list,
-      payments_from_list: payments_from_list
+      consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      suppliers_list: suppliers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      payments_to_list: payments_to_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      payments_from_list: payments_from_list.map(x => `(${x.id}) ${x.text}`).join(', ')
     }
 
-    // if signup ID is present - then update by PATCH
-    // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
-
-    this.updateSignup();
+    // update the api
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
@@ -259,6 +240,7 @@ class OnboardingStep5 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
+  onboardingId: state.onboarding.onboardingId,
   onboardingStep: state.onboarding.onboardingStep
 });
 

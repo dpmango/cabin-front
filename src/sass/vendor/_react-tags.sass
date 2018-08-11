@@ -2,6 +2,10 @@
 .ReactTags__tags
   position: relative
 
+  &.have-tags
+    .ReactTags__selected
+      padding-bottom: 7px
+
 .ReactTags__selected
   position: relative
   display: flex
@@ -13,6 +17,8 @@
   border: 1px solid rgba($fontColorGray, .5)
   box-shadow: none
   padding: 14px 15px
+  // mind the 7px margin from the tag (with the mod class)
+
   transition: .25s $ease
 
 .ReactTags__tagInput
@@ -43,6 +49,7 @@
   font-size: 13px
   color: $fontColorGray
   padding: 11px 50px 11px 10px
+  margin-bottom: 7px
   margin-right: 10px
   cursor: move
   &:last-child

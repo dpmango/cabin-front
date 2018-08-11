@@ -82,37 +82,18 @@ class OnboardingStep4 extends Component {
       company_revenue: company_revenue
     }
 
-    // if signup ID is present - then update by PATCH
-    // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
-
-    this.updateSignup();
+    // update the api
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
@@ -220,6 +201,7 @@ class OnboardingStep4 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
+  onboardingId: state.onboarding.onboardingId,
   onboardingStep: state.onboarding.onboardingStep
 });
 

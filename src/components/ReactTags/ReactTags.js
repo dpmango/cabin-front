@@ -419,8 +419,12 @@ class ReactTags extends Component {
       </div>
     ) : null;
 
+    console.log('tagItems', tagItems)
+
     return (
-      <div className={this.state.classNames.tags}>
+      <div className={this.state.classNames.tags
+                      + ( this.state.isFocused ? " is-focused" : "" )
+                      + ( tagItems.length ? " have-tags" : "" )} >
         <div className={this.state.classNames.selected}>
           {tagItems}
           {this.props.inline && tagInput}

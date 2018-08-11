@@ -198,6 +198,7 @@ class OnboardingStep7 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
+  onboardingId: state.onboarding.onboardingId,
   onboardingStep: state.onboarding.onboardingStep
 });
 

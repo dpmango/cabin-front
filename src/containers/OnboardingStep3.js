@@ -20,8 +20,8 @@ class OnboardingStep3 extends Component {
     super(props);
 
     this.state = {
-      company_uen: props.onboardingFields.first_name,
-      company_name:  props.onboardingFields.last_name,
+      company_uen: props.onboardingFields.company_uen,
+      company_name:  props.onboardingFields.company_name,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -72,51 +72,51 @@ class OnboardingStep3 extends Component {
   }
 
   nextStep = () => {
-    const { first_name, last_name, company_name, email, phone } = this.state;
+    const { company_uen, company_name } = this.state;
 
     const leadObj = {
+      onboarding_id: this.props.onboardingRandomId,
       isproduction: isProduction(),
-      first_name: first_name,
-      last_name: last_name,
+      company_uen: company_uen,
+      company_name: company_name,
     }
 
-    // if signup ID is present - then update by PATCH
+    // if onboarding ID is present - then update by PATCH
     // else - create new
-    // if ( this.props.signupId ){
-    //   // patch lead
-    //   api
-    //     .patch('signup_leads/' + this.props.signupId, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.updateSignup()
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   // create new instance
-    //   api
-    //     .post(`signup_leads`, {
-    //       signup_lead: leadObj
-    //     })
-    //     .then((res) => {
-    //       this.props.setSignupId(res.data.id);
-    //       this.props.setSignupEmail(res.data.email);
-    //       this.updateSignup();
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
+    if ( this.props.onboardingId ){
+      // patch lead
+      api
+        .patch('onboardings/' + this.props.onboardingId, {
+          onboarding: leadObj
+        })
+        .then((res) => {
+          console.log('Backend responce to onboarding PATCH' , res)
+          this.updateSignup()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      // create new instance
+      api
+        .post(`onboardings`, {
+          onboarding: leadObj
+        })
+        .then((res) => {
+          console.log('Backend responce to onboarding POST' , res)
 
-    this.updateSignup();
-
+          this.props.setOnboardingId(res.data.id);
+          this.updateSignup();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   updateSignup = () => {
 
-    const { first_name, last_name } = this.state;
+    const { company_uen, company_name } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -127,8 +127,8 @@ class OnboardingStep3 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        first_name: first_name,
-        last_name: last_name,
+        company_uen: company_uen,
+        company_name: company_name,
       })
 
       this.setState({ isTransitioningNext: false })
@@ -201,6 +201,8 @@ class OnboardingStep3 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
+  onboardingRandomId: state.onboarding.onboardingRandomId,
+  onboardingId: state.onboarding.onboardingId,
   onboardingStep: state.onboarding.onboardingStep
 });
 

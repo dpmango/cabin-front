@@ -54,10 +54,11 @@ class OnboardingStep6 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    // TODO add some kind of validations?
+    // if ( this.state.formIsValid ){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
-    }
+    // }
   }
 
   // click handler for the button
@@ -143,21 +144,55 @@ class OnboardingStep6 extends Component {
   }
 
   nextStep = () => {
-    const { paidup_capital, company_relations } = this.state;
+    const { paidup_capital, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
+
+    console.log(
+      'company_relations_inputs', company_relations_inputs,
+      'company_relations', company_relations
+    )
+
+    let companyRelationsJoined = ""
+
+    // join checkbox and input values
+    company_relations.forEach( (checkbox, i) => {
+      let index = -1
+      company_relations_inputs.forEach((input, ind) => {
+        if ( checkbox === input.name ){ index = ind }
+      })
+
+      if ( index !== -1 ){
+        // if matched - add string with the input value
+        companyRelationsJoined += `${checkbox} (${company_relations_inputs[index].value}), `
+      } else {
+        // if empty - only the checkbox value
+        companyRelationsJoined += `${checkbox}, `
+      }
+    })
 
     const leadObj = {
       isproduction: isProduction(),
-      paidup_capital: paidup_capital.join(' ,'),
-      company_relations: company_relations.join(' ,')
+      paidup_capital: paidup_capital.join(', '),
+      company_relations: companyRelationsJoined,
+      paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')
     }
 
-    this.updateSignup();
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
   updateSignup = () => {
 
-    const { paidup_capital, company_relations, paidup_capital_origins } = this.state;
+    const { paidup_capital, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -170,6 +205,7 @@ class OnboardingStep6 extends Component {
         ...this.props.onboardingFields,
         paidup_capital: paidup_capital,
         company_relations: company_relations,
+        company_relations_inputs: company_relations_inputs, // local only
         paidup_capital_origins: paidup_capital_origins
       })
 
@@ -317,6 +353,7 @@ class OnboardingStep6 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
+  onboardingId: state.onboarding.onboardingId,
   onboardingStep: state.onboarding.onboardingStep
 });
 
