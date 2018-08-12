@@ -4,26 +4,23 @@ import { Tooltip } from 'react-tippy';
 // import ScrollArea from 'react-scrollbar';
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
+import cloneDeep from 'lodash/cloneDeep';
 
 class ShareholderTable extends Component {
 
   constructor(props){
     super(props);
 
-    this.schemaInputs = props.schema.tbody.map( x => {
-      return {type: x.type, placeholder: x.placeholder, name: x.name, value: ''}
-    })
-
     this.state = {
       inputs_values: [
-        this.schemaInputs,
-        this.schemaInputs
+        props.schema.tbody.map( x => {
+          return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "" }
+        }),
+        props.schema.tbody.map( x => {
+          return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "" }
+        })
       ]
     }
-  }
-
-  componentDidUpdate(){
-    console.log(this.state)
   }
 
   handleChange = (e, rowIndex, type, placeholder) => {
@@ -43,7 +40,8 @@ class ShareholderTable extends Component {
       name: fieldName,
       value: fieldVal,
     }
-    const stateClone = this.state.inputs_values
+
+    const stateClone = this.state.inputs_values; // cloneDeep ?
     stateClone[rowIndex][cellIndex] = newObj
 
     this.setState({...this.state,
@@ -52,34 +50,48 @@ class ShareholderTable extends Component {
 
   }
 
-  chooseOption = (id, name) => {
-    const options = this.state[name]
-    let index
+  chooseOption = (name, rowIndex, type, placeholder) => {
 
-    if (options.indexOf(id) === -1) {
-     options.push(id)
-    } else {
-     index = options.indexOf(id)
-     options.splice(index, 1)
+    let cellIndex = -1
+    this.state.inputs_values[rowIndex].forEach( (x,i) => {
+      if ( x.name === name ){
+        cellIndex = i
+      }
+    })
+
+    const stateValue = this.state.inputs_values[rowIndex][cellIndex].value
+
+    const newObj = {
+      type: type,
+      placeholder: placeholder,
+      name: name,
+      value: stateValue === "" ? true : !stateValue // first click
     }
 
-    this.setState({
-      ...this.state,
-      [name]: options
+    const stateClone = this.state.inputs_values
+    stateClone[rowIndex][cellIndex] = newObj
+
+    this.setState({...this.state,
+      inputs_values: stateClone
     })
   }
 
+
   addNewLine = () => {
+    const stateClone = this.state.inputs_values;
+    stateClone.push(
+      this.props.schema.tbody.map( x => {
+        return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "" }
+      })
+    )
 
-    const stateClone = this.state;
-    stateClone.inputs_values.push(this.schemaInputs)
-
-    this.setState({
-      stateClone
-    });
+    this.setState({...this.state,
+      inputs_values: stateClone
+    })
   }
 
-  renderInputComponenet = (schema, rowIndex) => {
+
+  renderInputComponenet = (schema, rowIndex, cellIndex) => {
     const {inputs_values} = this.state
 
     switch (schema.type) {
@@ -89,17 +101,17 @@ class ShareholderTable extends Component {
             type="text"
             name={schema.name}
             placeholder={schema.placeholder}
-            value={inputs_values[rowIndex][schema.name]}
+            value={inputs_values[rowIndex][cellIndex].value}
             onChange={(e) => this.handleChange(e, rowIndex, schema.type, schema.placeholder)}
           />
         )
       case 'checkbox':
         return(
           <CheckBox
-            name={schema.name}
+            name={schema.name + `_${rowIndex}`}
             text={null}
-            clickHandler={this.chooseOption.bind(this, schema.name)}
-            isActive={inputs_values[schema.name]}
+            clickHandler={this.chooseOption.bind(this, schema.name, rowIndex, schema.type, schema.placeholder)}
+            isActive={inputs_values[rowIndex][cellIndex].value}
           />
         )
       default:
@@ -149,7 +161,7 @@ class ShareholderTable extends Component {
                     <tr key={i}>
                       {tr.map( (td,index) => {
                         return(
-                          <td key={index}>{this.renderInputComponenet(td, i)}</td>
+                          <td key={index}>{this.renderInputComponenet(td, i, index)}</td>
                         )
                       })}
                     </tr>
