@@ -62,17 +62,53 @@ class OnboardingStep7 extends Component {
     this.handleSubmit();
   }
 
+  // called from the parent onBlur or checkbox onClick
+  updateState = (name, componentState) => {
+    this.setState({ ...this.state,
+      [name]: componentState
+    })
+  }
+
+  componentDidUpdate(){
+    // console.log(this.state)
+  }
+
   nextStep = () => {
     const { shareholders_individulas, shareholders_corporate } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      shareholders_individulas: shareholders_individulas,
-      shareholders_corporate: shareholders_corporate
+      shareholders_individulas: this.convertStateToStr(shareholders_individulas),
+      shareholders_corporate: this.convertStateToStr(shareholders_corporate)
     }
 
-    this.updateSignup();
+    api
+      .patch('onboardings/' + this.props.onboardingId, {
+        onboarding: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
+  }
+
+  convertStateToStr = (state) => {
+    // state is a sibling comming from a shareholders table
+    let result = ""
+
+    state.forEach( (row, i) => {
+      result += `row ${i} : `
+      row.forEach( (col, index) => {
+        result += `${col.name} = ${col.value} ; `
+      })
+    })
+
+    console.log(result)
+    return result
   }
 
   updateSignup = () => {
@@ -166,7 +202,6 @@ class OnboardingStep7 extends Component {
       ]
     }
 
-
     const corporatesTable = {
       thead: [
         {
@@ -229,6 +264,7 @@ class OnboardingStep7 extends Component {
           <ShareholderTable
             title="List of key individuals (shareholders and directors)"
             schema={individualsTable}
+            updateState={this.updateState.bind(this, "shareholders_individulas")}
             helperText="There will be an additional fee of S$25 per individual per year after that fifth key individual. This is to account for the additional administrative and recording keeping processes required."
           />
 
@@ -236,6 +272,7 @@ class OnboardingStep7 extends Component {
             title="List of relevant corporate entities (i.e. corporate shareholders or directors)"
             titleTooltip="Some tooltip content"
             schema={corporatesTable}
+            updateState={this.updateState.bind(this, "shareholders_corporate")}
             helperText="There will be an additional fee of S$25 per individual per year after that fifth key individual. This is to account for the additional administrative and recording keeping processes required."
           />
 

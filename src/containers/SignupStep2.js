@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
-import { parseNumber, formatNumber, isValidNumber } from 'libphonenumber-js';
+import { isValidNumber } from 'libphonenumber-js';
 import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import buildOptionsString from '../services/buildOptionsString';

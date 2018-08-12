@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tippy';
 // import ScrollArea from 'react-scrollbar';
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
-import cloneDeep from 'lodash/cloneDeep';
+// import cloneDeep from 'lodash/cloneDeep';
 
 class ShareholderTable extends Component {
 
@@ -73,7 +73,11 @@ class ShareholderTable extends Component {
 
     this.setState({...this.state,
       inputs_values: stateClone
+    }, () => {
+      // pass state to parent
+      this.props.updateState(this.state.inputs_values)
     })
+
   }
 
 
@@ -90,6 +94,12 @@ class ShareholderTable extends Component {
     })
   }
 
+  updateState = () => {
+    // as it's a significat delay between onChange and Onblur, this call is
+    // state update agnostic
+    this.props.updateState(this.state.inputs_values)
+  }
+
 
   renderInputComponenet = (schema, rowIndex, cellIndex) => {
     const {inputs_values} = this.state
@@ -102,6 +112,7 @@ class ShareholderTable extends Component {
             name={schema.name}
             placeholder={schema.placeholder}
             value={inputs_values[rowIndex][cellIndex].value}
+            onBlur={this.updateState}
             onChange={(e) => this.handleChange(e, rowIndex, schema.type, schema.placeholder)}
           />
         )

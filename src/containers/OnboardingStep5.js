@@ -6,7 +6,7 @@ import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
-import FormInput from '../components/FormInput';
+// import FormInput from '../components/FormInput';
 import ReactTags from '../components/ReactTags/ReactTags';
 // import { WithContext as ReactTags } from 'react-tag-input'; // changed to /compoinenets call
 
