@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tooltip } from 'react-tippy';
-import { Scrollbars } from 'react-custom-scrollbars';
-
+// import { Scrollbars } from 'react-custom-scrollbars';
+// import ScrollArea from 'react-scrollbar';
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
 
@@ -26,20 +26,25 @@ class ShareholderTable extends Component {
     console.log(this.state)
   }
 
-  handleChange = (e) => {
+  handleChange = (e, rowIndex, type, placeholder) => {
     let fieldName = e.target.name;
     let fieldVal = e.target.value;
 
-    let index = -1
-    this.state.inputs_values.forEach( (x,i) => {
+    let cellIndex = -1
+    this.state.inputs_values[rowIndex].forEach( (x,i) => {
       if ( x.name === fieldName ){
-        index = i
+        cellIndex = i
       }
     })
 
-    const newObj = { name: fieldName, value: fieldVal }
+    const newObj = {
+      type: type,
+      placeholder: placeholder,
+      name: fieldName,
+      value: fieldVal,
+    }
     const stateClone = this.state.inputs_values
-    stateClone[index] = newObj
+    stateClone[rowIndex][cellIndex] = newObj
 
     this.setState({...this.state,
       inputs_values: stateClone
@@ -74,7 +79,7 @@ class ShareholderTable extends Component {
     });
   }
 
-  renderInputComponenet = (schema) => {
+  renderInputComponenet = (schema, rowIndex) => {
     const {inputs_values} = this.state
 
     switch (schema.type) {
@@ -84,8 +89,8 @@ class ShareholderTable extends Component {
             type="text"
             name={schema.name}
             placeholder={schema.placeholder}
-            value={inputs_values[schema.name]}
-            onChange={this.handleChange}
+            value={inputs_values[rowIndex][schema.name]}
+            onChange={(e) => this.handleChange(e, rowIndex, schema.type, schema.placeholder)}
           />
         )
       case 'checkbox':
@@ -123,10 +128,6 @@ class ShareholderTable extends Component {
           }
         </div>
         <div className="sh-table__wrapper">
-        <Scrollbars
-          // onScroll={(e) => console.log(e)}
-          autoHeight
-           >
           <table>
             <thead>
               <tr>
@@ -148,7 +149,7 @@ class ShareholderTable extends Component {
                     <tr key={i}>
                       {tr.map( (td,index) => {
                         return(
-                          <td key={index}>{this.renderInputComponenet(td)}</td>
+                          <td key={index}>{this.renderInputComponenet(td, i)}</td>
                         )
                       })}
                     </tr>
@@ -162,7 +163,6 @@ class ShareholderTable extends Component {
           { helperText &&
             <div className="sh-table__info">{helperText}</div>
           }
-        </Scrollbars>
         </div>
       </div>
     )
