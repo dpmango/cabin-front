@@ -166,6 +166,56 @@ class OnboardingStep7 extends Component {
       ]
     }
 
+
+    const corporatesTable = {
+      thead: [
+        {
+          icon: "check",
+          name: "Company name"
+        },
+        {
+          icon: "check",
+          name: "UEN"
+        },
+        {
+          icon: "check",
+          name: "Name of corporate representative"
+        },
+        {
+          name: "Shareholder?"
+        },
+        {
+          name: "Director?"
+        }
+
+      ],
+      tbody: [
+        {
+          type: "input",
+          placeholder: "Company name",
+          name: "company_name"
+        },
+        {
+          type: "input",
+          placeholder: "UEN",
+          name: "uen"
+        },
+        {
+          type: "input",
+          placeholder: "Corporate representative",
+          name: "corporate_representative"
+        },
+        {
+          type: "checkbox",
+          name: "is_shareholder"
+        },
+        {
+          type: "checkbox",
+          name: "is_director"
+        }
+      ]
+    }
+
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -183,9 +233,9 @@ class OnboardingStep7 extends Component {
           />
 
           <ShareholderTable
-            title="List of key individuals (shareholders and directors)"
+            title="List of relevant corporate entities (i.e. corporate shareholders or directors)"
             titleTooltip="Some tooltip content"
-            schema={individualsTable}
+            schema={corporatesTable}
             helperText="There will be an additional fee of S$25 per individual per year after that fifth key individual. This is to account for the additional administrative and recording keeping processes required."
           />
 

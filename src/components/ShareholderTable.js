@@ -10,17 +10,20 @@ class ShareholderTable extends Component {
   constructor(props){
     super(props);
 
-    this.initialInputNames = props.schema.tbody.map( x => {
-      return {name: x.name, value: ''}
+    this.schemaInputs = props.schema.tbody.map( x => {
+      return {type: x.type, placeholder: x.placeholder, name: x.name, value: ''}
     })
 
     this.state = {
-      inputs_values: this.initialInputNames // TODO refactor to indexes with one lvl up
+      inputs_values: [
+        this.schemaInputs,
+        this.schemaInputs
+      ]
     }
   }
 
   componentDidUpdate(){
-    // console.log(this.state)
+    console.log(this.state)
   }
 
   handleChange = (e) => {
@@ -61,8 +64,17 @@ class ShareholderTable extends Component {
     })
   }
 
-  renderInputComponenet = (schema) => {
+  addNewLine = () => {
 
+    const stateClone = this.state;
+    stateClone.inputs_values.push(this.schemaInputs)
+
+    this.setState({
+      stateClone
+    });
+  }
+
+  renderInputComponenet = (schema) => {
     const {inputs_values} = this.state
 
     switch (schema.type) {
@@ -94,6 +106,7 @@ class ShareholderTable extends Component {
   render(){
 
     const { schema, title, titleTooltip, helperText } = this.props;
+    const { inputs_values } = this.state
 
     return(
       <div className="sh-table">
@@ -109,9 +122,9 @@ class ShareholderTable extends Component {
             </Tooltip>
           }
         </div>
-        {/* <div className="sh-table__wrapper"> */}
+        <div className="sh-table__wrapper">
         <Scrollbars
-          onScroll={(e) => console.log(e)}
+          // onScroll={(e) => console.log(e)}
           autoHeight
            >
           <table>
@@ -130,22 +143,27 @@ class ShareholderTable extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                {schema.tbody.map( (td, i) => {
+              {inputs_values.map((tr,i) => {
                   return(
-                    <td key={i}>
-                      {this.renderInputComponenet(td)}
-                    </td>
+                    <tr key={i}>
+                      {tr.map( (td,index) => {
+                        return(
+                          <td key={index}>{this.renderInputComponenet(td)}</td>
+                        )
+                      })}
+                    </tr>
                   )
-                })}
-              </tr>
+                }
+              )}
+
             </tbody>
           </table>
+          <div className="sh-table__add" onClick={this.addNewLine}>+ Add Additional Individuals</div>
           { helperText &&
             <div className="sh-table__info">{helperText}</div>
           }
         </Scrollbars>
-        {/* </div> */}
+        </div>
       </div>
     )
   }
