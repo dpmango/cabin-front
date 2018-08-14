@@ -3,6 +3,7 @@ import * as types from '../store/ActionTypes';
 
 export const initialState = {
   signupRandomId: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+  isAlt: null,
   signupStep: 1,
   signupEmail: '',
   signupId: '',
@@ -46,6 +47,11 @@ const signup = (state = initialState, action) => {
       return {
         ...state,
         fields: action.payload
+      }
+    case types.LOCK_SIGNUP_ALT:
+      return {
+        ...state,
+        isAlt: action.payload
       }
     default:
       return state;

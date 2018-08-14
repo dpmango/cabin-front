@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS, LOCK_SIGNUP_ALT } from '../store/ActionTypes';
 
 import SignupStep1 from '../containers/SignupStep1'
 import SignupContainer from '../containers/SignupContainer'
@@ -10,6 +10,7 @@ import SignupStep2 from '../containers/SignupStep2'
 import SignupStep3 from '../containers/SignupStep3'
 import SignupStep4 from '../containers/SignupStep4'
 import SignupStep5 from '../containers/SignupStep5'
+import SignupAlt from '../containers/SignupAlt'
 
 class GetStarted extends React.Component {
   static propTypes = {
@@ -28,21 +29,43 @@ class GetStarted extends React.Component {
     this.props.aosInst.refreshHard();
   }
 
+  shouldRenderAlt = () => {
+    if ( Math.random() > .5 ){
+      this.props.lockSignupAlt(true)
+      return true
+    } else {
+      this.props.lockSignupAlt(false)
+      return false
+    }
+  }
+
   updateURL = () => {
     const { signupStep, location, history } = this.props
 
-    let newPath
-    if ( signupStep === 5 ){
-      newPath = "/get-started/thank-you";
-    } else if ( signupStep === 1 ) {
-      newPath = "/get-started/hello";
+    let isAlternative
+    if ( this.props.isAltSaved === null ){
+      isAlternative = this.shouldRenderAlt(); // ask for random 50/50
     } else {
-      newPath = "/get-started/step-" + (signupStep - 1);
+      isAlternative = this.props.isAltSaved // or just compare the store
     }
 
-    if ( location.pathname === newPath ){
-      return
+    let newPath
+    if ( isAlternative ){
+      newPath = "/get-started/simple";
+    } else {
+      if ( signupStep === 1 ) {
+        newPath = "/get-started/hello";
+      } else {
+        newPath = "/get-started/step-" + (signupStep - 1);
+      }
     }
+
+    // nevermind about the alt for thank you page
+    if ( signupStep === 5 ){
+      newPath = "/get-started/thank-you";
+    }
+
+    if ( location.pathname === newPath ){ return }
     history.push(newPath)
   }
 
@@ -103,6 +126,8 @@ class GetStartedSwitch extends React.Component {
         )
       case 'thank-you':
         return <SignupStep5 />
+      case 'simple':
+        return <SignupAlt />
       case 'hello':
         return <SignupStep1 />
     }
@@ -120,13 +145,15 @@ class GetStartedSwitch extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-    signupStep: state.signup.signupStep
+    signupStep: state.signup.signupStep,
+    isAltSaved: state.signup.isAlt
   }
 );
 
 const mapDispatchToProps = (dispatch) => (
   {
-    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
+    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
+    lockSignupAlt: (data) => dispatch({ type: LOCK_SIGNUP_ALT, payload: data })
   }
 );
 
