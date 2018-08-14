@@ -82,7 +82,7 @@ class SignupAlt extends Component {
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
     const leadObj = {
       isproduction: isProduction(),
-      first_name: `* (alt signup) - ${first_name}`, // TODO alt tag is stored in name for now
+      first_name: "* (alt signup) - " + first_name, // TODO alt tag is stored in name for now
       last_name: last_name,
       company_name: company_name,
       email: email,
@@ -92,6 +92,8 @@ class SignupAlt extends Component {
       ispending: false,
       isfollowup: false,
     }
+
+    console.log(leadObj)
 
     // if signup ID is present - then update by PATCH
     // else - create new
@@ -140,10 +142,6 @@ class SignupAlt extends Component {
       phone: phone,
     })
 
-  }
-
-  prevStep = () => {
-    this.props.setSignupStep(1);
   }
 
   render(){
@@ -232,7 +230,7 @@ class SignupAlt extends Component {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn--huge btn--block" onClick={this.nextStep}>
+                <button type="submit" className="btn btn--huge btn--block">
                   <span>Submit</span>
                 </button>
 
