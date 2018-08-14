@@ -157,7 +157,7 @@ class ShareholderTable extends Component {
                 {schema.thead.map( (td, i) => {
                   return(
                     <td key={i}>
-                      { td.icon &&
+                      { td.icon && 
                         <SvgIcon name={td.icon} />
                       }
                       <span>{ td.name }</span>

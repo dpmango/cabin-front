@@ -147,19 +147,19 @@ class OnboardingStep7 extends Component {
     const individualsTable = {
       thead: [
         {
-          icon: "check",
+          icon: "sh-name",
           name: "Full name"
         },
         {
-          icon: "check",
+          icon: "sh-id",
           name: "ID"
         },
         {
-          icon: "check",
+          icon: "sh-phone",
           name: "Phone number"
         },
         {
-          icon: "check",
+          icon: "sh-email",
           name: "Email"
         },
         {
@@ -205,15 +205,15 @@ class OnboardingStep7 extends Component {
     const corporatesTable = {
       thead: [
         {
-          icon: "check",
+          icon: "sh-name",
           name: "Company name"
         },
         {
-          icon: "check",
+          icon: "sh-id",
           name: "UEN"
         },
         {
-          icon: "check",
+          icon: "sh-person",
           name: "Name of corporate representative"
         },
         {
