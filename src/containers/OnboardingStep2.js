@@ -69,9 +69,9 @@ class OnboardingStep2 extends Component {
           </div>
           <div className="signup__right signup__right--400">
             <h2>Meet your Cabin team,</h2>
-            <p className="t-paragraph">{"{Secretary}"} and {"{Executive}"}</p>
-            <p className="t-paragraph">{"{Secretary}"} will be the named person listed as your company’s secretary. He will oversee that the administration of all secretarial matters and ensure they comply with the Singapore Companies Act.</p>
-            <p className="t-paragraph">{"{Executive}"} will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
+            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> and <strong>{"{{Executive}}"}</strong></p>
+            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> will be the named person listed as your company’s secretary. He will oversee that the administration of all secretarial matters and ensure they comply with the Singapore Companies Act.</p>
+            <p className="t-paragraph"><strong>{"{{Executive}}"}</strong> will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
             <p className="t-paragraph">We look forward to working with you.</p>
             <div className="signup__signs-row">
               <i className="icon icon-rifeng-sign" />
@@ -92,7 +92,7 @@ const SignupManager = (props) => {
       <div className="signup__avatar signup__avatar--row">
         <div className="signup__hover-tooltip">
           <div className="signup__hover-wrapper">
-            Hi, I’m <span>{"{{name}}"}</span>
+            Hi, I’m <span><strong>{"{{"}{name}{"}}"}</strong></span>
           </div>
         </div>
         <Image file={image} />

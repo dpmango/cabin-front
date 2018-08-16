@@ -135,6 +135,8 @@ class OnBoardingSwitch extends React.Component {
         return <OnboardingThanks />
       case 'hello':
         return <OnboardingStep1 />
+      default:
+        return <OnboardingStep1 />
     }
   }
 

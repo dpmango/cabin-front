@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Formsy from 'formsy-react';
 import api from '../services/Api';
 import isProduction from '../services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
 import Image from '../components/Image';
-import FormInput from '../components/FormInput';
-import SvgIcon from '../components/SvgIcon';
 import ShareholderTable from '../components/ShareholderTable';
 
 class OnboardingStep7 extends Component {
@@ -142,7 +139,7 @@ class OnboardingStep7 extends Component {
   }
 
   render(){
-    const { shareholders_individulas, shareholders_corporate, isTransitioningNext } = this.state;
+    const { isTransitioningNext } = this.state;
 
     const individualsTable = {
       thead: [

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 
 // Polyfills
-import Number from 'core-js/library/fn/number';
+// import Number from 'core-js/library/fn/number';
 
 const maybeScrollSuggestionIntoView = (suggestionEl, suggestionsContainer) => {
   const containerHeight = suggestionsContainer.offsetHeight;

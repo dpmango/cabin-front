@@ -130,6 +130,8 @@ class GetStartedSwitch extends React.Component {
         return <SignupAlt />
       case 'hello':
         return <SignupStep1 />
+      default:
+        return <SignupStep1 />
     }
   }
 
