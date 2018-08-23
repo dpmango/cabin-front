@@ -10,12 +10,20 @@
     padding-bottom: 60px
     min-height: calc(100vh - 250px)
     // overflow: hidden
+    &--alt
+      .btn--huge
+        padding-top: 26px
+        padding-bottom: 24px
+      .icon-rifeng-sign
+        margin-top: 20px
   &__wrapper
     display: flex
     // align-items: center
     margin-left: -15px
     margin-right: -15px
     padding: 50px 100px 0px
+    // why it was not tranistioned ?
+    transition: .4s cubic-bezier(0.47, 0, 0.745, 0.715)
     &.fade-out
       // transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715)
       transform: translate3d(-20px, 0, 0) !important
@@ -29,12 +37,16 @@
     min-width: 1px
     min-height: 0
     padding: 0 15px
+    h2
+      max-width: 420px
   &__right
     flex: 0 1 50%
     max-width: 50%
     min-width: 1px
     min-height: 0
     padding: 0 15px
+    &--400
+      max-width: 400px
     &--no-pad
       h2
         margin-top: -10px
@@ -44,10 +56,28 @@
       &:hover
         color: $colorBlue
 
+  &__single-col
+    padding: 0 15px
+    flex: 0 1 100%
+    max-width: 100%
+    min-width: 1px
+    min-height: 0
+
   &__intro
     padding-top: 50px
     .icon-rifeng-sign
       margin-top: 30px
+
+  &__signs-row
+    display: flex
+    align-items: center
+    margin-top: 30px
+    .icon
+      margin-top: 0
+      margin-right: 40px
+      &:last-child
+        margin-right: 0
+
 
   &__avatar
     position: relative
@@ -58,8 +88,87 @@
       max-width: 100%
     &--big
       max-size: 270px
+    &--extra-small
+      max-size: 90px
     &--small
       max-size: 105px
+    &--onboarding
+      max-width: 405px
+      max-height: 100%
+    &--row
+      max-size: 245px
+      border: 20px solid white
+
+  &__heading-row
+    display: flex
+    align-items: center
+    .signup__avatar
+      flex: 0 0 90px
+
+    h2
+      margin-left: 25px
+
+
+  &__managers
+    display: flex
+    margin-top: 65px
+
+  &__manager
+    position: relative
+    &:nth-child(1)
+      z-index: 2
+    &:nth-child(2)
+      z-index: 1
+      margin-left: -60px
+
+    &-name
+      max-width: 150px
+      margin-top: 10px
+      margin-left: auto
+      margin-right: auto
+      text-align: center
+      font-size: 14px
+      color: $fontColorGray
+
+    &:hover
+      .signup__hover-tooltip
+        opacity: 1
+
+  &__hover
+    &-tooltip
+      position: absolute
+      z-index: 2
+      top: -27%
+      left: 50%
+      background: white
+      min-width: 158px
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.08)
+      border-radius: 3px
+      font-size: 13px
+      color: $fontColorGray
+      pointer-events: none
+      // cursor: pointer
+      opacity: 0
+      transform: translateX(-50%)
+      transition: opacity .3s $ease
+    &-wrapper
+      padding: 22px 10px 19px 20px
+      position: relative
+      &::after
+        display: inline-block
+        content: ' '
+        position: absolute
+        bottom: -9px
+        left: 50%
+        transform: translateX(-50%)
+        +arr(20,10,#fff,b)
+      span
+        display: block
+        margin-top: 4px
+        font-size: 18px
+        font-weight: 500
+        color: $colorBlue
+
 
   &__cta
     max-width: 360px
@@ -107,6 +216,9 @@
     &--complete
       margin-top: 70px
       justify-content: center
+    &--centered
+      justify-content: center
+      margin-top: 50px
     .btn--small
       min-width: 120px
     .btn--huge
@@ -192,6 +304,100 @@
     .ui-group
       z-index: 1
 
+  &__info
+    font-size: 13px
+    max-width: 420px
+    color: $fontColorGray
+    line-height: 1.53
+    background: #f6f7fb
+    padding: 24px
+    margin-top: 25px
+
+  &__note
+    font-size: 16px
+    line-height: 1.875
+    color: $fontColorGray
+    margin-bottom: 30px
+
+  &__section
+    margin-top: 75px
+    &:first-child
+      margin-top: 0
+
+    &-heading
+      font-size: 16px
+      font-weight: 500
+      line-height: 1.82
+      color: $fontColorGray
+      margin-bottom: 15px
+
+  &__checkboxes
+    > label
+      display: inline-block
+      font-size: 13px
+      color: rgba($fontColorGray, .5)
+      margin: 10px 0
+    .ui-checkbox
+      margin-bottom: 10px
+      &__label
+        opacity: .5
+        transition: opacity .25s $ease
+      &.is-active, &:hover
+        .ui-checkbox__label
+          opacity: 1
+      &.is-active
+        + .ui-group
+          display: block
+      + .ui-group
+        display: none
+        margin-bottom: 10px
+
+
+.signup-sucess
+  &__grid
+    display: flex
+    margin-left: -15px
+    margin-right: -15px
+
+  &__left
+    flex: 0 0 210px
+    max-width: 210px
+    padding: 0 15px
+    .signup__sucess
+      margin: 30px auto
+
+  &__right
+    flex: 1 1 auto
+    max-width: 570px
+    padding: 0 15px
+    margin-left: auto
+    text-align: left
+
+  &__links
+    background: #f6f7fb
+    margin: 22px 0
+    padding: 20px 20px 20px 35px
+    display: flex
+    flex-direction: column
+    a
+      display: inline-block
+      margin-bottom: 10px
+      font-size: 14px
+      line-height: 1.5
+      font-weight: 500
+      color: $fontColorGray
+      transition: .25s $ease
+      &:last-child
+        margin-bottom: 0
+      span
+        color: $colorBlue
+        transition: .25s $ease
+      &:hover
+        color: $colorBlueHover
+        span
+          color: $colorBlueHover
+
+
 
 +r($desktop)
   .signup
@@ -237,6 +443,10 @@
         padding-left: 30px
         padding-right: 30px
 
+    &__info
+      margin-bottom: 20px
+
+
 +r($mobile)
   .signup
     margin-top: 80px
@@ -263,3 +473,6 @@
         padding-left: 10px
         padding-right: 10px
         margin-bottom: 35px
+
+    &__info
+      padding: 15px 10px

@@ -12,6 +12,14 @@ class SignupStep1 extends Component {
     addToDataLayer: PropTypes.func
   };
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      isTransitioningNext: false,
+    }
+  }
+
   componentDidMount(){
     const gtmEvent = {
       event: 'gtm.getStartedInitiated',
@@ -27,16 +35,24 @@ class SignupStep1 extends Component {
   }
 
   nextStep = () => {
-    this.props.setSignupStep(2);
+    this.setState({ isTransitioningNext: true })
+
+    setTimeout(() => {
+      this.props.setSignupStep(2);
+      this.setState({ isTransitioningNext: false })
+    }, 400)
+
   }
 
   render(){
+    const { isTransitioningNext } = this.state;
+
     return(
       <div className="container">
         { /* to do - set delay to fade out before page transition? */ }
         <div className="signup__box" data-aos="fade">
           <div className="signup__intro">
-            <div className="signup__wrapper">
+            <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "") }>
               <div className="signup__left">
                 <div className="signup__avatar signup__avatar--big">
                   <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>

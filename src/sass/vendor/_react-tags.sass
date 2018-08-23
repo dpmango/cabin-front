@@ -1,0 +1,132 @@
+
+.ReactTags__tags
+  position: relative
+
+  &.have-tags
+    .ReactTags__selected
+      padding-bottom: 7px
+
+.ReactTags__selected
+  position: relative
+  display: flex
+  flex-wrap: wrap
+  width: 100%
+  height: auto
+  background: white
+  border-radius: 3px
+  border: 1px solid rgba($fontColorGray, .5)
+  box-shadow: none
+  padding: 14px 15px
+  // mind the 7px margin from the tag (with the mod class)
+
+  transition: .25s $ease
+
+.ReactTags__tagInput
+  flex: 1 1 auto
+  width: auto
+  border-radius: 2px
+  display: inline-block
+
+.ReactTags__tagInputField
+  -webkit-appearance: none
+  font-family: $systemFamily
+  font-size: 14px
+  line-height: normal
+  color: $fontColorGray
+  width: 100%
+  padding: 7px 10px
+  margin: 0
+  border: transparent
+  &:focus
+
+
+.ReactTags__tag
+  position: relative
+  display: inline-block
+  border: 0
+  background: #f6f7fb
+  border-radius: 3px
+  font-size: 13px
+  color: $fontColorGray
+  padding: 11px 50px 11px 10px
+  margin-bottom: 7px
+  margin-right: 10px
+  cursor: move
+  &:last-child
+    margin-right: 0
+  span.ReactTags__flag
+    display: inline-block
+    margin-right: 12px
+    transform: translateY(2px)
+
+.ReactTags__remove
+  position: absolute
+  right: 6px
+  top: 50%
+  color: #646c77
+  margin-left: 5px
+  cursor: pointer
+  // font-size: 0
+  font-size: 9px
+  // temporarly
+  background: white
+  border-radius: 3px
+  cursor: pointer
+  size: 25px
+  transform: translateY(-50%)
+  display: flex !important
+  align-items: center
+  justify-content: center
+  span
+    display: inline-block
+    font-size: 14px
+    line-height: 1
+    padding-top: 2px
+  // &::after
+  //   display: inline-block
+  //   top: 50%
+  //   left: 50%
+  //   transform: translate(-50%,-50%)
+  //   content: ' '
+  //   background: svg-load('../images/icons/ico-close.svg') no-repeat center center
+
+
+.ReactTags__suggestions
+  position: absolute
+  top: 66px
+  left: 0
+  right: 0
+  border-bottom-right-radius: 3px
+  border-bottom-left-radius: 3px
+  overflow: hidden
+  box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
+
+  ul
+    list-style: none
+    background: white
+    max-width: 100%
+    z-index: 1
+    margin: 0
+    padding: 0
+    -webkit-overflow-scrolling: touch
+    max-height: 227px
+
+  li
+    display: block
+    padding: 5px 10px
+    font-size: 13px
+    font-weight: 500
+    padding: 18px 18px
+    color: $fontColorGray
+    transition: .25s $ease
+    mark
+      // text-decoration: underline
+      background: none
+      font-weight: 600
+    &:last-child
+      border-bottom-right-radius: 3px
+      border-bottom-left-radius: 3px
+
+  ul li.ReactTags__activeSuggestion
+    background-color: $colorBlue
+    color: white

@@ -45,6 +45,11 @@ export const GetStarted = MyLoadable({
   modules: ['./pages/GetStarted'],
   webpack: () => [require.resolveWeak('./pages/GetStarted')]
 });
+export const OnBoarding = MyLoadable({
+  loader: () => import("./pages/OnBoarding"),
+  modules: ['./pages/OnBoarding'],
+  webpack: () => [require.resolveWeak('./pages/OnBoarding')]
+});
 export const NotFound = MyLoadable({
   loader: () => import("./pages/NotFound"),
   modules: ['./pages/NotFound'],
@@ -102,6 +107,12 @@ export const routes = [
     name: 'Get Started',
     component: GetStarted,
     isPrivate: false
+  },
+  {
+    forNavBar: false,
+    path: '/onboarding',
+    name: 'Onboarding tool',
+    component: OnBoarding,
   },
   {
     forNavBar: false,

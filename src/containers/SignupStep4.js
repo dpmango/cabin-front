@@ -468,7 +468,7 @@ class SignupStep4 extends Component {
             <div className={"ui-group " + (validationMessage ? "has-error" : "")}>
               <CheckBox
                 name="email_instead"
-                isAcitve={email_instead}
+                isActive={email_instead}
                 text="Email me instead"
                 clickHandler={this.checkboxClick}
               />
