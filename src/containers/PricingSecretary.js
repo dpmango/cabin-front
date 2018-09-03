@@ -47,7 +47,7 @@ class PricingSecretary extends Component {
     const { selected_year } = this.state;
     const year = parseInt(selected_year.label.substring(0,1), 10)
 
-    return year + " " + pluralize('year', year)
+    return year + "\xa0" + pluralize('year', year)
 
   }
   onSelectPlanClick = (pricingName) => {
@@ -139,7 +139,7 @@ class PricingSecretary extends Component {
                   onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary')}
                   onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                   className="btn btn--mega btn--block">
-                  Select <span>Corporate Secretary</span> Plan ({this.getYearPlural()} plan)
+                  Select <span>Corporate Secretary</span> Plan ({this.getYearPlural()}&nbsp;plan)
                 </Link>
               </div>
             </div>

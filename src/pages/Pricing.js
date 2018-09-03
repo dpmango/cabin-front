@@ -30,7 +30,8 @@ class Pricing extends Component {
     ]
 
     this.state = {
-      selectValue: this.selectOptions.filter( x => x.value === props.location.pathname )[0]
+      selectValue: this.selectOptions.filter( x =>
+        x.value.replace(/\//g,'') === props.location.pathname.replace(/\//g,'') )[0]
     };
   }
 

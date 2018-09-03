@@ -169,7 +169,7 @@ class TabContent1 extends React.Component {
             authorImage="avatar-1"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing/incorporation" className="btn btn--mega btn--block">Check out Cabin’s <span>Incorporation</span> Plan</Link>
+            <Link to="/pricing/incorporation" className="btn btn--mega btn--block">Check out Cabin’s <br/><span>Incorporation</span> Plan</Link>
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@ class TabContent2 extends React.Component {
             authorImage="avatar-2"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Corporate Secretary</span> Plan</Link>
+            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <br/><span>Corporate Secretary</span> Plan</Link>
           </div>
         </div>
       </div>
@@ -231,7 +231,7 @@ class TabContent3 extends React.Component {
             authorImage="avatar-3"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Annual Reporting</span> Plan</Link>
+            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <br/><span>Annual Reporting</span> Plan</Link>
           </div>
         </div>
       </div>
@@ -262,7 +262,7 @@ class TabContent4 extends React.Component {
             authorImage="avatar-4"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <span>Monthly Reporting</span> Plan</Link>
+            <Link to="/pricing" className="btn btn--mega btn--block">Check out Cabin’s <br/><span>Monthly Reporting</span> Plan</Link>
           </div>
         </div>
       </div>
@@ -293,7 +293,7 @@ class TabContent5 extends React.Component {
             authorImage="avatar-5"
           />
           <div className="home-benefits__content-cta">
-            <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <span>Customised Finance Team</span> Plan</Link>
+            <Link to="/pricing/custom" className="btn btn--mega btn--block">Check out Cabin’s <br/><span>Customised Finance Team</span> Plan</Link>
           </div>
         </div>
       </div>
