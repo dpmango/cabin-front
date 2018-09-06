@@ -83,11 +83,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
     "surge": "mv build/index.html build/200.html && surge --domain cabin.surge.sh --project ./build",
     "developer": "concurrently --kill-others \"gulp\" \"yarn start\"",
     "builder": "gulp build --production && yarn build",
-    "deploy": "node deploy-ftp",
     "postbuild": "react-snap"
   }
 }

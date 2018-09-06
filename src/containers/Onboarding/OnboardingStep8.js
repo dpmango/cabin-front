@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
-import Image from '../components/Image';
-import ShareholderTable from '../components/ShareholderTable';
+import api from '../../services/Api';
+import isProduction from '../../services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
+import Image from '../../components/Image';
+import ShareholderTable from '../../components/ShareholderTable';
 
 class OnboardingStep7 extends Component {
   static propTypes = {

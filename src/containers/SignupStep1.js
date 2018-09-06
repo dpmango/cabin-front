@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP, ADD_TO_DATALAYER, RESET_DATALAYER } from '../store/ActionTypes';
 import SvgIcon from '../components/SvgIcon';
+import Image from '../components/Image';
 
 class SignupStep1 extends Component {
   static propTypes = {
@@ -55,7 +56,7 @@ class SignupStep1 extends Component {
             <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "") }>
               <div className="signup__left">
                 <div className="signup__avatar signup__avatar--big">
-                  <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+                  <Image file="rifeng-avatar.png" />
                 </div>
               </div>
               <div className="signup__right signup__right--no-pad">
