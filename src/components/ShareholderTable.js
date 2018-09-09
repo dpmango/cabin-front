@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tooltip } from 'react-tippy';
 // import { Scrollbars } from 'react-custom-scrollbars';
 // import ScrollArea from 'react-scrollbar';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import SvgIcon from '../components/SvgIcon';
 import CheckBox from '../components/CheckBox';
 // import cloneDeep from 'lodash/cloneDeep';
@@ -21,7 +22,19 @@ class ShareholderTable extends Component {
         })
       ]
     }
+
+    this._scrollBarRefTable = React.createRef();
+
   }
+
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+
+  // input functiuons
 
   handleChange = (e, rowIndex, type, placeholder) => {
     let fieldName = e.target.name;
@@ -50,6 +63,7 @@ class ShareholderTable extends Component {
 
   }
 
+  // checkbox options
   chooseOption = (name, rowIndex, type, placeholder) => {
 
     let cellIndex = -1
@@ -80,7 +94,7 @@ class ShareholderTable extends Component {
 
   }
 
-
+  // new line
   addNewLine = () => {
     const stateClone = this.state.inputs_values;
     stateClone.push(
@@ -131,10 +145,17 @@ class ShareholderTable extends Component {
 
   }
 
+  // scrollbar functions
+  updateScrollbar = () => {
+    this._scrollBarRef.updateScroll()
+  }
+
   render(){
 
-    const { schema, title, titleTooltip, helperText } = this.props;
-    const { inputs_values } = this.state
+    const {
+      props: {schema, title, titleTooltip, helperText, addMoreText },
+      state: { inputs_values }
+    } = this
 
     return(
       <div className="sh-table">
@@ -150,14 +171,45 @@ class ShareholderTable extends Component {
             </Tooltip>
           }
         </div>
-        <div className="sh-table__wrapper">
+        <PerfectScrollbar
+          ref={(ref) => { this._scrollBarRef = ref; }}
+          className="sh-table__wrapper" >
+        {/* <div className="sh-table__wrapper"> */}
           <table>
             <thead>
+              {
+                schema.topRow &&
+                <tr class="sh-table__top">
+                  {schema.topRow.map( (td, i) => {
+                    return(
+                      <td
+                        colspan={td.colspan ? td.colspan : null}
+                        key={i}>
+                        { td.icon &&
+                          <SvgIcon name={td.icon} />
+                        }
+                        <span>
+                          { td.name }
+                          { td.tooltip &&
+                            <Tooltip
+                              title={td.tooltip}
+                              position="top"
+                              distance="10"
+                              arrow="true">
+                                <SvgIcon name="question-circle" />
+                            </Tooltip>
+                          }
+                        </span>
+                      </td>
+                    )
+                  })}
+                </tr>
+              }
               <tr>
                 {schema.thead.map( (td, i) => {
                   return(
                     <td key={i}>
-                      { td.icon && 
+                      { td.icon &&
                         <SvgIcon name={td.icon} />
                       }
                       <span>{ td.name }</span>
@@ -182,11 +234,13 @@ class ShareholderTable extends Component {
 
             </tbody>
           </table>
-          <div className="sh-table__add" onClick={this.addNewLine}>+ Add Additional Individuals</div>
+          <div
+            className="sh-table__add"
+            onClick={this.addNewLine}>+ {addMoreText}</div>
           { helperText &&
             <div className="sh-table__info">{helperText}</div>
           }
-        </div>
+        </PerfectScrollbar>
       </div>
     )
   }

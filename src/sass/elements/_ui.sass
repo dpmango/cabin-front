@@ -16,12 +16,13 @@
 
   > label:not(.ui-group__label)
     display: block
-    font-size: 16px
+    font-size: 12px
+    font-weight: 500
     color: $fontColorGray
     line-height: 1.85
   &--labeled
     > label
-      margin-bottom: 7px
+      margin-bottom: 5px
   // different kind of input label for onboarding
   &__label
     display: block
@@ -55,6 +56,15 @@
   &.has-error
     input, textarea
       border-color: $colorRed
+
+  &--no-margin
+    margin-bottom: 0
+  &--m-top
+    margin-top: 15px
+  &--regular-label
+    .ui-group__label
+      font-size: 12px
+      margin-left: 0
 
   // for the inputs with tooltip
   &__tooltip

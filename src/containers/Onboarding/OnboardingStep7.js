@@ -241,16 +241,12 @@ class OnboardingStep6 extends Component {
       options: [
         'None',
         {
-          name: 'Subsidiary company of',
+          name: 'Subsidiary (or beneficiary) company of',
           input: 'Insert Subsidiary company'
         },
         {
-          name: 'Parent company of',
+          name: 'Parent (or benefactor) company of',
           input: 'Insert Parent company'
-        },
-        {
-          name: 'Beneficiary company of',
-          input: 'Insert Beneficiary company'
         },
         'Others'
       ]
@@ -264,7 +260,6 @@ class OnboardingStep6 extends Component {
             <Image file="rifeng-avatar.png" />
           </div>
           <h2>We will need to know a little more about the company’s source of fundings and relations to other companies</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
           <Formsy
@@ -293,21 +288,24 @@ class OnboardingStep6 extends Component {
               </div>
             </div>
 
-            <div className="ui-group">
-              <ReactTags
-                tags={paidup_capital_origins}
-                name="paidup_capital_origins"
-                suggestions={countries_list}
-                placeholder="Country or countries of origin for paid-up capital"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+            <div className="signup__section">
+              <div className="signup__section-heading">Country or countries of origin for paid-up capital</div>
+              <div className="ui-group">
+                <ReactTags
+                  tags={paidup_capital_origins}
+                  name="paidup_capital_origins"
+                  suggestions={countries_list}
+                  placeholder="Country or countries of origin for paid-up capital"
+                  handleDelete={this.handleTagsDelete}
+                  handleAddition={this.handleTagsAddition}
+                  handleDrag={this.handleTagsDrag}
+                  delimiters={delimiters}
+                  autofocus={false} />
+              </div>
             </div>
 
             <div className="signup__section">
-              <div className="signup__section-heading">Identity in relation to other companies</div>
+              <div className="signup__section-heading">Does this company have any related entities?</div>
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
                 { CompanyRelationsOptions.options.map((cb, i) => {

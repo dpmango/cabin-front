@@ -21,16 +21,16 @@ class SignupContainer extends React.Component {
 
           { this.props.children }
 
-        </div>
-
-        <div className="signup__nav">
-          <a className="signup__nav-back" onClick={onPrev}>
-            <SvgIcon name="back-arrow" />
-            <span>Back</span>
-          </a>
-          <a className="btn btn--small" onClick={onNext}>
-            <span>Next</span>
-          </a>
+          <div className="signup__nav">
+            <a className="signup__nav-back" onClick={onPrev}>
+              <SvgIcon name="back-arrow" />
+              <span>Back</span>
+            </a>
+            <a className="btn btn--small" onClick={onNext}>
+              <span>Next</span>
+            </a>
+          </div>
+          
         </div>
       </div>
     )

@@ -36,10 +36,13 @@ export const initialState = {
       }
     ], // text fields for active checboxes
     paidup_capital_origins: [],
+    haveShareholders: null,
     shareholders_individulas: [],
     shareholders_corporate: [],
     other_beneficiaries: false,
     other_controllers: false,
+    other_beneficiaries_input: "",
+    other_controllers_input: "",
     name: '',
     designation: '',
     phone: '',

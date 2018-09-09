@@ -187,19 +187,6 @@ class OnboardingStep9 extends Component {
               onKeyHandler={this.keyPressHandler}
               required
             />
-            <FormInput
-              name="email"
-              placeholder="Email"
-              value={email}
-              validations="isEmail"
-              validationErrors={{
-                isEmail: "This is not a valid email",
-                isDefaultRequiredValue: 'Please fill email'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
             <div className="ui-group">
               <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
                 <PhoneInput
@@ -214,11 +201,24 @@ class OnboardingStep9 extends Component {
                 />
               </div>
             </div>
-            {/* <div className="ui-group">
+            <FormInput
+              name="email"
+              placeholder="Email"
+              value={email}
+              validations="isEmail"
+              validationErrors={{
+                isEmail: "This is not a valid email",
+                isDefaultRequiredValue: 'Please fill email'
+              }}
+              onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
+              required
+            />
+            <div className="ui-group">
               <HelloSign
                 onSucess={this.helloSignSucess}
                 onFail={this.helloSignFail} />
-            </div> */}
+            </div>
           </Formsy>
         </div>
       </div>

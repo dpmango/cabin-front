@@ -60,7 +60,7 @@ class OnboardingStep2 extends Component {
               <Image file="rifeng-avatar.png" />
             </div>
           </div>
-          <div className="signup__right">
+          <div className="signup__right signup__right--longer">
             <h2>This won’t take long.</h2>
             <p className="t-paragraph">The entire process will take approximately 5 minutes to complete.</p>
             <p className="t-paragraph">Bear with us as some of the questions require a more detailed understanding of your business and its activities. This is mandated as part of <strong>MAS’s anti-money laundering and anti-terrorism financing measures</strong>, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</p>

@@ -137,7 +137,6 @@ class OnboardingStep4 extends Component {
             <Image file="rifeng-avatar.png" />
           </div>
           <h2>We will need to know a little more about the company</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
           <Formsy

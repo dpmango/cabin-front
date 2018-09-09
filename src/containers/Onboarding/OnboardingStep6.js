@@ -169,7 +169,6 @@ class OnboardingStep5 extends Component {
             <Image file="rifeng-avatar.png" />
           </div>
           <h2>We will need to know a little more about the company's customers and suppliers</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
           <Formsy
@@ -180,48 +179,52 @@ class OnboardingStep5 extends Component {
             ref={this.formRef}
           >
             { /* https://github.com/prakhar1989/react-tags */ }
-            <div className="ui-group">
+            <div className="ui-group ui-group--labeled">
+              <label htmlFor="">List of countries where the company’s customers are located</label>
               <ReactTags
                 tags={consumers_list}
                 name="consumers_list"
                 suggestions={countries_list}
-                placeholder="List of countries where your customers are located"
+                placeholder="List of countries where the company’s customers are located"
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
                 delimiters={delimiters}
                 autofocus={false} />
             </div>
-            <div className="ui-group">
+            <div className="ui-group ui-group--labeled">
+              <label htmlFor="">List of countries where the company’s suppliers are located</label>
               <ReactTags
                 tags={suppliers_list}
                 name="suppliers_list"
                 suggestions={countries_list}
-                placeholder="List of countries where your suppliers are located"
+                placeholder="List of countries where the company’s suppliers are located"
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
                 delimiters={delimiters}
                 autofocus={false} />
             </div>
-            <div className="ui-group">
+            <div className="ui-group ui-group--labeled">
+              <label htmlFor="">List of countries that the company is making payment to</label>
               <ReactTags
                 tags={payments_to_list}
                 name="payments_to_list"
                 suggestions={countries_list}
-                placeholder="List of countries that you are making payment to"
+                placeholder="List of countries that the company is making payment to"
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}
                 delimiters={delimiters}
                 autofocus={false} />
             </div>
-            <div className="ui-group">
+            <div className="ui-group ui-group--labeled">
+              <label htmlFor="">List of countries that the company is receiving payment from</label>
               <ReactTags
                 tags={payments_from_list}
                 name="payments_from_list"
                 suggestions={countries_list}
-                placeholder="List of countries that you are receiving payment from"
+                placeholder="List of countries that the company is receiving payment from"
                 handleDelete={this.handleTagsDelete}
                 handleAddition={this.handleTagsAddition}
                 handleDrag={this.handleTagsDrag}

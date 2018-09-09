@@ -26,13 +26,14 @@ class FormInput extends Component {
   }
 
   render(){
-    const { name, id, placeholder, mask, label, rows, tooltipContent } = this.props
+    const { name, id, placeholder, mask, label, rows, tooltipContent, extraClass } = this.props
 
     const type = this.props.type ? this.props.type : "text"
 
     // An error message is returned only if the component is invalid
+    const baseClass = 'ui-group ' + ( extraClass ? extraClass : "" )
     const errorMessage = this.props.isFormSubmitted() ? this.props.getErrorMessage() : null;
-    const parentClass = this.props.isFormSubmitted() ? this.props.isValid() ? 'ui-group' : 'ui-group has-error' : 'ui-group'
+    const parentClass = this.props.isFormSubmitted() ? this.props.isValid() ? baseClass : 'ui-group has-error' : baseClass
 
     if ( mask ){
       return (

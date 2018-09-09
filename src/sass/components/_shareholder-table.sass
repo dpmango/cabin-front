@@ -1,5 +1,10 @@
+.table-collapse
+  // top level componenet for animated collapse
+  margin-bottom: 30px
+
 .sh-table
-  margin-top: 60px
+  // margin-top: 60px
+  padding: 40px 0
   &__title
     font-size: 16px
     font-weight: 500
@@ -47,7 +52,7 @@
       border-bottom: 1px solid rgba($fontColorGray, .5)
       padding: 13px 15px 11px
       color: $fontColorGray
-
+      white-space: nowrap
       .ico
         margin-right: 5px
         // vertical-align: middle
@@ -56,10 +61,20 @@
         transform: translateY(1px)
         &-sh-name
           // font-size: 12px
-        
       span
         display: inline-block
         // vertical-align: middle
+    tr
+      &.sh-table__top
+        td
+          text-align: center
+          .ico-question-circle
+            margin-left: 5px
+
+          &:nth-child(1), &:nth-child(2)
+            border-top: 0
+          &:nth-child(1)
+            border-right: 0
 
   tbody
     td
