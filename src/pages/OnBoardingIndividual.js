@@ -4,20 +4,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from '../store/ActionTypes';
 
-import OnboardingStep1 from '../containers/Onboarding/Step1'
-import OnboardingContainer from '../containers/Onboarding/Container'
-import OnboardingStep2 from '../containers/Onboarding/Step2'
-import OnboardingStep3 from '../containers/Onboarding/Step3'
-import OnboardingStep4 from '../containers/Onboarding/Step4'
-import OnboardingStep5 from '../containers/Onboarding/Step5'
-import OnboardingStep6 from '../containers/Onboarding/Step6'
-import OnboardingStep7 from '../containers/Onboarding/Step7'
-import OnboardingStep8 from '../containers/Onboarding/Step8'
-import OnboardingStep9 from '../containers/Onboarding/Step9'
-import OnboardingStep10 from '../containers/Onboarding/Step10'
-import OnboardingThanks from '../containers/Onboarding/Thanks'
+import OnboardingStep1 from '../containers/OnboardingIndividual/Step1'
+import OnboardingContainer from '../containers/OnboardingIndividual/Container'
+import OnboardingStep2 from '../containers/OnboardingIndividual/Step2';
+import OnboardingStep3 from '../containers/OnboardingIndividual/Step3';
+import OnboardingStep4 from '../containers/OnboardingIndividual/Step4';
 
-class OnBoarding extends React.Component {
+import OnboardingThanks from '../containers/OnboardingIndividual/Thanks'
+
+class OnBoardingIndividual extends React.Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,
     onboardingStep: PropTypes.number
@@ -39,11 +34,11 @@ class OnBoarding extends React.Component {
 
     let newPath
     if ( onboardingStep === 11 ){
-      newPath = "/onboarding/thank-you";
+      newPath = "/onboarding-individual/thank-you";
     } else if ( onboardingStep === 1 ) {
-      newPath = "/onboarding/hello";
+      newPath = "/onboarding-individual/hello";
     } else {
-      newPath = "/onboarding/step-" + (onboardingStep - 1);
+      newPath = "/onboarding-individual/step-" + (onboardingStep - 1);
     }
 
     if ( location.pathname === newPath ){
@@ -98,44 +93,8 @@ class OnBoardingSwitch extends React.Component {
         )
       case 'step-3':
         return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep} noProgress={true}>
             <OnboardingStep4 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-4':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep5 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-5':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep6 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-6':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep7 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-7':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep8 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-8':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep9 onRef={ref => (this.child = ref)} />
-          </OnboardingContainer>
-        )
-      case 'step-9':
-        return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <OnboardingStep10 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )
       case 'thank-you':
@@ -159,7 +118,7 @@ class OnBoardingSwitch extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-    onboardingStep: state.onboarding.onboardingStep
+    onboardingStep: state.onboardingIndividual.onboardingStep
   }
 );
 
@@ -169,4 +128,4 @@ const mapDispatchToProps = (dispatch) => (
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnBoarding);
+export default connect(mapStateToProps, mapDispatchToProps)(OnBoardingIndividual);

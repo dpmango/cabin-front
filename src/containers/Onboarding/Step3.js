@@ -56,27 +56,16 @@ class OnboardingStep2 extends Component {
       <div className={"signup__intro"}>
         <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "") } data-aos="fade-left">
           <div className="signup__left">
-            <div className="signup__managers">
-              <SignupManager
-                name="Secretary"
-                image="rifeng-avatar.png"
-                title="Named Company Secretary" />
-              <SignupManager
-                name="Executive"
-                image="rifeng-avatar.png"
-                title="Corporate Secretarial Executive" />
+            <div className="signup__avatar signup__avatar--big">
+              <Image file="rifeng-avatar.png" />
             </div>
           </div>
-          <div className="signup__right signup__right--400">
-            <h2>Meet your Cabin team,</h2>
-            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> and <strong>{"{{Executive}}"}</strong></p>
-            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> will be the named person listed as your company’s secretary. He will oversee that the administration of all secretarial matters and ensure they comply with the Singapore Companies Act.</p>
-            <p className="t-paragraph"><strong>{"{{Executive}}"}</strong> will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
-            <p className="t-paragraph">We look forward to working with you.</p>
-            <div className="signup__signs-row">
-              <i className="icon icon-rifeng-sign" />
-              <i className="icon icon-rifeng-sign" />
-            </div>
+          <div className="signup__right signup__right--longer">
+            <h2>This won’t take long.</h2>
+            <p className="t-paragraph">The entire process will take approximately 5 minutes to complete.</p>
+            <p className="t-paragraph">Bear with us as some of the questions require a more detailed understanding of your business and its activities. This is mandated as part of <strong>MAS’s anti-money laundering and anti-terrorism financing measures</strong>, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</p>
+            <p className="t-paragraph">Let’s get started!</p>
+
           </div>
         </div>
       </div>
@@ -92,7 +81,7 @@ const SignupManager = (props) => {
       <div className="signup__avatar signup__avatar--row">
         <div className="signup__hover-tooltip">
           <div className="signup__hover-wrapper">
-            Hi, I’m <span><strong>{"{{"}{name}{"}}"}</strong></span>
+            Hi, I’m <span><strong>{"{{name}}"}</strong></span>
           </div>
         </div>
         <Image file={image} />
