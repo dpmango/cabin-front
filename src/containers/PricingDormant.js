@@ -161,7 +161,7 @@ class PricingDormant extends Component {
                   <PricingOption
                     name="Provision of registered address"
                     tooltipContent="Mail forwarding service will be provided upon request (S$10 per package + courier fees)"
-                    price="S$200"
+                    price="S$300"
                     pricePer="per year"
                   />
                 </div>
