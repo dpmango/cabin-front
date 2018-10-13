@@ -90,6 +90,7 @@ class OnboardingStep9 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
+      isCompleated: true,
       name: name,
       designation: designation,
       phone: phone,

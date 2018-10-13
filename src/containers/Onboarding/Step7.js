@@ -104,11 +104,11 @@ class OnboardingStep6 extends Component {
   }
 
   handleTagsAddition = (tag, name) => {
-    this.setState(state => ({
-      ...this.state,
-      [name]: [
-        ...state[name], tag
-      ]
+    let tagFilter = countriesListAutocompleate.filter(x => x.text === tag.text)[0]
+    if (!tagFilter) return false
+
+    this.setState(state => ({...this.state,
+      [name]: [...state[name], tagFilter]
     }));
   }
 
