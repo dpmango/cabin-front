@@ -132,7 +132,7 @@ class PricingSecretary extends Component {
                 <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
-                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div>
+                {/* <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div> */}
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
