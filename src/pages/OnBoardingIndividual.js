@@ -93,7 +93,7 @@ class OnBoardingSwitch extends React.Component {
         )
       case 'step-3':
         return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep} noProgress={true}>
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
             <OnboardingStep4 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )

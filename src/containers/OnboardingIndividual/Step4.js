@@ -9,7 +9,6 @@ import isProduction from '../../services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
 import Image from '../../components/Image';
 import FormInput from '../../components/FormInput';
-import HelloSign from '../../components/HelloSign';
 
 class OnboardingStep4 extends Component {
   static propTypes = {
@@ -24,9 +23,12 @@ class OnboardingStep4 extends Component {
 
     this.state = {
       name: props.onboardingFields.name,
-      designation:  props.onboardingFields.designation,
-      phone:  props.onboardingFields.phone,
+      passport: props.onboardingFields.passport,
+      birthday:  props.onboardingFields.birthday,
+      nationality: props.onboardingFields.nationality,
       email: props.onboardingFields.email,
+      phone:  props.onboardingFields.phone,
+      residentionalAdress: props.onboardingFields.residentionalAdress,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -86,33 +88,58 @@ class OnboardingStep4 extends Component {
 
   // logic
   nextStep = () => {
-    const { name, designation, phone, email } = this.state;
+    const { name, passport, birthday, nationality, email, phone, residentionalAdress } = this.state;
 
     const leadObj = {
+      onboarding_id: 1, // TODO - get the id from url params (or from redux)
+      stakeholder_id: this.props.onboardingRandomId, // TODO - what it's used for?
       isproduction: isProduction(),
       name: name,
-      designation: designation,
+      passport: passport,
+      birthday: birthday, // TODO - convert calendar ?
+      nationality: nationality,
       phone: phone,
-      email: email
+      email: email,
+      residentionalAdress: residentionalAdress
     }
 
-    api
-      .patch('onboardings/' + this.props.onboardingId, {
-        onboarding: leadObj
-      })
-      .then((res) => {
-        console.log('Backend responce to onboarding PATCH' , res)
-        this.updateSignup()
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // if onboarding ID is present - then update by PATCH
+    // else - create new
+    if ( this.props.onboardingId ){
+      // patch lead
+      api
+        .patch('stakeholders/' + this.props.onboardingId, {
+          stakeholder: leadObj
+        })
+        .then((res) => {
+          console.log('Backend responce to stakeholder PATCH' , res)
+          this.updateSignup()
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      // create new instance
+      api
+        .post(`stakeholders`, {
+          onboarding: leadObj
+        })
+        .then((res) => {
+          console.log('Backend responce to stakeholders POST' , res)
+
+          this.props.setOnboardingId(res.data.id);
+          this.updateSignup();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 
   }
 
   updateSignup = () => {
 
-    const { name, designation, phone, email } = this.state;
+    const { name, passport, birthday, nationality, phone, email, residentionalAdress } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -124,9 +151,12 @@ class OnboardingStep4 extends Component {
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
         name: name,
-        designation: designation,
+        passport: passport,
+        birthday: birthday, // calendar ?
+        nationality: nationality,
         phone: phone,
-        email: email
+        email: email,
+        residentionalAdress: residentionalAdress
       })
 
       this.setState({ isTransitioningNext: false })
@@ -142,7 +172,7 @@ class OnboardingStep4 extends Component {
   }
 
   render(){
-    const { name, designation, phone, email, isTransitioningNext, isFormSubmitted } = this.state;
+    const { name, passport, birthday, nationality, phone, email, residentionalAdress, isTransitioningNext, isFormSubmitted } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -150,20 +180,18 @@ class OnboardingStep4 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <Image file="rifeng-avatar.png" />
           </div>
-          <h2>Confirm your information</h2>
+          <h2>We will need your personal information</h2>
         </div>
         <div className="signup__right">
-          <div className="signup__note">I hereby confirm that all information provided is true, complete, and correct to my best knowledge, and further undertake to notify Cabin Pte. Ltd. promptly in writing upon any changes to the information provided. I am aware that I may be subjected to prosecution and criminal sanctions if I am are found to have made any reckless statements, false statements, statements which I do not believe to be true, or if I have intentionally suppressed any material facts.</div>
           <Formsy
             className="signup__form"
             onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef} >
             <FormInput
               name="name"
-              placeholder="Name"
+              label="Full Name"
               value={name}
               validations="minLength:1"
               validationErrors={{
@@ -175,35 +203,47 @@ class OnboardingStep4 extends Component {
               required
             />
             <FormInput
-              name="designation"
-              placeholder="Designation"
-              value={designation}
+              name="passport"
+              label="ID or passport number"
+              value={passport}
               validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your designation',
-                minLength: 'Designation name is too short'
+                isDefaultRequiredValue: 'Please fill your ID or passport number',
+                minLength: 'ID or passport number is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
-            <div className="ui-group">
-              <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
-                <PhoneInput
-              		placeholder="Phone Number"
-              		value={ phone }
-                  country="SG"
-                  displayInitialValueAsLocalNumber={true}
-              		onChange={ phone => this.setState({ phone }) }
-                  onKeyPress={this.keyPressHandler}
-                  indicateInvalid
-                  error={ isFormSubmitted ? phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' : undefined }
-                />
-              </div>
-            </div>
+            <FormInput
+              name="birthday"
+              label="Date of birth"
+              value={birthday}
+              validations="minLength:1"
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill your Date of birth',
+                minLength: 'Date of birth is too short'
+              }}
+              onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
+              required
+            />
+            <FormInput
+              name="nationality"
+              label="Nationality"
+              value={nationality}
+              validations="minLength:1"
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill your Nationality',
+                minLength: 'Nationality is too short'
+              }}
+              onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
+              required
+            />
             <FormInput
               name="email"
-              placeholder="Email"
+              label="Email"
               value={email}
               validations="isEmail"
               validationErrors={{
@@ -215,10 +255,34 @@ class OnboardingStep4 extends Component {
               required
             />
             <div className="ui-group">
-              <HelloSign
-                onSucess={this.helloSignSucess}
-                onFail={this.helloSignFail} />
+              <label htmlFor="phone">Phone Number</label>
+              <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
+                <PhoneInput
+              		label="Phone Number"
+              		value={ phone }
+                  country="SG"
+                  displayInitialValueAsLocalNumber={true}
+              		onChange={ phone => this.setState({ phone }) }
+                  onKeyPress={this.keyPressHandler}
+                  indicateInvalid
+                  error={ isFormSubmitted ? phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' : undefined }
+                />
+              </div>
             </div>
+            <FormInput
+              type="textarea"
+              name="residentionalAdress"
+              label="Residential address"
+              value={residentionalAdress}
+              validations="minLength:1"
+              validationErrors={{
+                isDefaultRequiredValue: 'Please fill your Residential address',
+                minLength: 'Residential address is too short'
+              }}
+              onChangeHandler={this.handleChange}
+              onKeyHandler={this.keyPressHandler}
+              required
+            />
           </Formsy>
         </div>
       </div>
@@ -231,6 +295,7 @@ class OnboardingStep4 extends Component {
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboardingIndividual.fields,
   onboardingId: state.onboardingIndividual.onboardingId,
+  onboardingRandomId: state.onboardingIndividual.onboardingRandomId,
   onboardingStep: state.onboardingIndividual.onboardingStep
 });
 

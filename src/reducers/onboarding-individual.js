@@ -7,7 +7,13 @@ export const initialState = {
   onboardingStep: 1,
   onboardingId: '',
   fields: {
-
+    name: "",
+    passport: "",
+    birthday: "",
+    nationality: "",
+    email: "",
+    phone: "",
+    residentionalAdress: ""
   }
 }
 
