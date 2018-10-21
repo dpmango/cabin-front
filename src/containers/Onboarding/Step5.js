@@ -148,7 +148,7 @@ class OnboardingStep4 extends Component {
           >
             <FormInput
               name="company_activity"
-              placeholder="Primary business activity"
+              label="Primary business activity"
               value={company_activity}
               validations="minLength:3"
               validationErrors={{
@@ -164,7 +164,7 @@ class OnboardingStep4 extends Component {
               rows="3"
               tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
               name="company_addres"
-              placeholder="Address of operating premise"
+              label="Address of operating premise"
               value={company_addres}
               validations="minLength:3"
               validationErrors={{
@@ -177,8 +177,8 @@ class OnboardingStep4 extends Component {
             />
             <FormInput
               name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
+              tooltipContent=" If this is a new company, a rough estimation of your projected annual revenue will be sufficient"
+              label="Estimated annual revenue"
               value={company_revenue}
               validations="minLength:3"
               validationErrors={{

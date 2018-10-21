@@ -164,7 +164,7 @@ class OnboardingStep9 extends Component {
           >
             <FormInput
               name="name"
-              placeholder="Name"
+              label="Name"
               value={name}
               validations="minLength:1"
               validationErrors={{
@@ -177,7 +177,7 @@ class OnboardingStep9 extends Component {
             />
             <FormInput
               name="designation"
-              placeholder="Designation"
+              label="Designation"
               value={designation}
               validations="minLength:1"
               validationErrors={{
@@ -189,9 +189,10 @@ class OnboardingStep9 extends Component {
               required
             />
             <div className="ui-group">
+              <label htmlFor="phone" className="ui-group__label">Phone Number</label>
               <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
                 <PhoneInput
-              		placeholder="Phone Number"
+              		// label="Phone Number"
               		value={ phone }
                   country="SG"
                   displayInitialValueAsLocalNumber={true}
@@ -204,7 +205,7 @@ class OnboardingStep9 extends Component {
             </div>
             <FormInput
               name="email"
-              placeholder="Email"
+              label="Email"
               value={email}
               validations="isEmail"
               validationErrors={{
@@ -216,9 +217,9 @@ class OnboardingStep9 extends Component {
               required
             />
             <div className="ui-group">
-              <HelloSign
+              { /* <HelloSign
                 onSucess={this.helloSignSucess}
-                onFail={this.helloSignFail} />
+                onFail={this.helloSignFail} /> */ }
             </div>
           </Formsy>
         </div>

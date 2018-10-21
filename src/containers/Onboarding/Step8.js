@@ -89,7 +89,9 @@ class OnboardingStep7 extends Component {
     const leadObj = {
       isproduction: isProduction(),
       shareholders_individulas: this.convertStateToStr(shareholders_individulas),
-      shareholders_corporate: this.convertStateToStr(shareholders_corporate)
+      shareholders_corporate: this.convertStateToStr(shareholders_corporate),
+      shareholders_individulas_array: JSON.stringify(shareholders_individulas),
+      shareholders_corporate_array: JSON.stringify(shareholders_corporate)
     }
 
     api

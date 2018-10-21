@@ -161,8 +161,20 @@ class OnboardingStep5 extends Component {
 
   render(){
     const { consumers_list, suppliers_list, payments_to_list, payments_from_list, countries_list, isTransitioningNext } = this.state;
-    return(
 
+    const defaultTagProps = (name) => ({
+      tags: this.state[name],
+      name: name,
+      suggestions: countries_list,
+      handleDelete: this.handleTagsDelete,
+      handleAddition: this.handleTagsAddition,
+      handleDrag: this.handleTagsDrag,
+      delimiters: delimiters,
+      autofocus: false,
+      placeholder: "" // leave all input placeholders blank
+    })
+
+    return(
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
         <div className="signup__left">
           <div className="signup__avatar signup__avatar--small">
@@ -180,56 +192,24 @@ class OnboardingStep5 extends Component {
           >
             { /* https://github.com/prakhar1989/react-tags */ }
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries where the company’s customers are located</label>
+              <label htmlFor="">List of countries where the company’s <span class="t-uppercase">customers</span> are located</label>
               <ReactTags
-                tags={consumers_list}
-                name="consumers_list"
-                suggestions={countries_list}
-                placeholder="List of countries where the company’s customers are located"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+                {...defaultTagProps("consumers_list")} />
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries where the company’s suppliers are located</label>
+              <label htmlFor="">List of countries where the company’s <span class="t-uppercase">suppliers</span> are located</label>
               <ReactTags
-                tags={suppliers_list}
-                name="suppliers_list"
-                suggestions={countries_list}
-                placeholder="List of countries where the company’s suppliers are located"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+                {...defaultTagProps("suppliers_list")} />
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries that the company is making payment to</label>
+              <label htmlFor="">List of countries that the company is <span class="t-uppercase">making payment</span> to</label>
               <ReactTags
-                tags={payments_to_list}
-                name="payments_to_list"
-                suggestions={countries_list}
-                placeholder="List of countries that the company is making payment to"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+                {...defaultTagProps("payments_to_list")} />
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries that the company is receiving payment from</label>
+              <label htmlFor="">List of countries that the company is <span class="t-uppercase">receiving payment</span> from</label>
               <ReactTags
-                tags={payments_from_list}
-                name="payments_from_list"
-                suggestions={countries_list}
-                placeholder="List of countries that the company is receiving payment from"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+                {...defaultTagProps("payments_from_list")} />
             </div>
 
           </Formsy>

@@ -295,7 +295,7 @@ class OnboardingStep6 extends Component {
                   tags={paidup_capital_origins}
                   name="paidup_capital_origins"
                   suggestions={countries_list}
-                  placeholder="Country or countries of origin for paid-up capital"
+                  placeholder=""
                   handleDelete={this.handleTagsDelete}
                   handleAddition={this.handleTagsAddition}
                   handleDrag={this.handleTagsDrag}

@@ -165,7 +165,6 @@ class OnboardingStep3 extends Component {
             <FormInput
               name="company_uen"
               label="Company UEN"
-              placeholder="Company UEN"
               value={company_uen}
               validations="minLength:9"
               validationErrors={{
@@ -179,7 +178,6 @@ class OnboardingStep3 extends Component {
             <FormInput
               name="company_name"
               label="Company Name"
-              placeholder="Company Name"
               value={company_name}
               validations="minLength:3"
               validationErrors={{
