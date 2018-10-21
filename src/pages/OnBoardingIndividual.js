@@ -9,7 +9,7 @@ import OnboardingContainer from '../containers/OnboardingIndividual/Container'
 import OnboardingStep2 from '../containers/OnboardingIndividual/Step2';
 import OnboardingStep3 from '../containers/OnboardingIndividual/Step3';
 import OnboardingStep4 from '../containers/OnboardingIndividual/Step4';
-
+import OnboardingStep5 from '../containers/OnboardingIndividual/Step5';
 import OnboardingThanks from '../containers/OnboardingIndividual/Thanks'
 
 class OnBoardingIndividual extends React.Component {
@@ -95,6 +95,12 @@ class OnBoardingSwitch extends React.Component {
         return (
           <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
             <OnboardingStep4 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-4':
+        return(
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep5 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )
       case 'thank-you':

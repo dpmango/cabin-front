@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
@@ -6,7 +6,14 @@ import api from '../../services/Api';
 import isProduction from '../../services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
 import Image from '../../components/Image';
-import FormInput from '../../components/FormInput';
+// import FormInput from '../../components/FormInput';
+import { FilePond, File } from 'react-filepond';
+// registerPlugin
+// import 'filepond/dist/filepond.min.css';
+// import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+// registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 class OnboardingStep4 extends Component {
   static propTypes = {
@@ -20,15 +27,21 @@ class OnboardingStep4 extends Component {
     super(props);
 
     this.state = {
-      company_activity: props.onboardingFields.company_activity,
-      company_addres:  props.onboardingFields.company_addres,
-      company_revenue:  props.onboardingFields.company_revenue,
+      upload_id: props.onboardingFields.upload_id,
+      upload_passport:  props.onboardingFields.upload_passport,
+      upload_address:  props.onboardingFields.upload_address,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
     };
 
     this.formRef = React.createRef();
+
+    this.pond = [
+      React.createRef(),
+      React.createRef(),
+      React.createRef()
+    ]
   }
 
   componentDidMount() {
@@ -73,33 +86,34 @@ class OnboardingStep4 extends Component {
   }
 
   nextStep = () => {
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { upload_id, upload_passport, upload_address } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      company_activity: company_activity,
-      company_addres: company_addres,
-      company_revenue: company_revenue
+      upload_id: upload_id,
+      upload_passport: upload_passport,
+      upload_address: upload_address
     }
 
     // update the api
-    api
-      .patch('stakeholders/' + this.props.onboardingId, {
-        onboarding: leadObj
-      })
-      .then((res) => {
-        console.log('Backend responce to onboarding PATCH' , res)
-        this.updateSignup()
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // api
+    //   .patch('stakeholders/' + this.props.onboardingId, {
+    //     stakeholder: leadObj
+    //   })
+    //   .then((res) => {
+    //     console.log('Backend responce to onboarding PATCH' , res)
+    //     this.updateSignup()
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    this.updateSignup()
 
   }
 
   updateSignup = () => {
 
-    const { company_activity, company_addres, company_revenue } = this.state;
+    const { upload_id, upload_passport, upload_address } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -110,9 +124,9 @@ class OnboardingStep4 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_activity: company_activity,
-        company_addres: company_addres,
-        company_revenue: company_revenue
+        upload_id: upload_id,
+        upload_passport: upload_passport,
+        upload_address: upload_address
       })
 
       this.setState({ isTransitioningNext: false })
@@ -127,10 +141,44 @@ class OnboardingStep4 extends Component {
     );
   }
 
-  render(){
-    const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
-    return(
+  // filepond
+  handleFilePondInit = () => {
 
+  }
+
+  handleFilePindUpload = (fileItems, name) => {
+    this.setState({
+      [name]: fileItems.map(fileItem => fileItem.file)
+    });
+  }
+
+  renderFilePondThumbs = (name) => {
+    return (
+      <Fragment>
+        {this.state[name].map(file => (
+          <File key={file} src={file} origin="local" />
+        ))}
+      </Fragment>
+    )
+  }
+
+
+  render(){
+    const { upload_id, upload_passport, upload_address, isTransitioningNext } = this.state;
+
+    // available options are at https://pqina.nl/filepond/docs/patterns/api/filepond-instance/
+    const defaultFilePondOptions = (name) => ({
+      allowMultiple: true,
+      maxFiles: 3,
+      server: "/api",
+      required: true,
+      instantUpload: true,
+      labelIdle: 'Drag a file here or select file to upload <span class="btn btn--small filepond--label-action">Select File</span>',
+      oninit: this.handleFilePondInit,
+      onupdatefiles: (fileItems) => this.handleFilePindUpload.bind(this, fileItems, name)
+    })
+
+    return(
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
         <div className="signup__left">
           <div className="signup__avatar signup__avatar--small">
@@ -140,55 +188,36 @@ class OnboardingStep4 extends Component {
         </div>
         <div className="signup__right">
           <Formsy
-            className="signup__form"
+            className="signup__form ui-uploader-group"
             onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
-            <FormInput
-              name="company_activity"
-              label="Primary business activity"
-              value={company_activity}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Primary business activity',
-                minLength: 'Primary business activity is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              type="textarea"
-              rows="3"
-              tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
-              name="company_addres"
-              label="Address of operating premise"
-              value={company_addres}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Address of operating premise',
-                minLength: 'Address of operating premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <FormInput
-              name="company_revenue"
-              tooltipContent=" If this is a new company, a rough estimation of your projected annual revenue will be sufficient"
-              label="Estimated annual revenue"
-              value={company_revenue}
-              validations="minLength:3"
-              validationErrors={{
-                isDefaultRequiredValue: 'Please fill your Estimated annual revenue',
-                minLength: 'Estimated annual revenue premise is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
+            ref={this.formRef} >
+            <div className="ui-group">
+              <label htmlFor="" className="ui-group__label">Please upload the front and back copy of your identification card</label>
+              <FilePond
+                {...defaultFilePondOptions("upload_id")}
+                ref={this.pond[0]}>
+                {this.renderFilePondThumbs("upload_id")}
+              </FilePond>
+            </div>
+            <div className="ui-group">
+              <label htmlFor="" className="ui-group__label">Please upload a copy of your passport</label>
+              <FilePond
+                {...defaultFilePondOptions("upload_passport")}
+                ref={this.pond[1]}>
+                {this.renderFilePondThumbs("upload_passport")}
+              </FilePond>
+            </div>
+            <div className="ui-group">
+              <label htmlFor="" className="ui-group__label">[For foreigners only]: Please upload a copy a recent (last 3 months) proof of address (e.g. bank statements or bills)</label>
+              <FilePond
+                {...defaultFilePondOptions("upload_address")}
+                ref={this.pond[2]}>
+                {this.renderFilePondThumbs("upload_address")}
+              </FilePond>
+            </div>
+
           </Formsy>
         </div>
       </div>
@@ -199,9 +228,9 @@ class OnboardingStep4 extends Component {
 
 
 const mapStateToProps = (state) => ({
-  onboardingFields: state.onboarding.fields,
-  onboardingId: state.onboarding.onboardingId,
-  onboardingStep: state.onboarding.onboardingStep
+  onboardingFields: state.onboardingIndividual.fields,
+  onboardingId: state.onboardingIndividual.onboardingId,
+  onboardingStep: state.onboardingIndividual.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({

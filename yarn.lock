@@ -3815,6 +3815,18 @@ filenamify@^1.0.1:
     strip-outer "^1.0.0"
     trim-repeated "^1.0.0"
 
+filepond-plugin-image-exif-orientation@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-exif-orientation/-/filepond-plugin-image-exif-orientation-1.0.2.tgz#5470d2c0c19c7ef5a3a74169f29a76b910eb721b"
+
+filepond-plugin-image-preview@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-3.0.0.tgz#4a497914172c64f041c2ffb9d66e23e429b7e5fb"
+
+filepond@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-3.1.5.tgz#014433459a45c4b13a2a788b87248252e8c84bb3"
+
 fileset@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/fileset/-/fileset-2.0.3.tgz#8e7548a96d3cc2327ee5e674168723a333bba2a0"
@@ -8502,6 +8514,10 @@ react-dom@^16.3.2:
 react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
+
+react-filepond@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-filepond/-/react-filepond-5.0.0.tgz#28c30a878ce27b9b4899f877f4c3ead8dc9a026e"
 
 react-google-tag-manager@^2.2.1:
   version "2.2.1"

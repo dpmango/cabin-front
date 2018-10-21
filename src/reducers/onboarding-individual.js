@@ -13,7 +13,10 @@ export const initialState = {
     nationality: "",
     email: "",
     phone: "",
-    residentionalAdress: ""
+    residentionalAdress: "",
+    upload_id: [],
+    upload_passport: [],
+    upload_address: []
   }
 }
 

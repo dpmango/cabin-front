@@ -122,7 +122,7 @@ class OnboardingStep4 extends Component {
       // create new instance
       api
         .post(`stakeholders`, {
-          onboarding: leadObj
+          stakeholder: leadObj
         })
         .then((res) => {
           console.log('Backend responce to stakeholders POST' , res)
@@ -255,7 +255,7 @@ class OnboardingStep4 extends Component {
               required
             />
             <div className="ui-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="phone" className="ui-group__label">Phone Number</label>
               <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
                 <PhoneInput
               		label="Phone Number"
