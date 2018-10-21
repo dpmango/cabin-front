@@ -15,7 +15,7 @@ import { FilePond, File } from 'react-filepond';
 // import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 // registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-class OnboardingStep4 extends Component {
+class OnboardingStep5 extends Component {
   static propTypes = {
     setOnboardingStep: PropTypes.func,
     setOnboardingFields: PropTypes.func,
@@ -62,27 +62,15 @@ class OnboardingStep4 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    // if ( this.state.formIsValid ){ // no validation yet ?
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
-    }
+    // }
   }
 
   // click handler for the button
   submitForm = () => {
     this.formRef.current.submit();
-  }
-
-  handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
-  }
-
-  keyPressHandler = (e) => {
-    if ( e.key === "Enter" ){
-      this.submitForm();
-    }
   }
 
   nextStep = () => {
@@ -239,4 +227,4 @@ const mapDispatchToProps = (dispatch) => ({
   setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_I_ID, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep4);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep5);

@@ -120,6 +120,7 @@ class OnboardingStep4 extends Component {
         });
     } else {
       // create new instance
+      console.log('creating new instance')
       api
         .post(`stakeholders`, {
           stakeholder: leadObj

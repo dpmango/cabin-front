@@ -16,7 +16,17 @@ export const initialState = {
     residentionalAdress: "",
     upload_id: [],
     upload_passport: [],
-    upload_address: []
+    upload_address: [],
+    isDirector: false,
+    isShareholder: false,
+    nomineeDirector: "No",
+    agent: "No",
+    grounds: "No",
+    shareholderOnBehalf: "No",
+    offence: "No",
+    bankrupt: "No",
+    pep: "No",
+    designation: ""
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
@@ -273,17 +273,14 @@ class OnboardingStep6 extends Component {
               <div className="signup__section-heading">Source of the company’s paid-up capital</div>
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
-                { paidupCapitalOptions.options.map((cb, i) => {
-                    return(
-                      <CheckBox
-                        key={i}
-                        name={paidupCapitalOptions.name}
-                        text={cb}
-                        clickHandler={this.chooseOption.bind(this, cb, paidupCapitalOptions.name)}
-                        isActive={paidup_capital.indexOf(cb) !== -1 }
-                      />
-                    )
-                  })
+                { paidupCapitalOptions.options.map((cb, i) => (
+                    <CheckBox
+                      key={i}
+                      name={paidupCapitalOptions.name}
+                      text={cb}
+                      clickHandler={this.chooseOption.bind(this, cb, paidupCapitalOptions.name)}
+                      isActive={paidup_capital.indexOf(cb) !== -1 } />
+                  ))
                 }
               </div>
             </div>
@@ -311,24 +308,22 @@ class OnboardingStep6 extends Component {
                 { CompanyRelationsOptions.options.map((cb, i) => {
                     const cbValue = typeof(cb) === "string" ? cb : cb.name
                     return(
-                      <React.Fragment>
+                      <Fragment>
                         <CheckBox
                           key={i}
                           name={CompanyRelationsOptions.name}
                           text={cbValue}
                           clickHandler={this.chooseOption.bind(this, cbValue, CompanyRelationsOptions.name)}
-                          isActive={company_relations.indexOf(cbValue) !== -1 }
-                        />
+                          isActive={company_relations.indexOf(cbValue) !== -1 } />
                         { typeof(cb) !== "string" &&
                           <FormInput
                             name="company_relations_inputs"
                             id={cb.name}
                             placeholder={cb.input}
                             value={company_relations_inputs[cb.name]}
-                            onChangeHandler={this.handleChangeNested}
-                          />
+                            onChangeHandler={this.handleChangeNested} />
                         }
-                      </React.Fragment>
+                      </Fragment>
                     )
                   })
                 }

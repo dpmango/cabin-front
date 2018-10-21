@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,9 +10,12 @@ import OnboardingStep2 from '../containers/OnboardingIndividual/Step2';
 import OnboardingStep3 from '../containers/OnboardingIndividual/Step3';
 import OnboardingStep4 from '../containers/OnboardingIndividual/Step4';
 import OnboardingStep5 from '../containers/OnboardingIndividual/Step5';
+import OnboardingStep6 from '../containers/OnboardingIndividual/Step6';
+import OnboardingStep7 from '../containers/OnboardingIndividual/Step7';
+import OnboardingStep8 from '../containers/OnboardingIndividual/Step8';
 import OnboardingThanks from '../containers/OnboardingIndividual/Thanks'
 
-class OnBoardingIndividual extends React.Component {
+class OnBoardingIndividual extends Component {
   static propTypes = {
     setHeaderClass: PropTypes.func.isRequired,
     onboardingStep: PropTypes.number
@@ -33,7 +36,7 @@ class OnBoardingIndividual extends React.Component {
     const { onboardingStep, location, history } = this.props
 
     let newPath
-    if ( onboardingStep === 11 ){
+    if ( onboardingStep === 9 ){
       newPath = "/onboarding-individual/thank-you";
     } else if ( onboardingStep === 1 ) {
       newPath = "/onboarding-individual/hello";
@@ -103,6 +106,24 @@ class OnBoardingSwitch extends React.Component {
             <OnboardingStep5 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )
+      case 'step-5':
+        return(
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep6 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-6':
+        return(
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep7 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
+      case 'step-7':
+        return(
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep8 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
       case 'thank-you':
         return <OnboardingThanks />
       case 'hello':
@@ -114,9 +135,9 @@ class OnBoardingSwitch extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         {this.renderStep()}
-      </React.Fragment>
+      </Fragment>
     );
   }
 
