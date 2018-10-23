@@ -13,7 +13,7 @@ export const initialState = {
     company_addres: '',
     company_revenue: '',
     consumers_list: [
-      {"id": "SG", "text": "Singapore"}
+      // {"id": "SG", "text": "Singapore"}
     ],
     suppliers_list: [],
     payments_to_list: [],

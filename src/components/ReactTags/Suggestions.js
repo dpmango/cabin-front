@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+import { flag } from 'country-code-emoji';
 
 // Polyfills
 // import Number from 'core-js/library/fn/number';
@@ -96,6 +97,11 @@ class Suggestions extends Component {
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
+            { item.id &&
+              <span className="ReactTags__flag">
+                {flag(item.id)}
+              </span>
+            }
             <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
           </li>
         );

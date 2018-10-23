@@ -28,7 +28,7 @@ class OnboardingStep5 extends Component {
       suppliers_list:  props.onboardingFields.suppliers_list,
       payments_to_list:  props.onboardingFields.payments_to_list,
       payments_from_list: props.onboardingFields.payments_from_list,
-      formIsValid: false,
+      errors: [],
       isTransitioningNext: false,
       isFormSubmitted: false,
       countries_list: countriesListAutocompleate
@@ -48,22 +48,19 @@ class OnboardingStep5 extends Component {
     this.props.onRef(undefined)
   }
 
-  formInvalid = () => {
-    this.setState({ formIsValid: false });
-  }
-
-  formValid = () => {
-    this.setState({ formIsValid: true });
-  }
-
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // TODO - some kind of validation here?
-    // if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      ...this.state,
+      isFormSubmitted: true
+    })
+
+    this.validateTags(() => { // callback when err state is up
+      if ( this.state.errors.length === 0 ){
+        this.nextStep();
+        // this.setState({...this.state, isFormSubmitted: false}) // reset state here
+      }
+    });
   }
 
   // tags management
@@ -71,7 +68,7 @@ class OnboardingStep5 extends Component {
     this.setState({
       ...this.state,
       [name]: this.state[name].filter((tag, index) => index !== i),
-    });
+    }, () => this.validateTags());
   }
 
   handleTagsAddition = (tag, name) => {
@@ -80,7 +77,7 @@ class OnboardingStep5 extends Component {
 
     this.setState(state => ({...this.state,
       [name]: [...state[name], tagFilter]
-    }));
+    }), () => this.validateTags());
   }
 
   handleTagsDrag = (tag, currPos, newPos, name) => {
@@ -90,11 +87,33 @@ class OnboardingStep5 extends Component {
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
 
-    // re-render
     this.setState({
-      ...this.state,
-      [name]: newTags
+      ...this.state, [name]: newTags
     });
+  }
+
+  validateTags = (cb) => {
+    const {
+      consumers_list, suppliers_list, payments_to_list, payments_from_list
+    } = this.state;
+
+    let buildErrors = []
+    if (consumers_list.length === 0){
+      buildErrors.push("consumers_list")
+    }
+    if (suppliers_list.length === 0){
+      buildErrors.push("suppliers_list")
+    }
+    if (payments_to_list.length === 0){
+      buildErrors.push("payments_to_list")
+    }
+    if (payments_from_list.length === 0){
+      buildErrors.push("payments_from_list")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
   }
 
   // click handler for the button
@@ -132,7 +151,7 @@ class OnboardingStep5 extends Component {
 
     const { consumers_list, suppliers_list, payments_to_list, payments_from_list } = this.state;
 
-    this.setState({ isTransitioningNext: true })
+    this.setState({ ...this.state, isTransitioningNext: true })
 
     setTimeout(() => {
       this.props.setOnboardingStep(
@@ -147,7 +166,7 @@ class OnboardingStep5 extends Component {
         payments_from_list: payments_from_list
       })
 
-      this.setState({ isTransitioningNext: false })
+      this.setState({ ...this.state, isTransitioningNext: false })
 
     }, 400)
 
@@ -159,8 +178,16 @@ class OnboardingStep5 extends Component {
     );
   }
 
+  showError = (name) => {
+    if (
+      // this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please fill this field</span>
+    }
+  }
+
   render(){
-    const { consumers_list, suppliers_list, payments_to_list, payments_from_list, countries_list, isTransitioningNext } = this.state;
+    const { consumers_list, suppliers_list, payments_to_list, payments_from_list, countries_list, errors, isTransitioningNext, isFormSubmitted } = this.state;
 
     const defaultTagProps = (name) => ({
       tags: this.state[name],
@@ -186,30 +213,31 @@ class OnboardingStep5 extends Component {
           <Formsy
             className="signup__form"
             onSubmit={this.handleSubmit}
-            onValid={this.formValid}
-            onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef}>
             { /* https://github.com/prakhar1989/react-tags */ }
             <div className="ui-group ui-group--labeled">
               <label htmlFor="">List of countries where the company’s <span class="t-uppercase">customers</span> are located</label>
               <ReactTags
                 {...defaultTagProps("consumers_list")} />
+              { this.showError("consumers_list") }
             </div>
             <div className="ui-group ui-group--labeled">
               <label htmlFor="">List of countries where the company’s <span class="t-uppercase">suppliers</span> are located</label>
               <ReactTags
                 {...defaultTagProps("suppliers_list")} />
+              { this.showError("suppliers_list") }
             </div>
             <div className="ui-group ui-group--labeled">
               <label htmlFor="">List of countries that the company is <span class="t-uppercase">making payment</span> to</label>
               <ReactTags
                 {...defaultTagProps("payments_to_list")} />
+              { this.showError("payments_to_list") }
             </div>
             <div className="ui-group ui-group--labeled">
               <label htmlFor="">List of countries that the company is <span class="t-uppercase">receiving payment</span> from</label>
               <ReactTags
                 {...defaultTagProps("payments_from_list")} />
+              { this.showError("payments_from_list") }
             </div>
 
           </Formsy>
