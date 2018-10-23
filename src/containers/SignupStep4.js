@@ -403,7 +403,7 @@ class SignupStep4 extends Component {
               autosize={false}
               value={selected_plan}
               onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-              placeholder="Select a plan"
+              placeholder=""
               options={this.mapArrToSelect(plansSelect)}
             />
           </div>
