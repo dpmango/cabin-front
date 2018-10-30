@@ -51,16 +51,15 @@ class OnboardingStep5 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({
-      ...this.state,
       isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
     })
-
-    this.validateTags(() => { // callback when err state is up
-      if ( this.state.errors.length === 0 ){
-        this.nextStep();
-        // this.setState({...this.state, isFormSubmitted: false}) // reset state here
-      }
-    });
   }
 
   // tags management
@@ -68,7 +67,7 @@ class OnboardingStep5 extends Component {
     this.setState({
       ...this.state,
       [name]: this.state[name].filter((tag, index) => index !== i),
-    }, () => this.validateTags());
+    }, () => this.validateCustom());
   }
 
   handleTagsAddition = (tag, name) => {
@@ -77,7 +76,7 @@ class OnboardingStep5 extends Component {
 
     this.setState(state => ({...this.state,
       [name]: [...state[name], tagFilter]
-    }), () => this.validateTags());
+    }), () => this.validateCustom());
   }
 
   handleTagsDrag = (tag, currPos, newPos, name) => {
@@ -92,7 +91,7 @@ class OnboardingStep5 extends Component {
     });
   }
 
-  validateTags = (cb) => {
+  validateCustom = (cb) => {
     const {
       consumers_list, suppliers_list, payments_to_list, payments_from_list
     } = this.state;
@@ -180,7 +179,7 @@ class OnboardingStep5 extends Component {
 
   showError = (name) => {
     if (
-      // this.state.isFormSubmitted &&
+      this.state.isFormSubmitted &&
       this.state.errors.indexOf(name) !== -1){
       return <span className="ui-input-validation">Please fill this field</span>
     }
