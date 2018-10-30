@@ -26,6 +26,7 @@ class OnboardingStep7 extends Component {
       haveShareholders: props.onboardingFields.haveShareholders,
       shareholders_individulas: props.onboardingFields.shareholders_individulas,
       shareholders_corporate:  props.onboardingFields.shareholders_corporate,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -52,11 +53,16 @@ class OnboardingStep7 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
+    })
   }
 
   // click handler for the button
@@ -69,7 +75,7 @@ class OnboardingStep7 extends Component {
   toggleCheckbox = (val) => {
     this.setState({
       haveShareholders: val
-    })
+    }, () => this.validateCustom())
   }
 
   // called from the parent onBlur or checkbox onClick
@@ -157,6 +163,31 @@ class OnboardingStep7 extends Component {
     this.tableRef.forEach(table => {
       table.updateScrollbar()
     })
+  }
+
+  // custom validator
+  validateCustom = (cb) => {
+    const {
+      haveShareholders
+    } = this.state;
+
+    let buildErrors = []
+
+    if (haveShareholders === null){ // check if tag not empty
+      buildErrors.push("haveShareholders")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please fill this field</span>
+    }
   }
 
   render(){
@@ -340,6 +371,7 @@ class OnboardingStep7 extends Component {
                 clickHandler={this.toggleCheckbox.bind(this, false)}
                 isActive={haveShareholders === false}
               />
+              { this.showError("haveShareholders") }
             </div>
           </div>
 

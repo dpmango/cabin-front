@@ -242,7 +242,6 @@ class OnboardingStep6 extends Component {
     } = this.state;
 
     let buildErrors = []
-    console.log(paidup_capital, paidup_capital_inputs, company_relations, company_relations_inputs)
 
     if (paidup_capital.length === 0){ // simple checkbox length validation
       buildErrors.push("paidup_capital")

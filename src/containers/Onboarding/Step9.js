@@ -27,6 +27,7 @@ class OnboardingStep8 extends Component {
       other_controllers:  props.onboardingFields.other_controllers,
       other_beneficiaries_input: props.onboardingFields.other_beneficiaries_input,
       other_controllers_input: props.onboardingFields.other_controllers_input,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -52,11 +53,16 @@ class OnboardingStep8 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
+    })
   }
 
   // click handler for the button
@@ -69,14 +75,14 @@ class OnboardingStep8 extends Component {
     // just as a toggler true/false
     this.setState({...this.state,
       [name]: value
-    })
+    }, () => this.validateCustom())
   }
 
   // inputs
   handleChange = (e) => {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
+    this.setState({...this.state, [fieldName]: fleldVal}, () => this.validateCustom());
   }
 
   keyPressHandler = (e) => {
@@ -84,7 +90,6 @@ class OnboardingStep8 extends Component {
       this.submitForm();
     }
   }
-
 
 
   nextStep = () => {
@@ -153,6 +158,37 @@ class OnboardingStep8 extends Component {
     );
   }
 
+  // custom validator
+  validateCustom = (cb) => {
+    const {
+      other_beneficiaries, other_controllers, other_beneficiaries_input, other_controllers_input
+    } = this.state;
+
+    let buildErrors = []
+
+    if (other_beneficiaries === true
+      && other_beneficiaries_input.length === 0){ // when check and value is empty
+      buildErrors.push("other_beneficiaries")
+    }
+
+    if (other_controllers === true
+      && other_controllers_input.length === 0){ // when check and value is empty
+      buildErrors.push("other_controllers")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please fill this field</span>
+    }
+  }
+
   render(){
     const {
       other_beneficiaries,
@@ -180,13 +216,16 @@ class OnboardingStep8 extends Component {
           >
             <div className="signup__section">
               <div className="signup__section-heading">
-                <span>Other than the entities declared above, are there any other beneficiaries <Tooltip
-                  title="A beneficiary may be anyone who ultimately (i) receives a share of the profits, (ii) owns the assets or undertakings, (iii) has effective control/executive authority/voting rights of the company (e.g. more than 25% of the profits, assets, undertakings, voting rights etc.)."
-                  position="top"
-                  distance="10"
-                  arrow="true">
-                    <SvgIcon name="question-circle" />
-                </Tooltip> (individual or corporate), parent companies, or subsidiaries?</span>
+                <span>
+                  Other than the entities declared above, are there any other beneficiaries (individual or corporate), parent companies, or subsidiaries?
+                  <Tooltip
+                    title="A beneficiary may be anyone who ultimately (i) receives a share of the profits, (ii) owns the assets or undertakings, (iii) has effective control/executive authority/voting rights of the company (e.g. more than 25% of the profits, assets, undertakings, voting rights etc.)."
+                    position="top"
+                    distance="10"
+                    arrow="true">
+                      <SvgIcon name="question-circle" />
+                  </Tooltip>
+                </span>
 
               </div>
               <div className="signup__checkboxes">
@@ -213,17 +252,21 @@ class OnboardingStep8 extends Component {
                   onChangeHandler={this.handleChange}
                   onKeyHandler={this.keyPressHandler} />
               }
+              { this.showError("other_beneficiaries") }
             </div>
 
             <div className="signup__section">
               <div className="signup__section-heading">
-                <span>Other than the stakeholders declared above, are there any other Registrable Controllers <Tooltip
-                  title="A controller of the company is registrable when he/she (cumulatively) has significant interest and control in the company (e.g. by having more than 25% of the shares/total voting power in the company). This excludes directors, employees, consultants, or counterparties which may influence the company in a professional/business capacity."
-                  position="top"
-                  distance="10"
-                  arrow="true">
-                    <SvgIcon name="question-circle" />
-                </Tooltip> for the company?</span>
+                <span>
+                  Other than the stakeholders declared above, are there any other Registrable Controllers for the company?
+                  <Tooltip
+                    title="A controller of the company is registrable when he/she (cumulatively) has significant interest and control in the company (e.g. by having more than 25% of the shares/total voting power in the company). This excludes directors, employees, consultants, or counterparties which may influence the company in a professional/business capacity."
+                    position="top"
+                    distance="10"
+                    arrow="true">
+                      <SvgIcon name="question-circle" />
+                  </Tooltip>
+                </span>
               </div>
               <div className="signup__checkboxes">
                 <CheckBox
@@ -249,6 +292,7 @@ class OnboardingStep8 extends Component {
                   onChangeHandler={this.handleChange}
                   onKeyHandler={this.keyPressHandler} />
               }
+              { this.showError("other_controllers") }
             </div>
           </Formsy>
         </div>
