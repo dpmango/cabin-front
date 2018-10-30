@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
+// import api from '../../services/Api';
+// import isProduction from '../../services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
 import Image from '../../components/Image';
 // import FormInput from '../../components/FormInput';
@@ -74,14 +74,14 @@ class OnboardingStep5 extends Component {
   }
 
   nextStep = () => {
-    const { upload_id, upload_passport, upload_address } = this.state;
+    // const { upload_id, upload_passport, upload_address } = this.state;
 
-    const leadObj = {
-      isproduction: isProduction(),
-      upload_id: upload_id,
-      upload_passport: upload_passport,
-      upload_address: upload_address
-    }
+    // const leadObj = {
+    //   isproduction: isProduction(),
+    //   upload_id: upload_id,
+    //   upload_passport: upload_passport,
+    //   upload_address: upload_address
+    // }
 
     // update the api
     // api
@@ -152,7 +152,9 @@ class OnboardingStep5 extends Component {
 
 
   render(){
-    const { upload_id, upload_passport, upload_address, isTransitioningNext } = this.state;
+    const { 
+      isTransitioningNext
+    } = this.state;
 
     // available options are at https://pqina.nl/filepond/docs/patterns/api/filepond-instance/
     const defaultFilePondOptions = (name) => ({

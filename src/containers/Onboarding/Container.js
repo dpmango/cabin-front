@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SvgIcon from '../../components/SvgIcon';
 
 class OnboardingContainer extends React.Component {
   render(){
@@ -38,17 +37,10 @@ class OnboardingContainer extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state) => (
   {
     onboardingStep: state.onboarding.onboardingStep
   }
 );
 
-const mapDispatchToProps = (dispatch) => (
-  {
-    // setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
-  }
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(OnboardingContainer);
+export default connect(mapStateToProps, null)(OnboardingContainer);

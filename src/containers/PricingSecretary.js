@@ -7,15 +7,12 @@ import { GetStarted } from '../routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-import ScrollTo from '../services/ScrollTo';
+// import ScrollTo from '../services/ScrollTo';
 import FaqPanel from '../components/FaqPanel';
 import PricingOption from '../components/PricingOption';
 import PricingScopeList from '../components/PricingScopeList';
 
-// import SvgIcon from '../components/SvgIcon';
-
 class PricingSecretary extends Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -27,7 +24,6 @@ class PricingSecretary extends Component {
   }
 
   handleSelectChange = (e) => {
-    console.log(e)
     this.setState({
       selected_year: e,
       price: e.value,

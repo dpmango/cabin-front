@@ -86,7 +86,12 @@ class OnboardingStep2 extends Component {
 }
 
 const SignupManager = (props) => {
-  const { name, image, title } = props
+  const {
+    // name, 
+    image,
+    title
+  } = props
+
   return (
     <div className="signup__manager">
       <div className="signup__avatar signup__avatar--row">

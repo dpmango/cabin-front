@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SvgIcon from '../../components/SvgIcon';
 
 class OnboardingContainer extends React.Component {
   render(){

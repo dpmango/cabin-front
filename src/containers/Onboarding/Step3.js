@@ -74,23 +74,6 @@ class OnboardingStep2 extends Component {
   }
 }
 
-const SignupManager = (props) => {
-  const { name, image, title } = props
-  return (
-    <div className="signup__manager">
-      <div className="signup__avatar signup__avatar--row">
-        <div className="signup__hover-tooltip">
-          <div className="signup__hover-wrapper">
-            Hi, I’m <span><strong>{"{{name}}"}</strong></span>
-          </div>
-        </div>
-        <Image file={image} />
-      </div>
-      <div className="signup__manager-name">{title}</div>
-    </div>
-  )
-}
-
 const mapStateToProps = (state) => ({
   onboardingRandomId: state.onboarding.onboardingRandomId,
   onboardingStep: state.onboarding.onboardingStep

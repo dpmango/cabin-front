@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
+// import api from '../../services/Api';
+// import isProduction from '../../services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
 import Image from '../../components/Image';
 import SvgIcon from '../../components/SvgIcon';
@@ -82,18 +82,18 @@ class OnboardingStep7 extends Component {
   }
 
   nextStep = () => {
-    const { nomineeDirector, agent, grounds, shareholderOnBehalf, offence, bankrupt, pep } = this.state;
+    // const { nomineeDirector, agent, grounds, shareholderOnBehalf, offence, bankrupt, pep } = this.state;
 
-    const leadObj = {
-      isproduction: isProduction(),
-      nomineeDirector: nomineeDirector === null ? "Yes" : nomineeDirector,
-      agent: agent === null ? "Yes" : agent,
-      grounds: grounds === null ? "Yes" : grounds,
-      shareholderOnBehalf: shareholderOnBehalf === null ? "Yes" : shareholderOnBehalf,
-      offence: offence === null ? "Yes" : offence,
-      bankrupt: bankrupt === null ? "Yes" : bankrupt,
-      pep: pep === null ? "Yes" : pep
-    }
+    // const leadObj = {
+    //   isproduction: isProduction(),
+    //   nomineeDirector: nomineeDirector === null ? "Yes" : nomineeDirector,
+    //   agent: agent === null ? "Yes" : agent,
+    //   grounds: grounds === null ? "Yes" : grounds,
+    //   shareholderOnBehalf: shareholderOnBehalf === null ? "Yes" : shareholderOnBehalf,
+    //   offence: offence === null ? "Yes" : offence,
+    //   bankrupt: bankrupt === null ? "Yes" : bankrupt,
+    //   pep: pep === null ? "Yes" : pep
+    // }
 
     // update the api
     // api

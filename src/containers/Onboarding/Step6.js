@@ -186,7 +186,7 @@ class OnboardingStep5 extends Component {
   }
 
   render(){
-    const { consumers_list, suppliers_list, payments_to_list, payments_from_list, countries_list, errors, isTransitioningNext, isFormSubmitted } = this.state;
+    const { countries_list, isTransitioningNext } = this.state;
 
     const defaultTagProps = (name) => ({
       tags: this.state[name],

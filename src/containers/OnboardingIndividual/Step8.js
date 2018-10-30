@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import PhoneInput from 'react-phone-number-input'
-import { isValidNumber } from 'libphonenumber-js';
 import api from '../../services/Api';
 import isProduction from '../../services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
 import Image from '../../components/Image';
 import FormInput from '../../components/FormInput';
-import HelloSign from '../../components/HelloSign';
+// import HelloSign from '../../components/HelloSign';
 
 class OnboardingStep8 extends Component {
   static propTypes = {
@@ -135,7 +133,7 @@ class OnboardingStep8 extends Component {
   }
 
   render(){
-    const { name, designation, isTransitioningNext, isFormSubmitted } = this.state;
+    const { name, designation, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">

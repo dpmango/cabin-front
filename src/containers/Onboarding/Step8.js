@@ -192,7 +192,7 @@ class OnboardingStep7 extends Component {
 
   render(){
     const {
-      props: {},
+      // props: {},
       state: {haveShareholders, isTransitioningNext}
     } = this
 
