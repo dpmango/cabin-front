@@ -2,14 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
-import FormInput from '../../components/FormInput';
-import ReactTags from '../../components/ReactTags/ReactTags';
-import { countriesListAutocompleate, delimiters} from '../../store/CountriesListAutocompleate';
-import CheckBox from '../../components/CheckBox';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
+import ReactTags from 'components/ReactTags/ReactTags';
+import { countriesListAutocompleate, delimiters} from 'store/CountriesListAutocompleate';
+import CheckBox from 'components/CheckBox';
 
 class OnboardingStep6 extends Component {
   static propTypes = {

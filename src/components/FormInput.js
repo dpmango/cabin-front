@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-text-mask'
 import { withFormsy } from 'formsy-react';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 import { Tooltip } from 'react-tippy';
 
 class FormInput extends Component {

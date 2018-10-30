@@ -2,18 +2,18 @@ import React, {Component, Fragment} from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from 'store/ActionTypes';
 
-import OnboardingStep1 from '../containers/OnboardingIndividual/Step1'
-import OnboardingContainer from '../containers/OnboardingIndividual/Container'
-import OnboardingStep2 from '../containers/OnboardingIndividual/Step2';
-import OnboardingStep3 from '../containers/OnboardingIndividual/Step3';
-import OnboardingStep4 from '../containers/OnboardingIndividual/Step4';
-import OnboardingStep5 from '../containers/OnboardingIndividual/Step5';
-import OnboardingStep6 from '../containers/OnboardingIndividual/Step6';
-import OnboardingStep7 from '../containers/OnboardingIndividual/Step7';
-import OnboardingStep8 from '../containers/OnboardingIndividual/Step8';
-import OnboardingThanks from '../containers/OnboardingIndividual/Thanks'
+import OnboardingStep1 from 'containers/OnboardingIndividual/Step1'
+import OnboardingContainer from 'containers/OnboardingIndividual/Container'
+import OnboardingStep2 from 'containers/OnboardingIndividual/Step2';
+import OnboardingStep3 from 'containers/OnboardingIndividual/Step3';
+import OnboardingStep4 from 'containers/OnboardingIndividual/Step4';
+import OnboardingStep5 from 'containers/OnboardingIndividual/Step5';
+import OnboardingStep6 from 'containers/OnboardingIndividual/Step6';
+import OnboardingStep7 from 'containers/OnboardingIndividual/Step7';
+import OnboardingStep8 from 'containers/OnboardingIndividual/Step8';
+import OnboardingThanks from 'containers/OnboardingIndividual/Thanks'
 
 class OnBoardingIndividual extends Component {
   static propTypes = {

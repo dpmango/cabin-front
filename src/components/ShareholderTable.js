@@ -3,8 +3,8 @@ import { Tooltip } from 'react-tippy';
 // import { Scrollbars } from 'react-custom-scrollbars';
 // import ScrollArea from 'react-scrollbar';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import SvgIcon from '../components/SvgIcon';
-import CheckBox from '../components/CheckBox';
+import SvgIcon from 'components/SvgIcon';
+import CheckBox from 'components/CheckBox';
 // import cloneDeep from 'lodash/cloneDeep';
 
 class ShareholderTable extends Component {

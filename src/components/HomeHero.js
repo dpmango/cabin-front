@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignupEmail from '../containers/SignupEmail';
+import SignupEmail from 'containers/SignupEmail';
 import lottie from 'lottie-web';
 
 export default class HomeHero extends Component {
@@ -37,8 +37,8 @@ export default class HomeHero extends Component {
         <div className="home-hero__bg">
           <div className="home-hero__lottie" ref={this.illustrationRef}></div>
           {/* <img
-            src={require(`../images/homeHeroIllustration.png`)}
-            srcSet={require(`../images/homeHeroIllustration@2x.png`)  + ' 2x'}
+            src={require(`images/homeHeroIllustration.png`)}
+            srcSet={require(`images/homeHeroIllustration@2x.png`)  + ' 2x'}
             alt=""/> */}
         </div>
       </div>

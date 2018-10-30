@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 
 export default class FaqPanel extends Component {
   static propTypes = {

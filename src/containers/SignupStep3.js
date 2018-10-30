@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import 'airbnb-js-shims';
 import Select from 'react-select';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import buildOptionsString from '../services/buildOptionsString';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import buildOptionsString from 'services/buildOptionsString';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from 'store/ActionTypes';
 
-// import SvgIcon from '../components/SvgIcon';
-// import FormInput from '../components/FormInput';
+// import SvgIcon from 'components/SvgIcon';
+// import FormInput from 'components/FormInput';
 
 class SignupStep3 extends Component {
   static propTypes = {
@@ -159,7 +159,7 @@ class SignupStep3 extends Component {
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
         <div className="signup__left">
           <div className="signup__avatar signup__avatar--small">
-            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+            <img src={require('images/rifeng-avatar.png')} srcSet={require('images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
           <h2>Help us understand a little bit more about your company</h2>
         </div>

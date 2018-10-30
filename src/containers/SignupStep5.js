@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { ADD_TO_DATALAYER, RESET_DATALAYER } from '../store/ActionTypes';
-// import GoogleTagManager from '../components/GoogleTagManager';
-import SvgIcon from '../components/SvgIcon';
+import { ADD_TO_DATALAYER, RESET_DATALAYER } from 'store/ActionTypes';
+// import GoogleTagManager from 'components/GoogleTagManager';
+import SvgIcon from 'components/SvgIcon';
 
 class SignupStep5 extends Component {
   static propTypes = {

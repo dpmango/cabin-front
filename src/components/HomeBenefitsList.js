@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 
 export default class HomeBenefitsList extends Component {
   render(){

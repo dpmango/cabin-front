@@ -47,4 +47,5 @@ Task name          | Description
 All available tasks are placed in a folder `./gulp/tasks` as separate **.js** files.
 
 ## Important notes
+- Add `NODE_PATH=./src` to `.env` file to support relative imports (won't start without that)
 - Redux store save state in localStorage. When data structure chages, please update `version` variable in `src/store/localStorage.js` to clear localStorage on user side.

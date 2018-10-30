@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_PRICING_PLAN } from '../store/ActionTypes';
+import { SET_PRICING_PLAN } from 'store/ActionTypes';
 import throttle from 'lodash/throttle';
-import { GetStarted } from '../routes';
-
-import SvgIcon from '../components/SvgIcon';
+import { GetStarted } from 'routes';
+import SvgIcon from 'components/SvgIcon';
 
 class PricingFloatNav extends Component {
   static propTypes = {

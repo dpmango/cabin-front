@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SET_PRICING_PLAN } from '../store/ActionTypes';
+import { SET_PRICING_PLAN } from 'store/ActionTypes';
 // import { Tooltip } from 'react-tippy';
-import { GetStarted } from '../routes';
+import { GetStarted } from 'routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-// import ScrollTo from '../services/ScrollTo';
-import FaqPanel from '../components/FaqPanel';
-import PricingOption from '../components/PricingOption';
-import PricingScopeList from '../components/PricingScopeList';
+// import ScrollTo from 'services/ScrollTo';
+import FaqPanel from 'components/FaqPanel';
+import PricingOption from 'components/PricingOption';
+import PricingScopeList from 'components/PricingScopeList';
 
 class PricingSecretary extends Component {
   constructor(props){

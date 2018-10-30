@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 
 export default class PricingOption extends Component {
   static propTypes = {

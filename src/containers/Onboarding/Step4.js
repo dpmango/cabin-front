@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
-import FormInput from '../../components/FormInput';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
 
 class OnboardingStep3 extends Component {
   static propTypes = {

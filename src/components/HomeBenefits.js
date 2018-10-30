@@ -4,10 +4,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import debounce from 'lodash/debounce';
 import Swiper from 'react-id-swiper';
 // import { Tooltip } from 'react-tippy';
-// import SvgIcon from '../components/SvgIcon';
+// import SvgIcon from 'components/SvgIcon';
 
-import HomeBenefitsList from '../components/HomeBenefitsList';
-import Testimonial from '../components/Testimonial';
+import HomeBenefitsList from 'components/HomeBenefitsList';
+import Testimonial from 'components/Testimonial';
 
 export default class HomeBenefits extends Component {
   constructor(props){

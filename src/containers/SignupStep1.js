@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_SIGNUP_STEP, ADD_TO_DATALAYER, RESET_DATALAYER } from '../store/ActionTypes';
-import SvgIcon from '../components/SvgIcon';
-import Image from '../components/Image';
+import { SET_SIGNUP_STEP, ADD_TO_DATALAYER, RESET_DATALAYER } from 'store/ActionTypes';
+import SvgIcon from 'components/SvgIcon';
+import Image from 'components/Image';
 
 class SignupStep1 extends Component {
   static propTypes = {

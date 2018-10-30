@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
-// import FormInput from '../../components/FormInput';
-import ReactTags from '../../components/ReactTags/ReactTags';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+// import FormInput from 'components/FormInput';
+import ReactTags from 'components/ReactTags/ReactTags';
 // import { WithContext as ReactTags } from 'react-tag-input'; // changed to /compoinenets call
 
-import { countriesListAutocompleate, delimiters} from '../../store/CountriesListAutocompleate';
+import { countriesListAutocompleate, delimiters} from 'store/CountriesListAutocompleate';
 
 class OnboardingStep5 extends Component {
   static propTypes = {

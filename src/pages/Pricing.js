@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { NavLink, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from 'store/ActionTypes';
 import Select from 'react-select';
 
-import GetStartedBottom from '../components/GetStartedBottom';
+import GetStartedBottom from 'components/GetStartedBottom';
 
-import PricingAccounting from '../containers/PricingAccounting';
-import PricingSecretary from '../containers/PricingSecretary';
-import PricingIncorp from '../containers/PricingIncorp';
-import PricingDormant from '../containers/PricingDormant';
-import PricingCustom from '../containers/PricingCustom';
-import PricingMonthly from '../containers/PricingMonthly';
+import PricingAccounting from 'containers/PricingAccounting';
+import PricingSecretary from 'containers/PricingSecretary';
+import PricingIncorp from 'containers/PricingIncorp';
+import PricingDormant from 'containers/PricingDormant';
+import PricingCustom from 'containers/PricingCustom';
+import PricingMonthly from 'containers/PricingMonthly';
 
 class Pricing extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ class Pricing extends Component {
     const heroRender = (
       <div className="hero">
         <div className="hero__bg">
-          <img src={require('../images/pricingHeroImg.png')} srcSet={require('../images/pricingHeroImg@2x.png')  + ' 2x'} alt=""/>
+          <img src={require('images/pricingHeroImg.png')} srcSet={require('images/pricingHeroImg@2x.png')  + ' 2x'} alt=""/>
         </div>
         <div className="container container--narrow">
           <div className="hero__wrapper">

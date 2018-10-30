@@ -64,7 +64,7 @@ export default class Professionals extends Component {
           <div className="professionals__slide">
             <div className="professionals-card">
               <div className="professionals-card__avatar">
-                <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/avatar-1.png')} srcSet={require('images/avatar-1@2x.png')  + ' 2x'} alt=""/>
               </div>
               <div className="professionals-card__content">
                 <div className="professionals-card__name">John Tan</div>
@@ -79,7 +79,7 @@ export default class Professionals extends Component {
           <div className="professionals__slide">
             <div className="professionals-card">
               <div className="professionals-card__avatar">
-                <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/avatar-1.png')} srcSet={require('images/avatar-1@2x.png')  + ' 2x'} alt=""/>
               </div>
               <div className="professionals-card__content">
                 <div className="professionals-card__name">John Tan</div>
@@ -94,7 +94,7 @@ export default class Professionals extends Component {
           <div className="professionals__slide">
             <div className="professionals-card">
               <div className="professionals-card__avatar">
-                <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/avatar-1.png')} srcSet={require('images/avatar-1@2x.png')  + ' 2x'} alt=""/>
               </div>
               <div className="professionals-card__content">
                 <div className="professionals-card__name">John Tan</div>
@@ -109,7 +109,7 @@ export default class Professionals extends Component {
           <div className="professionals__slide">
             <div className="professionals-card">
               <div className="professionals-card__avatar">
-                <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/avatar-1.png')} srcSet={require('images/avatar-1@2x.png')  + ' 2x'} alt=""/>
               </div>
               <div className="professionals-card__content">
                 <div className="professionals-card__name">John Tan</div>
@@ -124,7 +124,7 @@ export default class Professionals extends Component {
           <div className="professionals__slide">
             <div className="professionals-card">
               <div className="professionals-card__avatar">
-                <img src={require('../images/avatar-1.png')} srcSet={require('../images/avatar-1@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/avatar-1.png')} srcSet={require('images/avatar-1@2x.png')  + ' 2x'} alt=""/>
               </div>
               <div className="professionals-card__content">
                 <div className="professionals-card__name">John Tan</div>

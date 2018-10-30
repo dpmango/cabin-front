@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HomeLogosEl from '../components/HomeLogosEl';
+import HomeLogosEl from 'components/HomeLogosEl';
 
 export default class HomeLogos extends Component {
   render(){

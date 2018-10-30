@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
 import { isValidNumber } from 'libphonenumber-js';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
-import FormInput from '../../components/FormInput';
-// import HelloSign from '../../components/HelloSign';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
+// import HelloSign from 'components/HelloSign';
 
 class OnboardingStep9 extends Component {
   static propTypes = {

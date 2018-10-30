@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { SET_PRICING_SECTION } from '../store/ActionTypes';
+// import { SET_PRICING_SECTION } from 'store/ActionTypes';
 import { Tooltip } from 'react-tippy';
 
-import ScrollTo from '../services/ScrollTo';
-import SvgIcon from '../components/SvgIcon';
-import PricingBuilderBox from '../containers/PricingBuilderBox';
+import ScrollTo from 'services/ScrollTo';
+import SvgIcon from 'components/SvgIcon';
+import PricingBuilderBox from 'containers/PricingBuilderBox';
 
 class PricingBuilderSection extends Component {
   static propTypes = {

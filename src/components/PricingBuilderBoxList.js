@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 import { Tooltip } from 'react-tippy';
 
 export default class PricingBuilderBoxList extends Component {

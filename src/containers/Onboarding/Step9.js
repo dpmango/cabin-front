@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
 import { Tooltip } from 'react-tippy';
-import CheckBox from '../../components/CheckBox';
-import FormInput from '../../components/FormInput';
-import SvgIcon from '../../components/SvgIcon';
+import CheckBox from 'components/CheckBox';
+import FormInput from 'components/FormInput';
+import SvgIcon from 'components/SvgIcon';
 
 class OnboardingStep8 extends Component {
   static propTypes = {

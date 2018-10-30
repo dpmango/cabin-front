@@ -2,11 +2,11 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-// import api from '../../services/Api';
-// import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from '../../store/ActionTypes';
-import Image from '../../components/Image';
-// import FormInput from '../../components/FormInput';
+// import api from 'services/Api';
+// import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+// import FormInput from 'components/FormInput';
 import { FilePond, File } from 'react-filepond';
 // registerPlugin
 // import 'filepond/dist/filepond.min.css';
@@ -152,7 +152,7 @@ class OnboardingStep5 extends Component {
 
 
   render(){
-    const { 
+    const {
       isTransitioningNext
     } = this.state;
 

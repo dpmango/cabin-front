@@ -7,9 +7,9 @@ import 'moment-timezone';
 import onClickOutside from "react-onclickoutside";
 import throttle from 'lodash/throttle';
 
-import { OPEN_MENU, CLOSE_MENU } from '../store/ActionTypes';
-import convertTimeStr from '../services/convertTimeStr';
-import SvgIcon from '../components/SvgIcon'
+import { OPEN_MENU, CLOSE_MENU } from 'store/ActionTypes';
+import convertTimeStr from 'services/convertTimeStr';
+import SvgIcon from 'components/SvgIcon'
 
 class Header extends React.Component {
   static propTypes = {

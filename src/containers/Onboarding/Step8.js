@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Collapse} from 'react-collapse';
 
-import Image from '../../components/Image';
-import CheckBox from '../../components/CheckBox';
-import ShareholderTable from '../../components/ShareholderTable';
+import Image from 'components/Image';
+import CheckBox from 'components/CheckBox';
+import ShareholderTable from 'components/ShareholderTable';
 
-import api from '../../services/Api';
-import isProduction from '../../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../../store/ActionTypes';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
 
 class OnboardingStep7 extends Component {
   static propTypes = {

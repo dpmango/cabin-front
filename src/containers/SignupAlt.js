@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
 import { isValidNumber } from 'libphonenumber-js';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import buildOptionsString from '../services/buildOptionsString';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import buildOptionsString from 'services/buildOptionsString';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from 'store/ActionTypes';
 
-// import SvgIcon from '../components/SvgIcon';
-import FormInput from '../components/FormInput';
+// import SvgIcon from 'components/SvgIcon';
+import FormInput from 'components/FormInput';
 
 class SignupAlt extends Component {
   static propTypes = {
@@ -152,7 +152,7 @@ class SignupAlt extends Component {
           <div className="signup__wrapper">
             <div className="signup__left">
               <div className="signup__avatar signup__avatar--small">
-                <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/rifeng-avatar.png')} srcSet={require('images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
               </div>
               <h2>Hello!</h2>
               <p className="t-paragraph">My name is Rifeng and I am here to help you get started. Let us know how to reach you and we will be in touch shortly!</p>

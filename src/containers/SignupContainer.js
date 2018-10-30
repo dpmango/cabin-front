@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SvgIcon from '../components/SvgIcon';
+import SvgIcon from 'components/SvgIcon';
 
 class SignupContainer extends React.Component {
   render(){
@@ -30,7 +30,7 @@ class SignupContainer extends React.Component {
               <span>Next</span>
             </a>
           </div>
-          
+
         </div>
       </div>
     )

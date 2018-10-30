@@ -2,15 +2,15 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS, LOCK_SIGNUP_ALT } from '../store/ActionTypes';
+import { SET_HEADER_CLASS, LOCK_SIGNUP_ALT } from 'store/ActionTypes';
 
-import SignupStep1 from '../containers/SignupStep1'
-import SignupContainer from '../containers/SignupContainer'
-import SignupStep2 from '../containers/SignupStep2'
-import SignupStep3 from '../containers/SignupStep3'
-import SignupStep4 from '../containers/SignupStep4'
-import SignupStep5 from '../containers/SignupStep5'
-import SignupAlt from '../containers/SignupAlt'
+import SignupStep1 from 'containers/SignupStep1'
+import SignupContainer from 'containers/SignupContainer'
+import SignupStep2 from 'containers/SignupStep2'
+import SignupStep3 from 'containers/SignupStep3'
+import SignupStep4 from 'containers/SignupStep4'
+import SignupStep5 from 'containers/SignupStep5'
+import SignupAlt from 'containers/SignupAlt'
 
 class GetStarted extends React.Component {
   static propTypes = {

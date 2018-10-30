@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_ONBOARDING_I_STEP } from '../../store/ActionTypes';
-// import SvgIcon from '../../components/SvgIcon';
-import Image from '../../components/Image';
+import { SET_ONBOARDING_I_STEP } from 'store/ActionTypes';
+// import SvgIcon from 'components/SvgIcon';
+import Image from 'components/Image';
 
 class OnboardingStep2 extends Component {
   static propTypes = {
@@ -91,7 +91,7 @@ const SignupManager = (props) => {
     image,
     title
   } = props
-  
+
   return (
     <div className="signup__manager">
       <div className="signup__avatar signup__avatar--row">
