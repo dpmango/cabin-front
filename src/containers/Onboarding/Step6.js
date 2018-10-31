@@ -62,6 +62,7 @@ class OnboardingStep5 extends Component {
     })
   }
 
+
   // tags management
   handleTagsDelete = (i, e, name) => {
     this.setState({

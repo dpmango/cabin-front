@@ -30,6 +30,7 @@ class OnboardingStep5 extends Component {
       upload_id: props.onboardingFields.upload_id,
       upload_passport:  props.onboardingFields.upload_passport,
       upload_address:  props.onboardingFields.upload_address,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -61,11 +62,16 @@ class OnboardingStep5 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // if ( this.state.formIsValid ){ // no validation yet ?
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        // if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        // }
+      });
+    })
   }
 
   // click handler for the button
@@ -135,9 +141,10 @@ class OnboardingStep5 extends Component {
   }
 
   handleFilePindUpload = (fileItems, name) => {
+    console.log(fileItems, name)
     this.setState({
       [name]: fileItems.map(fileItem => fileItem.file)
-    });
+    }, () => this.validateCustom());
   }
 
   renderFilePondThumbs = (name) => {
@@ -150,6 +157,34 @@ class OnboardingStep5 extends Component {
     )
   }
 
+  validateCustom = (cb) => {
+    const {
+      upload_id, upload_passport, upload_address
+    } = this.state;
+
+    let buildErrors = []
+    if (upload_id.length === 0){
+      buildErrors.push("upload_id")
+    }
+    if (upload_passport.length === 0){
+      buildErrors.push("upload_passport")
+    }
+    if (upload_address.length === 0){
+      buildErrors.push("upload_address")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please upload file</span>
+    }
+  }
 
   render(){
     const {
@@ -190,6 +225,7 @@ class OnboardingStep5 extends Component {
                 ref={this.pond[0]}>
                 {this.renderFilePondThumbs("upload_id")}
               </FilePond>
+              { this.showError("upload_id") }
             </div>
             <div className="ui-group">
               <label htmlFor="" className="ui-group__label">Please upload a copy of your passport</label>
@@ -198,6 +234,7 @@ class OnboardingStep5 extends Component {
                 ref={this.pond[1]}>
                 {this.renderFilePondThumbs("upload_passport")}
               </FilePond>
+              { this.showError("upload_passport") }
             </div>
             <div className="ui-group">
               <label htmlFor="" className="ui-group__label">[For foreigners only]: Please upload a copy a recent (last 3 months) proof of address (e.g. bank statements or bills)</label>
@@ -206,6 +243,7 @@ class OnboardingStep5 extends Component {
                 ref={this.pond[2]}>
                 {this.renderFilePondThumbs("upload_address")}
               </FilePond>
+              { this.showError("upload_address") }
             </div>
 
           </Formsy>
