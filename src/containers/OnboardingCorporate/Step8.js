@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import PhoneInput from 'react-phone-number-input'
-import { isValidNumber } from 'libphonenumber-js';
 import api from 'services/Api';
 import isProduction from 'services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import { SET_ONBOARDING_C_STEP, SET_ONBOARDING_C_FIELDS, SET_ONBOARDING_C_ID } from 'store/ActionTypes';
 import Image from 'components/Image';
 import FormInput from 'components/FormInput';
 // import HelloSign from 'components/HelloSign';
 
-class OnboardingStep9 extends Component {
+class OnboardingStep8 extends Component {
   static propTypes = {
     setOnboardingStep: PropTypes.func,
     setOnboardingFields: PropTypes.func,
@@ -24,9 +22,7 @@ class OnboardingStep9 extends Component {
 
     this.state = {
       name: props.onboardingFields.name,
-      designation:  props.onboardingFields.designation,
-      phone:  props.onboardingFields.phone,
-      email: props.onboardingFields.email,
+      designation: props.onboardingFields.designation,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -53,7 +49,7 @@ class OnboardingStep9 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid && isValidNumber(this.state.phone) ){
+    if ( this.state.formIsValid ){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
     }
@@ -86,35 +82,32 @@ class OnboardingStep9 extends Component {
 
   // logic
   nextStep = () => {
-    const { name, designation, phone, email } = this.state;
-
-    const leadObj = {
-      isproduction: isProduction(),
-      isCompleated: true,
-      name: name,
-      designation: designation,
-      phone: phone,
-      email: email
-    }
-
-    api
-      .patch('onboardings/' + this.props.onboardingId, {
-        onboarding: leadObj
-      })
-      .then((res) => {
-        console.log('Backend responce to onboarding PATCH' , res)
-        this.updateSignup()
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.updateSignup();
+    // const { name, designation } = this.state;
+    //
+    // const leadObj = {
+    //   isproduction: isProduction(),
+    //   name: name,
+    //   designation: designation
+    // }
+    //
+    // api
+    //   .patch('stakeholders/' + this.props.onboardingId, {
+    //     stakeholder: leadObj
+    //   })
+    //   .then((res) => {
+    //     console.log('Backend responce to stakeholder PATCH' , res)
+    //     this.updateSignup()
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
   }
 
   updateSignup = () => {
 
-    const { name, designation, phone, email } = this.state;
-
+    const { name, designation } = this.state;
     this.setState({ isTransitioningNext: true })
 
     setTimeout(() => {
@@ -126,8 +119,6 @@ class OnboardingStep9 extends Component {
         ...this.props.onboardingFields,
         name: name,
         designation: designation,
-        phone: phone,
-        email: email
       })
 
       this.setState({ isTransitioningNext: false })
@@ -143,7 +134,7 @@ class OnboardingStep9 extends Component {
   }
 
   render(){
-    const { name, designation, phone, email, isTransitioningNext, isFormSubmitted } = this.state;
+    const { name, designation, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -160,8 +151,7 @@ class OnboardingStep9 extends Component {
             onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef} >
             <FormInput
               name="name"
               label="Name"
@@ -181,36 +171,8 @@ class OnboardingStep9 extends Component {
               value={designation}
               validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your designation',
-                minLength: 'Designation name is too short'
-              }}
-              onChangeHandler={this.handleChange}
-              onKeyHandler={this.keyPressHandler}
-              required
-            />
-            <div className="ui-group">
-              <label htmlFor="phone" className="ui-group__label">Phone Number</label>
-              <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
-                <PhoneInput
-              		// label="Phone Number"
-              		value={ phone }
-                  country="SG"
-                  displayInitialValueAsLocalNumber={true}
-              		onChange={ phone => this.setState({ phone }) }
-                  onKeyPress={this.keyPressHandler}
-                  indicateInvalid
-                  error={ isFormSubmitted ? phone ? (isValidNumber(phone) ? undefined : 'Invalid phone number') : 'Phone number required' : undefined }
-                />
-              </div>
-            </div>
-            <FormInput
-              name="email"
-              label="Email"
-              value={email}
-              validations="isEmail"
-              validationErrors={{
-                isEmail: "This is not a valid email",
-                isDefaultRequiredValue: 'Please fill email'
+                isDefaultRequiredValue: 'Please fill your Designation',
+                minLength: 'Designation is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
@@ -221,6 +183,7 @@ class OnboardingStep9 extends Component {
                 onSucess={this.helloSignSucess}
                 onFail={this.helloSignFail} /> */ }
             </div>
+
           </Formsy>
         </div>
       </div>
@@ -231,15 +194,16 @@ class OnboardingStep9 extends Component {
 
 
 const mapStateToProps = (state) => ({
-  onboardingFields: state.onboarding.fields,
-  onboardingId: state.onboarding.onboardingId,
-  onboardingStep: state.onboarding.onboardingStep
+  onboardingFields: state.onboardingCorporate.fields,
+  onboardingId: state.onboardingCorporate.onboardingId,
+  onboardingRandomId: state.onboardingCorporate.onboardingRandomId,
+  onboardingStep: state.onboardingCorporate.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
-  setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
-  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_ID, payload: data })
+  setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_C_STEP, payload: data }),
+  setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_C_FIELDS, payload: data }),
+  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_C_ID, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep9);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep8);

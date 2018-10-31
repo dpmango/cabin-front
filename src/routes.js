@@ -55,6 +55,11 @@ export const OnBoardingIndividual = MyLoadable({
   modules: ['./pages/OnBoardingIndividual'],
   webpack: () => [require.resolveWeak('./pages/OnBoardingIndividual')]
 });
+export const OnBoardingCorporate = MyLoadable({
+  loader: () => import("./pages/OnBoardingCorporate"),
+  modules: ['./pages/OnBoardingCorporate'],
+  webpack: () => [require.resolveWeak('./pages/OnBoardingCorporate')]
+});
 export const NotFound = MyLoadable({
   loader: () => import("./pages/NotFound"),
   modules: ['./pages/NotFound'],
@@ -124,6 +129,12 @@ export const routes = [
     path: '/onboarding-individual',
     name: 'Onboarding stakeholder individual tool',
     component: OnBoardingIndividual,
+  },
+  {
+    forNavBar: false,
+    path: '/onboarding-corporate',
+    name: 'Onboarding stakeholder corporate tool',
+    component:   OnBoardingCorporate,
   },
   {
     forNavBar: false,

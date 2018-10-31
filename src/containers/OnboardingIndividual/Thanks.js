@@ -48,15 +48,18 @@ class OnboardingThanks extends Component {
                 <h2>Thank you!</h2>
                 <p className="t-paragraph">We will be verifying the information and will reach out if we require any additional information.</p>
                 <p className="t-paragraph">Have a nice day!</p>
+                <div className="signup__cta-thanks">
+                  <a className="btn btn--huge" onClick={this.completeSignup}>
+                    <span>Back to homepage</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="signup__nav signup__nav--centered">
-          <a className="btn btn--small" onClick={this.completeSignup}>
-            <span>Back to homepage</span>
-          </a>
+
         </div>
 
       </div>

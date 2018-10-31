@@ -55,7 +55,7 @@ class OnboardingStep4 extends Component {
   // submit handler from the form
   handleSubmit = (e) => {
     this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
+    if ( this.state.formIsValid && isValidNumber(this.state.phone)){
       this.nextStep();
       this.setState({isFormSubmitted: false}) // reset state here
     }
