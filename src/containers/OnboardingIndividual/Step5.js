@@ -69,7 +69,7 @@ class OnboardingStep5 extends Component {
         // if ( this.state.errors.length === 0 ){
           this.nextStep();
           this.setState({isFormSubmitted: false}) // reset state here
-        // }
+        // } 
       });
     })
   }

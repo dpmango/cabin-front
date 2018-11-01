@@ -29,6 +29,7 @@ class OnboardingStep7 extends Component {
       fraud: props.onboardingFields.fraud,
       liquidation: props.onboardingFields.liquidation,
       pep: props.onboardingFields.pep,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -54,11 +55,16 @@ class OnboardingStep7 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
+    })
   }
 
   // click handler for the button
@@ -70,14 +76,16 @@ class OnboardingStep7 extends Component {
   toggleCheckbox = (name, val) => {
     this.setState({
       [name]: val
-    })
+    }, () => this.validateCustom())
   }
 
   // input
   handleChange = (e) => {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
-    this.setState({...this.state, [fieldName]: fleldVal});
+    this.setState({
+      ...this.state, [fieldName]: fleldVal
+    }, () => this.validateCustom());
   }
 
   nextStep = () => {
@@ -142,6 +150,44 @@ class OnboardingStep7 extends Component {
     );
   }
 
+  validateCustom = (cb) => {
+    const {
+      agent, grounds, shareholderOnBehalf, fraud, liquidation, pep
+    } = this.state;
+
+    let buildErrors = []
+    if (agent !== "No" && !agent){ // check if not "No" and lenght > 0
+      buildErrors.push("agent")
+    }
+    if (grounds !== "No" && !grounds){ // check if not "No" and lenght > 0
+      buildErrors.push("grounds")
+    }
+    if (shareholderOnBehalf !== "No" && !shareholderOnBehalf){ // check if not "No" and lenght > 0
+      buildErrors.push("shareholderOnBehalf")
+    }
+    if (fraud !== "No" && !fraud){ // check if not "No" and lenght > 0
+      buildErrors.push("fraud")
+    }
+    if (liquidation !== "No" && !liquidation){ // check if not "No" and lenght > 0
+      buildErrors.push("liquidation")
+    }
+
+    // TODO - what kind of validation for PEP ?
+    // prevent submit if YES ?
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please fill this field</span>
+    }
+  }
+
   render(){
     const { agent, grounds, shareholderOnBehalf, fraud, liquidation, pep, isTransitioningNext } = this.state;
 
@@ -180,6 +226,7 @@ class OnboardingStep7 extends Component {
                     value={agent}
                     onChangeHandler={this.handleChange} />
                 }
+                {this.showError("agent")}
               </div>
             </div>
 
@@ -220,6 +267,7 @@ class OnboardingStep7 extends Component {
                     value={grounds}
                     onChangeHandler={this.handleChange} />
                 }
+                {this.showError("grounds")}
               </div>
             </div>
 
@@ -244,6 +292,7 @@ class OnboardingStep7 extends Component {
                     value={shareholderOnBehalf}
                     onChangeHandler={this.handleChange} />
                 }
+                {this.showError("shareholderOnBehalf")}
               </div>
             </div>
 
@@ -268,6 +317,7 @@ class OnboardingStep7 extends Component {
                     value={fraud}
                     onChangeHandler={this.handleChange} />
                 }
+                {this.showError("fraud")}
               </div>
             </div>
 
@@ -292,6 +342,7 @@ class OnboardingStep7 extends Component {
                     value={liquidation}
                     onChangeHandler={this.handleChange} />
                 }
+                {this.showError("liquidation")}
               </div>
             </div>
 

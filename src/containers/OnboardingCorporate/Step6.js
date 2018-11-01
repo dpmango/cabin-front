@@ -29,6 +29,7 @@ class OnboardingStep6 extends Component {
     this.state = {
       upload_registration: props.onboardingFields.upload_registration,
       upload_certificate: props.onboardingFields.upload_certificate,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -59,11 +60,16 @@ class OnboardingStep6 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // if ( this.state.formIsValid ){ // no validation yet ?
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        // if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        // }
+      });
+    })
   }
 
   // click handler for the button
@@ -134,7 +140,7 @@ class OnboardingStep6 extends Component {
   handleFilePindUpload = (fileItems, name) => {
     this.setState({
       [name]: fileItems.map(fileItem => fileItem.file)
-    });
+    }, () => this.validateCustom());
   }
 
   renderFilePondThumbs = (name) => {
@@ -147,6 +153,31 @@ class OnboardingStep6 extends Component {
     )
   }
 
+  validateCustom = (cb) => {
+    const {
+      upload_registration, upload_certificate
+    } = this.state;
+
+    let buildErrors = []
+    if (upload_registration.length === 0){
+      buildErrors.push("upload_registration")
+    }
+    if (upload_certificate.length === 0){
+      buildErrors.push("upload_certificate")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please upload file</span>
+    }
+  }
 
   render(){
     const {
@@ -158,6 +189,7 @@ class OnboardingStep6 extends Component {
       allowMultiple: true,
       maxFiles: 3,
       server: "/api",
+      // server: "http://localhost:8090",
       required: true,
       instantUpload: true,
       labelIdle: 'Drag a file here or select file to upload <span class="btn btn--small filepond--label-action">Select File</span>',
@@ -187,6 +219,7 @@ class OnboardingStep6 extends Component {
                 ref={this.pond[0]}>
                 {this.renderFilePondThumbs("upload_registration")}
               </FilePond>
+              { this.showError("upload_registration") }
             </div>
             <div className="ui-group">
               <label htmlFor="" className="ui-group__label">Please upload a copy of your Certificate of Appointment of Corporate Representative (this can be obtained from your company’s secretary)</label>
@@ -195,6 +228,7 @@ class OnboardingStep6 extends Component {
                 ref={this.pond[1]}>
                 {this.renderFilePondThumbs("upload_certificate")}
               </FilePond>
+              { this.showError("upload_certificate") }
             </div>
           </Formsy>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -6,12 +6,11 @@ import moment from 'moment';
 import 'moment-timezone';
 import onClickOutside from "react-onclickoutside";
 import throttle from 'lodash/throttle';
-
 import { OPEN_MENU, CLOSE_MENU } from 'store/ActionTypes';
 import convertTimeStr from 'services/convertTimeStr';
 import SvgIcon from 'components/SvgIcon'
 
-class Header extends React.Component {
+class Header extends Component {
   static propTypes = {
     routes: PropTypes.array,
     menuOpened: PropTypes.bool,
@@ -93,19 +92,19 @@ class Header extends React.Component {
   renderContacts = () => {
     if ( this.isWorkingTime ) {
       return (
-        <React.Fragment>
+        <Fragment>
           <a href="tel:+6531585495" className="header__phone">
             <span>Have an enquiry? <span className="header__phone-tel"><span>Call us at:</span> +65 3158 5495</span></span>
           </a>
-        </React.Fragment>
+        </Fragment>
       )
     } else {
       return (
-        <React.Fragment>
+        <Fragment>
           <a href="mailto:hello@cabin.com.sg" className="header__phone">
             <span>Have an enquiry? <span className="header__phone-tel"><span>Email us at:</span> hello@cabin.com.sg</span></span>
           </a>
-        </React.Fragment>
+        </Fragment>
       )
     }
 
@@ -128,7 +127,7 @@ class Header extends React.Component {
                   <li key={i}>
                     <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
                     { route.secondLevel &&
-                      <React.Fragment>
+                      <Fragment>
                         <SvgIcon name="select-arrow" />
                         <div className="header__menu-second">
                           <ul>
@@ -139,7 +138,7 @@ class Header extends React.Component {
                           )}
                           </ul>
                         </div>
-                      </React.Fragment>
+                      </Fragment>
                     }
                   </li>
                 )}
@@ -150,7 +149,6 @@ class Header extends React.Component {
                   onClick={this.toggleHamburger}>
                   <div className="hamburger-box">
                     <div className="hamburger-inner">
-
                     </div>
                   </div>
                 </div>
@@ -165,7 +163,15 @@ class Header extends React.Component {
               <ul className="mobile-navi__menu">
                 {routes.map(route =>
                   <li key={route.path}>
-                    <NavLink onMouseOver={this.preloaderOnHover.bind(this, route.component)} onClick={this.closeHamburger} exact={route.isExact} className={route.navBarClass} activeClassName='is-active' to={route.path}>{route.name}</NavLink>
+                    <NavLink
+                      onMouseOver={this.preloaderOnHover.bind(this, route.component)}
+                      onClick={this.closeHamburger}
+                      exact={route.isExact}
+                      className={route.navBarClass}
+                      activeClassName='is-active'
+                      to={route.path}>
+                      {route.name}
+                    </NavLink>
                     { route.secondLevel &&
                       <ul>
                       {route.secondLevel.map((subroute, index) =>
