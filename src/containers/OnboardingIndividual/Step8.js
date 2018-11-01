@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
-import Image from '../components/Image';
-import FormInput from '../components/FormInput';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
+// import HelloSign from 'components/HelloSign';
 
-class OnboardingStep3 extends Component {
+class OnboardingStep8 extends Component {
   static propTypes = {
     setOnboardingStep: PropTypes.func,
     setOnboardingFields: PropTypes.func,
@@ -20,8 +21,8 @@ class OnboardingStep3 extends Component {
     super(props);
 
     this.state = {
-      company_uen: props.onboardingFields.company_uen,
-      company_name:  props.onboardingFields.company_name,
+      name: props.onboardingFields.name,
+      designation: props.onboardingFields.designation,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -71,53 +72,41 @@ class OnboardingStep3 extends Component {
     }
   }
 
+  helloSignSucess = () => {
+    // TODO
+  }
+
+  helloSignFail = () => {
+    // TODO
+  }
+
+  // logic
   nextStep = () => {
-    const { company_uen, company_name } = this.state;
+    const { name, designation } = this.state;
 
     const leadObj = {
-      onboarding_id: this.props.onboardingRandomId,
       isproduction: isProduction(),
-      company_uen: company_uen,
-      company_name: company_name,
+      name: name,
+      designation: designation
     }
 
-    // if onboarding ID is present - then update by PATCH
-    // else - create new
-    if ( this.props.onboardingId ){
-      // patch lead
-      api
-        .patch('onboardings/' + this.props.onboardingId, {
-          onboarding: leadObj
-        })
-        .then((res) => {
-          console.log('Backend responce to onboarding PATCH' , res)
-          this.updateSignup()
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      // create new instance
-      api
-        .post(`onboardings`, {
-          onboarding: leadObj
-        })
-        .then((res) => {
-          console.log('Backend responce to onboarding POST' , res)
+    api
+      .patch('stakeholders/' + this.props.onboardingId, {
+        stakeholder: leadObj
+      })
+      .then((res) => {
+        console.log('Backend responce to stakeholder PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-          this.props.setOnboardingId(res.data.id);
-          this.updateSignup();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
   }
 
   updateSignup = () => {
 
-    const { company_uen, company_name } = this.state;
-
+    const { name, designation } = this.state;
     this.setState({ isTransitioningNext: true })
 
     setTimeout(() => {
@@ -127,8 +116,8 @@ class OnboardingStep3 extends Component {
 
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
-        company_uen: company_uen,
-        company_name: company_name,
+        name: name,
+        designation: designation,
       })
 
       this.setState({ isTransitioningNext: false })
@@ -144,7 +133,7 @@ class OnboardingStep3 extends Component {
   }
 
   render(){
-    const { company_uen, company_name, isTransitioningNext } = this.state;
+    const { name, designation, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -152,44 +141,48 @@ class OnboardingStep3 extends Component {
           <div className="signup__avatar signup__avatar--small">
             <Image file="rifeng-avatar.png" />
           </div>
-          <h2>Which company are you looking to appoint a company secretary for?</h2>
+          <h2>Confirm your information</h2>
         </div>
         <div className="signup__right">
+          <div className="signup__note">I hereby confirm that all information provided is true, complete, and correct to my best knowledge, and further undertake to notify Cabin Pte. Ltd. promptly in writing upon any changes to the information provided. I am aware that I may be subjected to prosecution and criminal sanctions if I am are found to have made any reckless statements, false statements, statements which I do not believe to be true, or if I have intentionally suppressed any material facts.</div>
           <Formsy
             className="signup__form"
             onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef} >
             <FormInput
-              name="company_uen"
-              label="Company UEN"
-              placeholder="Company UEN"
-              value={company_uen}
-              validations="minLength:9"
+              name="name"
+              label="Name"
+              value={name}
+              validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your company UEN',
-                minLength: 'Company UEN is too short'
+                isDefaultRequiredValue: 'Please fill your name',
+                minLength: 'Name is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
             <FormInput
-              name="company_name"
-              label="Company Name"
-              placeholder="Company Name"
-              value={company_name}
-              validations="minLength:3"
+              name="designation"
+              label="Designation"
+              value={designation}
+              validations="minLength:1"
               validationErrors={{
-                isDefaultRequiredValue: 'Please fill your company name',
-                minLength: 'Company name is too short'
+                isDefaultRequiredValue: 'Please fill your Designation',
+                minLength: 'Designation is too short'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
               required
             />
+            <div className="ui-group">
+              { /* <HelloSign
+                onSucess={this.helloSignSucess}
+                onFail={this.helloSignFail} /> */ }
+            </div>
+
           </Formsy>
         </div>
       </div>
@@ -200,16 +193,16 @@ class OnboardingStep3 extends Component {
 
 
 const mapStateToProps = (state) => ({
-  onboardingFields: state.onboarding.fields,
-  onboardingRandomId: state.onboarding.onboardingRandomId,
-  onboardingId: state.onboarding.onboardingId,
-  onboardingStep: state.onboarding.onboardingStep
+  onboardingFields: state.onboardingIndividual.fields,
+  onboardingId: state.onboardingIndividual.onboardingId,
+  onboardingRandomId: state.onboardingIndividual.onboardingRandomId,
+  onboardingStep: state.onboardingIndividual.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
-  setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
-  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_ID, payload: data })
+  setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_I_STEP, payload: data }),
+  setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_I_FIELDS, payload: data }),
+  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_I_ID, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep3);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep8);

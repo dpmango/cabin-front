@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
 import { isValidNumber } from 'libphonenumber-js';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import buildOptionsString from '../services/buildOptionsString';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from '../store/ActionTypes';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import buildOptionsString from 'services/buildOptionsString';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from 'store/ActionTypes';
 
-// import SvgIcon from '../components/SvgIcon';
-import FormInput from '../components/FormInput';
+// import SvgIcon from 'components/SvgIcon';
+import FormInput from 'components/FormInput';
 
 class SignupAlt extends Component {
   static propTypes = {
@@ -152,7 +152,7 @@ class SignupAlt extends Component {
           <div className="signup__wrapper">
             <div className="signup__left">
               <div className="signup__avatar signup__avatar--small">
-                <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/rifeng-avatar.png')} srcSet={require('images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
               </div>
               <h2>Hello!</h2>
               <p className="t-paragraph">My name is Rifeng and I am here to help you get started. Let us know how to reach you and we will be in touch shortly!</p>
@@ -168,7 +168,7 @@ class SignupAlt extends Component {
               >
                 <FormInput
                   name="first_name"
-                  placeholder="First Name"
+                  label="First Name"
                   value={first_name}
                   validations="minLength:1"
                   validationErrors={{
@@ -181,7 +181,7 @@ class SignupAlt extends Component {
                 />
                 <FormInput
                   name="last_name"
-                  placeholder="Last Name"
+                  label="Last Name"
                   value={last_name}
                   validations="minLength:1"
                   validationErrors={{
@@ -194,7 +194,7 @@ class SignupAlt extends Component {
                 />
                 <FormInput
                   name="company_name"
-                  placeholder="Company Name"
+                  label="Company Name"
                   value={company_name}
                   onChangeHandler={this.handleChange}
                   onKeyHandler={this.keyPressHandler}
@@ -205,7 +205,7 @@ class SignupAlt extends Component {
                 />
                 <FormInput
                   name="email"
-                  placeholder="Email"
+                  label="Email"
                   value={email}
                   validations="isEmail"
                   validationErrors={{
@@ -217,9 +217,10 @@ class SignupAlt extends Component {
                   required
                 />
                 <div className="ui-group">
+                  <label htmlFor="phone" className="ui-group__label">Phone Number</label>
                   <div className={"ui-phone " + (isFormSubmitted ? phone ? (isValidNumber(phone) ? '' : 'has-error') : 'has-error' : undefined )}>
                     <PhoneInput
-                  		placeholder="Phone Number"
+                  		label="Phone Number"
                   		value={ phone }
                       country="SG"
                       displayInitialValueAsLocalNumber={true}

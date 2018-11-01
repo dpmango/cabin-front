@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import App from './App';
 import './css/app.css';
-// import registerServiceWorker from './registerServiceWorker';
 
 const rootElement = document.getElementById('root');
 if (rootElement.hasChildNodes()) {
@@ -22,7 +21,3 @@ if (rootElement.hasChildNodes()) {
     rootElement
   );
 }
-
-
-
-// registerServiceWorker();

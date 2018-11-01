@@ -13,33 +13,42 @@ export const initialState = {
     company_addres: '',
     company_revenue: '',
     consumers_list: [
-      {"id": "SG", "text": "Singapore"}
+      // {"id": "SG", "text": "Singapore"}
     ],
     suppliers_list: [],
     payments_to_list: [],
     payments_from_list: [],
     paidup_capital: [],
+    paidup_capital_inputs: [
+      {
+        name: 'Others',
+        value: ''
+      }
+    ],
     company_relations: ["None"],
     company_relations_inputs: [
       // important! names should prefectly match checkboxes
       {
-        name: "Subsidiary company of",
+        name: "Subsidiary (or beneficiary) company of",
         value: ''
       },
       {
-        name: "Parent company of",
+        name: "Parent (or benefactor) company of",
         value: ''
       },
       {
-        name: "Beneficiary company of",
-        value: ''
+        name: 'Others',
+        input: ''
       }
     ], // text fields for active checboxes
     paidup_capital_origins: [],
+    haveShareholders: null,
     shareholders_individulas: [],
     shareholders_corporate: [],
     other_beneficiaries: false,
     other_controllers: false,
+    other_beneficiaries_input: "",
+    other_controllers_input: "",
     name: '',
     designation: '',
     phone: '',

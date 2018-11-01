@@ -419,8 +419,6 @@ class ReactTags extends Component {
       </div>
     ) : null;
 
-    console.log('tagItems', tagItems)
-
     return (
       <div className={this.state.classNames.tags
                       + ( this.state.isFocused ? " is-focused" : "" )

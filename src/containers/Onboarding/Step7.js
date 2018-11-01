@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
-import Image from '../components/Image';
-import FormInput from '../components/FormInput';
-import ReactTags from '../components/ReactTags/ReactTags';
-import { countriesListAutocompleate, delimiters} from '../store/CountriesListAutocompleate';
-import CheckBox from '../components/CheckBox';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
+import ReactTags from 'components/ReactTags/ReactTags';
+import { countriesListAutocompleate, delimiters} from 'store/CountriesListAutocompleate';
+import CheckBox from 'components/CheckBox';
 
 class OnboardingStep6 extends Component {
   static propTypes = {
@@ -24,9 +24,11 @@ class OnboardingStep6 extends Component {
 
     this.state = {
       paidup_capital: props.onboardingFields.paidup_capital,
-      company_relations:  props.onboardingFields.company_relations,
+      paidup_capital_inputs: props.onboardingFields.paidup_capital_inputs,
+      company_relations: props.onboardingFields.company_relations,
       company_relations_inputs: props.onboardingFields.company_relations_inputs,
       paidup_capital_origins: props.onboardingFields.paidup_capital_origins,
+      errors: [],
       countries_list: countriesListAutocompleate,
       formIsValid: false,
       isTransitioningNext: false,
@@ -53,12 +55,16 @@ class OnboardingStep6 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    // TODO add some kind of validations?
-    // if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    // }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
+    })
   }
 
   // click handler for the button
@@ -84,32 +90,25 @@ class OnboardingStep6 extends Component {
 
     this.setState({...this.state,
       [fieldName]: stateClone
-    });
+    }, () => this.validateCustom());
 
   }
-
-
-  // keyPressHandler = (e) => {
-  //   if ( e.key === "Enter" ){
-  //     this.submitForm();
-  //   }
-  // }
 
   // tags management
   handleTagsDelete = (i, e, name) => {
     this.setState({
       ...this.state,
       [name]: this.state[name].filter((tag, index) => index !== i),
-    });
+    }, () => this.validateCustom());
   }
 
   handleTagsAddition = (tag, name) => {
-    this.setState(state => ({
-      ...this.state,
-      [name]: [
-        ...state[name], tag
-      ]
-    }));
+    let tagFilter = countriesListAutocompleate.filter(x => x.text === tag.text)[0]
+    if (!tagFilter) return false
+
+    this.setState(state => ({...this.state,
+      [name]: [...state[name], tagFilter]
+    }), () => this.validateCustom());
   }
 
   handleTagsDrag = (tag, currPos, newPos, name) => {
@@ -126,8 +125,9 @@ class OnboardingStep6 extends Component {
     });
   }
 
+  // checkbox toggler with hidden inputs
   chooseOption = (id, name) => {
-    const options = this.state[name]
+    let options = this.state[name]
     let index
 
     if (options.indexOf(id) === -1) {
@@ -137,19 +137,31 @@ class OnboardingStep6 extends Component {
      options.splice(index, 1)
     }
 
+    // filter out the none tag
+    if ( name === "company_relations" ){ // exists only for company relations
+      if ( this.state[name].indexOf("None") !== -1 &&
+           id !== "None" ){ // None is in state and select is "not None"
+        options = options.filter(x => x !== "None")
+      }
+
+      if ( id === "None" || options.length === 0){ // when none is selected - set only this and clear prev
+        options = ["None"]
+      }
+    }
+
     this.setState({
       ...this.state,
       [name]: options
-    })
+    }, () => this.validateCustom())
   }
 
   nextStep = () => {
-    const { paidup_capital, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
+    const { paidup_capital, paidup_capital_inputs, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
 
-    console.log(
-      'company_relations_inputs', company_relations_inputs,
-      'company_relations', company_relations
-    )
+    // console.log(
+    //   'company_relations_inputs', company_relations_inputs,
+    //   'company_relations', company_relations
+    // )
 
     let companyRelationsJoined = ""
 
@@ -172,8 +184,9 @@ class OnboardingStep6 extends Component {
     const leadObj = {
       isproduction: isProduction(),
       paidup_capital: paidup_capital.join(', '),
+      paidup_capital_inputs: paidup_capital_inputs, // TODO refactor
       company_relations: companyRelationsJoined,
-      paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')
+      paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')  // TODO refactor or send clear values
     }
 
     api
@@ -192,7 +205,7 @@ class OnboardingStep6 extends Component {
 
   updateSignup = () => {
 
-    const { paidup_capital, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
+    const { paidup_capital, paidup_capital_inputs, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
 
     this.setState({ isTransitioningNext: true })
 
@@ -204,6 +217,7 @@ class OnboardingStep6 extends Component {
       this.props.setOnboardingFields({
         ...this.props.onboardingFields,
         paidup_capital: paidup_capital,
+        paidup_capital_inputs: paidup_capital_inputs,
         company_relations: company_relations,
         company_relations_inputs: company_relations_inputs, // local only
         paidup_capital_origins: paidup_capital_origins
@@ -221,8 +235,69 @@ class OnboardingStep6 extends Component {
     );
   }
 
+  // custom validator
+  validateCustom = (cb) => {
+    const {
+      paidup_capital, paidup_capital_inputs, company_relations, company_relations_inputs, paidup_capital_origins
+    } = this.state;
+
+    let buildErrors = []
+
+    if (paidup_capital.length === 0){ // simple checkbox length validation
+      buildErrors.push("paidup_capital")
+    } else {
+      // check that inputs are not empty
+      paidup_capital.forEach( (checkbox, i) => {
+        paidup_capital_inputs.forEach((input, ind) => {
+          if ( checkbox === input.name ){ // find correspondint input
+            if ( input.value.length === 0 ){
+              buildErrors.push("paidup_capital")
+            }
+          }
+        })
+      })
+    }
+
+    if (company_relations.length === 0){ // simple checkbox length validation
+      buildErrors.push("company_relations")
+    } else {
+      // check that inputs are not empty
+      company_relations.forEach( (checkbox, i) => {
+        company_relations_inputs.forEach((input, ind) => {
+          if ( checkbox === input.name ){ // find correspondint input
+            if ( input.value.length === 0 ){
+              buildErrors.push("company_relations")
+            }
+          }
+        })
+      })
+    }
+
+    if (paidup_capital_origins.length === 0){ // simple tags validation
+      buildErrors.push("paidup_capital_origins")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please fill this field</span>
+    }
+  }
+
+
   render(){
-    const { paidup_capital, company_relations, paidup_capital_origins, countries_list, company_relations_inputs, isTransitioningNext } = this.state;
+    const {
+      paidup_capital, paidup_capital_inputs,
+      company_relations, company_relations_inputs,
+      paidup_capital_origins, countries_list,
+      isTransitioningNext
+    } = this.state;
 
     const paidupCapitalOptions = {
       name: 'paidup_capital',
@@ -232,7 +307,10 @@ class OnboardingStep6 extends Component {
         'Investment from local corporate shareholder(s)',
         'Investment from foreign corporate shareholder(s)',
         'Loans',
-        'Others'
+        {
+          name: 'Others',
+          input: ''
+        }
       ]
     }
 
@@ -241,18 +319,17 @@ class OnboardingStep6 extends Component {
       options: [
         'None',
         {
-          name: 'Subsidiary company of',
-          input: 'Insert Subsidiary company'
+          name: 'Subsidiary (or beneficiary) company of',
+          input: ''
         },
         {
-          name: 'Parent company of',
-          input: 'Insert Parent company'
+          name: 'Parent (or benefactor) company of',
+          input: ''
         },
         {
-          name: 'Beneficiary company of',
-          input: 'Insert Beneficiary company'
-        },
-        'Others'
+          name: 'Others',
+          input: ''
+        }
       ]
     }
 
@@ -264,7 +341,6 @@ class OnboardingStep6 extends Component {
             <Image file="rifeng-avatar.png" />
           </div>
           <h2>We will need to know a little more about the company’s source of fundings and relations to other companies</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
           <Formsy
@@ -272,68 +348,81 @@ class OnboardingStep6 extends Component {
             onSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef} >
             <div className="signup__section">
               <div className="signup__section-heading">Source of the company’s paid-up capital</div>
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
                 { paidupCapitalOptions.options.map((cb, i) => {
+                    const cbValue = typeof(cb) === "string" ? cb : cb.name
                     return(
-                      <CheckBox
-                        key={i}
-                        name={paidupCapitalOptions.name}
-                        text={cb}
-                        clickHandler={this.chooseOption.bind(this, cb, paidupCapitalOptions.name)}
-                        isActive={paidup_capital.indexOf(cb) !== -1 }
-                      />
+                      <Fragment>
+                        <CheckBox
+                          key={i}
+                          name={paidupCapitalOptions.name}
+                          text={cbValue}
+                          clickHandler={this.chooseOption.bind(this, cbValue, paidupCapitalOptions.name)}
+                          isActive={paidup_capital.indexOf(cbValue) !== -1 } />
+                        { typeof(cb) === "object" &&
+                          <FormInput
+                            name="paidup_capital_inputs"
+                            id={cb.name}
+                            placeholder={cb.input}
+                            value={paidup_capital_inputs[cb.name]}
+                            onChangeHandler={this.handleChangeNested} />
+                        }
+                      </Fragment>
                     )
                   })
                 }
+                { this.showError("paidup_capital") }
               </div>
             </div>
 
-            <div className="ui-group">
-              <ReactTags
-                tags={paidup_capital_origins}
-                name="paidup_capital_origins"
-                suggestions={countries_list}
-                placeholder="Country or countries of origin for paid-up capital"
-                handleDelete={this.handleTagsDelete}
-                handleAddition={this.handleTagsAddition}
-                handleDrag={this.handleTagsDrag}
-                delimiters={delimiters}
-                autofocus={false} />
+            <div className="signup__section">
+              <div className="signup__section-heading">Country or countries of origin for paid-up capital</div>
+              <div className="ui-group">
+                <ReactTags
+                  tags={paidup_capital_origins}
+                  name="paidup_capital_origins"
+                  suggestions={countries_list}
+                  placeholder=""
+                  handleDelete={this.handleTagsDelete}
+                  handleAddition={this.handleTagsAddition}
+                  handleDrag={this.handleTagsDrag}
+                  delimiters={delimiters}
+                  autofocus={false} />
+                { this.showError("paidup_capital_origins") }
+              </div>
             </div>
 
             <div className="signup__section">
-              <div className="signup__section-heading">Identity in relation to other companies</div>
+              <div className="signup__section-heading">Does this company have any related entities?</div>
               <div className="signup__checkboxes">
                 <label htmlFor="">Select all that is applicable: </label>
                 { CompanyRelationsOptions.options.map((cb, i) => {
                     const cbValue = typeof(cb) === "string" ? cb : cb.name
                     return(
-                      <React.Fragment>
+                      <Fragment>
                         <CheckBox
                           key={i}
                           name={CompanyRelationsOptions.name}
                           text={cbValue}
                           clickHandler={this.chooseOption.bind(this, cbValue, CompanyRelationsOptions.name)}
-                          isActive={company_relations.indexOf(cbValue) !== -1 }
-                        />
-                        { typeof(cb) !== "string" &&
+                          isActive={company_relations.indexOf(cbValue) !== -1 } />
+                        { typeof(cb) === "object" &&
                           <FormInput
                             name="company_relations_inputs"
                             id={cb.name}
                             placeholder={cb.input}
                             value={company_relations_inputs[cb.name]}
-                            onChangeHandler={this.handleChangeNested}
-                          />
+                            onChangeHandler={this.handleChangeNested} />
                         }
-                      </React.Fragment>
+                      </Fragment>
                     )
                   })
                 }
+                { this.showError("company_relations") }
               </div>
             </div>
 

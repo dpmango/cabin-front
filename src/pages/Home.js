@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from 'store/ActionTypes';
 
-import GetStartedBottom from '../components/GetStartedBottom';
-import HomeHero from '../components/HomeHero';
-import HomeLogos from '../components/HomeLogos';
-// import HomePromo from '../components/HomePromo';
-import HomeBenefits from '../components/HomeBenefits';
-import HomeFeatures from '../components/HomeFeatures';
+import GetStartedBottom from 'components/GetStartedBottom';
+import HomeHero from 'components/HomeHero';
+import HomeLogos from 'components/HomeLogos';
+// import HomePromo from 'components/HomePromo';
+import HomeBenefits from 'components/HomeBenefits';
+import HomeFeatures from 'components/HomeFeatures';
 
 class Home extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ class Home extends Component {
         {/* <HomePromo /> */}
         <HomeBenefits aosInst={this.props.aosInst}/>
         <HomeFeatures />
-        
+
         <GetStartedBottom />
       </div>
     );

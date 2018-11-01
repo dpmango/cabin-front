@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER, SET_PRICING_SECTION } from '../store/ActionTypes';
+import { ADD_PRICING_OPTION, REMOVE_PRICING_OPTION, ADD_PRICING_OPTION_SUB, REMOVE_PRICING_OPTION_SUB, REMOVE_ALL_PRICING_OPTIONS_SUB, SET_PRICING_SLIDER, SET_PRICING_SECTION } from 'store/ActionTypes';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import { Tooltip } from 'react-tippy';
-import ScrollTo from '../services/ScrollTo';
-import SvgIcon from '../components/SvgIcon';
+import ScrollTo from 'services/ScrollTo';
+import SvgIcon from 'components/SvgIcon';
 
-import PricingSliderDb from '../store/PricingSliderDb'
-import PricingBuilderOption from '../components/PricingBuilderOption';
-import PricingBuilderBoxList from '../components/PricingBuilderBoxList';
+import PricingSliderDb from 'store/PricingSliderDb'
+import PricingBuilderOption from 'components/PricingBuilderOption';
+import PricingBuilderBoxList from 'components/PricingBuilderBoxList';
 
 class PricingBuilderBox extends Component {
 

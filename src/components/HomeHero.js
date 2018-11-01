@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
-import SignupEmail from '../containers/SignupEmail';
+import SignupEmail from 'containers/SignupEmail';
+import lottie from 'lottie-web';
 
 export default class HomeHero extends Component {
+
+  constructor(){
+    super()
+
+    this.illustrationRef = React.createRef();
+
+  }
+  componentDidMount(){
+    this.renderLottie();
+  }
+
+  renderLottie = () => {
+    lottie.loadAnimation({
+      container: this.illustrationRef.current,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/lottie/data.json'
+    });
+  }
+
   render(){
     return(
       <div className="home-hero">
@@ -13,8 +35,11 @@ export default class HomeHero extends Component {
           </div>
         </div>
         <div className="home-hero__bg">
-
-          <img src={require(`../images/homeHeroIllustration.png`)} srcSet={require(`../images/homeHeroIllustration@2x.png`)  + ' 2x'} alt=""/>
+          <div className="home-hero__lottie" ref={this.illustrationRef}></div>
+          {/* <img
+            src={require(`images/homeHeroIllustration.png`)}
+            srcSet={require(`images/homeHeroIllustration@2x.png`)  + ' 2x'}
+            alt=""/> */}
         </div>
       </div>
     )

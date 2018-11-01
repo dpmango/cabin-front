@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from '../store/ActionTypes';
-import Image from '../components/Image';
-import FormInput from '../components/FormInput';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import Image from 'components/Image';
+import FormInput from 'components/FormInput';
 
 class OnboardingStep4 extends Component {
   static propTypes = {
@@ -137,7 +137,6 @@ class OnboardingStep4 extends Component {
             <Image file="rifeng-avatar.png" />
           </div>
           <h2>We will need to know a little more about the company</h2>
-          <div className="signup__info">As part of MAS’s anti-money laundering and anti-terrorism financing measures, ACRA instituted an Enhanced Regulatory Framework that took effect on 15th May 2015. We are therefore required by law to conduct a set of Customer Due Diligence (CDD) procedures before we can provide any form of corporate service to our customers (also known as Know Your Customer or Customer Acceptance procedures).</div>
         </div>
         <div className="signup__right">
           <Formsy
@@ -149,7 +148,7 @@ class OnboardingStep4 extends Component {
           >
             <FormInput
               name="company_activity"
-              placeholder="Primary business activity"
+              label="Primary business activity"
               value={company_activity}
               validations="minLength:3"
               validationErrors={{
@@ -165,7 +164,7 @@ class OnboardingStep4 extends Component {
               rows="3"
               tooltipContent="This can be different from your business registered address which is the address that is registered with ACRA"
               name="company_addres"
-              placeholder="Address of operating premise"
+              label="Address of operating premise"
               value={company_addres}
               validations="minLength:3"
               validationErrors={{
@@ -178,8 +177,8 @@ class OnboardingStep4 extends Component {
             />
             <FormInput
               name="company_revenue"
-              tooltipContent="some tooltip content"
-              placeholder="Estimated annual revenue"
+              tooltipContent=" If this is a new company, a rough estimation of your projected annual revenue will be sufficient"
+              label="Estimated annual revenue"
               value={company_revenue}
               validations="minLength:3"
               validationErrors={{

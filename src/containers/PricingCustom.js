@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FaqPanel from '../components/FaqPanel';
-import PricingBuilderSection from '../containers/PricingBuilderSection';
-import PricingFloatNav from '../containers/PricingFloatNav';
+import FaqPanel from 'components/FaqPanel';
+import PricingBuilderSection from 'containers/PricingBuilderSection';
+import PricingFloatNav from 'containers/PricingFloatNav';
 
 class PricingCustom extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class PricingCustom extends Component {
 
         <div ref={this.heroRef} className="hero">
           <div className="hero__bg">
-            <img src={require('../images/pricingHeroCustom.png')} srcSet={require('../images/pricingHeroCustom@2x.png')  + ' 2x'} alt=""/>
+            <img src={require('images/pricingHeroCustom.png')} srcSet={require('images/pricingHeroCustom@2x.png')  + ' 2x'} alt=""/>
           </div>
           <div className="container container--narrow">
             <div className="hero__wrapper">

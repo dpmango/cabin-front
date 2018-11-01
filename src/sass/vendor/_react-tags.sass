@@ -1,6 +1,7 @@
 
 .ReactTags__tags
   position: relative
+  z-index: 2
 
   &.have-tags
     .ReactTags__selected
@@ -112,21 +113,35 @@
     max-height: 227px
 
   li
-    display: block
+    display: flex
+    align-items: center
     padding: 5px 10px
     font-size: 13px
     font-weight: 500
-    padding: 18px 18px
+    padding: 18px 18px 18px 28px
     color: $fontColorGray
     transition: .25s $ease
     mark
       // text-decoration: underline
       background: none
-      font-weight: 600
+      // font-weight: 600
+      font-weight: 500
+      color: $fontColorGray
+      transition: .25s $ease
     &:last-child
       border-bottom-right-radius: 3px
       border-bottom-left-radius: 3px
+    &:hover
+      // color: white
+
+    span.ReactTags__flag
+      display: inline-block
+      transform: translateY(2px)
+      + span
+        margin-left: 5px
 
   ul li.ReactTags__activeSuggestion
     background-color: $colorBlue
     color: white
+    mark
+      color: white

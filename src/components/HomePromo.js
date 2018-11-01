@@ -8,7 +8,7 @@ export default class HomePromo extends Component {
           <div className="home-promo__wrapper">
             <div className="home-promo__left">
               <div className="home-promo__image">
-                <img src={require('../images/homePromoList.png')} srcSet={require('../images/homePromoList@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/homePromoList.png')} srcSet={require('images/homePromoList@2x.png')  + ' 2x'} alt=""/>
               </div>
             </div>
             <div className="home-promo__right">

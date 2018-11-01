@@ -40,7 +40,7 @@ export default class PricingBuilderOption extends Component {
 
   render(){
 
-    const { name, price, pricePer, index, isActiveOption } = this.props;
+    const { name, price, pricePer, isActiveOption } = this.props;
 
     return(
       <div className="p-builder-option" onClick={this.computeClickHandler.bind(this, false)}>

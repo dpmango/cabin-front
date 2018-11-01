@@ -42,7 +42,7 @@
     user-select: none
     text-align: right
 
-    img
+    img, .home-hero__lottie
       width: 691px
       height: 573px
       // height: 578px
@@ -86,7 +86,7 @@
       width: 100%
       display: block
       overflow: hidden
-      img
+      img, .home-hero__lottie
         max-width: 100%
         max-width: 100%
         width: auto
@@ -100,6 +100,9 @@
         right: 0
         height: 100px
         background: linear-gradient(0deg, #FFFFFF 0%, rgba(255,255,255,0.01) 100%)
+    &__lottie
+      font-size: 0
+
     &__form
       margin-top: 45px
     &__wrapper
@@ -243,6 +246,8 @@
         margin: 35px 0 40px
       .btn
         +text-overflow
+        br
+          display: none
     h3
       font-size: 24px
       span
@@ -397,6 +402,9 @@
     &__content
       padding: 15px
       &-right
+        .btn
+          br
+            display: block
       h3
         font-size: 20px
     &__slider

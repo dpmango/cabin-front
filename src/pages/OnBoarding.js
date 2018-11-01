@@ -2,19 +2,20 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from 'store/ActionTypes';
 
-import OnboardingStep1 from '../containers/OnboardingStep1'
-import OnboardingContainer from '../containers/OnboardingContainer'
-import OnboardingStep2 from '../containers/OnboardingStep2'
-import OnboardingStep3 from '../containers/OnboardingStep3'
-import OnboardingStep4 from '../containers/OnboardingStep4'
-import OnboardingStep5 from '../containers/OnboardingStep5'
-import OnboardingStep6 from '../containers/OnboardingStep6'
-import OnboardingStep7 from '../containers/OnboardingStep7'
-import OnboardingStep8 from '../containers/OnboardingStep8'
-import OnboardingStep9 from '../containers/OnboardingStep9'
-import OnboardingThanks from '../containers/OnboardingThanks'
+import OnboardingStep1 from 'containers/Onboarding/Step1'
+import OnboardingContainer from 'containers/Onboarding/Container'
+import OnboardingStep2 from 'containers/Onboarding/Step2'
+import OnboardingStep3 from 'containers/Onboarding/Step3'
+import OnboardingStep4 from 'containers/Onboarding/Step4'
+import OnboardingStep5 from 'containers/Onboarding/Step5'
+import OnboardingStep6 from 'containers/Onboarding/Step6'
+import OnboardingStep7 from 'containers/Onboarding/Step7'
+import OnboardingStep8 from 'containers/Onboarding/Step8'
+import OnboardingStep9 from 'containers/Onboarding/Step9'
+import OnboardingStep10 from 'containers/Onboarding/Step10'
+import OnboardingThanks from 'containers/Onboarding/Thanks'
 
 class OnBoarding extends React.Component {
   static propTypes = {
@@ -37,7 +38,7 @@ class OnBoarding extends React.Component {
     const { onboardingStep, location, history } = this.props
 
     let newPath
-    if ( onboardingStep === 10 ){
+    if ( onboardingStep === 11 ){
       newPath = "/onboarding/thank-you";
     } else if ( onboardingStep === 1 ) {
       newPath = "/onboarding/hello";
@@ -91,7 +92,7 @@ class OnBoardingSwitch extends React.Component {
         )
       case 'step-2':
         return (
-          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep} noProgress={true}>
             <OnboardingStep3 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )
@@ -131,9 +132,17 @@ class OnBoardingSwitch extends React.Component {
             <OnboardingStep9 onRef={ref => (this.child = ref)} />
           </OnboardingContainer>
         )
+      case 'step-9':
+        return (
+          <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep}>
+            <OnboardingStep10 onRef={ref => (this.child = ref)} />
+          </OnboardingContainer>
+        )
       case 'thank-you':
         return <OnboardingThanks />
       case 'hello':
+        return <OnboardingStep1 />
+      default:
         return <OnboardingStep1 />
     }
   }

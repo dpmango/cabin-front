@@ -1,14 +1,17 @@
 .signup
   margin-top: 90px
-  margin-bottom: 150px
+  // margin-bottom: 150px
   &__box
     position: relative
     z-index: 2
     background: #FFFFFF
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.05)
     border-radius: 3px
-    padding-bottom: 60px
-    min-height: calc(100vh - 250px)
+    padding-bottom: 45px
+    display: flex
+    flex-direction: column
+    // min-height: calc(100vh - 250px)
+    min-height: calc(100vh - 90px)
     // overflow: hidden
     &--alt
       .btn--huge
@@ -17,6 +20,9 @@
       .icon-rifeng-sign
         margin-top: 20px
   &__wrapper
+    position: relative
+    z-index: 2
+    // overlay the cta buttons
     display: flex
     // align-items: center
     margin-left: -15px
@@ -45,6 +51,9 @@
     min-width: 1px
     min-height: 0
     padding: 0 15px
+    &--longer
+      flex-basis: 60%
+      max-width: 60%
     &--400
       max-width: 400px
     &--no-pad
@@ -55,6 +64,9 @@
       transition: color .25s $ease
       &:hover
         color: $colorBlue
+    .t-paragraph
+      strong
+        color: $fontColor
 
   &__single-col
     padding: 0 15px
@@ -102,6 +114,7 @@
   &__heading-row
     display: flex
     align-items: center
+    margin-bottom: 50px
     .signup__avatar
       flex: 0 0 90px
 
@@ -132,7 +145,7 @@
 
     &:hover
       .signup__hover-tooltip
-        opacity: 1
+        // opacity: 1
 
   &__hover
     &-tooltip
@@ -148,7 +161,7 @@
       color: $fontColorGray
       pointer-events: none
       // cursor: pointer
-      opacity: 0
+      // opacity: 0
       transform: translateX(-50%)
       transition: opacity .3s $ease
     &-wrapper
@@ -174,6 +187,10 @@
     max-width: 360px
     width: 100%
     margin: 120px auto 0px
+
+  &__cta-thanks
+    margin-top: 50px
+    margin-bottom: 50px
 
   &__form
     .ui-group
@@ -204,10 +221,14 @@
       bottom: 0
       left: 0
       transition: width .25s $ease
+
+  // navigation
   &__nav
     position: relative
     z-index: 1
-    margin-top: 40px
+    // margin-top: 40px
+    margin-top: auto
+    padding: 40px 100px 0
     display: flex
     align-items: center
     justify-content: space-between
@@ -223,29 +244,29 @@
       min-width: 120px
     .btn--huge
       min-width: 145px
-    &-back
-      display: flex
-      align-items: center
-      color: $colorBlue
-      transform: translateY(1px)
-      font-size: 0
-      transition: color .25s $ease
-      .ico
-        font-size: 11px
-        margin-right: 12px
-        overflow: visible
-        transform: translate(0,0px)
-        transition: transform .25s $ease
-      span
-        display: inline-block
-        font-weight: 500
-        font-size: 12px
-        transform: translateY(1px)
-      &:hover
-        color: $colorGreen
-        .ico
-          // fill: co
-          // transform: translate(-5px,0px)
+    // &-back
+    //   display: flex
+    //   align-items: center
+    //   color: $colorBlue
+    //   transform: translateY(1px)
+    //   font-size: 0
+    //   transition: color .25s $ease
+    //   .ico
+    //     font-size: 11px
+    //     margin-right: 12px
+    //     overflow: visible
+    //     transform: translate(0,0px)
+    //     transition: transform .25s $ease
+    //   span
+    //     display: inline-block
+    //     font-weight: 500
+    //     font-size: 12px
+    //     transform: translateY(1px)
+    //   &:hover
+    //     color: $colorGreen
+    //     .ico
+    //       // fill: co
+    //       // transform: translate(-5px,0px)
 
   &__sucess
     margin: 80px auto 50px
@@ -253,6 +274,10 @@
     // background: $lightBg
     font-size: 0
     &-container
+      flex: 1 0 auto
+      display: flex
+      flex-direction: column
+      justify-content: center
       padding: 50px 100px 0
       text-align: center
       h2
@@ -320,18 +345,24 @@
     margin-bottom: 30px
 
   &__section
-    margin-top: 75px
+    position: relative
+    margin-top: 65px
     &:first-child
       margin-top: 0
 
     &-heading
-      font-size: 16px
+      font-size: 12px
       font-weight: 500
       line-height: 1.82
       color: $fontColorGray
-      margin-bottom: 15px
-
+      margin-bottom: 8px
+    .ico-question-circle
+      font-size: 20px
+      vertical-align: middle
+      margin-left: 5px
+      margin-right: 5px
   &__checkboxes
+    position: relative
     > label
       display: inline-block
       font-size: 13px
@@ -404,6 +435,9 @@
     &__wrapper
       padding-left: 50px
       padding-right: 50px
+    &__nav
+      padding-left: 50px
+      padding-right: 50px
 
 +r($tablet)
   .signup
@@ -426,6 +460,10 @@
 
     &__cta
       margin-top: 80px
+
+    &__cta-thanks
+      margin-top: 35px
+      margin-bottom: 35px
 
     &__nav
       margin-top: 30px

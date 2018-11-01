@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import buildOptionsString from '../services/buildOptionsString';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import buildOptionsString from 'services/buildOptionsString';
 // import Formsy from 'formsy-react';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from '../store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_PRICING_PLAN } from 'store/ActionTypes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 import 'moment-timezone';
-import {formatDate, formatTime} from '../services/FormatDate';
-import SvgIcon from '../components/SvgIcon';
-import CheckBox from '../components/CheckBox';
+import {formatDate, formatTime} from 'services/FormatDate';
+import SvgIcon from 'components/SvgIcon';
+import CheckBox from 'components/CheckBox';
 
 class SignupStep4 extends Component {
   static propTypes = {
@@ -390,7 +390,7 @@ class SignupStep4 extends Component {
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
         <div className="signup__left">
           <div className="signup__avatar signup__avatar--small">
-            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+            <img src={require('images/rifeng-avatar.png')} srcSet={require('images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
           <h2>Let me know when is a good time to reach out?</h2>
         </div>
@@ -403,7 +403,7 @@ class SignupStep4 extends Component {
               autosize={false}
               value={selected_plan}
               onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-              placeholder="Select a plan"
+              placeholder=""
               options={this.mapArrToSelect(plansSelect)}
             />
           </div>

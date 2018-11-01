@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { SET_PRICING_PLAN } from '../store/ActionTypes';
+import { SET_PRICING_PLAN } from 'store/ActionTypes';
 // import { Tooltip } from 'react-tippy';
-import { GetStarted } from '../routes';
+import { GetStarted } from 'routes';
 import 'airbnb-js-shims';
 import Select from 'react-select';
 import pluralize from 'pluralize';
-import ScrollTo from '../services/ScrollTo';
-import FaqPanel from '../components/FaqPanel';
-import PricingOption from '../components/PricingOption';
-import PricingScopeList from '../components/PricingScopeList';
-
-// import SvgIcon from '../components/SvgIcon';
+// import ScrollTo from 'services/ScrollTo';
+import FaqPanel from 'components/FaqPanel';
+import PricingOption from 'components/PricingOption';
+import PricingScopeList from 'components/PricingScopeList';
 
 class PricingSecretary extends Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -27,7 +24,6 @@ class PricingSecretary extends Component {
   }
 
   handleSelectChange = (e) => {
-    console.log(e)
     this.setState({
       selected_year: e,
       price: e.value,
@@ -47,7 +43,7 @@ class PricingSecretary extends Component {
     const { selected_year } = this.state;
     const year = parseInt(selected_year.label.substring(0,1), 10)
 
-    return year + " " + pluralize('year', year)
+    return year + "\xa0" + pluralize('year', year)
 
   }
   onSelectPlanClick = (pricingName) => {
@@ -132,14 +128,14 @@ class PricingSecretary extends Component {
                 <div className="pricing-scope__price pricing-scope__price--mobile">
                   { PricingScopePrice }
                 </div>
-                <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div>
+                {/* <div className="pricing-scope__promo">Get an <span>additional S$100 off</span> per year when bundled together with any <Link to="/pricing/accounting" onClick={ScrollTo.bind(this, 0, 300)}><span>Accounting and tax</span></Link> plan</div> */}
               </div>
               <div className="pricing-scope__cta">
                 <Link to="/get-started"
                   onClick={this.onSelectPlanClick.bind(this, 'Corporate Secretary')}
                   onMouseOver={this.preloaderOnHover.bind(this, GetStarted)}
                   className="btn btn--mega btn--block">
-                  Select <span>Corporate Secretary</span> Plan ({this.getYearPlural()} plan)
+                  Select <span>Corporate Secretary</span> Plan ({this.getYearPlural()}&nbsp;plan)
                 </Link>
               </div>
             </div>

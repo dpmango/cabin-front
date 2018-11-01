@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import 'airbnb-js-shims';
 import Select from 'react-select';
-import api from '../services/Api';
-import isProduction from '../services/isProduction';
-import buildOptionsString from '../services/buildOptionsString';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from '../store/ActionTypes';
+import api from 'services/Api';
+import isProduction from 'services/isProduction';
+import buildOptionsString from 'services/buildOptionsString';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from 'store/ActionTypes';
 
-// import SvgIcon from '../components/SvgIcon';
-// import FormInput from '../components/FormInput';
+// import SvgIcon from 'components/SvgIcon';
+// import FormInput from 'components/FormInput';
 
 class SignupStep3 extends Component {
   static propTypes = {
@@ -159,7 +159,7 @@ class SignupStep3 extends Component {
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
         <div className="signup__left">
           <div className="signup__avatar signup__avatar--small">
-            <img src={require('../images/rifeng-avatar.png')} srcSet={require('../images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
+            <img src={require('images/rifeng-avatar.png')} srcSet={require('images/rifeng-avatar@2x.png')  + ' 2x'} alt=""/>
           </div>
           <h2>Help us understand a little bit more about your company</h2>
         </div>
@@ -169,44 +169,45 @@ class SignupStep3 extends Component {
             onValidSubmit={this.handleSubmit}
             onValid={this.formValid}
             onInvalid={this.formInvalid}
-            ref={this.formRef}
-          >
+            ref={this.formRef} >
             <div className="ui-group">
+              <label htmlFor="company_industry" className="ui-group__label">Which industry are you in?</label>
               <Select
                 name="company_industry"
                 searchable={false}
                 autosize={false}
                 value={company_industry}
                 onChange={this.handleSelectChange.bind(this, 'company_industry')}
-                placeholder="Which industry are you in?"
-                options={this.mapArrToSelect(selectValues.company_industry)}
-              />
+                placeholder=""
+                options={this.mapArrToSelect(selectValues.company_industry)} />
             </div>
             <div className="ui-group">
+              <label htmlFor="company_old" className="ui-group__label">How old is your company?</label>
               <Select
                 name="company_old"
                 searchable={false}
                 autosize={false}
                 value={company_old}
                 onChange={this.handleSelectChange.bind(this, 'company_old')}
-                placeholder="How old is your company?"
+                placeholder=""
                 options={this.mapArrToSelect(selectValues.company_old)}
               />
             </div>
             <div className="ui-group">
+              <label htmlFor="company_employees" className="ui-group__label">How many staff are there in your company?</label>
               <Select
                 name="company_employees"
                 searchable={false}
                 autosize={false}
                 value={company_employees}
                 onChange={this.handleSelectChange.bind(this, 'company_employees')}
-                placeholder="How many staff are there in your company?"
+                placeholder=""
                 options={this.mapArrToSelect(selectValues.company_employees)}
               />
             </div>
             {/* <FormInput
               name="company_industry"
-              placeholder="Which industry are you in?"
+              label="Which industry are you in?"
               value={company_industry}
               validationErrors={{
                 isDefaultRequiredValue: 'This field is required',
@@ -216,7 +217,7 @@ class SignupStep3 extends Component {
             /> */}
             {/* <FormInput
               name="company_old"
-              placeholder="How old is your company?"
+              label="How old is your company?"
               value={company_old}
               validationErrors={{
                 isDefaultRequiredValue: 'This field is required',
@@ -226,7 +227,7 @@ class SignupStep3 extends Component {
             />
             <FormInput
               name="company_employees"
-              placeholder="How many staff are there in your company?"
+              label="How many staff are there in your company?"
               value={company_employees}
               validationErrors={{
                 isDefaultRequiredValue: 'This field is required',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import SignupEmail from '../containers/SignupEmail';
+import SignupEmail from 'containers/SignupEmail';
 
 export default class GetStartedBottom extends Component {
   render(){

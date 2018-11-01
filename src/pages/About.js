@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from '../store/ActionTypes';
+import { SET_HEADER_CLASS } from 'store/ActionTypes';
 
-import GetStartedBottom from '../components/GetStartedBottom';
-import Professionals from '../components/Professionals';
+import GetStartedBottom from 'components/GetStartedBottom';
+import Professionals from 'components/Professionals';
 
 class About extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ class About extends Component {
       <div className="text-page">
         <div className="hero">
           <div className="hero__bg">
-            <img src={require('../images/aboutHeroImg.png')} srcSet={require('../images/aboutHeroImg@2x.png')  + ' 2x'} alt=""/>
+            <img src={require('images/aboutHeroImg.png')} srcSet={require('images/aboutHeroImg@2x.png')  + ' 2x'} alt=""/>
           </div>
           <div className="container container--narrow">
             <div className="hero__wrapper">
@@ -55,7 +55,7 @@ class About extends Component {
                     Hi, I’m <span>Rifeng</span>
                   </div>
                 </div>
-                <img src={require('../images/aboutPeople.png')} srcSet={require('../images/aboutPeople@2x.png')  + ' 2x'} alt=""/>
+                <img src={require('images/aboutPeople.png')} srcSet={require('images/aboutPeople@2x.png')  + ' 2x'} alt=""/>
               </div>
             </div>
             <div className="people__right">
