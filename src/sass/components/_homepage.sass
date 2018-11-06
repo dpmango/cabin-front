@@ -278,11 +278,13 @@
       display: flex
       align-items: center
       margin-bottom: 15px
+      // transform: translateZ(0)
       &.is-disabled
         opacity: .15
         .home-benefits__list-icon
           background: $fontColorGray
     &-icon
+      position: relative
       flex: 0 0 auto
       display: flex
       align-items: center
@@ -293,6 +295,10 @@
       margin-right: 20px
       color: white
       /* aos
+      overflow: visible
+      z-index: 2
+      will-change: transform
+      backface-visibility: hidden
       opacity: 0
       transform: scale(0.5)
       .ico

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS } from 'store/ActionTypes';
 
@@ -24,13 +25,32 @@ class OnBoarding extends React.Component {
   };
 
   componentDidMount(){
-    this.updateURL();
+    // this.updateURL();
     this.props.aosInst.refreshHard();
     this.props.setHeaderClass('header--logo-only');
+
+    this.getToken();
+  }
+
+  getToken = () => {
+    const token = this.props.location.pathname.split('/')[2]
+    // InNoYXVuIg:1gJJxh:8LB7VuPJFr6-XvrTGZMbe8B6Clk.1gJJxh.DkLd7ekfUtcVBB-dZhRCA4LZmZU
+
+    console.log({token})
+    axios
+      .post('https://cabin-onboarding-api.herokuapp.com/api/login-token',
+        {token: token}
+      )
+      .then(res => {
+        console.log({res})
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   componentDidUpdate(){
-    this.updateURL();
+    // this.updateURL();
     this.props.aosInst.refreshHard();
   }
 
