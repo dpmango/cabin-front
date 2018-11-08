@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import api from 'services/Api';
+import {api} from 'services/Api';
 import isProduction from 'services/isProduction';
 import { SET_SIGNUP_ID, SET_SIGNUP_EMAIL, SET_SIGNUP_STEP } from 'store/ActionTypes';
 

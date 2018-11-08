@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from 'services/Api';
+import { notify } from 'reapop';
+import { onboardingApi } from 'services/Api';
 import isProduction from 'services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
 import Image from 'components/Image';
 import FormInput from 'components/FormInput';
 
@@ -12,7 +13,6 @@ class OnboardingStep3 extends Component {
   static propTypes = {
     setOnboardingStep: PropTypes.func,
     setOnboardingFields: PropTypes.func,
-    setOnboardingId: PropTypes.func,
     onboardingFields: PropTypes.object,
   };
 
@@ -75,43 +75,88 @@ class OnboardingStep3 extends Component {
     const { company_uen, company_name } = this.state;
 
     const leadObj = {
-      onboarding_id: this.props.onboardingRandomId,
+      // onboarding_id: this.props.onboardingRandomId,
       isproduction: isProduction(),
-      company_uen: company_uen,
-      company_name: company_name,
+      uen: company_uen,
+      name: company_name,
     }
+
+    // changed - we know the id because of JWT auth goes first
+    // set JWT token first
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+
+    onboardingApi
+      .patch('company/' + this.props.companyId, leadObj)
+      .then(res => {
+        console.log('Backend response to onboarding PATCH' , res)
+        this.updateSignup()
+      })
+      .catch(err => {
+        console.log(err.response); // todo update token ?
+        if (err.response.status === 401){
+          this.refreshToken();
+        }
+      });
 
     // if onboarding ID is present - then update by PATCH
     // else - create new
-    if ( this.props.onboardingId ){
-      // patch lead
-      api
-        .patch('onboardings/' + this.props.onboardingId, {
-          onboarding: leadObj
-        })
-        .then((res) => {
-          console.log('Backend responce to onboarding PATCH' , res)
-          this.updateSignup()
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      // create new instance
-      api
-        .post(`onboardings`, {
-          onboarding: leadObj
-        })
-        .then((res) => {
-          console.log('Backend responce to onboarding POST' , res)
+    // if ( this.props.onboardingId ){
+    //   // patch lead
+    //   api
+    //     .patch('onboardings/' + this.props.onboardingId, {
+    //       onboarding: leadObj
+    //     })
+    //     .then(res => {
+    //       console.log('Backend response to onboarding PATCH' , res)
+    //       this.updateSignup()
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   // create new instance
+    //   api
+    //     .post(`onboardings`, {
+    //       onboarding: leadObj
+    //     })
+    //     .then(res => {
+    //       console.log('Backend response to onboarding POST' , res)
+    //
+    //       this.props.setOnboardingId(res.data.id);
+    //       this.updateSignup();
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // }
+  }
 
-          this.props.setOnboardingId(res.data.id);
-          this.updateSignup();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+  refreshToken = () => {
+    const token = this.props.urlToken
+    if ( !token ) return
+
+    onboardingApi
+      .post('login-token', {"token": token})
+      .then(res => {
+        this.props.setOnboardingAuthToken(res.data.token);
+        this.nextStep() // loop - if error, get token again
+      })
+      .catch(err => {
+        this.tokenInvalid(token, err.response);
+        console.log('error on getting token', err.response);
+      })
+  }
+
+  tokenInvalid = (token, err) => {
+    console.log(token, 'invalid token');
+
+    this.props.notify({
+      title: 'Whoops! Error updating token',
+      message: 'Error happens updating your authorization token. Please contact cabin',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 2000,
+    })
   }
 
   updateSignup = () => {
@@ -199,15 +244,18 @@ class OnboardingStep3 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
-  onboardingRandomId: state.onboarding.onboardingRandomId,
-  onboardingId: state.onboarding.onboardingId,
+  // onboardingRandomId: state.onboarding.onboardingRandomId,
+  urlToken: state.onboarding.urlToken,
+  onboardingToken: state.onboarding.authToken,
+  companyId: state.onboarding.companyId,
   onboardingStep: state.onboarding.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
   setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
-  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_ID, payload: data })
+  setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
+  notify: (data) => dispatch(notify(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep3);

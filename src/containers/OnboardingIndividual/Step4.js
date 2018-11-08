@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import PhoneInput from 'react-phone-number-input'
 import { isValidNumber } from 'libphonenumber-js';
-import api from 'services/Api';
+import {api} from 'services/Api';
 import isProduction from 'services/isProduction';
 import { SET_ONBOARDING_I_STEP, SET_ONBOARDING_I_FIELDS, SET_ONBOARDING_I_ID } from 'store/ActionTypes';
 import Image from 'components/Image';

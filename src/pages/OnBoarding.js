@@ -2,9 +2,9 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { notify } from 'reapop';
-import axios from 'axios';
+import { onboardingApi } from 'services/Api';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS, SET_ONBOARDING_TOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
+import { SET_HEADER_CLASS, SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
 
 import OnboardingStep1 from 'containers/Onboarding/Step1'
 import OnboardingContainer from 'containers/Onboarding/Container'
@@ -61,41 +61,56 @@ class OnBoarding extends React.Component {
   }
 
   getToken = () => {
-    const token = this.props.location.pathname.split('/')[2]
+    const urlPlace = this.props.location.pathname.split('/')[2]
+    const token =  urlPlace ? urlPlace.trim() : null
     // InNpbmd0ZWwi:1gKDRN:jIW84RiTIm8PS8amqwoNjeTbonk.1gKDRN.0WtB4V1TcB3pV4VWthCqVIB61vQ
 
     if ( !token || token.lenght < 10 ){
-      this.tokenInvalid(token);
-      return
+      // TODO - url path re treated as token as well
+      // this.tokenInvalid(token);
+      // return
     }
 
-    axios
-      .post('https://cabin-onboarding-api.herokuapp.com/api/login-token',
+    onboardingApi
+      .post('login-token',
         {"token": token}
       )
       .then(res => {
-        const token = res.data.token
+        const authToken = res.data.token
         const companyId = res.data.company_id
 
-        this.props.setOnboardingToken(token);
-        this.props.setOnboardingCompanyId(companyId)
+        this.props.setOnboardingUrlToken(token);
+        this.props.setOnboardingAuthToken(authToken);
+        this.props.setOnboardingCompanyId(companyId);
       })
       .catch(err => {
-        this.tokenInvalid(token);
-        console.log(err);
+        this.tokenInvalid(token, err.response);
+        console.log(err.response);
       })
   }
 
-  tokenInvalid = (token) => {
-    console.log(token, 'invalid token');
+  tokenInvalid = (token, err) => {
+    console.log(token, 'invalid token', err);
+
+    let ntfTitle, ntfText
+    if ( err.status === 400 ){
+      ntfTitle = 'Whoops! URL is invalid'
+      ntfText = 'Onboarding URL seems to be invalid. Please contact cabin'
+    }
+    if ( err.status === 401 ){
+      ntfTitle = 'Whoops! URL is experied'
+      ntfText = 'Onboarding URL seems to be experied. Please contact cabin'
+    }
 
     this.props.notify({
-      title: 'Whoops! URL is invalid',
-      message: 'Onboarding URL seems to be expired or invalid. Please contact cabin',
+      title: ntfTitle,
+      message: ntfText,
       status: 'default', // default, info, success, warning, error
       dismissible: true,
-      dismissAfter: 2000,
+      dismissAfter: 3000,
     })
+
+    // this.props.history.push('/onboarding/')
 
     // if ( !token || token.lenght < 10 ){ // just nothing provided
     //   this.props.notify({
@@ -231,7 +246,8 @@ const mapStateToProps = (state) => (
 const mapDispatchToProps = (dispatch) => (
   {
     setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
-    setOnboardingToken: (data) => dispatch({ type: SET_ONBOARDING_TOKEN, payload: data }),
+    setOnboardingUrlToken: (data) => dispatch({ type: SET_ONBOARDING_URLTOKEN, payload: data }),
+    setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
     setOnboardingCompanyId: (data) => dispatch({ type: SET_ONBOARDING_COMPANY_ID, payload: data }),
     notify: (data) => dispatch(notify(data))
   }
