@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from 'store/ActionTypes';
+import { SET_HEADER_CLASS, SET_FOOTER_CLASS} from 'store/ActionTypes';
 
 import GetStartedBottom from 'components/GetStartedBottom';
 import HomeHero from 'components/HomeHero';
@@ -18,6 +18,7 @@ class Home extends Component {
   componentDidMount(){
     this.props.aosInst.refreshHard()
     this.props.setHeaderClass('');
+    this.props.setFooterClass('');
   }
 
   render() {
@@ -39,7 +40,8 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => (
   {
-    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
+    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
+    setFooterClass: (data) => dispatch({ type: SET_FOOTER_CLASS, payload: data })
   }
 );
 

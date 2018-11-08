@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import SvgIcon from 'components/SvgIcon';
 
-export default class Footer extends Component {
+class Footer extends Component {
   render(){
     return(
-      <footer className="footer">
+      <footer className={this.props.stateClass + " footer"}>
         <div className="container container--narrow">
           <div className="footer__wrapper">
             <div className="footer__logo">
@@ -30,3 +31,10 @@ export default class Footer extends Component {
     )
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  stateClass: state.footer.stateClass
+});
+
+export default connect(mapStateToProps, null)(Footer);

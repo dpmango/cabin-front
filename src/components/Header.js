@@ -10,6 +10,7 @@ import { OPEN_MENU, CLOSE_MENU } from 'store/ActionTypes';
 import convertTimeStr from 'services/convertTimeStr';
 import SvgIcon from 'components/SvgIcon'
 
+
 class Header extends Component {
   static propTypes = {
     routes: PropTypes.array,
@@ -25,28 +26,13 @@ class Header extends Component {
     this.scrollWithThrottle = throttle(this.handleScroll, 200);
 
     this.state = {
-      isScrolled: false
-    }
-
-    // Call: Mon - Fri (9:30am  - 6:30pm, GMT +8)
-    // Email: All other hours
-    const singaporeTime = moment().tz("Asia/Singapore")
-    const weekDay = singaporeTime.weekday()
-    const timeHHmm = singaporeTime.format("HH:mm")
-    if (
-      (weekDay !== 6 && weekDay !== 0)
-      &&
-      ( convertTimeStr(timeHHmm) >= convertTimeStr("9:30") &&
-        convertTimeStr(timeHHmm) <= convertTimeStr("18:30")
-      )
-    ){
-      this.isWorkingTime = true
-    } else {
-      this.isWorkingTime = false
+      isScrolled: false,
+      isWorkingTime: null
     }
   }
 
   componentDidMount() {
+    this.defineWorkingTime();
     window.addEventListener('scroll', this.scrollWithThrottle, false);
   };
 
@@ -89,11 +75,30 @@ class Header extends Component {
     component.preload();
   };
 
+  defineWorkingTime = () => {
+    // Call: Mon - Fri (9:30am  - 6:30pm, GMT +8)
+    // Email: All other hours
+    const singaporeTime = moment().tz("Asia/Singapore")
+    const weekDay = singaporeTime.weekday()
+    const timeHHmm = singaporeTime.format("HH:mm")
+    if (
+      (weekDay !== 6 && weekDay !== 0)
+      &&
+      ( convertTimeStr(timeHHmm) >= convertTimeStr("9:30") &&
+        convertTimeStr(timeHHmm) <= convertTimeStr("18:30")
+      )
+    ){
+      this.setState({isWorkingTime: true})
+    } else {
+      this.setState({isWorkingTime: false})
+    }
+  }
+
   renderContacts = () => {
-    if ( this.isWorkingTime ) {
+    if ( this.state.isWorkingTime ) {
       return (
         <Fragment>
-          <a href="tel:+6531585495" className="header__phone">
+          <a href="tel:+6531585495" className="header__phone header__phone--phone">
             <span>Have an enquiry? <span className="header__phone-tel"><span>Call us at:</span> +65 3158 5495</span></span>
           </a>
         </Fragment>
@@ -101,7 +106,7 @@ class Header extends Component {
     } else {
       return (
         <Fragment>
-          <a href="mailto:hello@cabin.com.sg" className="header__phone">
+          <a href="mailto:hello@cabin.com.sg" className="header__phone header__phone--mail">
             <span>Have an enquiry? <span className="header__phone-tel"><span>Email us at:</span> hello@cabin.com.sg</span></span>
           </a>
         </Fragment>

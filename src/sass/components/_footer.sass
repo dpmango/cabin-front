@@ -1,5 +1,12 @@
 .footer
   background: white
+  transition: opacity .25s $ease
+  &--hide
+    opacity: 0
+    pointer-events: none
+    max-height: 50px
+    overflow: hidden
+
   &__wrapper
     display: flex
     // align-items: center

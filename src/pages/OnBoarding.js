@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { notify } from 'reapop';
 import { onboardingApi } from 'services/Api';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS, SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
+import { SET_HEADER_CLASS, SET_FOOTER_CLASS, SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
 
 import OnboardingStep1 from 'containers/Onboarding/Step1'
 import OnboardingContainer from 'containers/Onboarding/Container'
@@ -29,6 +29,7 @@ class OnBoarding extends React.Component {
     this.updateURL();
     this.props.aosInst.refreshHard();
     this.props.setHeaderClass('header--logo-only');
+    this.props.setFooterClass('')
   }
 
   componentDidUpdate(){
@@ -246,6 +247,7 @@ const mapStateToProps = (state) => (
 const mapDispatchToProps = (dispatch) => (
   {
     setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
+    setFooterClass: (data) => dispatch({ type: SET_FOOTER_CLASS, payload: data }),
     setOnboardingUrlToken: (data) => dispatch({ type: SET_ONBOARDING_URLTOKEN, payload: data }),
     setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
     setOnboardingCompanyId: (data) => dispatch({ type: SET_ONBOARDING_COMPANY_ID, payload: data }),

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS, LOCK_SIGNUP_ALT } from 'store/ActionTypes';
+import { SET_HEADER_CLASS, SET_FOOTER_CLASS, LOCK_SIGNUP_ALT } from 'store/ActionTypes';
 
 import SignupStep1 from 'containers/SignupStep1'
 import SignupContainer from 'containers/SignupContainer'
@@ -22,6 +22,7 @@ class GetStarted extends React.Component {
     this.updateURL();
     this.props.aosInst.refreshHard();
     this.props.setHeaderClass('header--logo-only');
+    this.props.setFooterClass('footer--hide')
   }
 
   componentDidUpdate(){
@@ -155,6 +156,7 @@ const mapStateToProps = (state) => (
 const mapDispatchToProps = (dispatch) => (
   {
     setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
+    setFooterClass: (data) => dispatch({ type: SET_FOOTER_CLASS, payload: data }),
     lockSignupAlt: (data) => dispatch({ type: LOCK_SIGNUP_ALT, payload: data })
   }
 );
