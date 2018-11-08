@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import {reducer as notificationsReducer} from 'reapop';
 
 import header from './header';
 import signup from './signup';
@@ -15,5 +16,6 @@ export default combineReducers({
   onboardingIndividual,
   onboardingCorporate,
   pricing,
+  notifications: notificationsReducer(),
   gtm
 })

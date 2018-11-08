@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { notify } from 'reapop';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS } from 'store/ActionTypes';
+import { SET_HEADER_CLASS, SET_ONBOARDING_TOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
 
 import OnboardingStep1 from 'containers/Onboarding/Step1'
 import OnboardingContainer from 'containers/Onboarding/Container'
@@ -25,37 +26,18 @@ class OnBoarding extends React.Component {
   };
 
   componentDidMount(){
-    // this.updateURL();
+    this.updateURL();
     this.props.aosInst.refreshHard();
     this.props.setHeaderClass('header--logo-only');
-
-    this.getToken();
-  }
-
-  getToken = () => {
-    const token = this.props.location.pathname.split('/')[2]
-    // InNoYXVuIg:1gJJxh:8LB7VuPJFr6-XvrTGZMbe8B6Clk.1gJJxh.DkLd7ekfUtcVBB-dZhRCA4LZmZU
-
-    console.log({token})
-    axios
-      .post('https://cabin-onboarding-api.herokuapp.com/api/login-token',
-        {token: token}
-      )
-      .then(res => {
-        console.log({res})
-      })
-      .catch(err => {
-        console.log(err);
-      })
   }
 
   componentDidUpdate(){
-    // this.updateURL();
+    this.updateURL();
     this.props.aosInst.refreshHard();
   }
 
   updateURL = () => {
-    const { onboardingStep, location, history } = this.props
+    const { onboardingStep, onboardingToken, location, history } = this.props
 
     let newPath
     if ( onboardingStep === 11 ){
@@ -66,10 +48,72 @@ class OnBoarding extends React.Component {
       newPath = "/onboarding/step-" + (onboardingStep - 1);
     }
 
+    // check for token presence
+    if ( !onboardingToken ){
+      this.getToken();
+      return
+    }
+
     if ( location.pathname === newPath ){
       return
     }
     history.push(newPath)
+  }
+
+  getToken = () => {
+    const token = this.props.location.pathname.split('/')[2]
+    // InNpbmd0ZWwi:1gKDRN:jIW84RiTIm8PS8amqwoNjeTbonk.1gKDRN.0WtB4V1TcB3pV4VWthCqVIB61vQ
+
+    if ( !token || token.lenght < 10 ){
+      this.tokenInvalid(token);
+      return
+    }
+
+    axios
+      .post('https://cabin-onboarding-api.herokuapp.com/api/login-token',
+        {"token": token}
+      )
+      .then(res => {
+        const token = res.data.token
+        const companyId = res.data.company_id
+
+        this.props.setOnboardingToken(token);
+        this.props.setOnboardingCompanyId(companyId)
+      })
+      .catch(err => {
+        this.tokenInvalid(token);
+        console.log(err);
+      })
+  }
+
+  tokenInvalid = (token) => {
+    console.log(token, 'invalid token');
+
+    this.props.notify({
+      title: 'Whoops! URL is invalid',
+      message: 'Onboarding URL seems to be expired or invalid. Please contact cabin',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 2000,
+    })
+
+    // if ( !token || token.lenght < 10 ){ // just nothing provided
+    //   this.props.notify({
+    //     title: 'Whoops! URL is invalid',
+    //     message: 'Onboarding URL seems to be missing. Please contact cabin',
+    //     status: 'default', // default, info, success, warning, error
+    //     dismissible: true,
+    //     dismissAfter: 2000,
+    //   })
+    // } else { // error from api (experied, etc)
+    //   this.props.notify({
+    //     title: 'Whoops! URL is expired',
+    //     message: 'Onboarding URL seems to be expired. Please contact cabin',
+    //     status: 'default', // default, info, success, warning, error
+    //     dismissible: true,
+    //     dismissAfter: 2000,
+    //   })
+    // }
   }
 
   render() {
@@ -179,13 +223,17 @@ class OnBoardingSwitch extends React.Component {
 
 const mapStateToProps = (state) => (
   {
-    onboardingStep: state.onboarding.onboardingStep
+    onboardingStep: state.onboarding.onboardingStep,
+    onboardingToken: state.onboarding.authToken
   }
 );
 
 const mapDispatchToProps = (dispatch) => (
   {
-    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data })
+    setHeaderClass: (data) => dispatch({ type: SET_HEADER_CLASS, payload: data }),
+    setOnboardingToken: (data) => dispatch({ type: SET_ONBOARDING_TOKEN, payload: data }),
+    setOnboardingCompanyId: (data) => dispatch({ type: SET_ONBOARDING_COMPANY_ID, payload: data }),
+    notify: (data) => dispatch(notify(data))
   }
 );
 

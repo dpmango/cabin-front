@@ -5,6 +5,8 @@ export const initialState = {
   onboardingRandomId: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
   // instead of gtm this might e used for server communication to store session
   onboardingStep: 1,
+  authToken: '',
+  companyId: '',
   onboardingId: '',
   fields: {
     company_uen: '',
@@ -73,6 +75,16 @@ const onboarding = (state = initialState, action) => {
       return {
         ...state,
         fields: action.payload
+      }
+    case types.SET_ONBOARDING_TOKEN:
+      return {
+        ...state,
+        authToken: action.payload
+      }
+    case types.SET_ONBOARDING_COMPANY_ID:
+      return {
+        ...state,
+        companyId: action.payload
       }
     default:
       return state;
