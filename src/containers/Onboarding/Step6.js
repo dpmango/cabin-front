@@ -32,7 +32,8 @@ class OnboardingStep5 extends Component {
       errors: [],
       isTransitioningNext: false,
       isFormSubmitted: false,
-      countries_list: countriesListAutocompleate
+      countries_list: []
+      // countriesListAutocompleate
     };
 
     this.formRef = React.createRef();
@@ -43,6 +44,7 @@ class OnboardingStep5 extends Component {
   }
 
   componentDidMount() {
+    this.getCountriesList();
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -63,6 +65,22 @@ class OnboardingStep5 extends Component {
     })
   }
 
+  // fetch countries from api
+  getCountriesList = () => {
+    onboardingApi
+      .get('countries')
+      .then(res => {
+        console.log('Backend response to countries GET' , res)
+        // transform array
+        const data = res.data.map(x => ({
+          id: x.code, countryCode: x.id, text: x.name
+        }))
+        this.setState({ countries_list: data })
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
 
   // tags management
   handleTagsDelete = (i, e, name) => {
@@ -73,7 +91,7 @@ class OnboardingStep5 extends Component {
   }
 
   handleTagsAddition = (tag, name) => {
-    let tagFilter = countriesListAutocompleate.filter(x => x.text === tag.text)[0]
+    let tagFilter = this.state.countries_list.filter(x => x.text === tag.text)[0]
     if (!tagFilter) return false
 
     this.setState(state => ({...this.state,
@@ -127,10 +145,14 @@ class OnboardingStep5 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
-      consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      suppliers_list: suppliers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      payments_to_list: payments_to_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      payments_from_list: payments_from_list.map(x => `(${x.id}) ${x.text}`).join(', ')
+      consumers_list: consumers_list.map(x => x.countryCode),
+      suppliers_list: suppliers_list.map(x => x.countryCode),
+      payment_to_countries: payments_to_list.map(x => x.countryCode),
+      payment_from_countries: payments_from_list.map(x => x.countryCode)
+      // consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // suppliers_list: suppliers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // payments_to_list: payments_to_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // payments_from_list: payments_from_list.map(x => `(${x.id}) ${x.text}`).join(', ')
     }
 
     // update the api

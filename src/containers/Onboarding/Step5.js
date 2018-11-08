@@ -104,6 +104,8 @@ class OnboardingStep4 extends Component {
     const token = this.props.urlToken
     if ( !token ) return
 
+    onboardingApi.defaults.headers['Authorization'] = ''
+
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
