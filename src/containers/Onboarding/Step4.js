@@ -76,19 +76,23 @@ class OnboardingStep3 extends Component {
 
     const leadObj = {
       // onboarding_id: this.props.onboardingRandomId,
-      headers: {
-        'Authorization': 'JWT ' + this.props.onboardingToken
-      },
-      data: {
-        isproduction: isProduction(),
-        uen: company_uen,
-        name: company_name,
-      }
+      // headers + data somehow not working with axios created instance
+      // headers: {
+      //   'Authorization': 'JWT ' + this.props.onboardingToken
+      // },
+      // data: {
+      //   isproduction: isProduction(),
+      //   uen: company_uen,
+      //   name: company_name,
+      // }
+      isproduction: isProduction(),
+      uen: company_uen,
+      name: company_name,
     }
 
     // changed - we know the id because of JWT auth goes first
     // set JWT token first
-    // onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
 
     onboardingApi
       .patch('company/' + this.props.companyId, leadObj)
@@ -139,6 +143,9 @@ class OnboardingStep3 extends Component {
   refreshToken = () => {
     const token = this.props.urlToken
     if ( !token ) return
+
+    // clear JWT before refreshing tokens
+    onboardingApi.defaults.headers['Authorization'] = ''
 
     onboardingApi
       .post('login-token', {"token": token})

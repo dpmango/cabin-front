@@ -211,6 +211,8 @@ class OnboardingStep6 extends Component {
     const token = this.props.urlToken
     if ( !token ) return
 
+    onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
+    
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
