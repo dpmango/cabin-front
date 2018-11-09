@@ -40,7 +40,7 @@ export const initialState = {
       },
       {
         name: 'Others',
-        input: ''
+        value: ''
       }
     ], // text fields for active checboxes
     paidup_capital_origins: [],

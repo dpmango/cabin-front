@@ -93,7 +93,7 @@ class OnboardingStep8 extends Component {
   }
 
 
-  nextStep = () => {
+  nextStep = (refreshedToken) => {
     const {
       other_beneficiaries,
       other_controllers,
@@ -109,7 +109,7 @@ class OnboardingStep8 extends Component {
       other_controllers_input: other_controllers_input,
     }
 
-    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
       .patch('company/' + this.props.companyId, leadObj)
@@ -131,12 +131,13 @@ class OnboardingStep8 extends Component {
     if ( !token ) return
 
     onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
-    
+
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
-        this.props.setOnboardingAuthToken(res.data.token);
-        this.nextStep() // loop - if error, get token again
+        const respToken = res.data.token
+        this.props.setOnboardingAuthToken(respToken);
+        this.nextStep(respToken) // loop - if error, get token again. till its returning ok
       })
       .catch(err => {
         this.tokenInvalid(token, err.response);
