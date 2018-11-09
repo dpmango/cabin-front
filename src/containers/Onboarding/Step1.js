@@ -5,6 +5,9 @@ import { SET_ONBOARDING_STEP } from 'store/ActionTypes';
 import SvgIcon from 'components/SvgIcon';
 import Image from 'components/Image';
 
+// TODO - should the tokens be clear at this step?
+
+
 class OnboardingStep1 extends Component {
   static propTypes = {
     setOnboardingStep: PropTypes.func,

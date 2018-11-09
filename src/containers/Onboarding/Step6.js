@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import api from 'services/Api';
+import { notify } from 'reapop';
+import { onboardingApi } from 'services/Api';
 import isProduction from 'services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
 import Image from 'components/Image';
 // import FormInput from 'components/FormInput';
 import ReactTags from 'components/ReactTags/ReactTags';
@@ -31,7 +32,8 @@ class OnboardingStep5 extends Component {
       errors: [],
       isTransitioningNext: false,
       isFormSubmitted: false,
-      countries_list: countriesListAutocompleate
+      countries_list: []
+      // countriesListAutocompleate
     };
 
     this.formRef = React.createRef();
@@ -42,6 +44,7 @@ class OnboardingStep5 extends Component {
   }
 
   componentDidMount() {
+    this.getCountriesList();
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -62,6 +65,22 @@ class OnboardingStep5 extends Component {
     })
   }
 
+  // fetch countries from api
+  getCountriesList = () => {
+    onboardingApi
+      .get('countries')
+      .then(res => {
+        console.log('Backend response to countries GET' , res)
+        // transform array
+        const data = res.data.map(x => ({
+          id: x.code, countryCode: x.id, text: x.name
+        }))
+        this.setState({ countries_list: data })
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
 
   // tags management
   handleTagsDelete = (i, e, name) => {
@@ -72,7 +91,7 @@ class OnboardingStep5 extends Component {
   }
 
   handleTagsAddition = (tag, name) => {
-    let tagFilter = countriesListAutocompleate.filter(x => x.text === tag.text)[0]
+    let tagFilter = this.state.countries_list.filter(x => x.text === tag.text)[0]
     if (!tagFilter) return false
 
     this.setState(state => ({...this.state,
@@ -126,25 +145,62 @@ class OnboardingStep5 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
-      consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      suppliers_list: suppliers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      payments_to_list: payments_to_list.map(x => `(${x.id}) ${x.text}`).join(', '),
-      payments_from_list: payments_from_list.map(x => `(${x.id}) ${x.text}`).join(', ')
+      consumers_list: consumers_list.map(x => x.countryCode),
+      suppliers_list: suppliers_list.map(x => x.countryCode),
+      payment_to_countries: payments_to_list.map(x => x.countryCode),
+      payment_from_countries: payments_from_list.map(x => x.countryCode)
+      // consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // suppliers_list: suppliers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // payments_to_list: payments_to_list.map(x => `(${x.id}) ${x.text}`).join(', '),
+      // payments_from_list: payments_from_list.map(x => `(${x.id}) ${x.text}`).join(', ')
     }
 
     // update the api
-    api
-      .patch('onboardings/' + this.props.onboardingId, {
-        onboarding: leadObj
-      })
-      .then((res) => {
-        console.log('Backend responce to onboarding PATCH' , res)
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+
+    onboardingApi
+      .patch('company/' + this.props.companyId, leadObj)
+      .then(res => {
+        console.log('Backend response to onboarding PATCH' , res)
         this.updateSignup()
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(err => {
+        console.log(err.response); // todo update token ?
+        if (err.response.status === 401){
+          this.refreshToken();
+        }
       });
 
+  }
+
+  refreshToken = () => {
+    const token = this.props.urlToken
+    if ( !token ) return
+
+    onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
+    
+    onboardingApi
+      .post('login-token', {"token": token})
+      .then(res => {
+        this.props.setOnboardingAuthToken(res.data.token);
+        this.nextStep() // loop - if error, get token again
+      })
+      .catch(err => {
+        this.tokenInvalid(token, err.response);
+        console.log('error on getting token', err.response);
+      })
+  }
+
+  tokenInvalid = (token, err) => {
+    console.log(token, 'invalid token');
+
+    this.props.notify({
+      title: 'Whoops! Error updating token',
+      message: 'Error happens updating your authorization token. Please contact cabin',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 2000,
+    })
   }
 
   updateSignup = () => {
@@ -251,14 +307,17 @@ class OnboardingStep5 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
-  onboardingId: state.onboarding.onboardingId,
+  urlToken: state.onboarding.urlToken,
+  onboardingToken: state.onboarding.authToken,
+  companyId: state.onboarding.companyId,
   onboardingStep: state.onboarding.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
   setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
-  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_ID, payload: data })
+  setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
+  notify: (data) => dispatch(notify(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep5);

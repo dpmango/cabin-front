@@ -20,6 +20,7 @@ class Tag extends Component {
 
     const { props } = this;
     const label = props.tag[props.labelField];
+    const apiId = props.tag["countryCode"];
     const countryCode = props.tag["id"]; // aka ID
     const {
       connectDragSource,
@@ -31,6 +32,7 @@ class Tag extends Component {
 
     const tagComponent = (
       <span
+        dataId={apiId ? apiId : ""}
         style={{ opacity: isDragging ? 0 : 1 }}
         className={props.classNames.tag}
         onClick={props.onTagClicked}

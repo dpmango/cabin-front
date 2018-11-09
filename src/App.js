@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { routes } from './routes';
+import NotificationsSystem from 'reapop';
+import theme from 'reapop-theme-wybo';
 import RenderSwitch from './Switch';
 
 // import GoogleTagManager from './components/GoogleTagManager';
@@ -27,6 +29,7 @@ class App extends React.Component {
           {/* <GoogleTagManager gtmId='GTM-N6T8GZP' /> */}
           <Header routes={routes.filter(route => route.forNavBar)}/>
           <div className="page__content">
+            <NotificationsSystem theme={theme} />
             <RenderSwitch />
           </div>
           <Footer />

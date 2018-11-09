@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { notify } from 'reapop';
 import {Collapse} from 'react-collapse';
-
 import Image from 'components/Image';
 import CheckBox from 'components/CheckBox';
 import ShareholderTable from 'components/ShareholderTable';
-
-import api from 'services/Api';
+import { onboardingApi } from 'services/Api';
 import isProduction from 'services/isProduction';
-import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_ID } from 'store/ActionTypes';
+import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
 
 class OnboardingStep7 extends Component {
   static propTypes = {
@@ -100,18 +99,51 @@ class OnboardingStep7 extends Component {
       shareholders_corporate_array: JSON.stringify(shareholders_corporate)
     }
 
-    api
-      .patch('onboardings/' + this.props.onboardingId, {
-        onboarding: leadObj
-      })
-      .then((res) => {
-        console.log('Backend responce to onboarding PATCH' , res)
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+
+    onboardingApi
+      .patch('company/' + this.props.companyId, leadObj)
+      .then(res => {
+        console.log('Backend response to onboarding PATCH' , res)
         this.updateSignup()
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(err => {
+        console.log(err.response); // todo update token ?
+        if (err.response.status === 401){
+          this.refreshToken();
+        }
       });
 
+  }
+
+  refreshToken = () => {
+    const token = this.props.urlToken
+    if ( !token ) return
+
+    onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
+
+    onboardingApi
+      .post('login-token', {"token": token})
+      .then(res => {
+        this.props.setOnboardingAuthToken(res.data.token);
+        this.nextStep() // loop - if error, get token again
+      })
+      .catch(err => {
+        this.tokenInvalid(token, err.response);
+        console.log('error on getting token', err.response);
+      })
+  }
+
+  tokenInvalid = (token, err) => {
+    console.log(token, 'invalid token');
+
+    this.props.notify({
+      title: 'Whoops! Error updating token',
+      message: 'Error happens updating your authorization token. Please contact cabin',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 2000,
+    })
   }
 
   convertStateToStr = (state) => {
@@ -409,14 +441,17 @@ class OnboardingStep7 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingFields: state.onboarding.fields,
-  onboardingId: state.onboarding.onboardingId,
+  urlToken: state.onboarding.urlToken,
+  onboardingToken: state.onboarding.authToken,
+  companyId: state.onboarding.companyId,
   onboardingStep: state.onboarding.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
   setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
-  setOnboardingId: (data) => dispatch({ type: SET_ONBOARDING_ID, payload: data })
+  setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
+  notify: (data) => dispatch(notify(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep7);

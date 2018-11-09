@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
 import 'airbnb-js-shims';
 import Select from 'react-select';
-import api from 'services/Api';
+import {api} from 'services/Api';
 import isProduction from 'services/isProduction';
 import buildOptionsString from 'services/buildOptionsString';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS } from 'store/ActionTypes';

@@ -1,13 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from '../reducers/index';
 import { loadState, saveState } from './localStorage';
-import gtmMiddleware from './gtmMiddleware'
+import gtmMiddleware from './gtmMiddleware';
+import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 const initialState = loadState();
 
 const createStoreWithMiddleware = compose(
-  applyMiddleware(gtmMiddleware, logger)
+  applyMiddleware(gtmMiddleware, thunk, logger)
 )(createStore);
 
 const store = createStoreWithMiddleware(reducers, initialState,
