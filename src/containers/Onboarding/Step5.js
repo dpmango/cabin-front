@@ -73,7 +73,7 @@ class OnboardingStep4 extends Component {
     }
   }
 
-  nextStep = () => {
+  nextStep = (refreshedToken) => {
     const { company_activity, company_addres, company_revenue } = this.state;
 
     const leadObj = {
@@ -84,7 +84,7 @@ class OnboardingStep4 extends Component {
     }
 
     // update the api
-    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
       .patch('company/' + this.props.companyId, leadObj)
@@ -109,8 +109,9 @@ class OnboardingStep4 extends Component {
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
-        this.props.setOnboardingAuthToken(res.data.token);
-        this.nextStep() // loop - if error, get token again
+        const respToken = res.data.token
+        this.props.setOnboardingAuthToken(respToken);
+        this.nextStep(respToken) // loop - if error, get token again. till its returning ok
       })
       .catch(err => {
         this.tokenInvalid(token, err.response);

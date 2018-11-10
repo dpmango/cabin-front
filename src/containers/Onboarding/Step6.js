@@ -140,13 +140,13 @@ class OnboardingStep5 extends Component {
     this.formRef.current.submit();
   }
 
-  nextStep = () => {
+  nextStep = (refreshedToken) => {
     const { consumers_list, suppliers_list, payments_to_list, payments_from_list } = this.state;
 
     const leadObj = {
       isproduction: isProduction(),
-      consumers_list: consumers_list.map(x => x.countryCode),
-      suppliers_list: suppliers_list.map(x => x.countryCode),
+      customer_countries: consumers_list.map(x => x.countryCode),
+      supplier_countries: suppliers_list.map(x => x.countryCode),
       payment_to_countries: payments_to_list.map(x => x.countryCode),
       payment_from_countries: payments_from_list.map(x => x.countryCode)
       // consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),
@@ -178,12 +178,13 @@ class OnboardingStep5 extends Component {
     if ( !token ) return
 
     onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
-    
+
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
-        this.props.setOnboardingAuthToken(res.data.token);
-        this.nextStep() // loop - if error, get token again
+        const respToken = res.data.token
+        this.props.setOnboardingAuthToken(respToken);
+        this.nextStep(respToken) // loop - if error, get token again. till its returning ok
       })
       .catch(err => {
         this.tokenInvalid(token, err.response);

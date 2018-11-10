@@ -8,6 +8,16 @@ export const initialState = {
   urlToken: '',
   authToken: '',
   companyId: '',
+  managers: {
+    secretary: {
+      name: '',
+      image_url: ''
+    },
+    executive: {
+      name: '',
+      image_url: ''
+    }
+  },
   fields: {
     company_uen: '',
     company_name: '',
@@ -40,7 +50,7 @@ export const initialState = {
       },
       {
         name: 'Others',
-        input: ''
+        value: ''
       }
     ], // text fields for active checboxes
     paidup_capital_origins: [],
@@ -85,6 +95,11 @@ const onboarding = (state = initialState, action) => {
       return {
         ...state,
         companyId: action.payload
+      }
+    case types.SET_ONBOARDING_MANAGERS:
+      return {
+        ...state,
+        managers: action.payload
       }
     default:
       return state;

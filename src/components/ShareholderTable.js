@@ -179,7 +179,7 @@ class ShareholderTable extends Component {
             <thead>
               {
                 schema.topRow &&
-                <tr class="sh-table__top">
+                <tr className="sh-table__top">
                   {schema.topRow.map( (td, i) => {
                     return(
                       <td

@@ -30,7 +30,8 @@ class OnboardingStep6 extends Component {
       company_relations_inputs: props.onboardingFields.company_relations_inputs,
       paidup_capital_origins: props.onboardingFields.paidup_capital_origins,
       errors: [],
-      countries_list: countriesListAutocompleate,
+      countries_list: [],
+      //countriesListAutocompleate,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -40,6 +41,7 @@ class OnboardingStep6 extends Component {
   }
 
   componentDidMount() {
+    this.getCountriesList();
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -95,6 +97,21 @@ class OnboardingStep6 extends Component {
 
   }
 
+
+  getCountriesList = () => {
+    onboardingApi
+      .get('countries')
+      .then(res => {
+        const data = res.data.map(x => ({
+          id: x.code, countryCode: x.id, text: x.name
+        }))
+        this.setState({ countries_list: data })
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
+
   // tags management
   handleTagsDelete = (i, e, name) => {
     this.setState({
@@ -104,7 +121,7 @@ class OnboardingStep6 extends Component {
   }
 
   handleTagsAddition = (tag, name) => {
-    let tagFilter = countriesListAutocompleate.filter(x => x.text === tag.text)[0]
+    let tagFilter = this.state.countries_list.filter(x => x.text === tag.text)[0]
     if (!tagFilter) return false
 
     this.setState(state => ({...this.state,
@@ -156,7 +173,7 @@ class OnboardingStep6 extends Component {
     }, () => this.validateCustom())
   }
 
-  nextStep = () => {
+  nextStep = (refreshedToken) => {
     const { paidup_capital, paidup_capital_inputs, company_relations, company_relations_inputs, paidup_capital_origins } = this.state;
 
     // console.log(
@@ -164,7 +181,7 @@ class OnboardingStep6 extends Component {
     //   'company_relations', company_relations
     // )
 
-    let companyRelationsJoined = ""
+    let companyRelationsJoined = []
 
     // join checkbox and input values
     company_relations.forEach( (checkbox, i) => {
@@ -175,22 +192,37 @@ class OnboardingStep6 extends Component {
 
       if ( index !== -1 ){
         // if matched - add string with the input value
-        companyRelationsJoined += `${checkbox} (${company_relations_inputs[index].value}), `
+        // companyRelationsJoined += `${checkbox} (${company_relations_inputs[index].value}), `
+        companyRelationsJoined.push({
+          name: checkbox,
+          input: company_relations_inputs[index].value
+        })
+        // companyRelationsJoined.push(`${checkbox} (${company_relations_inputs[index].value})`)
       } else {
         // if empty - only the checkbox value
-        companyRelationsJoined += `${checkbox}, `
+        // companyRelationsJoined += `${checkbox}, `
+        companyRelationsJoined.push({
+          name: checkbox,
+          input: ''
+        })
+        // companyRelationsJoined.push(`${checkbox}`)
       }
     })
 
+
     const leadObj = {
       isproduction: isProduction(),
-      paidup_capital: paidup_capital.join(', '),
-      paidup_capital_inputs: paidup_capital_inputs, // TODO refactor
-      company_relations: companyRelationsJoined,
-      paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')  // TODO refactor or send clear values
+      // paidup_capital: paidup_capital.join(', '),
+      // paidup_capital_inputs: paidup_capital_inputs, // TODO refactor
+      related_entities: companyRelationsJoined,
+      // company_relations: companyRelationsJoined,
+      capital_origin_countries: paidup_capital_origins.map(x => x.countryCode),
+      // paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')  // TODO refactor or send clear values
     }
 
-    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+    console.log({leadObj})
+    console.log({refreshedToken})
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
       .patch('company/' + this.props.companyId, leadObj)
@@ -212,12 +244,13 @@ class OnboardingStep6 extends Component {
     if ( !token ) return
 
     onboardingApi.defaults.headers['Authorization'] = '' // clear before obtaining new JWT token
-    
+
     onboardingApi
       .post('login-token', {"token": token})
       .then(res => {
-        this.props.setOnboardingAuthToken(res.data.token);
-        this.nextStep() // loop - if error, get token again
+        const respToken = res.data.token
+        this.props.setOnboardingAuthToken(respToken);
+        this.nextStep(respToken) // loop - if error, get token again. till its returning ok
       })
       .catch(err => {
         this.tokenInvalid(token, err.response);

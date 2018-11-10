@@ -44,8 +44,12 @@
     min-height: 0
     padding: 0 15px
     padding-right: 45px
+    &--managers
+      padding-right: 15px
     h2
       max-width: 420px
+    p
+      max-width: 400px
   &__right
     flex: 0 1 50%
     max-width: 50%
@@ -99,6 +103,7 @@
     font-size: 0
     img
       max-width: 100%
+      width: 100%
     &--big
       max-size: 270px
     &--extra-small
@@ -112,6 +117,11 @@
       max-size: 245px
       border: 20px solid white
 
+    &-mask
+      position: relative
+      z-index: 1
+      overflow: hidden
+      border-radius: 50%
   &__heading-row
     display: flex
     align-items: center
@@ -129,6 +139,7 @@
 
   &__manager
     position: relative
+    width: 100%
     &:nth-child(1)
       z-index: 2
     &:nth-child(2)
