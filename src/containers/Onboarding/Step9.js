@@ -103,11 +103,15 @@ class OnboardingStep8 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
-      other_beneficiaries: other_beneficiaries,
-      other_controllers: other_controllers,
-      other_beneficiaries_input: other_beneficiaries_input,
-      other_controllers_input: other_controllers_input,
+      beneficiaries: (other_beneficiaries ? other_beneficiaries_input : "No"),
+      registrable_controllers: (other_controllers ? other_controllers_input : "No"),
+      // other_beneficiaries: other_beneficiaries,
+      // other_controllers: other_controllers,
+      // other_beneficiaries_input: other_beneficiaries_input,
+      // other_controllers_input: other_controllers_input,
     }
+
+    console.log({leadObj})
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 

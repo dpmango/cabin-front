@@ -193,19 +193,19 @@ class OnboardingStep6 extends Component {
       if ( index !== -1 ){
         // if matched - add string with the input value
         // companyRelationsJoined += `${checkbox} (${company_relations_inputs[index].value}), `
-        // companyRelationsJoined.push({
-        //   name: checkbox,
-        //   input: company_relations_inputs[index].value
-        // })
-        companyRelationsJoined.push(`${checkbox} (${company_relations_inputs[index].value})`)
+        companyRelationsJoined.push({
+          name: checkbox,
+          input: company_relations_inputs[index].value
+        })
+        // companyRelationsJoined.push(`${checkbox} (${company_relations_inputs[index].value})`)
       } else {
         // if empty - only the checkbox value
         // companyRelationsJoined += `${checkbox}, `
-        // companyRelationsJoined.push({
-        //   name: checkbox,
-        //   input: ''
-        // })
-        companyRelationsJoined.push(`${checkbox}`)
+        companyRelationsJoined.push({
+          name: checkbox,
+          input: ''
+        })
+        // companyRelationsJoined.push(`${checkbox}`)
       }
     })
 
@@ -214,7 +214,7 @@ class OnboardingStep6 extends Component {
       isproduction: isProduction(),
       // paidup_capital: paidup_capital.join(', '),
       // paidup_capital_inputs: paidup_capital_inputs, // TODO refactor
-      // related_entities: companyRelationsJoined,
+      related_entities: companyRelationsJoined,
       // company_relations: companyRelationsJoined,
       capital_origin_countries: paidup_capital_origins.map(x => x.countryCode),
       // paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')  // TODO refactor or send clear values

@@ -146,7 +146,7 @@ class OnboardingStep5 extends Component {
     const leadObj = {
       isproduction: isProduction(),
       customer_countries: consumers_list.map(x => x.countryCode),
-      // suppliers_list: suppliers_list.map(x => x.countryCode), // TODO - suppliers are missing
+      supplier_countries: suppliers_list.map(x => x.countryCode),
       payment_to_countries: payments_to_list.map(x => x.countryCode),
       payment_from_countries: payments_from_list.map(x => x.countryCode)
       // consumers_list: consumers_list.map(x => `(${x.id}) ${x.text}`).join(', '),

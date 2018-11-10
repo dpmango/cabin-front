@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SET_ONBOARDING_STEP } from 'store/ActionTypes';
+import { onboardingApi } from 'services/Api';
+import { SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_MANAGERS, SET_ONBOARDING_STEP } from 'store/ActionTypes';
 // import SvgIcon from 'components/SvgIcon';
 import Image from 'components/Image';
 
@@ -17,16 +18,60 @@ class OnboardingStep2 extends Component {
     super(props);
 
     this.state = {
+      managers: this.props.managers,
       isTransitioningNext: false,
     }
   }
 
   componentDidMount() {
+    this.getManagers();
     this.props.onRef(this)
   }
   componentWillUnmount() {
     this.props.onRef(undefined)
   }
+
+  getManagers = (refreshedToken) => {
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
+
+    onboardingApi
+      .get('company/' + this.props.companyId)
+      .then(res => {
+        console.log('Backend response to company GET' , res)
+        const managers = {
+          secretary: res.data.secretary,
+          executive: res.data.executive
+        }
+        this.props.setOnboardingManagers(managers)
+      })
+      .catch(err => {
+        console.log(err.response); // todo update token ?
+        if (err.response.status === 401){
+          this.refreshToken();
+        }
+      });
+  }
+
+  refreshToken = () => {
+    const token = this.props.urlToken
+    if ( !token ) return
+
+    // clear JWT before refreshing tokens
+    onboardingApi.defaults.headers['Authorization'] = ''
+
+    onboardingApi
+      .post('login-token', {"token": token})
+      .then(res => {
+        const respToken = res.data.token
+        this.props.setOnboardingAuthToken(respToken);
+        this.getManagers(respToken) // loop - if error, get token again. till its returning ok
+      })
+      .catch(err => {
+        this.tokenInvalid(token, err.response);
+        console.log('error on getting token', err.response);
+      })
+  }
+
 
   prevStep = () => {
     this.props.setOnboardingStep(
@@ -49,29 +94,29 @@ class OnboardingStep2 extends Component {
 
   render(){
 
-    const { isTransitioningNext } = this.state
+    const { isTransitioningNext, managers } = this.state
 
     return(
 
       <div className={"signup__intro"}>
         <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "") } data-aos="fade-left">
-          <div className="signup__left">
+          <div className="signup__left signup__left--managers">
             <div className="signup__managers">
               <SignupManager
-                name="Secretary"
-                image="rifeng-avatar.png"
+                name={managers.secretary.name}
+                image={managers.secretary.image_url}
                 title="Named Company Secretary" />
               <SignupManager
-                name="Executive"
-                image="rifeng-avatar.png"
+                name={managers.executive.name}
+                image={managers.executive.image_url}
                 title="Corporate Secretarial Executive" />
             </div>
           </div>
           <div className="signup__right signup__right--400">
             <h2>Meet your Cabin team,</h2>
-            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> and <strong>{"{{Executive}}"}</strong></p>
-            <p className="t-paragraph"><strong>{"{{Secretary}}"}</strong> will be the named person listed as your company’s secretary. He will oversee that the administration of all secretarial matters and ensure they comply with the Singapore Companies Act.</p>
-            <p className="t-paragraph"><strong>{"{{Executive}}"}</strong> will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
+            <p className="t-paragraph"><strong>{managers.secretary.name}</strong> and <strong>{managers.executive.name}</strong></p>
+            <p className="t-paragraph"><strong>{managers.secretary.name}</strong> will be the named person listed as your company’s secretary. He will oversee that the administration of all secretarial matters and ensure they comply with the Singapore Companies Act.</p>
+            <p className="t-paragraph"><strong>{managers.executive.name}</strong> will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
             <p className="t-paragraph">We look forward to working with you.</p>
             <div className="signup__signs-row">
               <i className="icon icon-rifeng-sign" />
@@ -87,7 +132,7 @@ class OnboardingStep2 extends Component {
 
 const SignupManager = (props) => {
   const {
-    // name,
+    name,
     image,
     title
   } = props
@@ -97,10 +142,14 @@ const SignupManager = (props) => {
       <div className="signup__avatar signup__avatar--row">
         <div className="signup__hover-tooltip">
           <div className="signup__hover-wrapper">
-            Hi, I’m <span><strong>{"{{name}}"}</strong></span>
+            Hi, I’m <span><strong>{name}</strong></span>
           </div>
         </div>
-        <Image file={image} />
+        <div className="signup__avatar-mask">
+          <img src={image} />
+        </div>
+
+        {/* <Image file={image} /> */}
       </div>
       <div className="signup__manager-name">{title}</div>
     </div>
@@ -109,11 +158,17 @@ const SignupManager = (props) => {
 
 const mapStateToProps = (state) => ({
   onboardingRandomId: state.onboarding.onboardingRandomId,
+  urlToken: state.onboarding.urlToken,
+  onboardingToken: state.onboarding.authToken,
+  companyId: state.onboarding.companyId,
+  managers: state.onboarding.managers,
   onboardingStep: state.onboarding.onboardingStep
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
+  setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
+  setOnboardingManagers: (data) => dispatch({ type: SET_ONBOARDING_MANAGERS, payload: data })
   // resetDataLayer: () => dispatch({ type: RESET_DATALAYER }),
   // addToDataLayer: (data) => dispatch({ type: ADD_TO_DATALAYER, data })
 });
