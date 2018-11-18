@@ -75,11 +75,11 @@ class SignupStep5 extends Component {
           dataLayerName="leadCaptured"
           additionalEvents={gtmEvent}
         /> */}
-        <div className="signup__box" data-aos="fade">
+        <div className="signup__box signup__box--h100" data-aos="fade">
           <div className="signup__sucess-container">
-            <div className="signup-sucess__grid">
+            <div className="signup-sucess__grid signup-sucess__grid--centered">
               <div className="signup-sucess__left">
-                <div className="signup__sucess">
+                <div className="signup__sucess signup__sucess--center">
                   <SvgIcon name="signup-sucess" />
                 </div>
               </div>

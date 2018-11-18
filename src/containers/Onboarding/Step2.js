@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { onboardingApi } from 'services/Api';
 import { SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_MANAGERS, SET_ONBOARDING_STEP } from 'store/ActionTypes';
+import { notify } from 'reapop';
 // import SvgIcon from 'components/SvgIcon';
 // import Image from 'components/Image';
 
@@ -20,6 +21,15 @@ class OnboardingStep2 extends Component {
     this.state = {
       managers: props.managers,
       isTransitioningNext: false,
+    }
+  }
+
+  // when getManagers are sucessfully set - update props to state
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.managers && (nextProps.managers !== prevState.managers)) {
+      return { managers: nextProps.managers};
+    } else {
+      return null;
     }
   }
 
@@ -70,6 +80,18 @@ class OnboardingStep2 extends Component {
         this.tokenInvalid(token, err.response);
         console.log('error on getting token', err.response);
       })
+  }
+
+  tokenInvalid = (token, err) => {
+    console.log(token, 'invalid token');
+
+    this.props.notify({
+      title: 'Whoops! Error updating token',
+      message: 'Error happens updating your authorization token. Please contact cabin',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 2000,
+    })
   }
 
 
@@ -168,9 +190,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
   setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
-  setOnboardingManagers: (data) => dispatch({ type: SET_ONBOARDING_MANAGERS, payload: data })
+  setOnboardingManagers: (data) => dispatch({ type: SET_ONBOARDING_MANAGERS, payload: data }),
   // resetDataLayer: () => dispatch({ type: RESET_DATALAYER }),
   // addToDataLayer: (data) => dispatch({ type: ADD_TO_DATALAYER, data })
+  notify: (data) => dispatch(notify(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingStep2);

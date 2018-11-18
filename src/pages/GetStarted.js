@@ -114,7 +114,7 @@ class GetStartedSwitch extends React.Component {
   }
 
   renderStep = () => {
-    const { match, signupStep } = this.props;
+    const { signupStep } = this.props;
 
     // const stepParam = match.params.step;
 

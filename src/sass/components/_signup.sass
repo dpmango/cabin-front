@@ -19,6 +19,9 @@
         padding-bottom: 24px
       .icon-rifeng-sign
         margin-top: 20px
+    &--h100
+      min-height: calc(100vh - 90px - 90px)
+
   &__wrapper
     position: relative
     z-index: 2
@@ -401,11 +404,21 @@
     display: flex
     margin-left: -15px
     margin-right: -15px
+    &--centered
+      // .signup-sucess
+      //   &__left
+      //     // margin-left: auto
+      //   &__right
+      //     max-width: 350px
+      //     // margin-left: 50px
+      //     margin-left: auto
+      //     margin-right: auto
 
   &__left
     flex: 0 0 210px
     max-width: 210px
     padding: 0 15px
+    margin-left: auto
     .signup__sucess
       margin: 30px auto
 
@@ -488,15 +501,31 @@
       margin-top: 80px
 
     &__sucess
-      margin: 50px auto 50px
+      margin: 50px 0 50px
       // size: 270px 200px
+      max-width: 147px
+      text-align: left
+      .ico
+        font-size: 125px
       &-container
-        padding-left: 30px
-        padding-right: 30px
+        padding-left: 50px
+        padding-right: 50px
+        // padding-left: 30px
+        // padding-right: 30px
 
     &__info
       margin-bottom: 20px
 
+  .signup-sucess
+    &__grid
+      display: block
+    &__left
+      margin-left: 0
+      .signup__sucess
+        margin-top: 0
+        margin-left: 0
+    &__right
+      margin-left: 0
 
 +r($mobile)
   .signup
@@ -527,3 +556,8 @@
 
     &__info
       padding: 15px 10px
+
+    &__sucess
+      &-container
+        padding-left: 25px
+        padding-right: 25px

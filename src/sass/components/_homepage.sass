@@ -94,20 +94,43 @@
       img, .home-hero__lottie
         transform: translateX(-110px)
 
-+r($mobile)
+// recently was on mobile
+// +r($mobile)
++r(1200)
+  .home-hero
+    &__wrapper
+      padding-top: 140px
+      padding-bottom: 100px
+      height: calc(100vh - 120px)
+      max-height: calc(740px - 120px)
+      min-height: 590px
+      max-width: 500px
+    &__bg
+      // align-items: flex-end
+      align-items: flex-start
+      img, .home-hero__lottie
+        // transform: translateX(140px)
+        max-width: 750px
+        max-height: 531px
+        transform: translateX(-90px)
+
++r($desktop)
   .home-hero
     display: flex
     flex-direction: column-reverse
     &__bg
+      align-items: flex-end
       position: relative 0
       transform: none
       padding-top: 70px
       width: 100%
-      display: block
+      // keep flex for right align
+      // display: block
       overflow: hidden
       img, .home-hero__lottie
-        max-width: 100%
-        max-width: 100%
+        // max-width: 100%
+        // 850px originally
+        max-width: 700px
         width: auto
         height: auto
         transform: translateX(0px)
@@ -134,7 +157,10 @@
 +r($mobile-s)
   .home-hero
     &__bg
-      width: 147%
+      width: 134%
+      // width: 147%
+      img, .home-hero__lottie
+        transform: translateX(-8.2%)
     &__wrapper
       padding-top: 20px
 

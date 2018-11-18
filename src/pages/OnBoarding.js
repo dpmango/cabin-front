@@ -64,10 +64,8 @@ class OnBoarding extends React.Component {
   getToken = () => {
     const urlPlace = this.props.location.pathname.split('/')[2]
     const token =  urlPlace ? urlPlace.trim() : null
-    // InNpbmd0ZWwi:1gKDRN:jIW84RiTIm8PS8amqwoNjeTbonk.1gKDRN.0WtB4V1TcB3pV4VWthCqVIB61vQ
-    // InNpbmd0ZWwi:1gOEfw:BWEc4_t6YszdB30L-b0dOH55hG0.1gOEfw.i3pZWwAP5t36oRJ9HRMD9gUQWqY
-    // InNlcmdleSI:1gOEqj:zNJakvt5qnWsWlVPQIoXKjqz2Zo.1gOEqj.GjpSU8V25zbTeNxoc2XpQDLtc8Q
-
+    // InNlcmdleSI:1gOGTO:ICh0zcftjCF2VGXomdvRKDj7V60.1gOGTO.azYvDSvp5auGT5CMjvDkFG6AWdw
+    
     if ( !token || token.lenght < 10 ){
       // TODO - url path re treated as token as well
       // this.tokenInvalid(token);
@@ -167,6 +165,7 @@ class OnBoardingSwitch extends React.Component {
 
     switch (stepParam) {
       case 'step-1':
+        // return <OnboardingThanks />
         return (
           <OnboardingContainer onPrev={this.prevStep} onNext={this.nextStep} noProgress={true}>
             <OnboardingStep2 onRef={ref => (this.child = ref)} />
