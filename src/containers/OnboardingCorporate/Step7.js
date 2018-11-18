@@ -152,7 +152,7 @@ class OnboardingStep7 extends Component {
 
   validateCustom = (cb) => {
     const {
-      agent, grounds, shareholderOnBehalf, fraud, liquidation, pep
+      agent, grounds, shareholderOnBehalf, fraud, liquidation
     } = this.state;
 
     let buildErrors = []

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { onboardingApi } from 'services/Api';
 import { SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_MANAGERS, SET_ONBOARDING_STEP } from 'store/ActionTypes';
 // import SvgIcon from 'components/SvgIcon';
-import Image from 'components/Image';
+// import Image from 'components/Image';
 
 class OnboardingStep2 extends Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class OnboardingStep2 extends Component {
     super(props);
 
     this.state = {
-      managers: this.props.managers,
+      managers: props.managers,
       isTransitioningNext: false,
     }
   }
@@ -146,7 +146,7 @@ const SignupManager = (props) => {
           </div>
         </div>
         <div className="signup__avatar-mask">
-          <img src={image} />
+          <img src={image} alt={name} />
         </div>
 
         {/* <Image file={image} /> */}

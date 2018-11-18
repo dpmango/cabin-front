@@ -76,8 +76,32 @@ class SignupStep5 extends Component {
           additionalEvents={gtmEvent}
         /> */}
         <div className="signup__box" data-aos="fade">
+          <div className="signup__sucess-container">
+            <div className="signup-sucess__grid">
+              <div className="signup-sucess__left">
+                <div className="signup__sucess">
+                  <SvgIcon name="signup-sucess" />
+                </div>
+              </div>
+              <div className="signup-sucess__right">
+                <h2>Thank you!</h2>
+                <p className="t-paragraph">We will get in touch with you shortly.</p>
+                <p className="t-paragraph">Have a nice day!</p>
+                <div className="signup__cta-thanks">
+                  <a className="btn btn--huge" onClick={this.completeSignup}>
+                    <span>Back to homepage</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        { /* OLD VERSION */ }
+        {/* <div className="signup__box" data-aos="fade">
 
           <div className="signup__sucess-container">
+
             <div className="signup__sucess">
               <SvgIcon name="signup-sucess" />
             </div>
@@ -89,7 +113,7 @@ class SignupStep5 extends Component {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
 
       </div>
     )

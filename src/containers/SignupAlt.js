@@ -7,7 +7,9 @@ import { isValidNumber } from 'libphonenumber-js';
 import {api} from 'services/Api';
 import isProduction from 'services/isProduction';
 import buildOptionsString from 'services/buildOptionsString';
-import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL } from 'store/ActionTypes';
+import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL, SET_PRICING_PLAN} from 'store/ActionTypes';
+import 'airbnb-js-shims';
+import Select from 'react-select';
 
 // import SvgIcon from 'components/SvgIcon';
 import FormInput from 'components/FormInput';
@@ -23,7 +25,8 @@ class SignupAlt extends Component {
     setSignupEmail: PropTypes.func,
     pricingPlan: PropTypes.string,
     pricingOptions: PropTypes.array,
-    pricingOptionsSub: PropTypes.array
+    pricingOptionsSub: PropTypes.array,
+    setPricingPlan: PropTypes.func
   };
 
   constructor(props) {
@@ -35,6 +38,7 @@ class SignupAlt extends Component {
       company_name:  props.signupFields.company_name,
       email: props.signupEmail,
       phone: props.signupFields.phone,
+      selected_plan: this.converSelectedPlanToSelect(props.pricingPlan),
       formIsValid: false,
       isFormSubmitted: false
     };
@@ -64,6 +68,34 @@ class SignupAlt extends Component {
     this.formRef.current.submit();
   }
 
+  // select functions
+  converSelectedPlanToSelect = (val) => {
+    if ( val === "General" ){
+      return "I don't know"
+    } else {
+      return val
+    }
+  }
+
+  handleSelectChange = (name, e) => {
+    this.setState({...this.state, [name]: e});
+
+    if ( e.label === "I don't know" ){
+      this.props.setPricingPlan("General");
+    } else {
+      this.props.setPricingPlan(e.label);
+    }
+
+  }
+
+  mapArrToSelect = (arr) => {
+    return arr.map( x => {
+      return { value: x, label: x }
+    })
+  }
+
+
+  // inputs functions
   handleChange = (e) => {
     let fieldName = e.target.name;
     let fleldVal = e.target.value;
@@ -77,23 +109,24 @@ class SignupAlt extends Component {
   }
 
   nextStep = () => {
-    const { first_name, last_name, company_name, email, phone } = this.state;
+    const { first_name, last_name, company_name, email, phone, selected_plan } = this.state;
 
     let pricingOptionsStr = buildOptionsString(this.props.pricingOptions, this.props.pricingOptionsSub);
     const leadObj = {
       isproduction: isProduction(),
-      first_name: "* (alt signup) - " + first_name, // TODO alt tag is stored in name for now
+      first_name: "(alt) - " + first_name,
       last_name: last_name,
       company_name: company_name,
       email: email,
       phone: phone,
+      selected_plan: selected_plan ? selected_plan.label : null,
       pricing_plan: this.props.pricingPlan,
       pricing_options: pricingOptionsStr,
       ispending: false,
       isfollowup: false,
     }
 
-    console.log(leadObj)
+    console.log({leadObj})
 
     // if signup ID is present - then update by PATCH
     // else - create new
@@ -129,7 +162,7 @@ class SignupAlt extends Component {
 
   updateSignup = () => {
 
-    const { first_name, last_name, company_name, phone } = this.state;
+    const { first_name, last_name, company_name, phone, selected_plan } = this.state;
 
     this.props.setSignupStep(5); // how to redirect to thanks page
 
@@ -138,6 +171,7 @@ class SignupAlt extends Component {
       first_name: first_name,
       last_name: last_name,
       company_name: company_name,
+      selected_plan: selected_plan,
       // no email because it's outside signupFileds 1lvl top
       phone: phone,
     })
@@ -145,7 +179,18 @@ class SignupAlt extends Component {
   }
 
   render(){
-    const { first_name, last_name, company_name, email, phone, isFormSubmitted } = this.state;
+    const { first_name, last_name, company_name, email, phone, selected_plan, isFormSubmitted } = this.state;
+
+    const plansSelect = [
+      "Incorporation",
+      "Corporate Secretary",
+      "Annual Reporting",
+      "Monthly Reporting",
+      "Customised Finance Team",
+      "Dormant",
+      "I don't know"
+    ]
+
     return(
       <div className="container">
         <div className="signup__box signup__box--alt" data-aos="fade">
@@ -231,6 +276,18 @@ class SignupAlt extends Component {
                     />
                   </div>
                 </div>
+                <div className="ui-group ui-group--labeled">
+                  <label htmlFor="">Let us know which plan you are interested in?</label>
+                  <Select
+                    name="selected_plan"
+                    searchable={false}
+                    autosize={false}
+                    value={selected_plan}
+                    onChange={this.handleSelectChange.bind(this, 'selected_plan')}
+                    placeholder=""
+                    options={this.mapArrToSelect(plansSelect)}
+                  />
+                </div>
                 <button type="submit" className="btn btn--huge btn--block">
                   <span>Submit</span>
                 </button>
@@ -259,7 +316,8 @@ const mapDispatchToProps = (dispatch) => ({
   setSignupStep: (data) => dispatch({ type: SET_SIGNUP_STEP, payload: data }),
   setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data }),
   setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
-  setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data })
+  setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data }),
+  setPricingPlan: (data) => dispatch({ type: SET_PRICING_PLAN, payload: data })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupAlt);

@@ -7,7 +7,7 @@ import Image from 'components/Image';
 import CheckBox from 'components/CheckBox';
 import ShareholderTable from 'components/ShareholderTable';
 import { onboardingApi } from 'services/Api';
-import isProduction from 'services/isProduction';
+// import isProduction from 'services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
 
 class OnboardingStep7 extends Component {
@@ -17,6 +17,7 @@ class OnboardingStep7 extends Component {
     setOnboardingId: PropTypes.func,
     onboardingFields: PropTypes.object,
   };
+
 
   constructor(props) {
     super(props);
@@ -91,21 +92,42 @@ class OnboardingStep7 extends Component {
   nextStep = (refreshedToken) => {
     const { shareholders_individulas, shareholders_corporate } = this.state;
 
-    const leadObj = {
-      isproduction: isProduction(),
-      shareholders_individulas: this.convertStateToStr(shareholders_individulas),
-      shareholders_corporate: this.convertStateToStr(shareholders_corporate),
-      shareholders_individulas_array: JSON.stringify(shareholders_individulas),
-      shareholders_corporate_array: JSON.stringify(shareholders_corporate)
-    }
+    // const leadObj = {
+    //   isproduction: isProduction(),
+    //   // shareholders_individulas: this.convertStateToStr(shareholders_individulas),
+    //   // shareholders_corporate: this.convertStateToStr(shareholders_corporate),
+    //   shareholders_individulas_array: JSON.stringify(shareholders_individulas),
+    //   shareholders_corporate_array: JSON.stringify(shareholders_corporate)
+    // }
+
+    // shareholders_corporate fields
+    // x[0] // company name
+    // x[1] // Company registration #
+    // x[2] // rep full name
+    // x[3] // rep id
+    // x[4] // rep phone
+    // x[5] // rep email
+    // x[6] // assistant email
+
+    const leadObj = shareholders_corporate.map(x => {
+      return {
+        // companyId: this.props.companyId,
+        comp_name: x[0].value, // required
+        reg_no: x[1].value,
+        phone: x[4].value,
+        is_shareholder_of: this.props.companyId // required
+      }
+    })
+
+    console.log({leadObj}, {shareholders_individulas}, {shareholders_corporate})
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
-      .patch('company/' + this.props.companyId, leadObj)
+      .post('corporate-shareholder/new', leadObj)
       .then(res => {
         console.log('Backend response to onboarding PATCH' , res)
-        this.updateSignup()
+        // this.updateSignup()
       })
       .catch(err => {
         console.log(err.response); // todo update token ?
@@ -113,7 +135,6 @@ class OnboardingStep7 extends Component {
           this.refreshToken();
         }
       });
-
   }
 
   refreshToken = () => {
@@ -415,18 +436,18 @@ class OnboardingStep7 extends Component {
             <React.Fragment>
               <ShareholderTable
                 onRef={(ref) => { this.tableRef[1] = ref; }}
-                title="List of all non-corporate stakeholder(s) (shareholders and directors)"
-                titleTooltip="There will be an additional fee of S$25 per stakeholder per year after that fifth key stakeholder. This is to account for the additional administrative and recording keeping processes required."
-                addMoreText="Additional stakeholders"
+                title="List of corporate shareholder(s)"
+                titleTooltip="There will be an additional fee of S$100 per year if a corporate shareholder holds a 25% or more stake in the company. This is to account for the additional due diligence and compliance processes required by MAS’s anti-money laundering regulation."
+                addMoreText="Additional corporate entity"
                 schema={corporatesTable}
                 updateState={this.updateState.bind(this, "shareholders_corporate")}
               />
 
               <ShareholderTable
                 onRef={(ref) => { this.tableRef[0] = ref; }}
-                title="List of corporate shareholder(s)"
-                titleTooltip="There will be an additional fee of S$100 per year if a corporate shareholder holds a 25% or more stake in the company. This is to account for the additional due diligence and compliance processes required by MAS’s anti-money laundering regulation."
-                addMoreText="Additional corporate entity"
+                title="List of all non-corporate stakeholder(s) (shareholders and directors)"
+                titleTooltip="There will be an additional fee of S$25 per stakeholder per year after that fifth key stakeholder. This is to account for the additional administrative and recording keeping processes required."
+                addMoreText="Additional stakeholders"
                 schema={individualsTable}
                 updateState={this.updateState.bind(this, "shareholders_individulas")}
               />

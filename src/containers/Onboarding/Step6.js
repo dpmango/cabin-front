@@ -11,7 +11,7 @@ import Image from 'components/Image';
 import ReactTags from 'components/ReactTags/ReactTags';
 // import { WithContext as ReactTags } from 'react-tag-input'; // changed to /compoinenets call
 
-import { countriesListAutocompleate, delimiters} from 'store/CountriesListAutocompleate';
+import {delimiters} from 'store/CountriesListAutocompleate';
 
 class OnboardingStep5 extends Component {
   static propTypes = {
@@ -156,7 +156,7 @@ class OnboardingStep5 extends Component {
     }
 
     // update the api
-    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + this.props.onboardingToken
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
       .patch('company/' + this.props.companyId, leadObj)

@@ -14,10 +14,6 @@ class OnboardingThanks extends Component {
     };
   }
 
-  componentDidMount(){
-
-  }
-
   completeSignup = () => {
 
     this.setState({

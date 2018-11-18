@@ -111,7 +111,7 @@ class OnboardingStep8 extends Component {
       // other_controllers_input: other_controllers_input,
     }
 
-    console.log({leadObj})
+    // console.log({leadObj})
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 

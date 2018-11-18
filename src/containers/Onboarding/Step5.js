@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
+import Select from 'react-select';
 import { notify } from 'reapop';
 import { onboardingApi } from 'services/Api';
 import isProduction from 'services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
 import Image from 'components/Image';
 import FormInput from 'components/FormInput';
+import SvgIcon from 'components/SvgIcon';
+import { Tooltip } from 'react-tippy';
 
 class OnboardingStep4 extends Component {
   static propTypes = {
@@ -24,6 +27,7 @@ class OnboardingStep4 extends Component {
       company_activity: props.onboardingFields.company_activity,
       company_addres:  props.onboardingFields.company_addres,
       company_revenue:  props.onboardingFields.company_revenue,
+      errors: [],
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -48,12 +52,18 @@ class OnboardingStep4 extends Component {
   }
 
   // submit handler from the form
+  // submit handler from the form
   handleSubmit = (e) => {
-    this.setState({isFormSubmitted: true})
-    if ( this.state.formIsValid ){
-      this.nextStep();
-      this.setState({isFormSubmitted: false}) // reset state here
-    }
+    this.setState({
+      isFormSubmitted: true
+    }, () => {
+      this.validateCustom(() => { // callback when err state is up
+        if ( this.state.errors.length === 0 ){
+          this.nextStep();
+          this.setState({isFormSubmitted: false}) // reset state here
+        }
+      });
+    })
   }
 
   // click handler for the button
@@ -73,6 +83,44 @@ class OnboardingStep4 extends Component {
     }
   }
 
+  // select handlers
+  handleSelectChange = (name, e) => {
+    this.setState({
+      ...this.state, [name]: e
+    }, () => this.validateCustom())
+  }
+
+  mapArrToSelect = (arr) => {
+    return arr.map( x => {
+      return { value: x, label: x }
+    })
+  }
+
+  // custom validation
+  validateCustom = (cb) => {
+    const {
+      company_revenue
+    } = this.state;
+
+    let buildErrors = []
+    if (!company_revenue){
+      buildErrors.push("company_revenue")
+    }
+
+    this.setState({
+      ...this.state, errors: buildErrors
+    }, cb)
+  }
+
+  showError = (name) => {
+    if (
+      this.state.isFormSubmitted &&
+      this.state.errors.indexOf(name) !== -1){
+      return <span className="ui-input-validation">Please select annual revenue</span>
+    }
+  }
+
+  // logic and back-end
   nextStep = (refreshedToken) => {
     const { company_activity, company_addres, company_revenue } = this.state;
 
@@ -80,8 +128,10 @@ class OnboardingStep4 extends Component {
       isproduction: isProduction(),
       primary_activity: company_activity,
       address: company_addres,
-      annual_revenue: company_revenue
+      annual_revenue: company_revenue.value
     }
+
+    console.log({leadObj})
 
     // update the api
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
@@ -163,6 +213,19 @@ class OnboardingStep4 extends Component {
 
   render(){
     const { company_activity, company_addres, company_revenue, isTransitioningNext } = this.state;
+
+    const selectValues = {
+      company_revenue: [
+        "Not generating revenue",
+        "S$1K - S$50K",
+        "S$51K - S$100K",
+        "S$100K - S$500K",
+        "S$500K - S$1M",
+        "S$1M - S$5M",
+        ">S$5M"
+      ]
+    }
+
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">
@@ -209,7 +272,7 @@ class OnboardingStep4 extends Component {
               onKeyHandler={this.keyPressHandler}
               required
             />
-            <FormInput
+            {/* <FormInput
               name="company_revenue"
               tooltipContent=" If this is a new company, a rough estimation of your projected annual revenue will be sufficient"
               label="Estimated annual revenue"
@@ -222,8 +285,28 @@ class OnboardingStep4 extends Component {
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
-              required
-            />
+              required /> */}
+            <div className="ui-group">
+              <label htmlFor="company_revenue" className="ui-group__label">Estimated annual revenue?</label>
+              <Select
+                name="company_revenue"
+                searchable={false}
+                autosize={false}
+                value={company_revenue}
+                onChange={this.handleSelectChange.bind(this, 'company_revenue')}
+                placeholder=""
+                options={this.mapArrToSelect(selectValues.company_revenue)} />
+              <div className="ui-group__tooltip">
+                <Tooltip
+                  title=" If this is a new company, a rough estimation of your projected annual revenue will be sufficient"
+                  position="bottom"
+                  distance="10"
+                  arrow="true">
+                    <SvgIcon name="question-circle" />
+                </Tooltip>
+              </div>
+              {this.showError("company_revenue")}
+            </div>
           </Formsy>
         </div>
       </div>

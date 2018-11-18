@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_HEADER_CLASS, SET_FOOTER_CLASS, LOCK_SIGNUP_ALT } from 'store/ActionTypes';
 
-import SignupStep1 from 'containers/SignupStep1'
-import SignupContainer from 'containers/SignupContainer'
-import SignupStep2 from 'containers/SignupStep2'
-import SignupStep3 from 'containers/SignupStep3'
-import SignupStep4 from 'containers/SignupStep4'
+// import SignupStep1 from 'containers/SignupStep1'
+// import SignupContainer from 'containers/SignupContainer'
+// import SignupStep2 from 'containers/SignupStep2'
+// import SignupStep3 from 'containers/SignupStep3'
+// import SignupStep4 from 'containers/SignupStep4'
 import SignupStep5 from 'containers/SignupStep5'
 import SignupAlt from 'containers/SignupAlt'
 
@@ -30,38 +30,49 @@ class GetStarted extends React.Component {
     this.props.aosInst.refreshHard();
   }
 
-  shouldRenderAlt = () => {
-    if ( Math.random() > .5 ){
-      this.props.lockSignupAlt(true)
-      return true
-    } else {
-      this.props.lockSignupAlt(false)
-      return false
-    }
-  }
+  // shouldRenderAlt = () => {
+  //   // this.props.lockSignupAlt(false)
+  //
+  //   // A/B testing
+  //   if ( Math.random() > .5 ){
+  //     this.props.lockSignupAlt(true)
+  //     return true
+  //   } else {
+  //     this.props.lockSignupAlt(false)
+  //     return false
+  //   }
+  // }
 
   updateURL = () => {
     const { signupStep, location, history } = this.props
 
-    let isAlternative
-    if ( this.props.isAltSaved === null ){
-      isAlternative = this.shouldRenderAlt(); // ask for random 50/50
-    } else {
-      isAlternative = this.props.isAltSaved // or just compare the store
-    }
+    // let isAlternative
+    // if ( this.props.isAltSaved === null ){
+    //   isAlternative = this.shouldRenderAlt(); // ask for random 50/50
+    // } else {
+    //   isAlternative = this.props.isAltSaved // or just compare the store
+    // }
+    //
+    // let newPath
+    // if ( isAlternative ){
+    //   newPath = "/get-started/simple";
+    // } else {
+    //   if ( signupStep === 1 ) {
+    //     newPath = "/get-started/hello";
+    //   } else {
+    //     newPath = "/get-started/step-" + (signupStep - 1);
+    //   }
+    // }
+    //
+    // // nevermind about the alt for thank you page
+    // if ( signupStep === 5 ){
+    //   newPath = "/get-started/thank-you";
+    // }
 
+    // simple only !
     let newPath
-    if ( isAlternative ){
-      newPath = "/get-started/simple";
-    } else {
-      if ( signupStep === 1 ) {
-        newPath = "/get-started/hello";
-      } else {
-        newPath = "/get-started/step-" + (signupStep - 1);
-      }
-    }
+    newPath = "/get-started";
 
-    // nevermind about the alt for thank you page
     if ( signupStep === 5 ){
       newPath = "/get-started/thank-you";
     }
@@ -81,7 +92,8 @@ class GetStarted extends React.Component {
 
     return (
       <div className="signup">
-        <PropsRoute path={`${match.url}/:step`} component={GetStartedSwitch} />
+        <PropsRoute path={`${match.url}`} component={GetStartedSwitch} />
+        {/* <PropsRoute path={`${match.url}/:step`} component={GetStartedSwitch} /> */}
         {/* <Route
           exact
           path={match.url}
@@ -102,38 +114,47 @@ class GetStartedSwitch extends React.Component {
   }
 
   renderStep = () => {
-    const { match } = this.props;
+    const { match, signupStep } = this.props;
 
-    const stepParam = match.params.step;
+    // const stepParam = match.params.step;
 
-    switch (stepParam) {
-      case 'step-1':
-        return (
-          <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <SignupStep2 onRef={ref => (this.child = ref)} />
-          </SignupContainer>
-        )
-      case 'step-2':
-        return (
-          <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <SignupStep3 onRef={ref => (this.child = ref)} />
-          </SignupContainer>
-        )
-      case 'step-3':
-        return (
-          <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
-            <SignupStep4 onRef={ref => (this.child = ref)} />
-          </SignupContainer>
-        )
-      case 'thank-you':
+    // switch (stepParam) {
+    //   case 'step-1':
+    //     return (
+    //       <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
+    //         <SignupStep2 onRef={ref => (this.child = ref)} />
+    //       </SignupContainer>
+    //     )
+    //   case 'step-2':
+    //     return (
+    //       <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
+    //         <SignupStep3 onRef={ref => (this.child = ref)} />
+    //       </SignupContainer>
+    //     )
+    //   case 'step-3':
+    //     return (
+    //       <SignupContainer onPrev={this.prevStep} onNext={this.nextStep}>
+    //         <SignupStep4 onRef={ref => (this.child = ref)} />
+    //       </SignupContainer>
+    //     )
+    //   case 'thank-you':
+    //     return <SignupStep5 />
+    //   case 'simple':
+    //     return <SignupAlt />
+    //   case 'hello':
+    //     return <SignupStep1 />
+    //   default:
+    //     return <SignupStep1 />
+    // }
+
+    // // A/B testing disabled
+    switch (signupStep) {
+      case 5:
         return <SignupStep5 />
-      case 'simple':
-        return <SignupAlt />
-      case 'hello':
-        return <SignupStep1 />
       default:
-        return <SignupStep1 />
+        return <SignupAlt />
     }
+
   }
 
   render() {

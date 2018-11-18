@@ -155,7 +155,7 @@ class OnboardingStep7 extends Component {
 
   validateCustom = (cb) => {
     const {
-      nomineeDirector, agent, grounds, shareholderOnBehalf, offence, bankrupt, pep, designation
+      nomineeDirector, agent, grounds, shareholderOnBehalf, offence, bankrupt
     } = this.state;
 
 

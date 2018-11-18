@@ -9,7 +9,7 @@ import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } 
 import Image from 'components/Image';
 import FormInput from 'components/FormInput';
 import ReactTags from 'components/ReactTags/ReactTags';
-import { countriesListAutocompleate, delimiters} from 'store/CountriesListAutocompleate';
+import { delimiters} from 'store/CountriesListAutocompleate';
 import CheckBox from 'components/CheckBox';
 
 class OnboardingStep6 extends Component {
@@ -212,16 +212,25 @@ class OnboardingStep6 extends Component {
 
     const leadObj = {
       isproduction: isProduction(),
+      investment_idv_local: paidup_capital.indexOf("Investment from local individual shareholder(s)") !== -1,
+      investment_idv_foreign: paidup_capital.indexOf("Investment from foreign individual shareholder(s)") !== -1,
+      investment_corp_local: paidup_capital.indexOf("Investment from local corporate shareholder(s)") !== -1,
+      investment_corp_foreign: paidup_capital.indexOf("Investment from foreign corporate shareholder(s)") !== -1,
+      investment_loans: paidup_capital.indexOf("Loans") !== -1,
+      investment_others: (paidup_capital.indexOf("Others") !== -1 ? paidup_capital_inputs[0].value : "No"), // inputs is one value only. No need to deep search
       // paidup_capital: paidup_capital.join(', '),
       // paidup_capital_inputs: paidup_capital_inputs, // TODO refactor
-      related_entities: companyRelationsJoined,
+      // related_entities: companyRelationsJoined,
+      subsidiary_of: (company_relations.indexOf("Subsidiary (or beneficiary) company of") !== -1 ? company_relations_inputs[0].value : "No"),
+      beneficiary_of: (company_relations.indexOf("Subsidiary (or beneficiary) company of") !== -1 ? company_relations_inputs[1].value : "No"),
+      other_related_entity: (company_relations.indexOf("Others") !== -1 ? company_relations_inputs[2].value : "No"),
       // company_relations: companyRelationsJoined,
       capital_origin_countries: paidup_capital_origins.map(x => x.countryCode),
       // paidup_capital_origins: paidup_capital_origins.map(x => `(${x.id}) ${x.text}`).join(', ')  // TODO refactor or send clear values
     }
 
     console.log({leadObj})
-    console.log({refreshedToken})
+
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
@@ -435,7 +444,7 @@ class OnboardingStep6 extends Component {
                             name="paidup_capital_inputs"
                             id={cb.name}
                             placeholder={cb.input}
-                            value={paidup_capital_inputs[cb.name]}
+                            value={paidup_capital_inputs.find(x => x.name === cb.name).value}
                             onChangeHandler={this.handleChangeNested} />
                         }
                       </Fragment>
@@ -482,7 +491,7 @@ class OnboardingStep6 extends Component {
                             name="company_relations_inputs"
                             id={cb.name}
                             placeholder={cb.input}
-                            value={company_relations_inputs[cb.name]}
+                            value={company_relations_inputs.find(x => x.name === cb.name).value}
                             onChangeHandler={this.handleChangeNested} />
                         }
                       </Fragment>

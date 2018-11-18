@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import {api} from 'services/Api';
-import isProduction from 'services/isProduction';
+// import {api} from 'services/Api';
+// import isProduction from 'services/isProduction';
 import { SET_ONBOARDING_C_STEP, SET_ONBOARDING_C_FIELDS, SET_ONBOARDING_C_ID } from 'store/ActionTypes';
 import Image from 'components/Image';
 import FormInput from 'components/FormInput';
@@ -25,7 +25,7 @@ class OnboardingStep4 extends Component {
       company_address:  props.onboardingFields.company_address,
       formIsValid: false,
       isTransitioningNext: false,
-      isFormSubmitted: false
+      // isFormSubmitted: false
     };
 
     this.formRef = React.createRef();
@@ -157,7 +157,7 @@ class OnboardingStep4 extends Component {
   }
 
   render(){
-    const { company_name, compnay_number, company_address, isTransitioningNext, isFormSubmitted } = this.state;
+    const { company_name, compnay_number, company_address, isTransitioningNext } = this.state;
     return(
 
       <div className={"signup__wrapper " + (isTransitioningNext ? "fade-out" : "")} data-aos="fade-left">

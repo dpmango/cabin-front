@@ -43,8 +43,19 @@
     text-align: right
 
     img, .home-hero__lottie
-      width: 691px
-      height: 573px
+      // original image / lottie
+      // width: 691px
+      // height: 573px
+      // keep new 2000, 1412 proportios
+      // width: 810px
+      // height: 573px
+      // 1.05 scale
+      width: 850px
+      height: 602px
+      margin-bottom: -2px
+      transform: translateX(50px)
+      // transform: scale(1.05)
+      // transform-origin: center bottom
       // height: 578px
       // max-width: 100%
       // max-height: 100%
@@ -52,14 +63,18 @@
 +rmin(1440)
   .home-hero
     &__bg
-      align-items: flex-start
+      // align-items: flex-start
       // padding-left: 270px
       padding-left: 30px
       left: 50%
       // width: calc(691px + 270px)
-      width: calc(691px + 30px)
+      // width: calc(691px + 30px)
+      width: calc(850px + 30px)
       // width: 691px
       // justify-content: flex-start
+      img, .home-hero__lottie
+        // adjust to new layout
+        transform: translateX(-110px)
       &::after
         display: inline-block
         content: ' '
@@ -69,11 +84,15 @@
         right: 0
         width: 100px
         background: linear-gradient(-90deg, #FFFFFF 0%, rgba(255,255,255,0.01) 100%)
+        // adjust to new layout
+        transform: translateX(-110px)
 
 +r(1380)
   .home-hero
     &__bg
       align-items: flex-start
+      img, .home-hero__lottie
+        transform: translateX(-110px)
 
 +r($mobile)
   .home-hero
@@ -91,6 +110,7 @@
         max-width: 100%
         width: auto
         height: auto
+        transform: translateX(0px)
       &::after
         display: inline-block
         content: ' '
@@ -102,7 +122,6 @@
         background: linear-gradient(0deg, #FFFFFF 0%, rgba(255,255,255,0.01) 100%)
     &__lottie
       font-size: 0
-
     &__form
       margin-top: 45px
     &__wrapper
