@@ -100,8 +100,6 @@ class OnboardingStep7 extends Component {
     //   shareholders_corporate_array: JSON.stringify(shareholders_corporate)
     // }
 
-    // console.log('initial state', {shareholders_individulas}, {shareholders_corporate});
-
     // state transformations and API's
 
     const leadCoShareholders = shareholders_corporate.map(x => {
@@ -113,6 +111,18 @@ class OnboardingStep7 extends Component {
         is_shareholder_of: this.props.companyId // required
       }
     })
+
+    // clear blank
+    leadCoShareholders.filter(x => x.comp_name !== "" && x.reg_no.value !== "")
+
+    if ( leadCoShareholders.length === 0 ){
+      // this.showNotificationError({
+      //   'corporate_shareholders': 'Corporate shareholders may not be blank'
+      // })
+      // return
+    }
+
+    console.log({leadCoShareholders}, {shareholders_corporate});
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
@@ -126,7 +136,7 @@ class OnboardingStep7 extends Component {
         console.log(err.response);
         if (err.response.status === 401){
           this.refreshToken();
-        } else {
+        } else if (err.response.status === 400){ // bad data
           this.showNotificationError(err.response.data)
         }
       })
@@ -172,23 +182,39 @@ class OnboardingStep7 extends Component {
       .post('user/new', leadUsers)
         .then(res => {
           console.log('Backend response to user POST' , res)
-          // this.updateSignup()
+          this.updateSignup()
         })
         .catch(err => {
-          console.log(err.response); // todo update token ?
+          console.log(err.response);
           if (err.response.status === 401){
             this.refreshToken();
-          } else {
+          } else if (err.response.status === 400){ // bad data
             this.showNotificationError(err.response.data)
           }
         })
   }
 
+  keysToWord = (x) => {
+    switch (x) {
+      case "comp_name":
+        return "Company name"
+      case "email":
+        return "Email"
+      case "id":
+        return "ID"
+      case "phone":
+        return "Phone number"
+      default:
+        return x
+    }
+  }
+
   showNotificationError = (data) => {
-    console.log(data)
+    const message = Object.keys(data).map(x => `${this.keysToWord(x)} : ${data[x]}`)
+
     this.props.notify({
-      title: `Whoops! ${data.stringify()}`,
-      message: 'Error processing your company shareholders',
+      title: `Whoops! Please fix following:`,
+      message: message,
       status: 'default', // default, info, success, warning, error
       dismissible: true,
       dismissAfter: 4000,
