@@ -119,21 +119,28 @@
     display: flex
     flex-direction: column-reverse
     &__bg
-      align-items: flex-end
+      // align-items: flex-end
+      align-items: flex-start
       position: relative 0
       transform: none
       padding-top: 70px
-      width: 100%
+      width: 109%
       // keep flex for right align
       // display: block
       overflow: hidden
+      margin-left: -9%
       img, .home-hero__lottie
-        // max-width: 100%
+        max-width: 100%
+        max-height: 100%
+        // max-width: 200%
+        // max-height: 200%
         // 850px originally
-        max-width: 700px
+        // max-width: 700px
         width: auto
         height: auto
-        transform: translateX(0px)
+        // width: 109%
+        // height: 109%
+        transform: translateX(0%)
       &::after
         display: inline-block
         content: ' '
@@ -152,13 +159,24 @@
       height: auto
       max-height: 100%
       padding-bottom: 75px
-      padding-top: 40px
+      padding-top: 20px
+      max-width: 100%
+    .t-paragraph
+      max-width: 100%
+
++r($tablet)
+  .home-hero
+    &__bg
+      width: 108%
+      margin-left: -8%
+
 
 +r($mobile-s)
   .home-hero
     &__bg
       width: 134%
       // width: 147%
+      margin-left: 0
       img, .home-hero__lottie
         transform: translateX(-8.2%)
     &__wrapper
