@@ -141,8 +141,11 @@ class OnboardingStep2 extends Component {
             <p className="t-paragraph"><strong>{managers.executive.name}</strong> will handle the administration of all secretarial matters and be the main point of contact for any requests you have.</p>
             <p className="t-paragraph">We look forward to working with you.</p>
             <div className="signup__signs-row">
-              <i className="icon icon-rifeng-sign" />
-              <i className="icon icon-rifeng-sign" />
+              <img style={{'max-width': 100}} src={managers.secretary.signature_img_url} alt={managers.secretary.name} />
+              <img style={{'max-width': 100}} src={managers.executive.signature_img_url} alt={managers.executive.name} />
+
+              {/* <i className="icon icon-rifeng-sign" />
+              <i className="icon icon-rifeng-sign" /> */}
             </div>
           </div>
         </div>

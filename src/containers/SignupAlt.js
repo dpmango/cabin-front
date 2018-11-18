@@ -284,7 +284,7 @@ class SignupAlt extends Component {
                     autosize={false}
                     value={selected_plan}
                     onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-                    placeholder=""
+                    placeholder="Select a plan"
                     options={this.mapArrToSelect(plansSelect)}
                   />
                 </div>

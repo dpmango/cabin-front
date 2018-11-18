@@ -54,6 +54,9 @@ class OnBoarding extends React.Component {
       this.getToken();
       return
     }
+    // handle if token not valid
+    // this.getToken();
+
 
     if ( location.pathname === newPath ){
       return
@@ -65,7 +68,8 @@ class OnBoarding extends React.Component {
     const urlPlace = this.props.location.pathname.split('/')[2]
     const token =  urlPlace ? urlPlace.trim() : null
     // InNlcmdleSI:1gOGTO:ICh0zcftjCF2VGXomdvRKDj7V60.1gOGTO.azYvDSvp5auGT5CMjvDkFG6AWdw
-    
+    // InNpbmd0ZWwi:1gOMkN:RAwR-hZMbSKiS4aPHHzhKzlzYJ8.1gOMkN.oXtHtOGmZVWCElrJRm2sb0Rc8Q8
+
     if ( !token || token.lenght < 10 ){
       // TODO - url path re treated as token as well
       // this.tokenInvalid(token);

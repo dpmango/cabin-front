@@ -90,7 +90,7 @@ class OnboardingStep7 extends Component {
   }
 
   nextStep = (refreshedToken) => {
-    const { shareholders_individulas, shareholders_corporate } = this.state;
+    const { shareholders_corporate } = this.state;
 
     // const leadObj = {
     //   isproduction: isProduction(),
@@ -100,41 +100,99 @@ class OnboardingStep7 extends Component {
     //   shareholders_corporate_array: JSON.stringify(shareholders_corporate)
     // }
 
-    // shareholders_corporate fields
-    // x[0] // company name
-    // x[1] // Company registration #
-    // x[2] // rep full name
-    // x[3] // rep id
-    // x[4] // rep phone
-    // x[5] // rep email
-    // x[6] // assistant email
+    // console.log('initial state', {shareholders_individulas}, {shareholders_corporate});
 
-    const leadObj = shareholders_corporate.map(x => {
+    // state transformations and API's
+
+    const leadCoShareholders = shareholders_corporate.map(x => {
       return {
         // companyId: this.props.companyId,
         comp_name: x[0].value, // required
         reg_no: x[1].value,
-        phone: x[4].value,
+        // phone: x[4].value,
         is_shareholder_of: this.props.companyId // required
       }
     })
 
-    console.log({leadObj}, {shareholders_individulas}, {shareholders_corporate})
-
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
     onboardingApi
-      .post('corporate-shareholder/new', leadObj)
+      .post('corporate-shareholder/new', leadCoShareholders)
       .then(res => {
-        console.log('Backend response to onboarding PATCH' , res)
-        // this.updateSignup()
+        console.log('Backend response to corporate-shareholder POST' , res)
+        this.postUsers(res.data)
       })
       .catch(err => {
-        console.log(err.response); // todo update token ?
+        console.log(err.response);
         if (err.response.status === 401){
           this.refreshToken();
+        } else {
+          this.showNotificationError(err.response.data)
         }
-      });
+      })
+  }
+
+  postUsers = (corporate_shareholders, refreshedToken) => {
+    const { shareholders_individulas, shareholders_corporate } = this.state;
+
+    let leadCorporate = shareholders_corporate.map(x => {
+      console.log('finding representing_corporate_shareholder', {corporate_shareholders}, corporate_shareholders.filter(y => y.comp_name === x[0].value))
+      return {
+        name	                : x[2].value, // The user's name
+        id_no                 : parseInt(x[3].value, 10),	// The user's identification number
+        phone	                : x[4].value, // The user's phone number
+        email	                : x[5].value, // The user's email address
+        assistant_email	      : x[6].value, // The assistant's email address. Useful if they prefer we forward the link to their administrative assistant.
+        representing_company  : this.props.companyId, // The company id that the user is representing
+        representing_corporate_shareholder	: corporate_shareholders.filter(y => y.comp_name === x[0].value)[0].id, // The corporate shareholder id that the user is representing
+      }
+    })
+
+    let leadIndividual = shareholders_individulas.map(x => {
+      return {
+        name	                : x[0].value, // The user's name
+        id_no                 : parseInt(x[1].value, 10),	// The user's identification number
+        phone	                : x[2].value, // The user's phone number
+        email	                : x[3].value, // The user's email address
+        is_singaporean        : x[4].value, // Whether the user is a singaporean citizen
+        representing_company  : this.props.companyId, // The company id that the user is representing
+        is_shareholder_of	    : x[5].value ? this.props.companyId : false, // The company that the user holds shares in
+        is_director_of	      : x[6].value ? this.props.companyId : false, // The company id that the user is a director of
+      }
+    })
+
+    const leadUsers = [...leadCorporate, ...leadIndividual]
+
+    console.log({leadUsers})
+
+    onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
+
+    // create users
+    onboardingApi
+      .post('user/new', leadUsers)
+        .then(res => {
+          console.log('Backend response to user POST' , res)
+          // this.updateSignup()
+        })
+        .catch(err => {
+          console.log(err.response); // todo update token ?
+          if (err.response.status === 401){
+            this.refreshToken();
+          } else {
+            this.showNotificationError(err.response.data)
+          }
+        })
+  }
+
+  showNotificationError = (data) => {
+    console.log(data)
+    this.props.notify({
+      title: `Whoops! ${data.stringify()}`,
+      message: 'Error processing your company shareholders',
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 4000,
+    })
   }
 
   refreshToken = () => {
