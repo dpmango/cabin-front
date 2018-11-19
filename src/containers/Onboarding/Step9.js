@@ -284,7 +284,7 @@ class OnboardingStep8 extends Component {
               { other_beneficiaries &&
                 <FormInput
                   name="other_beneficiaries_input"
-                  extraClass="ui-group--m-top ui-group--regular-label"
+                  extraclassName="ui-group--m-top ui-group--regular-label"
                   label="Please name the other related entities"
                   placeholder="Please name the other related entities"
                   value={other_beneficiaries_input}
@@ -324,7 +324,7 @@ class OnboardingStep8 extends Component {
               { other_controllers &&
                 <FormInput
                   name="other_controllers_input"
-                  extraClass="ui-group--m-top ui-group--regular-label"
+                  extraclassName="ui-group--m-top ui-group--regular-label"
                   label="Please name the Registrable Controller"
                   placeholder="Please name the Registrable Controller"
                   value={other_controllers_input}

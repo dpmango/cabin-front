@@ -273,25 +273,25 @@ class OnboardingStep5 extends Component {
             ref={this.formRef}>
             { /* https://github.com/prakhar1989/react-tags */ }
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries where the company’s <span class="t-uppercase">customers</span> are located</label>
+              <label htmlFor="">List of countries where the company’s <span className="t-uppercase">customers</span> are located</label>
               <ReactTags
                 {...defaultTagProps("consumers_list")} />
               { this.showError("consumers_list") }
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries where the company’s <span class="t-uppercase">suppliers</span> are located</label>
+              <label htmlFor="">List of countries where the company’s <span className="t-uppercase">suppliers</span> are located</label>
               <ReactTags
                 {...defaultTagProps("suppliers_list")} />
               { this.showError("suppliers_list") }
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries that the company is <span class="t-uppercase">making payment</span> to</label>
+              <label htmlFor="">List of countries that the company is <span className="t-uppercase">making payment</span> to</label>
               <ReactTags
                 {...defaultTagProps("payments_to_list")} />
               { this.showError("payments_to_list") }
             </div>
             <div className="ui-group ui-group--labeled">
-              <label htmlFor="">List of countries that the company is <span class="t-uppercase">receiving payment</span> from</label>
+              <label htmlFor="">List of countries that the company is <span className="t-uppercase">receiving payment</span> from</label>
               <ReactTags
                 {...defaultTagProps("payments_from_list")} />
               { this.showError("payments_from_list") }

@@ -57,6 +57,7 @@ export const initialState = {
     haveShareholders: null,
     shareholders_individulas: [],
     shareholders_corporate: [],
+    corporate_shareholders_backend: [],
     other_beneficiaries: false,
     other_controllers: false,
     other_beneficiaries_input: "",

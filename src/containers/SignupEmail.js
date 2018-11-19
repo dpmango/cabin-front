@@ -98,7 +98,7 @@ class SingupEmail extends Component {
           <button type="submit" className="btn btn--huge">Get Started</button>
           { errors &&
             // render all errors or only first (most relevant?)
-            // <div class="ui-input-validation">{errors.map((err) => (
+            // <div className="ui-input-validation">{errors.map((err) => (
             //   err
             // ))}</div>
             <div className="ui-input-validation">{errors}</div>

@@ -38,6 +38,7 @@ class OnboardingStep7 extends Component {
       // load table data from
       shareholders_individulas: props.onboardingFields.shareholders_individulas,
       shareholders_corporate: props.onboardingFields.shareholders_corporate,
+      corporate_shareholders_backend: props.onboardingFields.corporate_shareholders_backend,
       errors: [],
       tablesValid: false,
       formIsValid: false,
@@ -107,12 +108,14 @@ class OnboardingStep7 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
-    const { tablesValid, errors } = this.state
     this.setState({
       isFormSubmitted: true
     }, () => {
       this.validateCustom(() => { // callback when err state is up
+        const { tablesValid, errors } = this.state
+        console.log('initializing validaiton', errors.length, {tablesValid})
         if ( errors.length === 0 && tablesValid ){
+          console.log('processing to next step')
           this.nextStep();
           this.setState({isFormSubmitted: false}) // reset state here
         }
@@ -256,7 +259,10 @@ class OnboardingStep7 extends Component {
       .post('corporate-shareholder/new', leadCoShareholders)
       .then(res => {
         console.log('Backend response to corporate-shareholder POST' , res)
-        this.postUsers(res.data, refreshedToken)
+        this.setState({
+          corporate_shareholders_backend: res.data // srote id once
+        }, () => this.postUsers(refreshedToken) )
+
       })
       .catch(err => {
         console.log(err.response);
@@ -269,8 +275,12 @@ class OnboardingStep7 extends Component {
   }
 
   // Users (after corporate shareholders)
-  postUsers = (corporate_shareholders_from_backend, refreshedToken) => {
-    const { shareholders_individulas, shareholders_corporate } = this.state;
+  postUsers = (refreshedToken) => {
+    const {
+      shareholders_individulas,
+      shareholders_corporate,
+      corporate_shareholders_backend
+    } = this.state;
 
     // filter for non-blank only
     let stateCloneCorp = this.state.shareholders_corporate
@@ -280,7 +290,7 @@ class OnboardingStep7 extends Component {
     stateCloneIndividual = this.filterBlankRows(stateCloneIndividual)
 
     let leadCorporate = stateCloneCorp.map(x => {
-      // console.log('finding representing_corporate_shareholder', {corporate_shareholders_from_backend}, corporate_shareholders_from_backend.filter(y => y.comp_name === x[0].value))
+      // console.log('finding representing_corporate_shareholder', {corporate_shareholders_backend}, corporate_shareholders_backend.filter(y => y.comp_name === x[0].value))
       return {
         name	                : x[2].value, // The user's name
         id_no                 : x[3].value,	// The user's identification number
@@ -288,7 +298,7 @@ class OnboardingStep7 extends Component {
         email	                : x[5].value, // The user's email address
         assistant_email	      : x[6].value, // The assistant's email address. Useful if they prefer we forward the link to their administrative assistant.
         representing_company  : this.props.companyId, // The company id that the user is representing
-        representing_corporate_shareholder	: corporate_shareholders_from_backend.filter(y => y.comp_name === x[0].value)[0].id, // The corporate shareholder id that the user is representing
+        representing_corporate_shareholder	: corporate_shareholders_backend.filter(y => y.comp_name === x[0].value)[0].id, // The corporate shareholder id that the user is representing
       }
     })
 
@@ -456,7 +466,8 @@ class OnboardingStep7 extends Component {
       stateCloneCorp.some(row => row.some(col => col.error)) ||
       stateCloneIndividual.some(row => row.some(col => col.error))
 
-    // console.log({haveErrors})
+    console.log({haveErrors}, {stateCloneCorp}, {stateCloneIndividual}, merge(shareholders_corporate, stateCloneCorp))
+
     if ( haveErrors ){
       this.props.notify({
         title: `Whoops! Your data is not valid`,

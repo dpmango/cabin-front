@@ -192,7 +192,7 @@ class OnboardingStep6 extends Component {
       // server: "http://localhost:8090",
       required: true,
       instantUpload: true,
-      labelIdle: 'Drag a file here or select file to upload <span class="btn btn--small filepond--label-action">Select File</span>',
+      labelIdle: 'Drag a file here or select file to upload <span className="btn btn--small filepond--label-action">Select File</span>',
       oninit: this.handleFilePondInit,
       onupdatefiles: (fileItems) => this.handleFilePindUpload.bind(this, fileItems, name)
     })
