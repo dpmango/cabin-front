@@ -1,6 +1,25 @@
 import React, { Component } from "react";
 
 export default class Loader extends Component {
+  // constructor(){
+  //   super();
+  //
+  //   this.state = {
+  //     shouldShow: false // to prevent showing loader on intial load
+  //   }
+  // }
+  //
+  // componentDidMount() {
+  //   console.log('loader component mount', window.history)
+  //   this.setState({
+  //     shouldShow: true
+  //   })
+  // }
+  //
+  // componentDidUpdate(){
+  //   console.log('loader component',  this.state, window.history)
+  // }
+
   descriptionBlock = () => {
     const { timedOut, error, pastDelay, retry } = this.props;
 
@@ -33,8 +52,8 @@ export default class Loader extends Component {
 
   render(){
     const { timedOut, error, pastDelay } = this.props;
-
-    if ( !error && !timedOut && !pastDelay ){
+    // !this.state.shoudldShow || 
+    if ( ( !error && !timedOut && !pastDelay) ){
       return null
     } else {
       return(

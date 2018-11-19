@@ -3,9 +3,13 @@ import reducers from '../reducers/index';
 import { loadState, saveState } from './localStorage';
 import gtmMiddleware from './gtmMiddleware';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+import {createLogger} from 'redux-logger';
 
 const initialState = loadState();
+
+const logger = createLogger({
+  collapsed: true
+});
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(gtmMiddleware, thunk, logger)

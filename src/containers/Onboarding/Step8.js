@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'reapop';
@@ -6,6 +6,7 @@ import {Collapse} from 'react-collapse';
 import Image from 'components/Image';
 import CheckBox from 'components/CheckBox';
 import ShareholderTable from 'components/ShareholderTable';
+import { individualsShema, corporatesSchema } from 'store/ShareholdersSchema';
 import { onboardingApi } from 'services/Api';
 // import isProduction from 'services/isProduction';
 import { SET_ONBOARDING_STEP, SET_ONBOARDING_FIELDS, SET_ONBOARDING_AUTHTOKEN } from 'store/ActionTypes';
@@ -18,14 +19,21 @@ class OnboardingStep7 extends Component {
     onboardingFields: PropTypes.object,
   };
 
-
   constructor(props) {
     super(props);
 
+    console.log(props.onboardingFields.shareholders_corporate)
     this.state = {
       haveShareholders: props.onboardingFields.haveShareholders,
+      // load table data from
       shareholders_individulas: props.onboardingFields.shareholders_individulas,
-      shareholders_corporate:  props.onboardingFields.shareholders_corporate,
+      shareholders_corporate: props.onboardingFields.shareholders_corporate,
+      // shareholders_individulas:
+      //   props.onboardingFields.shareholders_individulas.lenght > 0 ?
+      //   props.onboardingFields.shareholders_individulas : this.parseSchema(individualsShema),
+      // shareholders_corporate:
+      //   props.onboardingFields.shareholders_corporate.lenght > 0 ?
+      //   props.onboardingFields.shareholders_corporate : this.parseSchema(corporatesSchema),
       errors: [],
       formIsValid: false,
       isTransitioningNext: false,
@@ -36,7 +44,32 @@ class OnboardingStep7 extends Component {
     this.tableRef = [] // hold an array for tables scrollbars
   }
 
+  static getDerivedStateFromProps(nextProps, prevState){
+    console.log(prevState)
+    // premount logic
+    if ( prevState.shareholders_individulas.length < 0 ){
+      return { shareholders_individulas: this.parseSchema(individualsShema) } // to state
+    }
+    if ( prevState.shareholders_corporate.length < 0 ){
+      return { shareholders_corporate: this.parseSchema(corporatesSchema) } // to state
+    } else {
+      return null;
+    }
+  }
+
+  // used in constructor
+  parseSchema = (data) => {
+    const row1 = data.tbody.map( x => this.buildRowFromSchema(x))
+    const row2 = data.tbody.map( x => this.buildRowFromSchema(x))
+    return [row1, row2]
+  }
+
+  buildRowFromSchema = (x) => {
+    return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "", error: false }
+  }
+
   componentDidMount() {
+    console.log(this.state)
     this.props.onRef(this)
   }
   componentWillUnmount() {
@@ -78,15 +111,88 @@ class OnboardingStep7 extends Component {
     }, () => this.validateCustom())
   }
 
-  // called from the parent onBlur or checkbox onClick
-  updateState = (name, componentState) => {
-    this.setState({ ...this.state,
-      [name]: componentState
+
+  // TABLE FUNCTIONS
+  // input functions
+  handleInputTableChange = (stateName) => (e, rowIndex, type, placeholder) => {
+    // console.log({stateName}, e, rowIndex, type, placeholder)
+    let fieldName = e.target.name;
+    let fieldVal = e.target.value;
+
+    let cellIndex = this.findCellIndexByName(fieldName, rowIndex, stateName)
+
+    const newObj = {
+      type: type,
+      placeholder: placeholder,
+      name: fieldName,
+      value: fieldVal,
+      error: false // always clearable on change
+    }
+
+    const stateClone = this.state[stateName]; // cloneDeep ?
+    stateClone[rowIndex][cellIndex] = newObj
+
+    this.setState({...this.state,
+      [stateName]: stateClone
     });
+
+  }
+
+  // checkbox options
+  chooseTableOption = (stateName) => (name, rowIndex, type, placeholder, stateName) => {
+
+    let cellIndex = this.findCellIndexByName(name, rowIndex, stateName)
+
+    const stateValue = this.state[stateName][rowIndex][cellIndex].value
+
+    const newObj = {
+      type: type,
+      placeholder: placeholder,
+      name: name,
+      value: stateValue === "" ? true : !stateValue, // first click
+      error: false // always clearable on change
+    }
+
+    const stateClone = this.state[stateName]
+    stateClone[rowIndex][cellIndex] = newObj
+
+    this.setState({...this.state,
+      [stateName]: stateClone
+    })
+  }
+
+  findCellIndexByName = (name, rowIndex, stateName) => {
+    let cellIndex = -1
+    this.state[stateName][rowIndex].forEach( (x,i) => {
+      if ( x.name === name ){
+        cellIndex = i
+      }
+    })
+
+    return cellIndex
+  }
+
+  // new line
+  addNewLine = (name) => {
+    const stateClone = this.state[name];
+
+    let schemaObj
+    if ( name === "shareholders_individulas" ){
+      schemaObj = individualsShema
+    } else if ( name === "shareholders_corporate" ){
+      schemaObj = corporatesSchema
+    }
+
+    stateClone.push(schemaObj.tbody.map( x => this.buildRowFromSchema(x)))
+
+    this.setState({
+      ...this.state,
+      [name]: stateClone
+    })
   }
 
   componentDidUpdate(){
-    // console.log(this.state)
+    console.log('step 8 parent component updated', this.state)
   }
 
   nextStep = (refreshedToken) => {
@@ -315,6 +421,8 @@ class OnboardingStep7 extends Component {
       buildErrors.push("haveShareholders")
     }
 
+    // shareholders table to be processed in separate component
+
     this.setState({
       ...this.state, errors: buildErrors
     }, cb)
@@ -331,157 +439,8 @@ class OnboardingStep7 extends Component {
   render(){
     const {
       // props: {},
-      state: {haveShareholders, isTransitioningNext}
+      state: {haveShareholders, shareholders_corporate, shareholders_individulas, isTransitioningNext}
     } = this
-
-    const individualsTable = {
-      thead: [
-        {
-          icon: "sh-name",
-          name: "Full name"
-        },
-        {
-          icon: "sh-id",
-          name: "ID"
-        },
-        {
-          icon: "sh-phone",
-          name: "Phone number"
-        },
-        {
-          icon: "sh-email",
-          name: "Email"
-        },
-        {
-          icon: "sh-person",
-          name: "Singapore Citizen / PR"
-        },
-        {
-          name: "Shareholder?"
-        },
-        {
-          name: "Director?"
-        }
-
-      ],
-      tbody: [
-        {
-          type: "input",
-          placeholder: "Full name",
-          name: "full_name"
-        },
-        {
-          type: "input",
-          placeholder: "Insert ID",
-          name: "id_number"
-        },
-        {
-          type: "input",
-          placeholder: "Insert number",
-          name: "phone_number"
-        },
-        {
-          type: "input",
-          placeholder: "Insert email",
-          name: "email"
-        },
-        {
-          type: "checkbox",
-          name: "is_sg_citizen"
-        },
-        {
-          type: "checkbox",
-          name: "is_shareholder"
-        },
-        {
-          type: "checkbox",
-          name: "is_director"
-        }
-      ]
-    }
-
-    const corporatesTable = {
-      topRow: [
-        {}, {},
-        {
-          colspan: 4,
-          icon: "sh-person",
-          name: "Corporate representative"
-        },
-        {
-          icon: "sh-person",
-          name: "Administrative Assistant",
-          tooltip: "Let us know if you prefer us to forward the onboarding paperwork for the Corporate Representative to be completed by an Administrative Assistant. The Corporate Representative will only need to verify and sign-off the completed onboarding documents."
-        }
-      ],
-      thead: [
-        {
-          icon: "sh-name",
-          name: "Company name"
-        },
-        {
-          icon: "sh-id",
-          name: "Company registration #"
-        },
-        {
-          icon: "sh-person",
-          name: "Full name"
-        },
-        {
-          icon: "sh-id",
-          name: "Id"
-        },
-        {
-          icon: "sh-phone",
-          name: "Phone number"
-        },
-        {
-          icon: "sh-email",
-          name: "Email"
-        },
-        {
-          icon: "sh-email",
-          name: "Email"
-        },
-      ],
-      tbody: [
-        {
-          type: "input",
-          placeholder: "Company name",
-          name: "company_name"
-        },
-        {
-          type: "input",
-          placeholder: "Company registration #",
-          name: "uen"
-        },
-        {
-          type: "input",
-          placeholder: "Insert full name",
-          name: "full_name"
-        },
-        {
-          type: "input",
-          placeholder: "ID",
-          name: "id"
-        },
-        {
-          type: "input",
-          placeholder: "Phone number",
-          name: "phone"
-        },
-        {
-          type: "input",
-          placeholder: "E-mail",
-          name: "email"
-        },
-        {
-          type: "input",
-          placeholder: "E-mail",
-          name: "rep_email"
-        }
-      ]
-    }
 
     return(
 
@@ -517,14 +476,17 @@ class OnboardingStep7 extends Component {
             className="table-collapse"
             onRest={this.onCollapsedToggle}
             isOpened={haveShareholders}>
-            <React.Fragment>
+            <Fragment>
               <ShareholderTable
                 onRef={(ref) => { this.tableRef[1] = ref; }}
                 title="List of corporate shareholder(s)"
                 titleTooltip="There will be an additional fee of S$100 per year if a corporate shareholder holds a 25% or more stake in the company. This is to account for the additional due diligence and compliance processes required by MAS’s anti-money laundering regulation."
                 addMoreText="Additional corporate entity"
-                schema={corporatesTable}
-                updateState={this.updateState.bind(this, "shareholders_corporate")}
+                schema={corporatesSchema}
+                data={shareholders_corporate}
+                onAddNewLine={this.addNewLine.bind(this, "shareholders_corporate")}
+                onCheckboxChangeHandler={this.chooseTableOption("shareholders_corporate")}
+                onInputChangeHandler={this.handleInputTableChange("shareholders_corporate")}
               />
 
               <ShareholderTable
@@ -532,10 +494,13 @@ class OnboardingStep7 extends Component {
                 title="List of all non-corporate stakeholder(s) (shareholders and directors)"
                 titleTooltip="There will be an additional fee of S$25 per stakeholder per year after that fifth key stakeholder. This is to account for the additional administrative and recording keeping processes required."
                 addMoreText="Additional stakeholders"
-                schema={individualsTable}
-                updateState={this.updateState.bind(this, "shareholders_individulas")}
+                schema={individualsShema}
+                data={shareholders_individulas}
+                onAddNewLine={this.addNewLine.bind(this, "shareholders_individulas")}
+                onCheckboxChangeHandler={this.chooseTableOption("shareholders_individulas")}
+                onInputChangeHandler={this.handleInputTableChange("shareholders_individulas")}
               />
-            </React.Fragment>
+            </Fragment>
           </Collapse>
 
         </div>
