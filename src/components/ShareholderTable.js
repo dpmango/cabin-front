@@ -27,7 +27,7 @@ class ShareholderTable extends Component {
       case 'input':
         return(
           <input
-            className={data[rowIndex][cellIndex].error ? "has-erorr" : ""}
+            className={data[rowIndex][cellIndex].error ? "has-error" : ""}
             type="text"
             name={schema.name}
             placeholder={schema.placeholder}

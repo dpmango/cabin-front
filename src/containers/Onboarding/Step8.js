@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'reapop';
 import {Collapse} from 'react-collapse';
+import merge from 'lodash/merge';
 import Image from 'components/Image';
 import CheckBox from 'components/CheckBox';
 import ShareholderTable from 'components/ShareholderTable';
@@ -22,19 +23,23 @@ class OnboardingStep7 extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.onboardingFields.shareholders_corporate)
+    //// to load and map initial table data - getDerivedStateFromProps is used
+    // console.log(props.onboardingFields.shareholders_corporate.lenght) // BUG
+
+    // shareholders_individulas:
+    //   props.onboardingFields.shareholders_individulas.lenght > 0 ?
+    //   props.onboardingFields.shareholders_individulas : this.parseSchema(individualsShema),
+    // shareholders_corporate:
+    //   props.onboardingFields.shareholders_corporate.lenght > 0 ?
+    //   props.onboardingFields.shareholders_corporate : this.parseSchema(corporatesSchema),
+
     this.state = {
       haveShareholders: props.onboardingFields.haveShareholders,
       // load table data from
       shareholders_individulas: props.onboardingFields.shareholders_individulas,
       shareholders_corporate: props.onboardingFields.shareholders_corporate,
-      // shareholders_individulas:
-      //   props.onboardingFields.shareholders_individulas.lenght > 0 ?
-      //   props.onboardingFields.shareholders_individulas : this.parseSchema(individualsShema),
-      // shareholders_corporate:
-      //   props.onboardingFields.shareholders_corporate.lenght > 0 ?
-      //   props.onboardingFields.shareholders_corporate : this.parseSchema(corporatesSchema),
       errors: [],
+      tablesValid: false,
       formIsValid: false,
       isTransitioningNext: false,
       isFormSubmitted: false
@@ -45,36 +50,52 @@ class OnboardingStep7 extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState){
-    console.log(prevState)
-    // premount logic
-    if ( prevState.shareholders_individulas.length < 0 ){
-      return { shareholders_individulas: this.parseSchema(individualsShema) } // to state
+    // because getDerivedStateFromProps can't access this.
+    const parseSchema = (data) => {
+      const row1 = data.tbody.map( x => buildRowFromSchema(x))
+      const row2 = data.tbody.map( x => buildRowFromSchema(x))
+      return [row1, row2] // 2 rows is default
     }
-    if ( prevState.shareholders_corporate.length < 0 ){
-      return { shareholders_corporate: this.parseSchema(corporatesSchema) } // to state
+    const buildRowFromSchema = (x) => {
+      return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "", error: false }
+    }
+
+    // premount logic
+    if ( prevState.shareholders_individulas.length === 0 ){
+      return { shareholders_individulas: parseSchema(individualsShema) } // to state
+    }
+    if ( prevState.shareholders_corporate.length === 0 ){
+      return { shareholders_corporate: parseSchema(corporatesSchema) } // to state
     } else {
       return null;
     }
   }
 
-  // used in constructor
-  parseSchema = (data) => {
-    const row1 = data.tbody.map( x => this.buildRowFromSchema(x))
-    const row2 = data.tbody.map( x => this.buildRowFromSchema(x))
-    return [row1, row2]
+  componentDidMount() {
+    this.props.onRef(this)
   }
 
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+
+  componentDidUpdate(){
+    // console.log('step 8 component updated', this.state)
+  }
+
+  // little helpers
   buildRowFromSchema = (x) => {
     return {type: x.type, placeholder: x.placeholder, name: x.name, value: x.value ? x.value : "", error: false }
   }
 
-  componentDidMount() {
-    console.log(this.state)
-    this.props.onRef(this)
+  filterBlankRows = (arr) => {
+    return arr.filter(row => !row.every(col => (col.value === "") || (col.value === false) ))
   }
-  componentWillUnmount() {
-    this.props.onRef(undefined)
-  }
+
+
+  ////////////
+  // FORM FUNCTIONS
+  ///////////
 
   formInvalid = () => {
     this.setState({ formIsValid: false });
@@ -86,11 +107,12 @@ class OnboardingStep7 extends Component {
 
   // submit handler from the form
   handleSubmit = (e) => {
+    const { tablesValid, errors } = this.state
     this.setState({
       isFormSubmitted: true
     }, () => {
       this.validateCustom(() => { // callback when err state is up
-        if ( this.state.errors.length === 0 ){
+        if ( errors.length === 0 && tablesValid ){
           this.nextStep();
           this.setState({isFormSubmitted: false}) // reset state here
         }
@@ -112,7 +134,11 @@ class OnboardingStep7 extends Component {
   }
 
 
+
+  //////////////////
   // TABLE FUNCTIONS
+  //////////////////
+
   // input functions
   handleInputTableChange = (stateName) => (e, rowIndex, type, placeholder) => {
     // console.log({stateName}, e, rowIndex, type, placeholder)
@@ -139,7 +165,7 @@ class OnboardingStep7 extends Component {
   }
 
   // checkbox options
-  chooseTableOption = (stateName) => (name, rowIndex, type, placeholder, stateName) => {
+  chooseTableOption = (stateName) => (name, rowIndex, type, placeholder) => {
 
     let cellIndex = this.findCellIndexByName(name, rowIndex, stateName)
 
@@ -191,9 +217,10 @@ class OnboardingStep7 extends Component {
     })
   }
 
-  componentDidUpdate(){
-    console.log('step 8 parent component updated', this.state)
-  }
+
+  //////////////////
+  // API LOGIC
+  //////////////////
 
   nextStep = (refreshedToken) => {
     const { shareholders_corporate } = this.state;
@@ -208,7 +235,7 @@ class OnboardingStep7 extends Component {
 
     // state transformations and API's
 
-    const leadCoShareholders = shareholders_corporate.map(x => {
+    let leadCoShareholders = shareholders_corporate.map(x => {
       return {
         // companyId: this.props.companyId,
         comp_name: x[0].value, // required
@@ -219,16 +246,9 @@ class OnboardingStep7 extends Component {
     })
 
     // clear blank
-    leadCoShareholders.filter(x => x.comp_name !== "" && x.reg_no.value !== "")
+    leadCoShareholders = leadCoShareholders.filter(x => (x.comp_name !== "") && (x.reg_no.value !== "") )
 
-    if ( leadCoShareholders.length === 0 ){
-      // this.showNotificationError({
-      //   'corporate_shareholders': 'Corporate shareholders may not be blank'
-      // })
-      // return
-    }
-
-    console.log({leadCoShareholders}, {shareholders_corporate});
+    console.log({leadCoShareholders});
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
@@ -236,44 +256,52 @@ class OnboardingStep7 extends Component {
       .post('corporate-shareholder/new', leadCoShareholders)
       .then(res => {
         console.log('Backend response to corporate-shareholder POST' , res)
-        this.postUsers(res.data)
+        this.postUsers(res.data, refreshedToken)
       })
       .catch(err => {
         console.log(err.response);
         if (err.response.status === 401){
           this.refreshToken();
         } else if (err.response.status === 400){ // bad data
-          this.showNotificationError(err.response.data)
+          this.showBackendError(err.response.data)
         }
       })
   }
 
-  postUsers = (corporate_shareholders, refreshedToken) => {
+  // Users (after corporate shareholders)
+  postUsers = (corporate_shareholders_from_backend, refreshedToken) => {
     const { shareholders_individulas, shareholders_corporate } = this.state;
 
-    let leadCorporate = shareholders_corporate.map(x => {
-      console.log('finding representing_corporate_shareholder', {corporate_shareholders}, corporate_shareholders.filter(y => y.comp_name === x[0].value))
+    // filter for non-blank only
+    let stateCloneCorp = this.state.shareholders_corporate
+    let stateCloneIndividual = this.state.shareholders_individulas
+
+    stateCloneCorp = this.filterBlankRows(stateCloneCorp)
+    stateCloneIndividual = this.filterBlankRows(stateCloneIndividual)
+
+    let leadCorporate = stateCloneCorp.map(x => {
+      // console.log('finding representing_corporate_shareholder', {corporate_shareholders_from_backend}, corporate_shareholders_from_backend.filter(y => y.comp_name === x[0].value))
       return {
         name	                : x[2].value, // The user's name
-        id_no                 : parseInt(x[3].value, 10),	// The user's identification number
+        id_no                 : x[3].value,	// The user's identification number
         phone	                : x[4].value, // The user's phone number
         email	                : x[5].value, // The user's email address
         assistant_email	      : x[6].value, // The assistant's email address. Useful if they prefer we forward the link to their administrative assistant.
         representing_company  : this.props.companyId, // The company id that the user is representing
-        representing_corporate_shareholder	: corporate_shareholders.filter(y => y.comp_name === x[0].value)[0].id, // The corporate shareholder id that the user is representing
+        representing_corporate_shareholder	: corporate_shareholders_from_backend.filter(y => y.comp_name === x[0].value)[0].id, // The corporate shareholder id that the user is representing
       }
     })
 
-    let leadIndividual = shareholders_individulas.map(x => {
+    let leadIndividual = stateCloneIndividual.map(x => {
       return {
         name	                : x[0].value, // The user's name
-        id_no                 : parseInt(x[1].value, 10),	// The user's identification number
+        id_no                 : x[1].value,	// The user's identification number
         phone	                : x[2].value, // The user's phone number
         email	                : x[3].value, // The user's email address
         is_singaporean        : x[4].value, // Whether the user is a singaporean citizen
         representing_company  : this.props.companyId, // The company id that the user is representing
-        is_shareholder_of	    : x[5].value ? this.props.companyId : false, // The company that the user holds shares in
-        is_director_of	      : x[6].value ? this.props.companyId : false, // The company id that the user is a director of
+        is_shareholder_of	    : x[5].value ? this.props.companyId : "", // The company that the user holds shares in
+        is_director_of	      : x[6].value ? this.props.companyId : "", // The company id that the user is a director of
       }
     })
 
@@ -295,36 +323,9 @@ class OnboardingStep7 extends Component {
           if (err.response.status === 401){
             this.refreshToken();
           } else if (err.response.status === 400){ // bad data
-            this.showNotificationError(err.response.data)
+            this.showBackendError(err.response.data)
           }
         })
-  }
-
-  keysToWord = (x) => {
-    switch (x) {
-      case "comp_name":
-        return "Company name"
-      case "email":
-        return "Email"
-      case "id":
-        return "ID"
-      case "phone":
-        return "Phone number"
-      default:
-        return x
-    }
-  }
-
-  showNotificationError = (data) => {
-    const message = Object.keys(data).map(x => `${this.keysToWord(x)} : ${data[x]}`)
-
-    this.props.notify({
-      title: `Whoops! Please fix following:`,
-      message: message,
-      status: 'default', // default, info, success, warning, error
-      dismissible: true,
-      dismissAfter: 4000,
-    })
   }
 
   refreshToken = () => {
@@ -358,20 +359,7 @@ class OnboardingStep7 extends Component {
     })
   }
 
-  convertStateToStr = (state) => {
-    // state is a sibling comming from a shareholders table
-    let result = ""
-
-    state.forEach( (row, i) => {
-      result += `row ${i} : `
-      row.forEach( (col, index) => {
-        result += `${col.name} = ${col.value} ; `
-      })
-    })
-
-    return result
-  }
-
+  // process to next step
   updateSignup = () => {
 
     const { haveShareholders, shareholders_individulas, shareholders_corporate } = this.state;
@@ -409,10 +397,14 @@ class OnboardingStep7 extends Component {
     })
   }
 
+  /////////////
+  // VALIDATION
+  /////////////
+
   // custom validator
   validateCustom = (cb) => {
     const {
-      haveShareholders
+      haveShareholders, shareholders_corporate, shareholders_individulas
     } = this.state;
 
     let buildErrors = []
@@ -421,11 +413,94 @@ class OnboardingStep7 extends Component {
       buildErrors.push("haveShareholders")
     }
 
-    // shareholders table to be processed in separate component
+    // shareholders table validation
+    let stateCloneCorp = this.state.shareholders_corporate
+    let stateCloneIndividual = this.state.shareholders_individulas
+    // eslint-disable-next-line
+    const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // eslint-disable-next-line
+    const idRegEx = /[S|T|F|G]\d{7}[A-Z]/
+
+    // do not validate blank rows
+    stateCloneCorp = this.filterBlankRows(stateCloneCorp)
+    stateCloneIndividual = this.filterBlankRows(stateCloneIndividual)
+
+    console.log({stateCloneCorp}, {stateCloneIndividual});
+
+    // shareholders corporate
+    if ( stateCloneCorp.length > 0 ){
+      stateCloneCorp.forEach((row, rowIndex) => {
+        // username
+        stateCloneCorp[rowIndex][2].error = ( row[2].value === "" )
+        // id
+        stateCloneCorp[rowIndex][3].error = !idRegEx.test(row[3].value)
+        // email
+        stateCloneCorp[rowIndex][5].error = !emailRegEx.test(row[5].value)
+      })
+    }
+
+    // shareholders individual
+    if ( stateCloneIndividual.length > 0 ){
+      stateCloneIndividual.forEach((row, rowIndex) => {
+        // username
+        stateCloneIndividual[rowIndex][0].error = ( row[0].value === "" )
+        // id
+        stateCloneIndividual[rowIndex][1].error = !idRegEx.test(row[1].value)
+        // email
+        stateCloneIndividual[rowIndex][3].error = !emailRegEx.test(row[3].value)
+      })
+    }
+
+    // check if any have error
+    let haveErrors =
+      stateCloneCorp.some(row => row.some(col => col.error)) ||
+      stateCloneIndividual.some(row => row.some(col => col.error))
+
+    // console.log({haveErrors})
+    if ( haveErrors ){
+      this.props.notify({
+        title: `Whoops! Your data is not valid`,
+        message: "Please check fields marked red",
+        status: 'default', // default, info, success, warning, error
+        dismissible: true,
+        dismissAfter: 2000,
+      })
+    }
 
     this.setState({
-      ...this.state, errors: buildErrors
+      ...this.state,
+      errors: buildErrors,
+      shareholders_corporate: merge(shareholders_corporate, stateCloneCorp),
+      shareholders_individulas: merge(shareholders_individulas, stateCloneIndividual),
+      tablesValid: !haveErrors
     }, cb)
+  }
+
+  keysToWord = (x) => {
+    switch (x) {
+      case "comp_name":
+        return "Company name"
+      case "email":
+        return "Email"
+      case "id":
+        return "ID"
+      case "phone":
+        return "Phone number"
+      default:
+        return x
+    }
+  }
+
+  showBackendError = (data) => {
+    const message = Object.keys(data).map(x => `${this.keysToWord(x)} : ${data[x]}`)
+
+    this.props.notify({
+      title: `Whoops! Please fix following:`,
+      message: message,
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 4000,
+    })
   }
 
   showError = (name) => {
@@ -435,6 +510,25 @@ class OnboardingStep7 extends Component {
       return <span className="ui-input-validation">Please fill this field</span>
     }
   }
+
+
+  // convertStateToStr = (state) => {
+  //   // state is a sibling comming from a shareholders table
+  //   let result = ""
+  //
+  //   state.forEach( (row, i) => {
+  //     result += `row ${i} : `
+  //     row.forEach( (col, index) => {
+  //       result += `${col.name} = ${col.value} ; `
+  //     })
+  //   })
+  //
+  //   return result
+  // }
+
+
+  // render
+
 
   render(){
     const {
