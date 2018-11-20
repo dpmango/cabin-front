@@ -26,8 +26,6 @@
   &__bg
     position: absolute
     z-index: 1
-    // left: 0
-    // width: 100%
     right: 0
     width: 50%
     top: 70px
@@ -36,44 +34,24 @@
     display: flex
     flex-direction: column
     align-items: flex-end
-    // align-items: flex-start
     justify-content: flex-end
     pointer-events: none
     user-select: none
     text-align: right
-
     img, .home-hero__lottie
-      // original image / lottie
-      // width: 691px
-      // height: 573px
-      // keep new 2000, 1412 proportios
-      // width: 810px
-      // height: 573px
-      // 1.05 scale
       width: 850px
       height: 602px
       margin-bottom: -2px
       transform: translateX(50px)
-      // transform: scale(1.05)
-      // transform-origin: center bottom
-      // height: 578px
-      // max-width: 100%
-      // max-height: 100%
 
 +rmin(1440)
   .home-hero
     &__bg
       // align-items: flex-start
-      // padding-left: 270px
       padding-left: 30px
       left: 50%
-      // width: calc(691px + 270px)
-      // width: calc(691px + 30px)
       width: calc(850px + 30px)
-      // width: 691px
-      // justify-content: flex-start
       img, .home-hero__lottie
-        // adjust to new layout
         transform: translateX(-110px)
       &::after
         display: inline-block
@@ -106,15 +84,19 @@
       min-height: 590px
       max-width: 500px
     &__bg
-      // align-items: flex-end
       align-items: flex-start
       img, .home-hero__lottie
-        // transform: translateX(140px)
         max-width: 750px
         max-height: 531px
         transform: translateX(-90px)
 
 +r($desktop)
+  .home-hero
+    &__bg
+      img, .home-hero__lottie
+        transform: translateX(-0px)
+
++r($tablet)
   .home-hero
     display: flex
     flex-direction: column-reverse
@@ -156,8 +138,8 @@
       margin-top: 45px
     &__wrapper
       min-height: auto
-      height: auto
-      max-height: 100%
+      height: auto !important
+      max-height: 100% !important
       padding-bottom: 75px
       padding-top: 20px
       max-width: 100%
