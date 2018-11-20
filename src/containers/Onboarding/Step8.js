@@ -113,9 +113,7 @@ class OnboardingStep7 extends Component {
     }, () => {
       this.validateCustom(() => { // callback when err state is up
         const { tablesValid, errors } = this.state
-        console.log('initializing validaiton', errors.length, {tablesValid})
         if ( errors.length === 0 && tablesValid ){
-          console.log('processing to next step')
           this.nextStep();
           this.setState({isFormSubmitted: false}) // reset state here
         }
@@ -466,7 +464,7 @@ class OnboardingStep7 extends Component {
       stateCloneCorp.some(row => row.some(col => col.error)) ||
       stateCloneIndividual.some(row => row.some(col => col.error))
 
-    console.log({haveErrors}, {stateCloneCorp}, {stateCloneIndividual}, merge(shareholders_corporate, stateCloneCorp))
+    console.log({haveErrors}, {stateCloneCorp}, {stateCloneIndividual})
 
     if ( haveErrors ){
       this.props.notify({
