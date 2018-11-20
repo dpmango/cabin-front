@@ -506,3 +506,27 @@
       height: 40px
     .Select-option
       font-size: 12px
+
+.Select.Select--dropup
+  .Select-menu-outer
+    max-height: 180px
+    top: auto
+    bottom: 100%
+    margin-top: 0px
+    margin-bottom: -1px
+    border-bottom-right-radius: 0px
+    border-bottom-left-radius: 0px
+    border-top-left-radius: 3px
+    border-top-right-radius: 3px
+    box-shadow: none
+    border-top-color: rgba($fontColorGray, .5)
+    border-bottom-color: transparent
+  .Select-option
+    &:first-child
+      border-top-right-radius: 3px
+      border-top-left-radius: 3px
+  &.is-open > .Select-control
+    border-bottom-right-radius: 3px
+    border-bottom-left-radius: 3px
+    border-top-left-radius: 0px
+    border-top-right-radius: 0px

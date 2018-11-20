@@ -276,15 +276,16 @@ class SignupAlt extends Component {
                     />
                   </div>
                 </div>
-                <div className="ui-group ui-group--labeled">
+                <div className="ui-group ui-group--labeled" style={{"z-index": "6"}}>
                   <label htmlFor="">Let us know which plan you are interested in?</label>
                   <Select
+                    className="Select--dropup"
                     name="selected_plan"
                     searchable={false}
                     autosize={false}
                     value={selected_plan}
                     onChange={this.handleSelectChange.bind(this, 'selected_plan')}
-                    placeholder="Select a plan"
+                    placeholder=""
                     options={this.mapArrToSelect(plansSelect)}
                   />
                 </div>
