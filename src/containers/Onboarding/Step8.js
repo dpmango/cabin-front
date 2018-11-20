@@ -259,7 +259,10 @@ class OnboardingStep7 extends Component {
         console.log('Backend response to corporate-shareholder POST' , res)
         this.setState({
           corporate_shareholders_backend: res.data // srote id once
-        }, () => this.postUsers(refreshedToken) )
+        }, () => {
+          console.log('state corporate_shareholders_backend up', this.state.corporate_shareholders_backend)
+          this.postUsers(refreshedToken)
+        } )
 
       })
       .catch(err => {
@@ -439,6 +442,10 @@ class OnboardingStep7 extends Component {
     // shareholders corporate
     if ( stateCloneCorp.length > 0 ){
       stateCloneCorp.forEach((row, rowIndex) => {
+        // The company's name
+        stateCloneCorp[rowIndex][0].error = ( row[0].value === "" )
+        // The company's registration number
+        stateCloneCorp[rowIndex][1].error = ( row[1].value === "" )
         // username
         stateCloneCorp[rowIndex][2].error = ( row[2].value === "" )
         // id

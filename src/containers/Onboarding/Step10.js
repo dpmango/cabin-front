@@ -95,23 +95,38 @@ class OnboardingStep9 extends Component {
       name: name,
       designation: designation,
       phone: phone,
-      email: email
+      email: email,
+      representing_company: this.props.companyId
     }
 
     onboardingApi.defaults.headers['Authorization'] = 'JWT ' + ( refreshedToken ? refreshedToken : this.props.onboardingToken )
 
+    // onboardingApi
+    //   .patch('company/' + this.props.companyId, leadObj)
+    //   .then(res => {
+    //     console.log('Backend response to onboarding PATCH' , res)
+    //     this.updateSignup()
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response); // todo update token ?
+    //     if (err.response.status === 401){
+    //       this.refreshToken();
+    //     }
+    //   });
     onboardingApi
-      .patch('company/' + this.props.companyId, leadObj)
-      .then(res => {
-        console.log('Backend response to onboarding PATCH' , res)
-        this.updateSignup()
-      })
-      .catch(err => {
-        console.log(err.response); // todo update token ?
-        if (err.response.status === 401){
-          this.refreshToken();
-        }
-      });
+      .post('user/new', leadObj)
+        .then(res => {
+          console.log('Backend response to user POST' , res)
+          this.updateSignup()
+        })
+        .catch(err => {
+          console.log(err.response);
+          if (err.response.status === 401){
+            this.refreshToken();
+          } else if (err.response.status === 400){ // bad data
+            this.showBackendError(err.response.data)
+          }
+        })
   }
 
   refreshToken = () => {
@@ -142,6 +157,18 @@ class OnboardingStep9 extends Component {
       status: 'default', // default, info, success, warning, error
       dismissible: true,
       dismissAfter: 2000,
+    })
+  }
+
+  showBackendError = (data) => {
+    const message = Object.keys(data).map(x => `${x} : ${data[x]}`)
+
+    this.props.notify({
+      title: `Whoops! Please fix following:`,
+      message: message,
+      status: 'default', // default, info, success, warning, error
+      dismissible: true,
+      dismissAfter: 4000,
     })
   }
 
@@ -213,10 +240,10 @@ class OnboardingStep9 extends Component {
               name="designation"
               label="Designation"
               value={designation}
-              validations="minLength:1"
+              validations="maxLength:16"
               validationErrors={{
                 isDefaultRequiredValue: 'Please fill your designation',
-                minLength: 'Designation name is too short'
+                maxLength: 'Designation should be no longer 16 symbols'
               }}
               onChangeHandler={this.handleChange}
               onKeyHandler={this.keyPressHandler}
