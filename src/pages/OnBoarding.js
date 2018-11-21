@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { notify } from 'reapop';
 import { onboardingApi } from 'services/Api';
 import PropTypes from 'prop-types';
-import { SET_HEADER_CLASS, SET_FOOTER_CLASS, SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID } from 'store/ActionTypes';
-
+import { SET_HEADER_CLASS, SET_FOOTER_CLASS, SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID, SET_ONBOARDING_REPRESENTATIVE_ID } from 'store/ActionTypes';
+// import debounce from 'lodash/debounce';
 import OnboardingStep1 from 'containers/Onboarding/Step1'
 import OnboardingContainer from 'containers/Onboarding/Container'
 import OnboardingStep2 from 'containers/Onboarding/Step2'
@@ -49,31 +49,28 @@ class OnBoarding extends React.Component {
       newPath = "/onboarding/step-" + (onboardingStep - 1);
     }
 
-    // check for token presence
-    if ( !onboardingToken ){
-      this.getToken();
-      return
-    }
-    // handle if token not valid
-    // this.getToken();
-
-
     if ( location.pathname === newPath ){
       return
     }
+
+    // check for token presence
+    if ( !onboardingToken ){
+      this.getToken(newPath);
+      // return
+    }
+
     history.push(newPath)
   }
 
-  getToken = () => {
+  getToken = (newPath) => {
     const urlPlace = this.props.location.pathname.split('/')[2]
     const token =  urlPlace ? urlPlace.trim() : null
     // InNlcmdleSI:1gOGTO:ICh0zcftjCF2VGXomdvRKDj7V60.1gOGTO.azYvDSvp5auGT5CMjvDkFG6AWdw
     // InNpbmd0ZWwi:1gOMkN:RAwR-hZMbSKiS4aPHHzhKzlzYJ8.1gOMkN.oXtHtOGmZVWCElrJRm2sb0Rc8Q8
 
-    if ( !token || token.lenght < 10 ){
-      // TODO - url path re treated as token as well
-      // this.tokenInvalid(token);
-      // return
+    if ( !token || token.lenght < 10){
+      this.tokenInvalid(token, {status: 400});
+      return
     }
 
     onboardingApi
@@ -81,15 +78,18 @@ class OnBoarding extends React.Component {
         {"token": token}
       )
       .then(res => {
+        console.log('responce to login-token POST', res)
         const authToken = res.data.token
         const companyId = res.data.company_id
+        const representative = res.data.representative_id
 
         this.props.setOnboardingUrlToken(token);
         this.props.setOnboardingAuthToken(authToken);
         this.props.setOnboardingCompanyId(companyId);
+        this.props.setOnboardingRepresentativeId(representative);
       })
       .catch(err => {
-        this.tokenInvalid(token, err.response);
+        this.tokenInvalid(token, err.response)
         console.log(err.response);
       })
   }
@@ -116,24 +116,6 @@ class OnBoarding extends React.Component {
     })
 
     // this.props.history.push('/onboarding/')
-
-    // if ( !token || token.lenght < 10 ){ // just nothing provided
-    //   this.props.notify({
-    //     title: 'Whoops! URL is invalid',
-    //     message: 'Onboarding URL seems to be missing. Please contact cabin',
-    //     status: 'default', // default, info, success, warning, error
-    //     dismissible: true,
-    //     dismissAfter: 2000,
-    //   })
-    // } else { // error from api (experied, etc)
-    //   this.props.notify({
-    //     title: 'Whoops! URL is expired',
-    //     message: 'Onboarding URL seems to be expired. Please contact cabin',
-    //     status: 'default', // default, info, success, warning, error
-    //     dismissible: true,
-    //     dismissAfter: 2000,
-    //   })
-    // }
   }
 
   render() {
@@ -256,6 +238,7 @@ const mapDispatchToProps = (dispatch) => (
     setOnboardingUrlToken: (data) => dispatch({ type: SET_ONBOARDING_URLTOKEN, payload: data }),
     setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
     setOnboardingCompanyId: (data) => dispatch({ type: SET_ONBOARDING_COMPANY_ID, payload: data }),
+    setOnboardingRepresentativeId: (data) => dispatch({ type: SET_ONBOARDING_REPRESENTATIVE_ID, payload: data }),
     notify: (data) => dispatch(notify(data))
   }
 );

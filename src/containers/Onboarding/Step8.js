@@ -224,7 +224,12 @@ class OnboardingStep7 extends Component {
   //////////////////
 
   nextStep = (refreshedToken) => {
-    const { shareholders_corporate } = this.state;
+    const { shareholders_corporate, haveShareholders } = this.state;
+
+    if ( haveShareholders === false ){
+      this.updateSignup()
+      return
+    }
 
     // const leadObj = {
     //   isproduction: isProduction(),
@@ -257,6 +262,7 @@ class OnboardingStep7 extends Component {
       .post('corporate-shareholder/new', leadCoShareholders)
       .then(res => {
         console.log('Backend response to corporate-shareholder POST' , res)
+        console.log('shareholders_backend', this.state.corporate_shareholders_backend, res.data)
         this.setState({
           corporate_shareholders_backend: res.data // srote id once
         }, () => {
@@ -278,8 +284,6 @@ class OnboardingStep7 extends Component {
   // Users (after corporate shareholders)
   postUsers = (refreshedToken) => {
     const {
-      shareholders_individulas,
-      shareholders_corporate,
       corporate_shareholders_backend
     } = this.state;
 
@@ -316,7 +320,17 @@ class OnboardingStep7 extends Component {
       }
     })
 
-    const leadUsers = [...leadCorporate, ...leadIndividual]
+    let leadUsers = [...leadCorporate, ...leadIndividual]
+
+    // filter out blank values
+    leadUsers = leadUsers.map( user => {
+      return Object.keys(user)
+        .filter(col => user[col] !== "")
+        .reduce((obj, key) => {
+          obj[key] = user[key];
+          return obj;
+        }, {});
+    } )
 
     console.log({leadUsers})
 
@@ -437,7 +451,7 @@ class OnboardingStep7 extends Component {
     stateCloneCorp = this.filterBlankRows(stateCloneCorp)
     stateCloneIndividual = this.filterBlankRows(stateCloneIndividual)
 
-    console.log({stateCloneCorp}, {stateCloneIndividual});
+    // console.log({stateCloneCorp}, {stateCloneIndividual});
 
     // shareholders corporate
     if ( stateCloneCorp.length > 0 ){
@@ -472,7 +486,7 @@ class OnboardingStep7 extends Component {
       stateCloneCorp.some(row => row.some(col => col.error)) ||
       stateCloneIndividual.some(row => row.some(col => col.error))
 
-    console.log({haveErrors}, {stateCloneCorp}, {stateCloneIndividual})
+    // console.log({haveErrors}, {stateCloneCorp}, {stateCloneIndividual})
 
     if ( haveErrors ){
       this.props.notify({

@@ -87,7 +87,10 @@ class OnboardingStep9 extends Component {
 
   // logic
   nextStep = (refreshedToken) => {
-    const { name, designation, phone, email } = this.state;
+    const {
+      state: { name, designation, phone, email },
+      props: { representativeId }
+    } = this;
 
     const leadObj = {
       isproduction: isProduction(),
@@ -114,9 +117,9 @@ class OnboardingStep9 extends Component {
     //     }
     //   });
     onboardingApi
-      .post('user/new', leadObj)
+      .patch(`user/${representativeId}`, leadObj)
         .then(res => {
-          console.log('Backend response to user POST' , res)
+          console.log('Backend response to user PATCH' , res)
           this.updateSignup()
         })
         .catch(err => {
@@ -296,6 +299,7 @@ const mapStateToProps = (state) => ({
   urlToken: state.onboarding.urlToken,
   onboardingToken: state.onboarding.authToken,
   companyId: state.onboarding.companyId,
+  representativeId: state.onboarding.representative_id,
   onboardingStep: state.onboarding.onboardingStep
 });
 

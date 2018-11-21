@@ -38,6 +38,10 @@ class OnboardingStep1 extends Component {
   }
 
   nextStep = () => {
+    if ( !this.props.onboardingToken ){
+      return
+    }
+    
     this.setState({ isTransitioningNext: true })
 
     setTimeout(() => {
@@ -89,6 +93,9 @@ class OnboardingStep1 extends Component {
 
 const mapStateToProps = (state) => ({
   onboardingRandomId: state.onboarding.onboardingRandomId,
+  urlToken: state.onboarding.urlToken,
+  onboardingToken: state.onboarding.authToken,
+  companyId: state.onboarding.companyId,
   onboardingStep: state.onboarding.onboardingStep
 });
 

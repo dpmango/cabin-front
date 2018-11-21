@@ -8,6 +8,7 @@ export const initialState = {
   urlToken: '',
   authToken: '',
   companyId: '',
+  representative_id: '',
   managers: {
     secretary: {
       name: '',
@@ -96,6 +97,11 @@ const onboarding = (state = initialState, action) => {
       return {
         ...state,
         companyId: action.payload
+      }
+    case types.SET_ONBOARDING_REPRESENTATIVE_ID:
+      return {
+        ...state,
+        representative_id: action.payload
       }
     case types.SET_ONBOARDING_MANAGERS:
       return {
