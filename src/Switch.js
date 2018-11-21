@@ -4,7 +4,9 @@ import { routes } from './routes';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_SIGNUP_STEP, SET_SIGNUP_FIELDS, SET_SIGNUP_ID, SET_SIGNUP_EMAIL, RESET_DATALAYER } from './store/ActionTypes';
+import { SET_ONBOARDING_AUTHTOKEN, SET_ONBOARDING_URLTOKEN, SET_ONBOARDING_COMPANY_ID, SET_ONBOARDING_FIELDS, SET_ONBOARDING_STEP } from 'store/ActionTypes';
 import {initialState} from './reducers/signup';
+import {initialState as initialStateOnboarding} from './reducers/onboarding';
 
 import ScrollTo from './services/ScrollTo';
 // import LoadingBar from 'react-redux-loading-bar'
@@ -64,6 +66,12 @@ class RenderSwitch extends React.Component {
     // allow multiple registrations
     this.props.setSignupStep(1);
 
+    // clean up onboarding
+    this.props.setOnboardingFields(initialStateOnboarding.fields)
+    this.props.setOnboardingUrlToken(initialStateOnboarding.urlToken)
+    this.props.setOnboardingAuthToken(initialStateOnboarding.authToken)
+    this.props.setOnboardingCompanyId(initialStateOnboarding.companyId)
+    this.props.setOnboardingStep(1);
     // reset gtm
     this.props.resetDataLayer();
   }
@@ -98,6 +106,13 @@ const mapDispatchToProps = (dispatch) => ({
   setSignupFields: (data) => dispatch({ type:SET_SIGNUP_FIELDS, payload: data }),
   setSignupEmail: (data) => dispatch({ type: SET_SIGNUP_EMAIL, payload: data }),
   setSignupId: (data) => dispatch({ type: SET_SIGNUP_ID, payload: data }),
+
+  setOnboardingStep: (data) => dispatch({ type: SET_ONBOARDING_STEP, payload: data }),
+  setOnboardingFields: (data) => dispatch({ type:SET_ONBOARDING_FIELDS, payload: data }),
+  setOnboardingUrlToken: (data) => dispatch({ type: SET_ONBOARDING_URLTOKEN, payload: data }),
+  setOnboardingAuthToken: (data) => dispatch({ type: SET_ONBOARDING_AUTHTOKEN, payload: data }),
+  setOnboardingCompanyId: (data) => dispatch({ type: SET_ONBOARDING_COMPANY_ID, payload: data }),
+
   resetDataLayer: () => dispatch({ type: RESET_DATALAYER })
 });
 
