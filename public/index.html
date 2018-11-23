@@ -16,6 +16,133 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <title>Cabin | Online Accounting And Corporate Secretary In Singapore</title>
 
+    <!-- critical loader css -->
+    <style>
+      #root{
+        opacity: 0;
+        -webkit-transition: opacity 0.15s ease-out;
+        -o-transition: opacity 0.15s ease-out;
+        transition: opacity 0.15s ease-out;
+      }
+      #root.app-loaded {
+        opacity: 1;
+      }
+      .loader {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        z-index: 99;
+        background: rgba(255, 255, 255, 0.5);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-transition: opacity 0.25s ease-in-out;
+        -o-transition: opacity 0.25s ease-in-out;
+        transition: opacity 0.25s ease-in-out;
+      }
+
+      .preloader-dots {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        width: 32px;
+        font-size: 0;
+        -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+      }
+
+      .preloader-dots .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-bottom: 8px;
+        margin-right: 8px;
+        background: #F5F6FA;
+        -webkit-animation-name: preloaderColor;
+                animation-name: preloaderColor;
+        -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+        -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+        -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+        /* 4 - 3 is changed for clokwise vs blocks position */
+      }
+
+      .preloader-dots .dot:nth-child(1) {
+        background-color: #2F417C;
+      }
+
+      .preloader-dots .dot:nth-child(2) {
+        -webkit-animation-delay: .25s;
+                animation-delay: .25s;
+      }
+
+      .preloader-dots .dot:nth-child(4) {
+        -webkit-animation-delay: .5s;
+                animation-delay: .5s;
+        margin-bottom: 0;
+      }
+
+      .preloader-dots .dot:nth-child(3) {
+        -webkit-animation-delay: .75s;
+                animation-delay: .75s;
+        margin-bottom: 0;
+      }
+
+      .preloader-dots .dot:nth-child(even) {
+        margin-right: 0;
+      }
+
+      @-webkit-keyframes preloaderColor {
+        0% {
+          background-color: #F5F6FA;
+        }
+        25% {
+          background-color: #2F417C;
+        }
+        40% {
+          background-color: #F5F6FA;
+        }
+        100% {
+          background-color: #F5F6FA;
+        }
+      }
+
+      @keyframes preloaderColor {
+        0% {
+          background-color: #F5F6FA;
+        }
+        25% {
+          background-color: #2F417C;
+        }
+        40% {
+          background-color: #F5F6FA;
+        }
+        100% {
+          background-color: #F5F6FA;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -23,7 +150,18 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <!-- initial loading loader -->
+    <div class="loader" id="initial-loader">
+      <div class='preloader-dots'>
+        <div class='dot'></div>
+        <div class='dot'></div>
+        <div class='dot'></div>
+        <div class='dot'></div>
+      </div>
+    </div>
+
     <!-- React app will render here -->
+    <!-- add app-loaded to show content -->
     <div id="root"></div>
     <!-- React app will render here -->
 

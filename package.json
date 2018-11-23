@@ -101,6 +101,7 @@
     "test": "react-scripts test --env=jsdom",
     "surge": "mv build/index.html build/200.html && surge --domain cabin.surge.sh --project ./build",
     "developer": "concurrently --kill-others \"gulp\" \"yarn start\"",
-    "builder": "gulp build --production && yarn build"
+    "builder": "gulp build --production && yarn build",
+    "postbuild": "react-snap"
   }
 }
