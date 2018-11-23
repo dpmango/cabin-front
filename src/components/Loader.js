@@ -20,22 +20,25 @@ export default class Loader extends Component {
   //   console.log('loader component',  this.state, window.history)
   // }
 
-  componentWillUnmount(){
-    // set a short delay for illustration animation render
-    if ( window.location.pathname === "/" ){
-      setTimeout(this.bodyLoaded, 300)
-    } else {
-      this.bodyLoaded()
-    }
-  }
+  // componentWillUnmount(){
+  //   // set a short delay for illustration animation render on header
+  //   if ( window.location.pathname === "/" ){
+  //     setTimeout(this.bodyLoaded, 300)
+  //   } else {
+  //     this.bodyLoaded()
+  //   }
+  // }
 
-  bodyLoaded = () => {
-    const initialLoaderDom = document.getElementById("initial-loader")
-    if ( initialLoaderDom !== null ){
-      initialLoaderDom.parentNode.removeChild(initialLoaderDom);
-      document.getElementById("root").classList.add("app-loaded")
-    }
-  }
+  // bodyLoaded = () => {
+  //   // console.log('body loaded function envoked', new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"))
+  //   const initialLoaderDom = document.getElementById("initial-loader")
+  //   const initialLoaderStyle = document.getElementById("initial-styles");
+  //   if ( initialLoaderDom !== null ){
+  //     initialLoaderDom.parentNode.removeChild(initialLoaderDom);
+  //     initialLoaderStyle.parentNode.removeChild(initialLoaderStyle)
+  //     document.getElementById("root").classList.add("app-loaded")
+  //   }
+  // }
 
   descriptionBlock = () => {
     const { timedOut, error, pastDelay, retry } = this.props;
